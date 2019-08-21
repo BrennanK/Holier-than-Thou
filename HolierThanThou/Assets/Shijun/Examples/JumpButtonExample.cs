@@ -12,13 +12,15 @@ public class JumpButtonExample : MonoBehaviour
 
     private void Update()
     {
-        AltJumpControl();
+        TstJumpControl();
 
         if (canJump)
         {
             GetComponent<Rigidbody>().AddForce(Vector3.up * speed, ForceMode.Impulse);
             canJump = !canJump;
         }
+
+        TstRelocatePlayer();
     }
 
     private bool canJump = false;
@@ -31,7 +33,7 @@ public class JumpButtonExample : MonoBehaviour
         }
     }
 
-    private void AltJumpControl()
+    private void TstJumpControl()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -40,9 +42,14 @@ public class JumpButtonExample : MonoBehaviour
 
             jumpButton.Select();
         }
+    }
 
-        
-
+    private void TstRelocatePlayer()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            GetComponent<Transform>().localPosition = Vector3.zero;
+        }
     }
 
 }
