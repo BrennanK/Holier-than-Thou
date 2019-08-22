@@ -9,11 +9,16 @@ public class Renamer : MonoBehaviour
     public void RenameChildren()
     {
         int counter = 0;
-
         foreach (Transform child in transform)
         {
-            child.gameObject.name = mainTitle + counter.ToString();
-
+            if (counter < 9)
+            {
+                child.gameObject.name = mainTitle + "0" + (counter + 1).ToString();
+            }
+            else
+            {
+               child.gameObject.name = mainTitle + (counter + 1).ToString();
+            }
             counter++;
         }
     }
