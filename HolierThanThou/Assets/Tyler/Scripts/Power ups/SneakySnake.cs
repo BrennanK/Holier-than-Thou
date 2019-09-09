@@ -11,10 +11,5 @@ public class SneakySnake : PowerUp
 
     }
 
-    public override void ActivateSecondPowerUp()
-    {
-        base.ActivateSecondPowerUp();
-        Debug.Log("Sneaky Snake Power Up Used!");
-
-    }
+    
 }

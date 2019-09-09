@@ -11,10 +11,5 @@ public class CalmDown : PowerUp
 
     }
 
-    public override void ActivateSecondPowerUp()
-    {
-        base.ActivateSecondPowerUp();
-        Debug.Log("Calm Down Power Up Used!");
-
-    }
+   
 }

@@ -11,10 +11,5 @@ public class BallsOfSteel : PowerUp
 
     }
 
-    public override void ActivateSecondPowerUp()
-    {
-        base.ActivateSecondPowerUp();
-        Debug.Log("Balls of Steel Power Up Used!");
-
-    }
+    
 }

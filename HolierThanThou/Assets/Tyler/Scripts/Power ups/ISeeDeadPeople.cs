@@ -11,10 +11,5 @@ public class ISeeDeadPeople : PowerUp
 
     }
 
-    public override void ActivateSecondPowerUp()
-    {
-        base.ActivateSecondPowerUp();
-        Debug.Log("I See Dead People Power Up Used!");
-
-    }
+    
 }

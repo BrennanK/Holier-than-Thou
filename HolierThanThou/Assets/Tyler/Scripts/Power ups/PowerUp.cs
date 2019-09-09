@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class PowerUp 
 {
-   
+    public bool hasDuration;
+    public float duration;
+    public float radius;
+
+    public virtual void CheckForDuration()
+    {
+
+    }
+
+
     public virtual void ActivatePowerUp()
     {
    
     }
 
-    public virtual void ActivateSecondPowerUp()
+    public virtual void ResetEffects()
     {
-       
+
     }
 }

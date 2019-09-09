@@ -11,10 +11,5 @@ public class CantTouchThis : PowerUp
 
     }
 
-    public override void ActivateSecondPowerUp()
-    {
-        base.ActivateSecondPowerUp();
-        Debug.Log("Can't Touch This! Power Up Used!");
-
-    }
+    
 }
