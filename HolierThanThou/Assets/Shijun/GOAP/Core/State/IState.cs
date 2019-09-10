@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using IGOAP;
 
 namespace IGOAP
 {
@@ -21,20 +22,26 @@ namespace IGOAP
         {
             _dataTable = new Dictionary<string, bool>();
         }
-
-        public void AddStateChangeListener(Action onChange)
+        public void SetState(string key, bool value)
         {
-            _onChange = onChange;
+            throw new System.NotImplementedException();
         }
 
         public void GetValue(string key)
         {
-            throw new System.NotImplementedException();
+            //if (_dateTable)
         }
 
-        public void SetState(string key, bool value)
+        private void ChangeValue()
         {
-            throw new System.NotImplementedException();
+
+            //if (_onChange != null)
+            //    _onChange();
+        }
+
+        public void AddStateChangeListener(Action onChange)
+        {
+            _onChange = onChange;
         }
     }
 }
