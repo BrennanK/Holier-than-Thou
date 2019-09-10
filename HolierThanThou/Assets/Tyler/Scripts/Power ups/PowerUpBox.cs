@@ -59,8 +59,8 @@ public class PowerUpBox : MonoBehaviour
 
             if (_powerUpTracker.slot1 == null)
             {
-                _powerUpTracker.slot1 = powerups[0];
-                //_powerUpTracker.slot1 = powerups[Random.Range(0, powerups.Length)] ;
+                //_powerUpTracker.slot1 = powerups[0];
+                _powerUpTracker.slot1 = powerups[Random.Range(0, powerups.Length)] ;
                 _powerUpTracker.slot1.CheckForDuration();
                 DisablePowerUp();
                 Debug.Log("Slot one filled with " + _powerUpTracker.slot1);
@@ -68,8 +68,8 @@ public class PowerUpBox : MonoBehaviour
             }
             if (_powerUpTracker.slot2 == null)
             {
-                _powerUpTracker.slot1 = powerups[2];
-                //_powerUpTracker.slot2 = powerups[Random.Range(0, powerups.Length)];
+                //_powerUpTracker.slot1 = powerups[2];
+                _powerUpTracker.slot2 = powerups[Random.Range(0, powerups.Length)];
                 _powerUpTracker.slot1.CheckForDuration();
                 DisablePowerUp();
                 Debug.Log("Slot two filled with " + _powerUpTracker.slot2);
