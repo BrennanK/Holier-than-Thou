@@ -13,6 +13,8 @@ public class GottaGoFast : PowerUp
         base.CheckForDuration();
         hasDuration = true;
         duration = 5f;
+        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickPlayerExample>();
+        playerStartSpeed = player.speed;
     }
 
 
@@ -21,7 +23,6 @@ public class GottaGoFast : PowerUp
         base.ActivatePowerUp();
 
         var player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickPlayerExample>();
-        playerStartSpeed = player.speed;
         player.speed = player.speed + (player.speed * .25f);
 
         Debug.Log("Gotta go fast! Power Up Used!");

@@ -1,20 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerUpTracker : MonoBehaviour
 {
     public PowerUp slot1;
     public PowerUp slot2;
 
-    private bool activated;
-    private float powerTimer;
+    private bool activated1;
+    private bool activated2;
+    private bool canActivate1;
+    private bool canActivate2;
+
+    private float powerTimer1;
+    private float powerTimer2;
 
     private GameObject _player;
+
+    public Text itemButton1;
+    public Text itemButton2;
 
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
+        canActivate1 = true;
+        canActivate2 = true;
+        UpdateUI();
     }
 
 
@@ -25,50 +37,115 @@ public class PowerUpTracker : MonoBehaviour
             Debug.Log("Slot 1: " + slot1 + "\nSlot 2: " + slot2);
         }
 
-        if(activated)
+        if(activated1)
         {
-            powerTimer -= Time.deltaTime;
+            canActivate1 = false;
+            powerTimer1 -= Time.deltaTime;
+            UpdateUI();
         }
 
-        if(powerTimer <= 0 && activated)
+        if(powerTimer1 <= 0 && activated1)
         {
-            activated = false;
+            activated1 = false;
             slot1.ResetEffects();
             slot1 = null;
+            canActivate1 = true;
+            UpdateUI();
         }        
 
-        if (Input.GetKeyDown(KeyCode.O))
+        if(activated2)
+        {
+            canActivate2 = false;
+            powerTimer2 -= Time.deltaTime;
+            UpdateUI();
+        }
+
+        if(powerTimer2 <= 0 && activated2)
+        {
+            activated2 = false;
+            slot2.ResetEffects();
+            slot2 = null;
+            canActivate2 = true;
+            UpdateUI();
+        }        
+        
+    }
+
+    public void UseItem1()
+    {
+        if (canActivate1)
         {
             if (slot1 != null)
             {
 
                 if (slot1.hasDuration)
                 {
-                    powerTimer = slot1.duration;
-                    activated = true;
+                    powerTimer1 = slot1.duration;
+                    activated1 = true;
                     slot1.ActivatePowerUp();
                 }
                 else
                 {
                     slot1.ActivatePowerUp();
                     slot1 = null;
+
                 }
+                UpdateUI();
             }
             else
                 Debug.Log("No Power up in slot 1!");
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.L))
+    public void UseItem2()
+    {
+        if (canActivate2)
         {
             if (slot2 != null)
             {
-                slot2.ActivatePowerUp();
-                slot2 = null;
+
+                if (slot2.hasDuration)
+                {
+                    powerTimer2 = slot2.duration;
+                    activated2 = true;
+                    slot2.ActivatePowerUp();
+                }
+                else
+                {
+                    slot2.ActivatePowerUp();
+                    slot2 = null;
+                }
+                UpdateUI();
             }
             else
                 Debug.Log("No Power up in slot 2!");
         }
     }
 
+    public void UpdateUI()
+    {
+        if (slot1 != null)
+        {
+            if(activated1)
+            {
+                itemButton1.text = slot1.ToString() + " " + Mathf.Round(powerTimer1);
+            }
+            else
+            itemButton1.text = slot1.ToString();
+        }
+        else
+            itemButton1.text = "No Item";
 
+        if(slot2!=null)
+        {
+            if(activated2)
+            {
+                itemButton2.text = slot2.ToString() + " " + Mathf.Round(powerTimer2);
+            }
+            else
+            itemButton2.text = slot2.ToString();
+        }
+        else
+            itemButton2.text = "No Item";
+    }
 }
