@@ -28,4 +28,11 @@ public class AIFindPath : MonoBehaviour
             }
         }
     }
+
+    private Collider collider;
+    //Detect another ball
+    private void DetectAnotherBalls()
+    {
+
+    }
 }
