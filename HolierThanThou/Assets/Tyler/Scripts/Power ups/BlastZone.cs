@@ -8,11 +8,9 @@ public class BlastZone : PowerUp
 
 
 
-    public override void CheckForDuration()
+    public BlastZone(bool _hasDuration, float _duration, float _radius, float _power) : base(_hasDuration, _duration, _radius)
     {
-        base.CheckForDuration();
-        hasDuration = false;
-        radius = 10f;
+        power = _power;
     }
 
     public override void ActivatePowerUp()

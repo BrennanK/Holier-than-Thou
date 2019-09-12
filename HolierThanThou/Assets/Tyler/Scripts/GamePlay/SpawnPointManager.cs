@@ -6,39 +6,44 @@ public class SpawnPointManager : MonoBehaviour
 {
     private GameObject[] spawnPoints;
 
-    private GameObject player;
 
+    public List<Competitor> players = new List<Competitor>();
     List<GameObject> startPoints = new List<GameObject>();
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             startPoints.Add(spawnPoints[i]);
         }
-        Debug.Log("Number of Spawnpoints: " + spawnPoints.Length);
-        SpawnPlayers();
-    }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.R))
+        foreach (Competitor player in GameObject.FindObjectsOfType<Competitor>())
         {
-            RespawnPlayer();
+            players.Add(player);
         }
+
+        SpawnPlayers();
     }
 
     private void SpawnPlayers()
     {
-        player.transform.position = startPoints[Random.Range(0, startPoints.Count)].transform.position;
+        foreach(Competitor player in players)
+        {
+            var rand = Random.Range(0, startPoints.Count);
+
+            player.gameObject.transform.position = startPoints[rand].transform.position;
+            startPoints.Remove(startPoints[rand]);
+
+        }
     }
 
-    public void RespawnPlayer()
+    public void RespawnPlayer(string nameX)
     {
 
-        player.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+        var _competitior = players.Find(x => x.Name == nameX);
+          _competitior.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
     }
 
 

@@ -8,11 +8,13 @@ public class PowerUp
     public float duration;
     public float radius;
 
-    public virtual void CheckForDuration()
+    public PowerUp(bool _hasDuration, float _duration, float _radius)
     {
+        hasDuration = _hasDuration;
+        duration = _duration;
+        radius = _radius;
 
     }
-
 
     public virtual void ActivatePowerUp()
     {

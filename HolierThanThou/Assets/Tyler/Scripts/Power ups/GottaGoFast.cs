@@ -5,16 +5,11 @@ using UnityEngine;
 public class GottaGoFast : PowerUp
 { 
     private float playerStartSpeed;
-    private float playerNewSpeed;
+    private float speedMultiplier;
 
-
-    public override void CheckForDuration()
+    public GottaGoFast(bool _hasDuration, float _duration, float _radius, float _speedMultiplier) : base(_hasDuration, _duration, _radius)
     {
-        base.CheckForDuration();
-        hasDuration = true;
-        duration = 5f;
-        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickPlayerExample>();
-        playerStartSpeed = player.speed;
+        speedMultiplier = _speedMultiplier;
     }
 
 
@@ -23,7 +18,7 @@ public class GottaGoFast : PowerUp
         base.ActivatePowerUp();
 
         var player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickPlayerExample>();
-        player.speed = player.speed + (player.speed * .25f);
+        player.speed = player.speed + (player.speed * speedMultiplier);
 
         Debug.Log("Gotta go fast! Power Up Used!");
 

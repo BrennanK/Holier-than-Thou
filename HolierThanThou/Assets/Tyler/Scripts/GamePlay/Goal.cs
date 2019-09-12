@@ -23,7 +23,7 @@ public class Goal : MonoBehaviour
         {
             scoreManager.UpdateScore(_competitor.Name, point);
             Debug.Log(_competitor.Name + " is in the Goal!");
-            spawnPointManager.RespawnPlayer();
+            spawnPointManager.RespawnPlayer(_competitor.Name);
         }
     }
 }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class Thiccness : PowerUp
 {
 
-    public override void CheckForDuration()
+    public Thiccness(bool _hasDuration, float _duration, float _radius) : base(_hasDuration, _duration, _radius)
     {
-        base.CheckForDuration();
-        hasDuration = true;
-        duration = 5f;
+
     }
+
+
 
     public override void ActivatePowerUp()
     {
