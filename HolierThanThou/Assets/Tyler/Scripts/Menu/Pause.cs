@@ -51,6 +51,10 @@ public class Pause : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-
+    public void Rematch()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
 
 }

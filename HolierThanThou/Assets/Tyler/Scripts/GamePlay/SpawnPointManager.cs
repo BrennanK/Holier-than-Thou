@@ -43,9 +43,15 @@ public class SpawnPointManager : MonoBehaviour
     {
 
         var _competitior = players.Find(x => x.Name == nameX);
-          _competitior.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+        _competitior.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
     }
 
+    public IEnumerator RespawnTimer(string name)
+    {
+        yield return new WaitForSeconds(2f);
+        RespawnPlayer(name);
+
+    }
 
 
 }

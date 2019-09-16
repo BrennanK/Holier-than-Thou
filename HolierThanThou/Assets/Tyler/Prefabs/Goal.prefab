@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3120310719249573822}
   - component: {fileID: 3120310719249573823}
   - component: {fileID: 874056830703359177}
+  - component: {fileID: 252933133}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83103d92c1aadd34a93736ad93be4f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
 --- !u!114 &874056830703359177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,3 +134,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players: []
+  scoreText: {fileID: 0}
+  endGameScore: {fileID: 0}
+  winnerText: {fileID: 0}
+--- !u!114 &252933133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3120310719249573816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9278700a166087941b39cbd3ff912b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startText: {fileID: 0}
+  EndMatchScreen: {fileID: 0}
+  GameUI: {fileID: 0}
+  inGameTimer: {fileID: 0}
+  matchTimer: 20

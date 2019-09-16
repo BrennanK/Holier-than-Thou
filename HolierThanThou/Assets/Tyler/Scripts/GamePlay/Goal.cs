@@ -15,6 +15,7 @@ public class Goal : MonoBehaviour
         scoreManager = gameObject.GetComponent<ScoreManager>();
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         var _competitor = other.gameObject.GetComponent<Competitor>();
@@ -23,7 +24,7 @@ public class Goal : MonoBehaviour
         {
             scoreManager.UpdateScore(_competitor.Name, point);
             Debug.Log(_competitor.Name + " is in the Goal!");
-            spawnPointManager.RespawnPlayer(_competitor.Name);
+            StartCoroutine(spawnPointManager.RespawnTimer(_competitor.Name));
         }
     }
 }

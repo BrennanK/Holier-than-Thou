@@ -12,6 +12,7 @@ public class PowerUpEditor : ScriptableObject
     [Header("Blast Zone - 0")]
     public float BZ_radius;
     public float BZ_power;
+    public float BZ_upwardForce;
 
     [HideInInspector]
     public bool CO_hasDuration = true;

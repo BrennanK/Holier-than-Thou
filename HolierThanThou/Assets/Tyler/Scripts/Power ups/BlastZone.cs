@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class BlastZone : PowerUp
 {
-    private float power = 1000f;
+    private float power;
+    private float upwardForce;
 
 
 
-    public BlastZone(bool _hasDuration, float _duration, float _radius, float _power) : base(_hasDuration, _duration, _radius)
+
+    public BlastZone(bool _hasDuration, float _duration, float _radius, float _power, float _upwardForce) : base(_hasDuration, _duration, _radius)
     {
         power = _power;
+        upwardForce = _upwardForce;
     }
 
     public override void ActivatePowerUp()
