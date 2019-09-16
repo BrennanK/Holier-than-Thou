@@ -24,7 +24,7 @@ public class PowerUpBox : MonoBehaviour
     {
         powerups = new PowerUp[9];
 
-        powerups[0] = new BlastZone(PUE.BZ_hasDuration, PUE.BZ_duration , PUE.BZ_radius, PUE.BZ_power);
+        powerups[0] = new BlastZone(PUE.BZ_hasDuration, PUE.BZ_duration , PUE.BZ_radius, PUE.BZ_power, PUE.BZ_upwardForce);
         powerups[1] = new Chillout(PUE.CO_hasDuration, PUE.CO_duration, PUE.CO_radius);
         powerups[2] = new GottaGoFast(PUE.GF_hasDuration, PUE.GF_duration, PUE.GF_radius, PUE.GF_speedMultiplier);
         powerups[3] = new CantTouchThis(PUE.CTT_hasDuration, PUE.CTT_duration, PUE.CTT_radius);
