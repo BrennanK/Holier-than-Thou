@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class DetectObjects : MonoBehaviour
 {
+    private AIFindPath aiFindPath;
+
+    private void Start()
+    {
+        aiFindPath = gameObject.GetComponentInParent<AIFindPath>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name + "is detected");
+        //Debug.Log(other.name + " is detected");
+        if (other.gameObject.tag == "Player")
+        {
+            aiFindPath.canAttack = true;
+            aiFindPath.targetEnemy = other.gameObject.transform;
+        }
     }
 }
