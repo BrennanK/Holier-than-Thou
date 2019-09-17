@@ -5,7 +5,9 @@ using UnityEngine;
 public class PowerUpBox : MonoBehaviour
 {
     public PowerUp[] powerups;
-    public PowerUpEditor PUE;
+
+    [SerializeField]
+    private PowerUpEditor PUE;
 
     private bool isDisabled;
 
@@ -14,7 +16,9 @@ public class PowerUpBox : MonoBehaviour
 
     private float disableTimer;
 
-    public int itemNumber;
+    
+    [SerializeField]
+    private int itemNumber;
 
 
     private GameObject player;
@@ -35,6 +39,8 @@ public class PowerUpBox : MonoBehaviour
         powerups[8] = new CalmDown(PUE.CD_hasDuration, PUE.CD_duration, PUE.CD_radius, PUE.CD_speedMultiplier);
 
         disableTimer = disableTimerStart;
+
+        itemNumber = Mathf.Clamp(itemNumber, 0, (powerups.Length));
     }
 
 
@@ -56,22 +62,33 @@ public class PowerUpBox : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var _powerUpTracker = other.gameObject.GetComponent<PowerUpTracker>();
+        itemNumber = Mathf.Clamp(itemNumber, 0, (powerups.Length));
 
         if (other.gameObject.tag == "Player")
         {
 
             if (_powerUpTracker.slot1 == null)
             {
-                //_powerUpTracker.slot1 = powerups[1];
+                if ((itemNumber - 1) >= 0)
+                {
+                    _powerUpTracker.slot2 = powerups[itemNumber - 1];
+                }
+                else
                 _powerUpTracker.slot1 = powerups[Random.Range(0, powerups.Length)] ;
+
                 DisablePowerUp();
                 _powerUpTracker.UpdateUI();
                 return;
             }
             if (_powerUpTracker.slot2 == null)
             {
-                _powerUpTracker.slot2 = powerups[5];
-                //_powerUpTracker.slot2 = powerups[Random.Range(0, powerups.Length)];
+                if((itemNumber - 1) >= 0) 
+                {
+                    _powerUpTracker.slot2 = powerups[itemNumber -1];
+                }
+                else
+                _powerUpTracker.slot2 = powerups[Random.Range(0, powerups.Length)];
+
                 DisablePowerUp();
                 _powerUpTracker.UpdateUI();
                 return;

@@ -32,10 +32,6 @@ public class PowerUpTracker : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("Slot 1: " + slot1 + "\nSlot 2: " + slot2);
-        }
 
         if(activated1)
         {
