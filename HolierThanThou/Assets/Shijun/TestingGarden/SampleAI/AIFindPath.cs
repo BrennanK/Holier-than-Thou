@@ -2,10 +2,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-enum IState
+enum AIState
 {
     Idle,
-    PathFind,
+    FindPath,
     Attack,
     UsePowerUps
 };
@@ -13,21 +13,41 @@ enum IState
 // NavMesh -> AINavigation
 public class AIFindPath : MonoBehaviour
 {
-    IState state = IState.Idle;
+    private AIState state = AIState.Idle;
 
     private NavMeshAgent navMeshAgent;
 
-    public new Transform targetDestination;
-    public new Transform targetEnemy;
+    private new Transform destination;
+    private new Transform opponent;
+
+    private bool shouldAttack = false;
+    private bool shouldFindPath = true;
+
+    internal AIState State { get => state; set => state = value; }
+    private NavMeshAgent NavMeshAgent { get => navMeshAgent; set => navMeshAgent = value; }
+    public Transform Destination { private get => destination; set => destination = value; }
+    public Transform Opponent { private get => opponent; set => opponent = value; }
+    public bool ShouldAttack { get => shouldAttack; set => shouldAttack = value; }
+    public bool ShouldFindPath { get => shouldFindPath; set => shouldFindPath = value; }
+
+    //public void StartFindPath()
+    //{
+    //    ShouldFindPath = true;
+    //}
+
+    public void StartAttack()
+    {
+        ShouldAttack = true;
+    }
 
     private void Awake()
     {
-        navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+        NavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
     }
 
     private void Start()
     {
-        state = IState.PathFind;
+        State = AIState.FindPath;
     }
 
     private void Update()
@@ -39,20 +59,18 @@ public class AIFindPath : MonoBehaviour
     }
 
 
-    public bool canAttack = false;
-    public bool canFindPath = true;
     private void UpdateState()
     {
         // Check current state and set the suitable goal
-        if (canFindPath)
+        if (ShouldFindPath)
         {
-            state = IState.PathFind;
+            State = AIState.FindPath;
             ActivateSwicher();
         }
 
-        if (canAttack)
+        if (ShouldAttack)
         {
-            state = IState.Attack;
+            State = AIState.Attack;
             ActivateSwicher();
         }
 
@@ -61,21 +79,21 @@ public class AIFindPath : MonoBehaviour
     private void ActivateSwicher()
     {
         // Take a action based on state and goal
-        switch (state)
+        switch (State)
         {
-            case IState.Idle:
+            case AIState.Idle:
                 break;
-            case IState.PathFind:
+            case AIState.FindPath:
                 SetDestination();
-                canFindPath = !canFindPath;
-                state = IState.Idle;
+                ShouldFindPath = !ShouldFindPath;
+                State = AIState.Idle;
                 break;
-            case IState.Attack:
-                SetDestination(targetEnemy.localPosition);
-                state = IState.Idle;
+            case AIState.Attack:
+                SetDestination(Opponent.localPosition);
+                State = AIState.Idle;
                 break;
-            case IState.UsePowerUps:
-                state = IState.Idle;
+            case AIState.UsePowerUps:
+                State = AIState.Idle;
                 break;
             default:
                 Debug.Log("");
@@ -88,17 +106,17 @@ public class AIFindPath : MonoBehaviour
     /// </summary>
     private void SetDestination()
     {
-        navMeshAgent.SetDestination(targetDestination.localPosition);
+        NavMeshAgent.SetDestination(Destination.localPosition);
     }
 
     private void SetDestination(Vector3 target)
     {
-        navMeshAgent.SetDestination(target);
+        NavMeshAgent.SetDestination(target);
     }
 
     private void AttackEnemy()
     {
-        SetDestination(targetEnemy.localScale);
+        SetDestination(Opponent.localScale);
     }
 
     /// <summary>
@@ -160,7 +178,7 @@ public class AIFindPath : MonoBehaviour
             {
                 if (raycastHit.collider.gameObject.tag == "Ground")
                 {
-                    targetDestination.transform.position = raycastHit.point;
+                    Destination.transform.position = raycastHit.point;
                 }
             }
         }
