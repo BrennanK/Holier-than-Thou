@@ -16,7 +16,7 @@ public class DetectObjects : MonoBehaviour
         //Debug.Log(other.name + " is detected");
         if (other.gameObject.tag == "Player")
         {
-            aiFindPath.StartAttack();
+            aiFindPath.StartAttackingEnemy();
             aiFindPath.Opponent = other.gameObject.transform;
         }
     }

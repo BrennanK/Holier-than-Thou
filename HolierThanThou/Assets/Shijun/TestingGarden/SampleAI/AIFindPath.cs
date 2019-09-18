@@ -1,4 +1,5 @@
 ﻿// Temporary Methods for AI Navigation, Attack and Achieve Points.
+// Add the Features to define the goal branches.
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,11 +7,18 @@ enum AIState
 {
     Idle,
     FindPath,
-    Attack,
+    AttackEnemy,
     UsePowerUps
 };
 
-// NavMesh -> AINavigation
+enum AIFeature
+{
+    Predator, //Aggressive Bots
+    Scavenger, // Item Hog
+    Attacker, //Every Man For Himself （Scorer）
+    Defender // My Spot
+};
+
 public class AIFindPath : MonoBehaviour
 {
     private AIState state = AIState.Idle;
@@ -20,40 +28,38 @@ public class AIFindPath : MonoBehaviour
     private new Transform destination;
     private new Transform opponent;
 
-    private bool shouldAttack = false;
-    private bool shouldFindPath = true;
+    public bool shouldAttackEnemy = false;
+    public bool shouldFindPath = true;
 
     internal AIState State { get => state; set => state = value; }
     private NavMeshAgent NavMeshAgent { get => navMeshAgent; set => navMeshAgent = value; }
     public Transform Destination { private get => destination; set => destination = value; }
     public Transform Opponent { private get => opponent; set => opponent = value; }
-    public bool ShouldAttack { get => shouldAttack; set => shouldAttack = value; }
+    public bool ShouldAttackEnemy { get => shouldAttackEnemy; set => shouldAttackEnemy = value; }
     public bool ShouldFindPath { get => shouldFindPath; set => shouldFindPath = value; }
 
-    //public void StartFindPath()
-    //{
-    //    ShouldFindPath = true;
-    //}
-
-    public void StartAttack()
+    public void StartFindingPath()
     {
-        ShouldAttack = true;
+        ShouldFindPath = true;
     }
 
-    private void Awake()
+    public void StartAttackingEnemy()
     {
-        NavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+        ShouldAttackEnemy = true;
     }
 
     private void Start()
     {
+        NavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+        destination = GameObject.Find("Destination").GetComponent<Transform>();
+
         State = AIState.FindPath;
     }
 
     private void Update()
     {
         //TestSetDestination();
-        //TestGoingToDestination();
+        SetDestination();
 
         UpdateState();
     }
@@ -68,9 +74,9 @@ public class AIFindPath : MonoBehaviour
             ActivateSwicher();
         }
 
-        if (ShouldAttack)
+        if (ShouldAttackEnemy)
         {
-            State = AIState.Attack;
+            State = AIState.AttackEnemy;
             ActivateSwicher();
         }
 
@@ -88,7 +94,7 @@ public class AIFindPath : MonoBehaviour
                 ShouldFindPath = !ShouldFindPath;
                 State = AIState.Idle;
                 break;
-            case AIState.Attack:
+            case AIState.AttackEnemy:
                 SetDestination(Opponent.localPosition);
                 State = AIState.Idle;
                 break;

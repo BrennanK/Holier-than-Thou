@@ -519,10 +519,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67e67988cc35ed4e9503d52dc680e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDestination: {fileID: 782609978}
-  targetEnemy: {fileID: 0}
-  canAttack: 0
-  canFindPath: 0
+  shouldAttackEnemy: 0
+  shouldFindPath: 1
 --- !u!195 &1696301804
 NavMeshAgent:
   m_ObjectHideFlags: 0
