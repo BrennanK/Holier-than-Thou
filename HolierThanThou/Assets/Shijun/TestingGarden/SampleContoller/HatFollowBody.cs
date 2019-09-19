@@ -6,6 +6,7 @@ public class HatFollowBody : MonoBehaviour
 {
     private Transform hatTransform;
     public Transform bodyTransform;
+    public float hatTransformY = 0.5f;
 
     private void Start()
     {
@@ -14,7 +15,7 @@ public class HatFollowBody : MonoBehaviour
 
     private void Update()
     {
-        hatTransform.position = new Vector3(bodyTransform.position.x, hatTransform.position.y, bodyTransform.position.z);
+        hatTransform.position = new Vector3(bodyTransform.position.x, bodyTransform.position.y + hatTransformY, bodyTransform.position.z);
         //hatTransform.position.x = bodyTransform.position.x;
     }
 }
