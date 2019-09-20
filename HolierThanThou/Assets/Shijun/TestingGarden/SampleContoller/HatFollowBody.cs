@@ -6,16 +6,16 @@ public class HatFollowBody : MonoBehaviour
 {
     private Transform hatTransform;
     public Transform bodyTransform;
-    public float hatTransformY = 0.5f;
+    public float hatTransformY;
 
     private void Start()
     {
         hatTransform = GetComponent<Transform>();
+        hatTransformY = hatTransform.localPosition.y;
     }
 
     private void Update()
     {
-        hatTransform.position = new Vector3(bodyTransform.position.x, bodyTransform.position.y + hatTransformY, bodyTransform.position.z);
-        //hatTransform.position.x = bodyTransform.position.x;
+        hatTransform.localPosition = new Vector3(bodyTransform.localPosition.x, bodyTransform.localPosition.y + hatTransformY, bodyTransform.localPosition.z);
     }
 }
