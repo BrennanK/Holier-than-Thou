@@ -95,7 +95,7 @@ public class PowerUpBox : MonoBehaviour
             }
             
         }
-        /*else if(other.gameObject.tag == "Enemy")
+        else if(other.gameObject.tag == "Enemy")
         {
             var enemy = other.gameObject.GetComponent<AIBehavior>();
 
@@ -105,7 +105,7 @@ public class PowerUpBox : MonoBehaviour
                 enemy.slot1 = powerups[Random.Range(0, powerups.Length)];
 
                 DisablePowerUp();
-                _powerUpTracker.UpdateUI();
+                //_powerUpTracker.UpdateUI();
                 return;
             }
             if (enemy.slot2 == null)
@@ -114,10 +114,10 @@ public class PowerUpBox : MonoBehaviour
                     enemy.slot2 = powerups[Random.Range(0, powerups.Length)];
 
                 DisablePowerUp();
-                _powerUpTracker.UpdateUI();
+                //_powerUpTracker.UpdateUI();
                 return;
             }
-        }*/
+        }
     }
 
     void DisablePowerUp()
