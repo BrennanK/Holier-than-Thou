@@ -95,6 +95,29 @@ public class PowerUpBox : MonoBehaviour
             }
             
         }
+        /*else if(other.gameObject.tag == "Enemy")
+        {
+            var enemy = other.gameObject.GetComponent<AIBehavior>();
+
+            if (enemy.slot1 == null)
+            {
+                
+                enemy.slot1 = powerups[Random.Range(0, powerups.Length)];
+
+                DisablePowerUp();
+                _powerUpTracker.UpdateUI();
+                return;
+            }
+            if (enemy.slot2 == null)
+            {
+                
+                    enemy.slot2 = powerups[Random.Range(0, powerups.Length)];
+
+                DisablePowerUp();
+                _powerUpTracker.UpdateUI();
+                return;
+            }
+        }*/
     }
 
     void DisablePowerUp()

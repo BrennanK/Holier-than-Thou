@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool gameRunning;
+
     public Text startText;
     private float startTimer = 5f;
-    private bool gameStarted;
 
     public GameObject EndMatchScreen;
     public GameObject GameUI;
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
     {
         scoreManager = gameObject.GetComponent<ScoreManager>();
         EndMatchScreen.SetActive(false);
-        gameStarted = false;
+        gameRunning = false;
         print("Ready!");
         StartCoroutine(StartGame());
         inGameTimer.text = "Time " + matchTimer;
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(matchTimer > 0 && gameStarted)
+        if(matchTimer > 0 && gameRunning)
         {
             matchTimer -= Time.deltaTime;
             inGameTimer.text = "Time " + Mathf.Round(matchTimer);
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
         startText.text = "1";
         yield return new WaitForSeconds(1f);
         startText.text = "GO!";
-        gameStarted = true;
+        gameRunning = true;
         yield return new WaitForSeconds(1f);
         Destroy(startText);
 
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     void EndMatch()
     {
+        gameRunning = false;
         EndMatchScreen.SetActive(true);
         GameUI.SetActive(false);
         scoreManager.UpdateEndGameUI();

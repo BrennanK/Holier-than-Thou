@@ -22,6 +22,7 @@ public class Goal : MonoBehaviour
 
         if(_competitor)
         {
+            _competitor.ScoredGoal = true;
             scoreManager.UpdateScore(_competitor.Name, point);
             Debug.Log(_competitor.Name + " is in the Goal!");
             StartCoroutine(spawnPointManager.RespawnTimer(_competitor.Name));
