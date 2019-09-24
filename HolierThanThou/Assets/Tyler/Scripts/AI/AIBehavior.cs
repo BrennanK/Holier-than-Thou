@@ -14,6 +14,7 @@ public class AIBehavior : MonoBehaviour
 
 
     //AI BlackBoard
+    private float checkRadius = 5f;
     private Transform goalPos;
     private Transform powerUpPos;
     private Transform competitorPos;
@@ -23,6 +24,13 @@ public class AIBehavior : MonoBehaviour
     private float powerUpCooldown;
     private bool canAttack;
     private float attackCooldown;
+    private bool isBeingKnockedback;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, checkRadius);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -37,11 +45,10 @@ public class AIBehavior : MonoBehaviour
 
         _behaviorTree = new BehaviorTree.BehaviorTree(new BehaviorTreeBuilder()
             .Sequence("Game Play")
+                .Condition("Is being knocked back", CheckForKnockBack)
                 .Condition("Is the Game Running", CheckForGameRunning)
                 .Sequence("Find objectives")                   
                     .Action("Do I have a Goal", FindTheGoal)                  
-                    .Action("Power up targeted?", LocatePowerUp)
-                    .Action("Player Targeted?", LocateCompetitors)
                     .Selector("Prioritize Objectives")
                         .Sequence("Goal Prioritization")
                             .Condition("Can I score", CheckIfScoredGoal)
@@ -71,25 +78,18 @@ public class AIBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (!canAttack)
-        {
-            attackCooldown -= Time.deltaTime;
-        }
-        if(attackCooldown <= 0)
-        {
-            canAttack = true;
-        }
-        if(!ableToGrab)
-        {
-            powerUpCooldown -= Time.deltaTime;
-        }
-        if(powerUpCooldown <= 0)
-        {
-            ableToGrab = true;
-        }
-
+        CheckForCompetitors();
+        CheckForPowerUps();
     }
 
+    private EReturnStatus CheckForKnockBack()
+    {
+        if (isBeingKnockedback)
+        {
+            return EReturnStatus.FAILURE;
+        }
+        else return EReturnStatus.SUCCESS;
+    }
 
     private EReturnStatus CheckForGameRunning()
     {
@@ -117,25 +117,36 @@ public class AIBehavior : MonoBehaviour
         if (goalPos == null)
         {
             goalPos = GameObject.FindGameObjectWithTag("Goal").transform;
-            Debug.Log("Goal has been found");
             return EReturnStatus.FAILURE;
         }
         else
         {
            navMeshAgent.SetDestination(goalPos.position);
-            Debug.Log("Goal already located");
             return EReturnStatus.SUCCESS;
         }
     }
 
     private EReturnStatus MoveToGoal()
     {
+        
         if (Vector3.Distance(transform.position, goalPos.position) <= 5f)
         {
+            Debug.Log("CLoser to the goal");
             return EReturnStatus.SUCCESS;
+        }
+        else if (competitorPos != null && Vector3.Distance(transform.position, competitorPos.position) < Vector3.Distance(transform.position, goalPos.position))
+        {
+            Debug.Log("other competitor is closer");
+            return EReturnStatus.FAILURE;
+        }
+        else if (powerUpPos != null && Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, goalPos.position))
+        {
+            Debug.Log("Power Up is closer");
+            return EReturnStatus.FAILURE;
         }
         else
         {
+            Debug.Log("running for goal");
             navMeshAgent.SetDestination(goalPos.position);
             return EReturnStatus.RUNNING;
         }
@@ -156,11 +167,10 @@ public class AIBehavior : MonoBehaviour
         }
     }
     
-    private EReturnStatus LocatePowerUp()
+   /*private EReturnStatus LocatePowerUp()
     {
         if(slot1 != null && slot2 != null)
             {
-            Debug.Log("Power ups full");
             return EReturnStatus.FAILURE;
             }
         if (powerUpPos == null)
@@ -177,7 +187,6 @@ public class AIBehavior : MonoBehaviour
 
             if (hitColliders.Count == 0)
             {
-                Debug.Log("Locate power up failure");
                 return EReturnStatus.SUCCESS;
             }
             else
@@ -193,19 +202,17 @@ public class AIBehavior : MonoBehaviour
                         powerUpPos = _collider.transform;
                     }
                 }
-                Debug.Log("power up located");
                 return EReturnStatus.SUCCESS;
             }
         }
         else
         {
-            Debug.Log("Power up already known");
             return EReturnStatus.SUCCESS;
         }
                
-    }
+    }*/
     
-    private EReturnStatus LocateCompetitors()
+    /*private EReturnStatus LocateCompetitors()
     {
         if (competitorPos == null)
         {
@@ -222,7 +229,6 @@ public class AIBehavior : MonoBehaviour
 
             if (hitCompetitors.Count == 0)
             {
-                Debug.Log("No competitors found");
                 navMeshAgent.SetDestination(goalPos.position);
                 return EReturnStatus.SUCCESS;
             }
@@ -241,34 +247,29 @@ public class AIBehavior : MonoBehaviour
                     }
                 }
 
-                Debug.Log("Competitor located");
                 return EReturnStatus.SUCCESS;
             }
         }
         else
         {
-            Debug.Log("Competitor already found");
             return EReturnStatus.SUCCESS;
         }
-    }
+    }*/
 
     private EReturnStatus CompareDistanceGoal()
     {
         if(competitorPos == null && powerUpPos == null)
         {
-            Debug.Log("No power up or competitor detected");
             return EReturnStatus.SUCCESS;
         }
         if(competitorPos == null)
         {
             if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
             {
-                Debug.Log("Goal is closer than the powerup");
                 return EReturnStatus.SUCCESS;
             }
             else
             {
-                Debug.Log("Power up is closer than the goal");
                 return EReturnStatus.FAILURE;
             }
         }
@@ -276,23 +277,19 @@ public class AIBehavior : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position))
             {
-                Debug.Log("Goal is closer than competitors");
                 return EReturnStatus.SUCCESS;
             }
             else
             {
-                Debug.Log("Competitors are closer than the goal");
                 return EReturnStatus.FAILURE;
             }
         }
         if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position) && Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position))
         {
-            Debug.Log("Goal is closer than power ups and competitors");
             return EReturnStatus.SUCCESS;
         }
         else
         {
-            Debug.Log("Power up or competitor is closer than the goal");
             return EReturnStatus.FAILURE;
         }
     }
@@ -301,7 +298,6 @@ public class AIBehavior : MonoBehaviour
     {
         if (powerUpPos == null)
         {
-            Debug.Log("No powerup to target");
             return EReturnStatus.FAILURE;
         }
 
@@ -312,21 +308,18 @@ public class AIBehavior : MonoBehaviour
 
         if (Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, competitorPos.position))
         {
-            Debug.Log("Powerup is closer than competitor");
             return EReturnStatus.SUCCESS;
         }
         else
         {
-            Debug.Log("Power up is not closer than competitor");
             return EReturnStatus.FAILURE;
         }
     }
 
     private EReturnStatus CheckCompetitorDistance()
     {
-        if(competitorPos == null && powerUpPos == null)
+        if(competitorPos == null || powerUpPos == null)
         {
-            Debug.Log("nothing to target");
             return EReturnStatus.FAILURE;
         }
 
@@ -343,6 +336,14 @@ public class AIBehavior : MonoBehaviour
         {
             return EReturnStatus.SUCCESS;
         }
+        else if(goalPos != null && Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position))
+        {
+            return EReturnStatus.FAILURE;
+        }
+        else if(competitorPos != null && Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, competitorPos.position))
+        {
+            return EReturnStatus.FAILURE;
+        }
         else
         {
             navMeshAgent.SetDestination(competitorPos.position);
@@ -355,11 +356,6 @@ public class AIBehavior : MonoBehaviour
     {
         if(transform.position == competitorPos.position)
         {
-            Debug.Log("Resetting path");
-            navMeshAgent.ResetPath();
-            competitorPos = null;
-            attackCooldown = 5f;
-            canAttack = false;
             return EReturnStatus.SUCCESS;
         }
         else
@@ -375,9 +371,16 @@ public class AIBehavior : MonoBehaviour
         {
             return EReturnStatus.SUCCESS;
         }
+        else if(goalPos != null && Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+        {
+            return EReturnStatus.FAILURE;
+        }
+        else if(competitorPos != null && Vector3.Distance(transform.position, competitorPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+        {
+            return EReturnStatus.FAILURE;
+        }
         else
         {
-            Debug.Log(competitor.Name + " Targeting PowerUp");
             navMeshAgent.SetDestination(powerUpPos.position);
             return EReturnStatus.RUNNING;
         }
@@ -387,12 +390,9 @@ public class AIBehavior : MonoBehaviour
     {
         if(transform.position == powerUpPos.position)
         {
-            Debug.Log(competitor.Name + " Grabbed power up");
-            Debug.Log("resetting path");
-            navMeshAgent.ResetPath();
             powerUpPos = null;
-            powerUpCooldown = 5f;
-            ableToGrab = false;
+            StartCoroutine(PUCooldown());
+            navMeshAgent.ResetPath();
             return EReturnStatus.SUCCESS;
         }
         else
@@ -400,6 +400,13 @@ public class AIBehavior : MonoBehaviour
             navMeshAgent.SetDestination(powerUpPos.position);
             return EReturnStatus.RUNNING;
         }
+    }
+
+    IEnumerator PUCooldown()
+    {
+        ableToGrab = false;
+        yield return new WaitForSeconds(3f);
+        ableToGrab = true;
     }
 
     private EReturnStatus CheckAbleToGrabPowerUp()
@@ -433,12 +440,99 @@ public class AIBehavior : MonoBehaviour
 
     //}
 
-    
+    IEnumerator Knockback(GameObject enemy)
+    {
+        isBeingKnockedback = true;
+        if(navMeshAgent.isOnNavMesh)
+        {
+            navMeshAgent.ResetPath();
+        }
+        navMeshAgent.enabled = false;
+        Vector3 moveDirection = transform.position - enemy.transform.position;
+        GetComponent<Rigidbody>().velocity = moveDirection.normalized * 10;
+        canAttack = false;
+        yield return new WaitForSeconds(.5f);
+        navMeshAgent.enabled = true;
+        UpdateTree();
+        isBeingKnockedback = false;
+        yield return new WaitForSeconds(1f);
+        canAttack = true;
+    }
 
     private void OnCollisionEnter(Collision other)
     {
-        
+        if(other.gameObject.GetComponent<Competitor>())
+        {
+            StartCoroutine(Knockback(other.gameObject));
+        }
     }
 
-   
+    private void CheckForCompetitors()
+    {
+        List<Collider> hitCompetitors = Physics.OverlapSphere(transform.position, checkRadius).ToList();
+        for (int i = 0; i < hitCompetitors.Count; i++)
+        {
+
+            if (!hitCompetitors[i].GetComponent<Competitor>() || hitCompetitors[i].transform == this.transform)
+            {
+                hitCompetitors.Remove(hitCompetitors[i]);
+                i--;
+            }
+        }
+        if (hitCompetitors.Count == 0)
+        {
+            competitorPos = null;
+        }
+        else
+        {
+
+            competitorPos = hitCompetitors[0].transform;
+
+            foreach (Collider competitor in hitCompetitors)
+            {
+                if (competitor.transform == this.transform) continue;
+
+                if (Vector3.Distance(transform.position, competitorPos.position) > Vector3.Distance(transform.position, competitor.transform.position))
+                {
+                    competitorPos = competitor.transform;
+                }
+            }
+        }
+    }
+
+    void CheckForPowerUps()
+    {
+        if (slot1 != null && slot2 != null)
+        {
+            return;
+        }
+            List<Collider> hitColliders = Physics.OverlapSphere(transform.position, checkRadius).ToList();
+            for (int i = 0; i < hitColliders.Count; i++)
+            {
+            
+                if (hitColliders[i].tag != "ItemBox")
+                {
+                    hitColliders.Remove(hitColliders[i]);
+                    i--;
+                }
+            }
+
+            if (hitColliders.Count == 0)
+            {
+           // powerUpPos = null;
+            }
+            else
+            {
+                powerUpPos = hitColliders[0].transform;
+
+                foreach (Collider _collider in hitColliders)
+                {
+                    Debug.Log(_collider.name);
+                    if (Vector3.Distance(transform.position, powerUpPos.position) > Vector3.Distance(transform.position, _collider.transform.position))
+                    {
+                        powerUpPos = _collider.transform;
+                    }
+                }
+            }
+        }
 }

@@ -60,15 +60,6 @@ public class GameManager : MonoBehaviour
         gameRunning = true;
         yield return new WaitForSeconds(1f);
         Destroy(startText);
-
-        //while(startTimer >= 0)
-        //{
-        //    print(Mathf.Round(startTimer));
-        //    startTimer--;
-        //    yield return new WaitForSeconds(1f);
-        //}
-        //print("Start!");
-        //gameStarted = true;
     }
 
     void EndMatch()
