@@ -10,22 +10,18 @@ public class CustomizationController : MonoBehaviour
     private GameObject hatEntity;
     private GameObject bodyEntity;
 
-    //GameObject for visualization.
-    private Transform hat;
-    private Transform body;
-
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        foreach (Transform child in player.GetComponent<Transform>())
+        foreach (Transform child in player.transform)
         {
             if (child.name == "Hat")
             {
-                hat = child;
+                hatEntity = child.gameObject;
             }
             if (child.name == "Body")
             {
-                body = child;
+                bodyEntity = child.gameObject;
             }
         }
     }
@@ -34,6 +30,16 @@ public class CustomizationController : MonoBehaviour
     private void SwitchHatEntity()
     {
         
+    }
+
+    private void Next()
+    {
+
+    }
+    
+    private void Last()
+    {
+
     }
 
 }

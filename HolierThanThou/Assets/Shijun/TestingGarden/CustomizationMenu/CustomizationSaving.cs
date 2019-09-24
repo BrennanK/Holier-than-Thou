@@ -4,5 +4,15 @@ using UnityEngine;
 
 public class CustomizationSaving : MonoBehaviour
 {
+    struct HatEntity
+    {
+
+    };
+
+    struct BodyEntity
+    {
+
+    };
+
 
 }
