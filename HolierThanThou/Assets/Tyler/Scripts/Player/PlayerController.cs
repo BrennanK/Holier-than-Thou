@@ -13,6 +13,20 @@ public class PlayerController : MonoBehaviour
 
     private Camera m_mainCamera;
 
+
+    //Ground Check SphereCast Variables
+    public Transform origin;
+    public LayerMask layerMask;
+    public float radius;
+
+    //Jump Variables
+    public float jumpHeight = 5;
+    public float timeToJump = .5f;
+    private float gravity;
+    private float jumpVelocity;
+    private bool canJump;
+
+
     private float m_characterSpeed = 10f;
     [Header("Ground Movement")]
     [Range(0, 1)]
@@ -28,6 +42,12 @@ public class PlayerController : MonoBehaviour
     // Tracking Current State
     private ECharacterState m_currentState;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(origin.position, radius);
+    }
+
     private void Awake()
     {
         m_characterControllerReference = GetComponent<CharacterController>();
@@ -35,10 +55,33 @@ public class PlayerController : MonoBehaviour
         m_digitalJoystickReference = FindObjectOfType<DigitalJoystick>();
         m_joyButtonReference = FindObjectOfType<JumpButton>();
         m_mainCamera = FindObjectOfType<Camera>();
+
+        //Calculating Jump
+        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJump, 2);
+        jumpVelocity = Mathf.Abs(gravity * timeToJump);
     }
 
     private void Update()
-    {
+    { 
+        RaycastHit hit;
+
+        if (Physics.SphereCast(origin.position, radius, Vector3.down, out hit, 1f, layerMask))
+        {
+            canJump = true;
+        }
+        else
+            canJump = false;
+            
+        if(m_joyButtonReference.pressed && canJump)
+        {
+            Debug.Log("Can Jump");
+            m_movementVector.y = jumpVelocity;
+        }
+        
+
+        
+
+
         switch (m_currentState)
         {
             case ECharacterState.Moving:
