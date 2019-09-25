@@ -7,29 +7,40 @@ using UnityEngine;
 public class CustomizationController : MonoBehaviour
 {
     //Prefab for Hat and Body
-    private GameObject hatEntity;
-    private GameObject bodyEntity;
+    private GameObject hatSlot;
+    private GameObject bodySlot;
+
+    public GameObject[] hatEntity;
+    public GameObject[] bodyEntity;
 
     private void Start()
+    {
+        InitialObjectSlot();
+    }
+
+    private void InitialObjectSlot()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         foreach (Transform child in player.transform)
         {
             if (child.name == "Hat")
             {
-                hatEntity = child.gameObject;
+                hatSlot = child.gameObject;
             }
             if (child.name == "Body")
             {
-                bodyEntity = child.gameObject;
+                bodySlot = child.gameObject;
             }
         }
     }
 
+
+
     // Snap the option menu, and switch the customized enetity automatically.
-    private void SwitchHatEntity()
+    public void SwitchHatEntity(int index)
     {
-        
+        HatSwitcher hatSwitcher = hatSlot.GetComponent<HatSwitcher>();
+        hatSwitcher.SwitchHatEntity(index);
     }
 
     private void Next()
