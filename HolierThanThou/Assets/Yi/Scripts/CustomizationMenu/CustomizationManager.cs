@@ -25,7 +25,8 @@ namespace FancyScrollView.CustomizationMenu
 
         void OnSelectionChanged(int index)
         {
-            selectedItemInfo.text = $"Selected item info: index {index}";
+            //selectedItemInfo.text = $"Selected item info: index {index}";
+            this.GetComponent<CustomizationController>().SwitchHatEntity(index);
         }
     }
 }
