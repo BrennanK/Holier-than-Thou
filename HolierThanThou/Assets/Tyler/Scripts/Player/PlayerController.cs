@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private float gravity;
     private float jumpVelocity;
     private bool canJump;
+    public float maxDistance;
 
 
     private float m_characterSpeed = 10f;
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour
     { 
         RaycastHit groundHitInfo;
 
-        if (Physics.SphereCast(origin.position, radius, Vector3.down, out groundHitInfo, .5f, layerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.SphereCast(origin.position, radius, Vector3.down, out groundHitInfo, maxDistance, layerMask, QueryTriggerInteraction.Ignore))
         {
             canJump = true;
         }
