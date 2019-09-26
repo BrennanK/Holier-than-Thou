@@ -85,6 +85,9 @@ public class AIBehavior : MonoBehaviour
         CheckForCompetitors();
         CheckForPowerUps();
         CompareDistances();
+        Debug.Log("Goal is closer: " + goalCloser);
+        Debug.Log("Power up is closer: " + powerUpCloser);
+        Debug.Log("Competitor is closer: " + competitorCloser);
     }
 
     private EReturnStatus CheckForKnockBack()
@@ -579,13 +582,26 @@ public class AIBehavior : MonoBehaviour
             }
             else if(powerUpPos != null && competitorPos != null)
             {
-                if(Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) && Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+                if(Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) && 
+                    Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
                 {
                     goalCloser = true;
                     powerUpCloser = false;
                     competitorCloser = false;
                 }
-                //else if(Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, goalPos.position) &&)
+                else if(Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, goalPos.position) && 
+                    Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, competitorPos.position))
+                {
+                    goalCloser = false;
+                    powerUpCloser = true;
+                    competitorCloser = false;
+                }
+                else
+                {
+                    goalCloser = false;
+                    powerUpCloser = false;
+                    competitorCloser = true;
+                }
             }
         }
     }

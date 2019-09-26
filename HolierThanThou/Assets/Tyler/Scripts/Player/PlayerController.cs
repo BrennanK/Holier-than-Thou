@@ -96,14 +96,15 @@ public class PlayerController : MonoBehaviour
             dampingMultiplier *= 2;
         }
 
-        m_movementVector.x = Mathf.Lerp(m_characterControllerReference.velocity.x, m_movementVector.x, groundDamping * dampingMultiplier);
-        m_movementVector.z = Mathf.Lerp(m_characterControllerReference.velocity.z, m_movementVector.z, groundDamping * dampingMultiplier);
+        //m_movementVector.x = Mathf.Lerp(m_characterControllerReference.velocity.x, m_movementVector.x, groundDamping * dampingMultiplier);
+        //m_movementVector.z = Mathf.Lerp(m_characterControllerReference.velocity.z, m_movementVector.z, groundDamping * dampingMultiplier);
 
         m_movementVector.y += gravity * Time.deltaTime;
 
         if (m_characterControllerReference.enabled)
         {
-            m_characterControllerReference.Move(m_movementVector);
+            print(m_movementVector);
+            m_characterControllerReference.Move(m_movementVector * Time.deltaTime);
         }
 
     }
@@ -115,11 +116,11 @@ public class PlayerController : MonoBehaviour
         Vector3 t_movementDirectionInRelationToCamera = (t_cameraForward * Input.GetAxis("Vertical")) + (t_cameraRight * Input.GetAxis("Horizontal"));
         //t_movementDirectionInRelationToCamera *= movementSpeed;
 
-        // float previousYVelocity = m_movementVector.y;
-        m_movementVector = t_cameraForward * m_digitalJoystickReference.Vertical * m_characterSpeed;
+        //float previousYVelocity = m_movementVector.y;
+        m_movementVector = t_cameraForward * m_digitalJoystickReference.Vertical * m_characterSpeed;//check this line for messing with the jump
         m_movementVector += t_cameraRight * m_digitalJoystickReference.Horizontal * m_characterSpeed;
-        // m_movementVector.y = previousYVelocity;
+        //m_movementVector.y = previousYVelocity;
 
-        transform.LookAt(transform.position + new Vector3(m_movementVector.x, 0f, m_movementVector.z));
+        transform.LookAt(transform.position + new Vector3(m_movementVector.x, m_movementVector.y, m_movementVector.z));
     }
 }
