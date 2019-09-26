@@ -13,6 +13,20 @@ public class PlayerController : MonoBehaviour
 
     private Camera m_mainCamera;
 
+
+    //Ground Check SphereCast Variables
+    public Transform origin;
+    public LayerMask layerMask;
+    public float radius;
+
+    //Jump Variables
+    public float jumpHeight = 5;
+    public float timeToJump = .5f;
+    private float gravity;
+    private float jumpVelocity;
+    private bool canJump;
+
+
     private float m_characterSpeed = 10f;
     [Header("Ground Movement")]
     [Range(0, 1)]
@@ -28,6 +42,12 @@ public class PlayerController : MonoBehaviour
     // Tracking Current State
     private ECharacterState m_currentState;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(origin.position, radius);
+    }
+
     private void Awake()
     {
         m_characterControllerReference = GetComponent<CharacterController>();
@@ -35,10 +55,24 @@ public class PlayerController : MonoBehaviour
         m_digitalJoystickReference = FindObjectOfType<DigitalJoystick>();
         m_joyButtonReference = FindObjectOfType<JumpButton>();
         m_mainCamera = FindObjectOfType<Camera>();
+
+        //Calculating Jump
+        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJump, 2);
+        jumpVelocity = Mathf.Abs(gravity * timeToJump);
     }
 
     private void Update()
-    {
+    { 
+        RaycastHit hit;
+
+        if (Physics.SphereCast(origin.position, radius, Vector3.down, out hit, 1f, layerMask))
+        {
+            canJump = true;
+        }
+        else
+            canJump = false;
+            
+
         switch (m_currentState)
         {
             case ECharacterState.Moving:
@@ -50,20 +84,29 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+        if(m_joyButtonReference.pressed)
+        {
+            Debug.Log("Can Jump");
+            m_movementVector.y = jumpVelocity;
+        }
+
         float dampingMultiplier = 1f;
         if (m_currentState == ECharacterState.Attacking)
         {
             dampingMultiplier *= 2;
         }
 
-        m_movementVector.x = Mathf.Lerp(m_characterControllerReference.velocity.x, m_movementVector.x, groundDamping * dampingMultiplier);
-        m_movementVector.y = 0;
-        m_movementVector.z = Mathf.Lerp(m_characterControllerReference.velocity.z, m_movementVector.z, groundDamping * dampingMultiplier);
+        //m_movementVector.x = Mathf.Lerp(m_characterControllerReference.velocity.x, m_movementVector.x, groundDamping * dampingMultiplier);
+        //m_movementVector.z = Mathf.Lerp(m_characterControllerReference.velocity.z, m_movementVector.z, groundDamping * dampingMultiplier);
+
+        m_movementVector.y += gravity * Time.deltaTime;
 
         if (m_characterControllerReference.enabled)
         {
-            m_characterControllerReference.SimpleMove(m_movementVector);
+            print(m_movementVector);
+            m_characterControllerReference.Move(m_movementVector * Time.deltaTime);
         }
+
     }
 
     private void HandleMovement()
@@ -73,8 +116,11 @@ public class PlayerController : MonoBehaviour
         Vector3 t_movementDirectionInRelationToCamera = (t_cameraForward * Input.GetAxis("Vertical")) + (t_cameraRight * Input.GetAxis("Horizontal"));
         //t_movementDirectionInRelationToCamera *= movementSpeed;
 
-        m_movementVector = t_cameraForward * m_digitalJoystickReference.Vertical * m_characterSpeed;
+        //float previousYVelocity = m_movementVector.y;
+        m_movementVector = t_cameraForward * m_digitalJoystickReference.Vertical * m_characterSpeed;//check this line for messing with the jump
         m_movementVector += t_cameraRight * m_digitalJoystickReference.Horizontal * m_characterSpeed;
-        transform.LookAt(transform.position + new Vector3(m_movementVector.x, 0f, m_movementVector.z));
+        //m_movementVector.y = previousYVelocity;
+
+        transform.LookAt(transform.position + new Vector3(m_movementVector.x, m_movementVector.y, m_movementVector.z));
     }
 }
