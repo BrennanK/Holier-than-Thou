@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
         scoreManager = gameObject.GetComponent<ScoreManager>();
         EndMatchScreen.SetActive(false);
         gameRunning = false;
-        print("Ready!");
         StartCoroutine(StartGame());
         inGameTimer.text = "Time " + matchTimer;
     }

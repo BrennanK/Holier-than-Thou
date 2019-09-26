@@ -72,15 +72,6 @@ public class PlayerController : MonoBehaviour
         else
             canJump = false;
             
-        if(m_joyButtonReference.pressed && canJump)
-        {
-            Debug.Log("Can Jump");
-            m_movementVector.y = jumpVelocity;
-        }
-        
-
-        
-
 
         switch (m_currentState)
         {
@@ -93,6 +84,12 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+        if(m_joyButtonReference.pressed)
+        {
+            Debug.Log("Can Jump");
+            m_movementVector.y = jumpVelocity;
+        }
+
         float dampingMultiplier = 1f;
         if (m_currentState == ECharacterState.Attacking)
         {
@@ -100,13 +97,15 @@ public class PlayerController : MonoBehaviour
         }
 
         m_movementVector.x = Mathf.Lerp(m_characterControllerReference.velocity.x, m_movementVector.x, groundDamping * dampingMultiplier);
-        m_movementVector.y = 0;
         m_movementVector.z = Mathf.Lerp(m_characterControllerReference.velocity.z, m_movementVector.z, groundDamping * dampingMultiplier);
+
+        m_movementVector.y += gravity * Time.deltaTime;
 
         if (m_characterControllerReference.enabled)
         {
-            m_characterControllerReference.SimpleMove(m_movementVector);
+            m_characterControllerReference.Move(m_movementVector);
         }
+
     }
 
     private void HandleMovement()
@@ -116,8 +115,11 @@ public class PlayerController : MonoBehaviour
         Vector3 t_movementDirectionInRelationToCamera = (t_cameraForward * Input.GetAxis("Vertical")) + (t_cameraRight * Input.GetAxis("Horizontal"));
         //t_movementDirectionInRelationToCamera *= movementSpeed;
 
+        // float previousYVelocity = m_movementVector.y;
         m_movementVector = t_cameraForward * m_digitalJoystickReference.Vertical * m_characterSpeed;
         m_movementVector += t_cameraRight * m_digitalJoystickReference.Horizontal * m_characterSpeed;
+        // m_movementVector.y = previousYVelocity;
+
         transform.LookAt(transform.position + new Vector3(m_movementVector.x, 0f, m_movementVector.z));
     }
 }
