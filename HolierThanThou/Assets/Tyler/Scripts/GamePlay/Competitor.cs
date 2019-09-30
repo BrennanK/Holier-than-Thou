@@ -16,6 +16,7 @@ public class Competitor : MonoBehaviour
 
     public float blastedDuration;
 
+    public bool untouchable;
 
     public Material startingMat;
 
@@ -23,6 +24,7 @@ public class Competitor : MonoBehaviour
     {
         origin = this.transform;
         naveMeshOff = false;
+        untouchable = false;
     }
 
     private void Update()
@@ -43,14 +45,30 @@ public class Competitor : MonoBehaviour
 
     public void BeenBlasted()
     {
-        StartCoroutine(TurnNavMeshBackOn(blastedDuration));
+            StartCoroutine(TurnNavMeshBackOn(blastedDuration));
     }
 
     public void BeenChilled(float duration)
     {
-        StartCoroutine(TurnNavMeshBackOn(duration));
+            StartCoroutine(TurnNavMeshBackOn(duration));
     }
 
+    public void CantTouchMe(float duration)
+    {
+
+            StartCoroutine(Untouchable(duration));
+        
+    }
+
+    private IEnumerator Untouchable(float duration)
+    {
+        untouchable = true;
+        GetComponent<MeshRenderer>().material.color = Color.black;
+        yield return new WaitForSeconds(duration);
+        untouchable = false;
+        GetComponent<MeshRenderer>().material = startingMat;
+
+    }
 
     private IEnumerator TurnNavMeshBackOn(float duration)
     {

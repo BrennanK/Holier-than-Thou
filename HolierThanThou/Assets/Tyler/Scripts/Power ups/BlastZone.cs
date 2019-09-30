@@ -44,10 +44,13 @@ public class BlastZone : PowerUp
                 var rb = enemy.GetComponent<Rigidbody>();
                 var competitor = enemy.GetComponent<Competitor>();
 
-                enemy.GetComponent<MeshRenderer>().material.color = Color.red;
-                competitor.naveMeshOff = true;
-                competitor.BeenBlasted();
-                rb.AddExplosionForce(power, origin.position, radius, upwardForce);
+                if (!competitor.untouchable)
+                {
+                    enemy.GetComponent<MeshRenderer>().material.color = Color.red;
+                    competitor.naveMeshOff = true;
+                    competitor.BeenBlasted();
+                    rb.AddExplosionForce(power, origin.position, radius, upwardForce);
+                }
             }
         }
 
