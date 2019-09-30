@@ -12,9 +12,9 @@ public class Thiccness : PowerUp
 
 
 
-    public override void ActivatePowerUp()
+    public override void ActivatePowerUp(string name, Transform origin)
     {
-        base.ActivatePowerUp();
+        base.ActivatePowerUp(name, origin);
 
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -27,9 +27,9 @@ public class Thiccness : PowerUp
 
     }
 
-    public override void ResetEffects()
+    public override void ResetEffects(string name)
     {
-        base.ResetEffects();
+        base.ResetEffects(name);
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemies)

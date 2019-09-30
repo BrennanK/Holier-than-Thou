@@ -20,6 +20,7 @@ public class PowerUpTracker : MonoBehaviour
 
     public Text itemButton1;
     public Text itemButton2;
+    private Competitor competitor;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class PowerUpTracker : MonoBehaviour
         canActivate1 = true;
         canActivate2 = true;
         UpdateUI();
+        competitor = GetComponent<Competitor>();
     }
 
 
@@ -43,7 +45,7 @@ public class PowerUpTracker : MonoBehaviour
         if(powerTimer1 <= 0 && activated1)
         {
             activated1 = false;
-            slot1.ResetEffects();
+            slot1.ResetEffects(competitor.Name);
             slot1 = null;
             canActivate1 = true;
             UpdateUI();
@@ -59,7 +61,7 @@ public class PowerUpTracker : MonoBehaviour
         if(powerTimer2 <= 0 && activated2)
         {
             activated2 = false;
-            slot2.ResetEffects();
+            slot2.ResetEffects(competitor.Name);
             slot2 = null;
             canActivate2 = true;
             UpdateUI();
@@ -78,11 +80,11 @@ public class PowerUpTracker : MonoBehaviour
                 {
                     powerTimer1 = slot1.duration;
                     activated1 = true;
-                    slot1.ActivatePowerUp();
+                    slot1.ActivatePowerUp(competitor.Name, competitor.origin);
                 }
                 else
                 {
-                    slot1.ActivatePowerUp();
+                    slot1.ActivatePowerUp(competitor.Name, competitor.origin);
                     slot1 = null;
 
                 }
@@ -104,11 +106,11 @@ public class PowerUpTracker : MonoBehaviour
                 {
                     powerTimer2 = slot2.duration;
                     activated2 = true;
-                    slot2.ActivatePowerUp();
+                    slot2.ActivatePowerUp(competitor.Name, competitor.origin);
                 }
                 else
                 {
-                    slot2.ActivatePowerUp();
+                    slot2.ActivatePowerUp(competitor.Name, competitor.origin);
                     slot2 = null;
                 }
                 UpdateUI();

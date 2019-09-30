@@ -9,9 +9,9 @@ public class ISeeDeadPeople : PowerUp
 
     }
 
-    public override void ActivatePowerUp()
+    public override void ActivatePowerUp(string name, Transform origin)
     {
-        base.ActivatePowerUp();
+        base.ActivatePowerUp(name, origin);
         Debug.Log("I See Dead People Power Up Used!");
 
     }

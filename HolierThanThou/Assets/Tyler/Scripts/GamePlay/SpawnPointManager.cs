@@ -46,10 +46,6 @@ public class SpawnPointManager : MonoBehaviour
 
         var _competitior = players.Find(x => x.Name == nameX);
         _competitior.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
-        if (_competitior.Name == "Player")
-        {
-            //mCamera.GetComponent<CameraFollow>().MoveToPlayer();
-        }
         _competitior.ScoredGoal = false;
     }
 

@@ -71,7 +71,7 @@ public class PowerUpBox : MonoBehaviour
             {
                 if ((itemNumber - 1) >= 0)
                 {
-                    _powerUpTracker.slot2 = powerups[itemNumber - 1];
+                    _powerUpTracker.slot1 = powerups[itemNumber - 1];
                 }
                 else
                 _powerUpTracker.slot1 = powerups[Random.Range(0, powerups.Length)] ;

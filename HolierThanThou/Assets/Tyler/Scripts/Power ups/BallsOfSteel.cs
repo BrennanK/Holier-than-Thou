@@ -9,9 +9,9 @@ public class BallsOfSteel : PowerUp
 
     }
 
-    public override void ActivatePowerUp()
+    public override void ActivatePowerUp(string name, Transform origin)
     {
-        base.ActivatePowerUp();
+        base.ActivatePowerUp(name, origin);
         Debug.Log("Balls of Steel Power Up Used!");
 
     }

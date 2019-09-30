@@ -9,9 +9,9 @@ public class CantTouchThis : PowerUp
 
     }
 
-    public override void ActivatePowerUp()
+    public override void ActivatePowerUp(string name, Transform origin)
     {
-        base.ActivatePowerUp();
+        base.ActivatePowerUp(name, origin);
         Debug.Log("Can't Touch This! Power Up Used!");
 
     }
