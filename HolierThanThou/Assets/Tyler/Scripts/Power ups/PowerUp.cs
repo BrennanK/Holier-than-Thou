@@ -16,12 +16,12 @@ public class PowerUp
 
     }
 
-    public virtual void ActivatePowerUp()
+    public virtual void ActivatePowerUp(string name, Transform origin)
     {
    
     }
 
-    public virtual void ResetEffects()
+    public virtual void ResetEffects(string name)
     {
 
     }

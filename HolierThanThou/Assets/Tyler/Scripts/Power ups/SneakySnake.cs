@@ -9,9 +9,9 @@ public class SneakySnake : PowerUp
 
     }
 
-    public override void ActivatePowerUp()
+    public override void ActivatePowerUp(string name, Transform origin)
     {
-        base.ActivatePowerUp();
+        base.ActivatePowerUp(name, origin);
         Debug.Log("Sneaky Snake Power Up Used!");
 
     }

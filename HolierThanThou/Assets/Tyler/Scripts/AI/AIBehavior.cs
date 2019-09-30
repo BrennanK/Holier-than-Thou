@@ -85,9 +85,13 @@ public class AIBehavior : MonoBehaviour
         CheckForCompetitors();
         CheckForPowerUps();
         CompareDistances();
-        Debug.Log("Goal is closer: " + goalCloser);
-        Debug.Log("Power up is closer: " + powerUpCloser);
-        Debug.Log("Competitor is closer: " + competitorCloser);
+
+        if (competitor.naveMeshOff)
+        {
+            navMeshAgent.updatePosition = false;
+        }
+        else
+            navMeshAgent.updatePosition = true;
     }
 
     private EReturnStatus CheckForKnockBack()

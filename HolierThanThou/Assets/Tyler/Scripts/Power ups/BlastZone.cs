@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using UnityEngine.AI;
 
 public class BlastZone : PowerUp
 {
@@ -16,27 +18,60 @@ public class BlastZone : PowerUp
         upwardForce = _upwardForce;
     }
 
-    public override void ActivatePowerUp()
+    public override void ActivatePowerUp(string name, Transform origin)
     {
-        base.ActivatePowerUp();
-        var player = GameObject.FindGameObjectWithTag("Player");
+        base.ActivatePowerUp(name, origin);
 
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (var enemy in enemies)
+
+
+        List<Collider> enemies = Physics.OverlapSphere(origin.position, radius).ToList();
+        for (int i = 0; i < enemies.Count; i++)
         {
-            var rb = enemy.GetComponent<Rigidbody>();
-
-            if (radius >= Vector3.Distance(player.transform.position, enemy.transform.position))
+            if(!enemies[i].GetComponent<Competitor>() || enemies[i].transform == origin)
             {
-                enemy.GetComponent<MeshRenderer>().material.color = Color.red;
-                rb.AddExplosionForce(power, player.transform.position, radius, 0);
+                enemies.Remove(enemies[i]);
+                i--;
             }
-                
         }
+        if(enemies.Count == 0)
+        {
+            return;
+        }
+        else
+        {
+            foreach(Collider enemy in enemies)
+            {
+                var rb = enemy.GetComponent<Rigidbody>();
+                var competitor = enemy.GetComponent<Competitor>();
+
+                enemy.GetComponent<MeshRenderer>().material.color = Color.red;
+                competitor.naveMeshOff = true;
+                competitor.BeenBlasted();
+                rb.AddExplosionForce(power, origin.position, radius, upwardForce);
+            }
+        }
+
+
+
+
+
+
+
+
+        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //foreach (var enemy in enemies)
+        //{
+        //    var rb = enemy.GetComponent<Rigidbody>();
+
+        //    if (radius >= Vector3.Distance(player.transform.position, enemy.transform.position))
+        //    {
+        //        enemy.GetComponent<MeshRenderer>().material.color = Color.red;
+        //        rb.AddExplosionForce(power, player.transform.position, radius, 0);
+        //    }
+                
+        //}
 
         Debug.Log("Blast Zone Power Up Used!");
         
     }
-
-   
 }

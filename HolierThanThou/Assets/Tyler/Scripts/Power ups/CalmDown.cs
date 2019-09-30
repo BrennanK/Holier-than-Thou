@@ -11,9 +11,9 @@ public class CalmDown : PowerUp
         speedMultiplier = _speedMultiplier;
     }
 
-    public override void ActivatePowerUp()
+    public override void ActivatePowerUp(string name, Transform origin)
     {
-        base.ActivatePowerUp();
+        base.ActivatePowerUp(name, origin);
         Debug.Log("Calm Down Power Up Used!");
 
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Chillout : PowerUp
 {
@@ -9,28 +10,37 @@ public class Chillout : PowerUp
 
     }
 
-    
 
-    public override void ActivatePowerUp()
+
+    public override void ActivatePowerUp(string name, Transform origin)
     {
-        base.ActivatePowerUp();
+        base.ActivatePowerUp(name, origin);
 
-        var player = GameObject.FindGameObjectWithTag("Player");
-
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (var enemy in enemies)
+        List<Collider> enemies = Physics.OverlapSphere(origin.position, radius).ToList();
+        for (int i = 0; i < enemies.Count; i++)
         {
-            var rb = enemy.GetComponent<Rigidbody>();
-
-            if (radius >= Vector3.Distance(player.transform.position, enemy.transform.position))
+            if (!enemies[i].GetComponent<Competitor>() || enemies[i].transform == origin)
             {
-                enemy.GetComponent<MeshRenderer>().material.color = Color.blue;                
+                enemies.Remove(enemies[i]);
+                i--;
             }
-
         }
-        Debug.Log("Chillout Power Up Used!");
-        
-    }
+        if (enemies.Count == 0)
+        {
+            return;
+        }
+        else
+        {
+            foreach (Collider enemy in enemies)
+            {
+                var rb = enemy.GetComponent<Rigidbody>();
+                var competitor = enemy.GetComponent<Competitor>();
 
-    
+                enemy.GetComponent<MeshRenderer>().material.color = Color.cyan;
+                competitor.naveMeshOff = true;
+                competitor.BeenChilled(duration);
+            }
+       }
+
+    }
 }
