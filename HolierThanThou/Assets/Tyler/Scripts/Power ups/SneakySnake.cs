@@ -12,6 +12,16 @@ public class SneakySnake : PowerUp
     public override void ActivatePowerUp(string name, Transform origin)
     {
         base.ActivatePowerUp(name, origin);
+        List<Competitor> players = new List<Competitor>();
+        foreach (Competitor player in GameObject.FindObjectsOfType<Competitor>())
+        {
+            players.Add(player);
+        }
+
+        var _competitior = players.Find(x => x.Name == name);
+
+        _competitior.GetComponent<Competitor>().CantFindMe(duration);
+
         Debug.Log("Sneaky Snake Power Up Used!");
 
     }

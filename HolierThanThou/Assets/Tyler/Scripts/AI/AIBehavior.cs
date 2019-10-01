@@ -140,6 +140,27 @@ public class AIBehavior : MonoBehaviour
 
     private EReturnStatus MoveToGoal()
     {
+        if (powerUpCloser || competitorCloser)
+        {
+            Debug.Log("Power up is closer");
+            return EReturnStatus.FAILURE;
+        }
+        else if (Vector3.Distance(transform.position, goalPos.position) <= 5f)
+        {
+            return EReturnStatus.SUCCESS;
+        }
+        else
+        {
+            navMeshAgent.SetDestination(goalPos.position);
+            return EReturnStatus.RUNNING;
+        }
+    }
+
+
+
+
+    /*private EReturnStatus MoveToGoal()
+    {
         
         if (competitorPos != null && (Vector3.Distance(transform.position, competitorPos.position) < Vector3.Distance(transform.position, goalPos.position)))
         {
@@ -162,7 +183,7 @@ public class AIBehavior : MonoBehaviour
             navMeshAgent.SetDestination(goalPos.position);
             return EReturnStatus.RUNNING;
         }
-    }
+    }*/
 
     private EReturnStatus ScoreGoal()
     {
@@ -552,9 +573,8 @@ public class AIBehavior : MonoBehaviour
 
     void CompareDistances()
     {
-        if(goalPos != null)
-        {
-            if (powerUpPos != null && competitor == null)
+        
+            if (powerUpPos != null || competitor == null)
             {
                 if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
                 {
@@ -567,9 +587,17 @@ public class AIBehavior : MonoBehaviour
                     goalCloser = false;
                     powerUpCloser = true;
                     competitorCloser = false;
+                    Debug.Log("Power up is closer compare distance");
                 }
-            }
-            else if(powerUpPos == null && competitorPos != null)
+            Debug.Log("Power up 1");
+
+        }
+            else if( powerUpPos == null && competitorPos == null)
+        {
+            Debug.Log("Power up 4");
+
+        }
+        else if(powerUpPos == null || competitorPos != null)
             {
                 if(Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position))
                 {
@@ -583,8 +611,10 @@ public class AIBehavior : MonoBehaviour
                     powerUpCloser = false;
                     competitorCloser = true;
                 }
-            }
-            else if(powerUpPos != null && competitorPos != null)
+            Debug.Log("Power up 2");
+
+        }
+        else if(powerUpPos != null || competitorPos != null)
             {
                 if(Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) && 
                     Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
@@ -599,6 +629,7 @@ public class AIBehavior : MonoBehaviour
                     goalCloser = false;
                     powerUpCloser = true;
                     competitorCloser = false;
+                    Debug.Log("Power up is closer compare distance");
                 }
                 else
                 {
@@ -606,7 +637,14 @@ public class AIBehavior : MonoBehaviour
                     powerUpCloser = false;
                     competitorCloser = true;
                 }
-            }
+            Debug.Log("Power up 3");
+
         }
+        else
+        {
+            Debug.Log("Power up 5");
+
+        }
+
     }
 }
