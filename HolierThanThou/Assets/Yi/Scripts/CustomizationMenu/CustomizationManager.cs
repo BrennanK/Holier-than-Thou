@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,13 @@ namespace FancyScrollView.CustomizationMenu
         void OnSelectionChanged(int index)
         {
             //selectedItemInfo.text = $"Selected item info: index {index}";
-            transform.GetComponentInParent<CustomizationController>().SwitchHatEntity(index);
+            transform.GetComponentInParent<CustomizationController>().SwitchCustomization(index);
         }
+
+		public int GetNeededCoins(int index)
+		{
+			return Convert.ToInt32(NeededCoinsList[index]);
+		}
+
     }
 }

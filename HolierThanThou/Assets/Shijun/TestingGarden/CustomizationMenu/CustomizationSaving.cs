@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CustomizationSaving : MonoBehaviour
 {
+	public int currency = 5001;
+
     struct HatEntity
     {
 
