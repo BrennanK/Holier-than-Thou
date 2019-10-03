@@ -47,7 +47,7 @@ public class BlastZone : PowerUp
                 if (!competitor.untouchable)
                 {
                     enemy.GetComponent<MeshRenderer>().material.color = Color.red;
-                    competitor.naveMeshOff = true;
+                    competitor.navMeshOff = true;
                     competitor.BeenBlasted();
                     rb.AddExplosionForce(power, origin.position, radius, upwardForce);
                 }

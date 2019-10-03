@@ -37,7 +37,7 @@ public class Chillout : PowerUp
                 var competitor = enemy.GetComponent<Competitor>();
 
                 enemy.GetComponent<MeshRenderer>().material.color = Color.cyan;
-                competitor.naveMeshOff = true;
+                competitor.navMeshOff = true;
                 competitor.BeenChilled(duration);
             }
        }

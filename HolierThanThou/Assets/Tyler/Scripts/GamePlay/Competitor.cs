@@ -11,7 +11,7 @@ public class Competitor : MonoBehaviour
 
     //Powerup constructor intakes
     public Transform origin;
-    public bool naveMeshOff;
+    public bool navMeshOff;
 
     //Variables for power up effects
     public Material startingMat;
@@ -22,7 +22,7 @@ public class Competitor : MonoBehaviour
     private void Awake()
     {
         origin = this.transform;
-        naveMeshOff = false;
+        navMeshOff = false;
         untouchable = false;
         inivisible = false;
     }
@@ -31,8 +31,8 @@ public class Competitor : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            naveMeshOff = !naveMeshOff;
-            Debug.Log(naveMeshOff);
+            navMeshOff = !navMeshOff;
+            Debug.Log(navMeshOff);
         }
     }
 
@@ -85,7 +85,7 @@ public class Competitor : MonoBehaviour
     private IEnumerator TurnNavMeshBackOn(float duration)
     {
         yield return new WaitForSeconds(duration);
-        naveMeshOff = false;
+        navMeshOff = false;
         GetComponent<MeshRenderer>().material = startingMat;
 
     }
