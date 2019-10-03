@@ -1,15 +1,20 @@
 fileFormatVersion: 2
-guid: f181d6f1619db1d4f8c052dd46e1b608
+guid: e90c370fcc5ef0d4aacc87e9721821c5
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert8
+    2100000: hat2
     2300000: //RootNode
     3300000: //RootNode
-    4300000: SM_Hat4
-  externalObjects: {}
+    4300000: Hat2
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hat2
+    second: {fileID: 2100000, guid: 61f83f1d3db2b8c438a3d37ec305d9db, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

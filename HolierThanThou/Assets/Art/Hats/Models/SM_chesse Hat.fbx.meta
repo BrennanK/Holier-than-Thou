@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9c2e41258bcb9004d9d8c01952e176d0
+guid: cf50e374ff6e5f84988338a50f17d09f
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,8 +8,13 @@ ModelImporter:
     2100000: lambert8
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube7
-  externalObjects: {}
+    4300000: pCube1
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert8
+    second: {fileID: 2100000, guid: 1013732458c510e44bb009ce6892f153, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
