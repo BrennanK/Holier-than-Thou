@@ -4,48 +4,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManager; 
+using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManager;
 
+//README Make sure that your customization slots are in the same order (first at top) as the customization panels in the array. 
 public class CustomizationController : MonoBehaviour
 {
-
-	public GameObject[] hatEntity;
-	public GameObject[] bodyEntity;
 	[SerializeField] private GameObject[] panels;
 	[SerializeField] private Transform currencyTextBox;
-
-	private List<int> intList = new List<int>();
 	//Prefab for Hat and Body
-	private GameObject hatSlot;
-	private GameObject bodySlot;
+	[SerializeField] private GameObject hatSlot;
+	[SerializeField] private GameObject bodySlot;
+	[SerializeField] private List<GameObject> slots;
+
+	private List<int>[] purchases;
 	private GameObject player;
 	//private int currentIndex;
 	private int panelIndex = 0;
-	private int[] panelIndices; //the currently selected indices of each panel. One panel might have the third option selected, anotehr the first, etc.
-	/*
-	 * panelIndices[panelIndex] is the currently selected panel's... currently selected option. 
-	*/
+	private int[] panelIndices; //the currently selected indices of each panel. 
+	private CustomizationSwitcher customSwitcher;
 
 	private void Start()
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
-		InitialObjectSlot();
-		UpdateCurrencyText();
 		panelIndices = new int[panels.Length];
+
+		InitializePurchaseList();
+		InitializeObjectSlot();
+		UpdateCurrencyText();
 	}
 
-	private void InitialObjectSlot()
+	private void InitializePurchaseList()
 	{
+		purchases = new List<int>[panels.Length];
+		for (int i = 0; i < purchases.Length; i++)
+		{
+			purchases[i] = new List<int>();
+		}
+		//TODO: Populate store purchases with prior purchases from Player Profile.
+	}
+
+	//README Make sure that your customization slots are in the same order (first at top) as the customization panels in the array. 
+	private void InitializeObjectSlot()
+	{
+		int i = 0;
+		slots = new List<GameObject>();
 		foreach (Transform child in player.transform)
 		{
-			if (child.name == "Hat")
+			if (child.GetComponent<CustomizationSwitcher>())
 			{
-				hatSlot = child.gameObject;
+				slots.Add(child.gameObject);
 			}
-			if (child.name == "Body")
-			{
-				bodySlot = child.gameObject;
-			}
+			i++;
 		}
 	}
 
@@ -62,16 +71,16 @@ public class CustomizationController : MonoBehaviour
 	// Snap the option menu, and switch the customized entity automatically.
 	public void SwitchCustomization(int index)
 	{
-		CustomizationSwitcher hatSwitcher = hatSlot.GetComponent<CustomizationSwitcher>();
-		hatSwitcher.SwitchHatEntity(index);
+		customSwitcher = hatSlot.GetComponent<CustomizationSwitcher>();
+		customSwitcher.SwitchCustomization(index);
 		panelIndices[panelIndex] = index;
 	}
 
 	private bool CheckInventory(int index)
 	{
-		foreach (int no in intList)
+		foreach (int itemNo in purchases[panelIndex])
 		{
-			if (no == index)
+			if (itemNo == index)
 			{
 				return false;
 			}
@@ -91,7 +100,7 @@ public class CustomizationController : MonoBehaviour
 		panels[panelIndex].SetActive(true);
 	}
 
-	public void Last()
+	public void Previous()
 	{
 		foreach (GameObject panel in panels)
 		{
@@ -106,7 +115,6 @@ public class CustomizationController : MonoBehaviour
 	{
 		if (CheckInventory(panelIndices[panelIndex])) //If it's not in the index, it returns true.
 		{
-			//TODO Keep tabs on your limit.
 			int p_currency = player.GetComponent<CustomizationSaving>().currency;
 			int price = GetPrice(panelIndices[panelIndex]);
 			if (p_currency - price < 0)
@@ -121,7 +129,7 @@ public class CustomizationController : MonoBehaviour
 				player.GetComponent<CustomizationSaving>().currency = p_currency;
 				UpdateCurrencyText();
 
-				intList.Add(panelIndices[panelIndex]);
+				purchases[panelIndex].Add(panelIndices[panelIndex]);
 				Debug.Log("You bought a NO." + panelIndices[panelIndex] + " Equipment");
 			}
 		}
@@ -133,9 +141,7 @@ public class CustomizationController : MonoBehaviour
 
 	private int GetPrice(int index)
 	{
-		int ret;
-		//TODO need to check if index is correct when switching between panels.
-		ret = panels[panelIndex].GetComponent<FancyCustomization>().GetNeededCoins(index);
+		int ret = panels[panelIndex].GetComponent<FancyCustomization>().GetNeededCoins(index);
 		return ret;
 	}
 
@@ -145,7 +151,7 @@ public class CustomizationController : MonoBehaviour
 	{
 		if (CheckInventory(panelIndices[panelIndex])) // if it is in the index, it returns true.
 		{
-			intList.Add(panelIndices[panelIndex]);
+			purchases[panelIndex].Add(panelIndices[panelIndex]);
 			Debug.Log("You Equip a NO." + panelIndices[panelIndex] + " Equipment");
 		}
 		else
