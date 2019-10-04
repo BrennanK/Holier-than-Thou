@@ -15,6 +15,7 @@ public class CustomizationController : MonoBehaviour
 	[SerializeField] private GameObject hatSlot;
 	[SerializeField] private GameObject bodySlot;
 	[SerializeField] private List<GameObject> slots;
+	[SerializeField] private GameObject confirmDialogue;
 
 	private List<int>[] purchases;
 	private GameObject player;
@@ -61,7 +62,7 @@ public class CustomizationController : MonoBehaviour
 	private void UpdateCurrencyText()
 	{
 		currencyTextBox.GetComponent<Text>().text =
-			player.GetComponent<CustomizationSaving>().currency.ToString();
+			player.GetComponent<PlayerCustomization>().currency.ToString();
 		// TODO Player Character needs to keep track of how much currency the player has, 
 		// CustomizationSaving should only occur when changes to the player's settings are made. 
 		//currencyText.text = player.GetComponent<PlayerCustomization>().currency.ToString();
@@ -76,16 +77,18 @@ public class CustomizationController : MonoBehaviour
 		panelIndices[panelIndex] = index;
 	}
 
-	private bool CheckInventory(int index)
+	//if item in inventory, returns true;
+	//TODO extrapolate this to the player class.
+	private bool CheckPlayerInventory(int index)
 	{
 		foreach (int itemNo in purchases[panelIndex])
 		{
 			if (itemNo == index)
 			{
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	public void Next()
@@ -111,32 +114,46 @@ public class CustomizationController : MonoBehaviour
 		panels[panelIndex].SetActive(true);
 	}
 
-	public void Buy()
+	public void InitializePurchase()
 	{
-		if (CheckInventory(panelIndices[panelIndex])) //If it's not in the index, it returns true.
+		if (!CheckPlayerInventory(panelIndices[panelIndex])) //If it's not in the player inventory, continue purchasing.
 		{
-			int p_currency = player.GetComponent<CustomizationSaving>().currency;
+			int playerMoney = player.GetComponent<PlayerCustomization>().currency; //TODO replace with player profile's currency. 
 			int price = GetPrice(panelIndices[panelIndex]);
-			if (p_currency - price < 0)
+
+			if (playerMoney - price < 0)
 			{
-				Debug.Log("You need " + (price - p_currency) + " more coins to purchase.");
+				Debug.Log("You need " + (price - playerMoney) + " more coins to purchase.");
 			}
-			//If player has enough money, they can buy. 
 			else
 			{
-				//Update the currency.
-				p_currency -= price;
-				player.GetComponent<CustomizationSaving>().currency = p_currency;
-				UpdateCurrencyText();
-
-				purchases[panelIndex].Add(panelIndices[panelIndex]);
-				Debug.Log("You bought a NO." + panelIndices[panelIndex] + " Equipment");
+				confirmDialogue.SetActive(true);
 			}
 		}
 		else
 		{
-			Debug.Log("You have already bought the NO." + panelIndices[panelIndex] + " Equipment");
+			Debug.Log("You have already bought the NO." + panelIndices[panelIndex] + " equipment");
 		}
+	}
+	public void TurnOffDialogue()
+	{
+		confirmDialogue.SetActive(false);
+	}
+
+	public void FinalizePurchase()
+	{
+		TurnOffDialogue();
+		int playerMoney = player.GetComponent<PlayerCustomization>().currency; //TODO replace with player profile's currency. 
+		int price = GetPrice(panelIndices[panelIndex]);
+
+		//Update the currency.
+		playerMoney -= price;
+		player.GetComponent<PlayerCustomization>().currency = playerMoney;
+		UpdateCurrencyText();
+
+		purchases[panelIndex].Add(panelIndices[panelIndex]);
+		Debug.Log("You bought a NO." + panelIndices[panelIndex] + " equipment");
+
 	}
 
 	private int GetPrice(int index)
@@ -145,18 +162,29 @@ public class CustomizationController : MonoBehaviour
 		return ret;
 	}
 
-	// Not same
-	// need to change
+	// TODO Player inventory needs to be in the Player class. 
 	public void Equip()
 	{
-		if (CheckInventory(panelIndices[panelIndex])) // if it is in the index, it returns true.
+		// if it not purchased, tell player how much it is to purchase.
+		if (!CheckPlayerInventory(panelIndices[panelIndex])) // if it has been purchased, it returns true.
 		{
-			purchases[panelIndex].Add(panelIndices[panelIndex]);
-			Debug.Log("You Equip a NO." + panelIndices[panelIndex] + " Equipment");
+			int playerMoney = player.GetComponent<PlayerCustomization>().currency; //TODO replace with player profile's currency. 
+			int price = GetPrice(panelIndices[panelIndex]);
+			if (playerMoney - price < 0)
+			{
+				Debug.Log("You need " + (price - playerMoney) + " more coins to purchase.");
+			}
+			else
+			{
+				Debug.Log("This item is worth " + price + " coins.");
+			}
 		}
-		else
+		else //if it is purchased, the player can equip it.
 		{
-			Debug.Log("You have Equiped the NO." + panelIndices[panelIndex] + " Equipment");
+			// if it is currently equipped, do not equip it. 
+			Debug.Log("You equip a NO." + panelIndices[panelIndex] + " equipment");
+			// if it is not currently equipped, equip it. 
+			Debug.Log("You have already equipped the NO." + panelIndices[panelIndex] + " equipment");
 		}
 	}
 }

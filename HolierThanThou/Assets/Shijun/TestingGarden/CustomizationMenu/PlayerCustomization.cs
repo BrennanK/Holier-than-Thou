@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomizationSaving : MonoBehaviour
+public class PlayerCustomization : MonoBehaviour
 {
 	public int currency = 900;
 
