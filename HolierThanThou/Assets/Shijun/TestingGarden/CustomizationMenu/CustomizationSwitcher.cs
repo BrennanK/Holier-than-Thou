@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class CustomizationSwitcher : MonoBehaviour
 {
-    private GameObject[] Customization;
+    private GameObject[] customizations;
 
     // Start is called before the first frame update
     void Start()
     {
-        Transform customizations = GetComponent<Transform>();
-        Customization = new GameObject[customizations.childCount];
-        int counter = 0;
-        foreach (Transform customization in customizations)
-        {
-            Customization[counter] = customization.gameObject;
-            counter++;
-        }
+		InitializeCustomizations();
     }
 
-    public void SwitchHatEntity(int index)
-    {
-        foreach(GameObject hat in Customization)
+	private void InitializeCustomizations()
+	{
+		Transform children = GetComponent<Transform>();
+        customizations = new GameObject[children.childCount];
+        int counter = 0;
+        foreach (Transform child in children)
         {
-            hat.SetActive(false);
+            customizations[counter] = child.gameObject;
+            counter++;
         }
-        Customization[index].SetActive(true);
+	}
+
+    public void SwitchCustomization(int index)
+    {
+        foreach(GameObject option in customizations)
+        {
+            option.SetActive(false);
+        }
+        customizations[index].SetActive(true);
     }
 }
