@@ -24,7 +24,7 @@ public class GottaGoFast : PowerUp
 
         //Debug.Log("Gotta go fast! Power Up Used!");
 
-        
+
 
     }
 
