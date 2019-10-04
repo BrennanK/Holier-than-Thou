@@ -18,8 +18,8 @@ public class JumpButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         // pressed = true;
-        Debug.Log($"On Pointer Click");
         PressButton();
+        Debug.Log($"On Pointer Click");
     }
 
     public void OnPointerUp(PointerEventData eventData)
