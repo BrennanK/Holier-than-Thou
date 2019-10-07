@@ -8,6 +8,7 @@ public class RigidBodyControl : MonoBehaviour
     public float speed;
     public float jumpForce;
     public float downAccel;
+    public float airFriction;
     public float disToGround;
     public float inputDelay;
     public LayerMask ground;
@@ -51,11 +52,14 @@ public class RigidBodyControl : MonoBehaviour
 
     void Run()
     {
-        if (Mathf.Abs(direction.magnitude) > inputDelay)
+        if (Mathf.Abs(direction.magnitude) > inputDelay && Grounded())
         { 
             rBody.AddForce(direction, ForceMode.Acceleration);
+        } 
+        else if ((Mathf.Abs(direction.magnitude) > inputDelay && !Grounded()))
+        {
+            rBody.AddForce(direction / airFriction, ForceMode.Acceleration);
         }
-        
     }
 
     void Jump()
@@ -63,6 +67,8 @@ public class RigidBodyControl : MonoBehaviour
         if (m_joyButtonReference.pressed && Grounded()) 
         {
             rBody.AddForce(jumpDirection * jumpForce, ForceMode.Impulse);
+            Debug.Log("Y velocity While Jump: " + rBody.velocity.y);
+
         }
         else {
             rBody.AddForce(Physics.gravity * downAccel, ForceMode.Force);

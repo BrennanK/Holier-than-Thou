@@ -5,7 +5,7 @@ using UnityEngine;
 public class Thiccness : PowerUp
 {
 
-    public Thiccness(bool _hasDuration, float _duration, float _radius) : base(_hasDuration, _duration, _radius)
+    public Thiccness(bool _isEnhancement, bool _hasDuration, float _duration, float _radius) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
 
     }
@@ -23,7 +23,7 @@ public class Thiccness : PowerUp
             enemy.transform.localScale = new Vector3(2, 2, 2);
         }
 
-        Debug.Log("Thiccness Power Up Used!");
+        Debug.Log("Thiccness Power Up Used by " + name);
 
     }
 

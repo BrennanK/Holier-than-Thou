@@ -12,7 +12,7 @@ public class BlastZone : PowerUp
 
 
 
-    public BlastZone(bool _hasDuration, float _duration, float _radius, float _power, float _upwardForce) : base(_hasDuration, _duration, _radius)
+    public BlastZone(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, float _power, float _upwardForce) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
         power = _power;
         upwardForce = _upwardForce;
@@ -46,7 +46,6 @@ public class BlastZone : PowerUp
 
                 if (!competitor.untouchable)
                 {
-                    enemy.GetComponent<MeshRenderer>().material.color = Color.red;
                     competitor.navMeshOff = true;
                     competitor.BeenBlasted();
                     rb.AddExplosionForce(power, origin.position, radius, upwardForce);
@@ -54,27 +53,7 @@ public class BlastZone : PowerUp
             }
         }
 
-
-
-
-
-
-
-
-        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        //foreach (var enemy in enemies)
-        //{
-        //    var rb = enemy.GetComponent<Rigidbody>();
-
-        //    if (radius >= Vector3.Distance(player.transform.position, enemy.transform.position))
-        //    {
-        //        enemy.GetComponent<MeshRenderer>().material.color = Color.red;
-        //        rb.AddExplosionForce(power, player.transform.position, radius, 0);
-        //    }
-                
-        //}
-
-        Debug.Log("Blast Zone Power Up Used!");
+        Debug.Log("Blast Zone Power Up Used by " + name);
         
     }
 }

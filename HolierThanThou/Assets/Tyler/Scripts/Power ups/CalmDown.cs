@@ -6,7 +6,7 @@ public class CalmDown : PowerUp
 {
     float speedMultiplier;
 
-    public CalmDown(bool _hasDuration, float _duration, float _radius, float _speedMultiplier) : base(_hasDuration, _duration, _radius)
+    public CalmDown(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, float _speedMultiplier) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
         speedMultiplier = _speedMultiplier;
     }
@@ -14,7 +14,7 @@ public class CalmDown : PowerUp
     public override void ActivatePowerUp(string name, Transform origin)
     {
         base.ActivatePowerUp(name, origin);
-        Debug.Log("Calm Down Power Up Used!");
+        Debug.Log("Calm Down Power Up Used by " + name);
 
     }
 

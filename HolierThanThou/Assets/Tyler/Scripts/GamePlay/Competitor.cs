@@ -29,11 +29,7 @@ public class Competitor : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            navMeshOff = !navMeshOff;
-            Debug.Log(navMeshOff);
-        }
+       
     }
 
     public bool ScoredGoal
@@ -66,19 +62,17 @@ public class Competitor : MonoBehaviour
     IEnumerator Invis(float duration)
     {
         inivisible = true;
-        GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(duration);
         inivisible = false;
-        GetComponent<MeshRenderer>().enabled = true;
+        //GetComponent<MeshRenderer>().enabled = true;
     }
 
     private IEnumerator Untouchable(float duration)
     {
         untouchable = true;
-        GetComponent<MeshRenderer>().material.color = Color.black;
         yield return new WaitForSeconds(duration);
         untouchable = false;
-        GetComponent<MeshRenderer>().material = startingMat;
 
     }
 
@@ -86,7 +80,6 @@ public class Competitor : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         navMeshOff = false;
-        GetComponent<MeshRenderer>().material = startingMat;
 
     }
 

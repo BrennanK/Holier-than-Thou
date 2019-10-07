@@ -5,7 +5,7 @@ using System.Linq;
 
 public class Chillout : PowerUp
 {
-    public Chillout(bool _hasDuration, float _duration, float _radius) : base(_hasDuration, _duration, _radius)
+    public Chillout(bool _isEnhancement, bool _hasDuration, float _duration, float _radius) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
 
     }
@@ -36,11 +36,13 @@ public class Chillout : PowerUp
                 var rb = enemy.GetComponent<Rigidbody>();
                 var competitor = enemy.GetComponent<Competitor>();
 
-                enemy.GetComponent<MeshRenderer>().material.color = Color.cyan;
+
                 competitor.navMeshOff = true;
                 competitor.BeenChilled(duration);
             }
-       }
+        }
+
+        Debug.Log("Chillout power up used by " + name);
 
     }
 }

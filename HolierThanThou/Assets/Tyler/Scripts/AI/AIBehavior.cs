@@ -25,6 +25,11 @@ public class AIBehavior : MonoBehaviour
     public PowerUp slot1;
     [SerializeField]
     public PowerUp slot2;
+    private float UsePowerUpStart = 10f;
+    private float UsePoweruUp1;
+    private float UsePowerUp2;
+    private bool canActivate1;
+    private bool canActivate2;
     private bool ableToGrab;
     private float powerUpCooldown;
     private bool canAttack;
@@ -51,6 +56,8 @@ public class AIBehavior : MonoBehaviour
         goalPos = GameObject.FindGameObjectWithTag("Goal").transform;
         canAttack = true;
         ableToGrab = true;
+        canActivate1 = true;
+        canActivate2 = true;
         //This is an Example of how to build the tree
         //_behaviorTree = new BehaviorTree.BehaviorTree(new BehaviorTreeBuilder().Selector("Test Selector").Action("Test Action", TestFunction)
         //    .End()
@@ -64,6 +71,10 @@ public class AIBehavior : MonoBehaviour
                 .Sequence("Find objectives")                   
                     .Action("Do I have a Goal", FindTheGoal)                  
                     .Selector("Prioritize Objectives")
+                        .Sequence("Enhancement Powerups")
+                            .Condition("Do I have an enhancement power up", CheckForEnhancement)
+                            .Action("Use the power up", UseEnhancement)
+                            .End()
                         .Sequence("Goal Prioritization")
                             .Condition("Can I score", CheckIfScoredGoal)
                             .Condition("Check distance to Goal", CompareDistanceGoal)
@@ -71,7 +82,7 @@ public class AIBehavior : MonoBehaviour
                             .Action("Score Goal", ScoreGoal)
                         .End()
                         .Sequence("Power Up Prioritization")
-                            .Condition("Can I Grab a Power Up", CheckAbleToGrabPowerUp)
+                            .Condition("Can I Grab a power up", CheckAbleToGrabPowerUp)
                             //.Condition("Is the Power up active?", CheckforPowerupActive)
                             .Condition("Check distantce to power ups", CompareDistancePowerUp)
                             .Action("Move to Powerup", GoForPowerUp)
@@ -96,6 +107,7 @@ public class AIBehavior : MonoBehaviour
         CheckForCompetitors();
         CheckForPowerUps();
         CompareDistances();
+        PowerUpCountdown();
 
         if (competitor.navMeshOff)
         {
@@ -104,7 +116,22 @@ public class AIBehavior : MonoBehaviour
         else
             navMeshAgent.updatePosition = true;
 
-        body.transform.Rotate(Vector3.forward, 90 * Time.deltaTime * navMeshAgent.speed);
+        if (navMeshAgent.velocity != Vector3.zero)
+        {
+            body.transform.Rotate(Vector3.right, 90 * Time.deltaTime * navMeshAgent.speed);
+        }
+
+        if(UsePoweruUp1 <= 0)
+        {
+            slot1.ActivatePowerUp(competitor.Name, competitor.origin);
+            slot1 = null;
+        }
+        
+        if(UsePowerUp2 <= 0)
+        {
+            slot2.ActivatePowerUp(competitor.Name, competitor.origin);
+            slot2 = null;
+        }
     }
 
 
@@ -152,6 +179,107 @@ public class AIBehavior : MonoBehaviour
         }
     }
 
+    private EReturnStatus CheckForEnhancement()
+    {
+        if (slot1 != null && slot2 != null)
+        {
+            if (slot1.isEnhancement || slot2.isEnhancement)
+            {
+                return EReturnStatus.SUCCESS;
+            }
+            else
+                return EReturnStatus.FAILURE;
+        }
+        else if (slot1 != null && slot2 == null)
+        {
+            if (slot1.isEnhancement)
+            {
+                return EReturnStatus.SUCCESS;
+            }
+            else
+                return EReturnStatus.FAILURE;
+        }
+        else if (slot1 == null && slot2 != null)
+        {
+            if (slot2.isEnhancement)
+            {
+                return EReturnStatus.SUCCESS;
+            }
+            else
+                return EReturnStatus.FAILURE;
+        }
+        else
+            return EReturnStatus.FAILURE;
+    }
+
+    private EReturnStatus UseEnhancement()
+    {
+        if (slot1 != null && slot2 != null)
+        {
+            if (slot1.isEnhancement && slot2.isEnhancement)
+            {
+                if (canActivate1 && canActivate2)
+                {
+                    StartCoroutine(Enhancement(true));
+                    StartCoroutine(Enhancement(false));
+                    return EReturnStatus.SUCCESS;
+                }
+                else if (canActivate1 && !canActivate2)
+                {
+                    StartCoroutine(Enhancement(true));
+                    return EReturnStatus.SUCCESS;
+                }
+                else if (!canActivate1 && canActivate2)
+                {
+                    StartCoroutine(Enhancement(false));
+                    return EReturnStatus.SUCCESS;
+                }
+                else return EReturnStatus.FAILURE;
+
+            }
+            else if (slot1.isEnhancement && !slot2.isEnhancement)
+            {
+                if (canActivate1)
+                {
+                    StartCoroutine(Enhancement(true));
+                    return EReturnStatus.SUCCESS;
+                }
+                else return EReturnStatus.FAILURE;
+            }
+            else if (!slot1.isEnhancement && slot2.isEnhancement)
+            {
+                if (canActivate2)
+                {
+                    StartCoroutine(Enhancement(false));
+                    return EReturnStatus.SUCCESS;
+                }
+                else return EReturnStatus.FAILURE;
+            }
+            else
+                return EReturnStatus.FAILURE;
+        }
+        else if (slot1 != null && slot2 == null)
+        {
+            if (canActivate1)
+            {
+                StartCoroutine(Enhancement(true));
+                return EReturnStatus.SUCCESS;
+            }
+            else return EReturnStatus.FAILURE;
+        }
+        else if (slot1 == null && slot2 != null)
+        {
+            if (canActivate2)
+            {
+                StartCoroutine(Enhancement(false));
+                return EReturnStatus.SUCCESS;
+            }
+            else return EReturnStatus.FAILURE;
+        }
+        else
+            return EReturnStatus.FAILURE;
+    }
+
     private EReturnStatus MoveToGoal()
     {
 
@@ -179,35 +307,6 @@ public class AIBehavior : MonoBehaviour
        
     }
 
-
-
-
-    /*private EReturnStatus MoveToGoal()
-    {
-        
-        if (competitorPos != null && (Vector3.Distance(transform.position, competitorPos.position) < Vector3.Distance(transform.position, goalPos.position)))
-        {
-            Debug.Log("other competitor is closer");
-            return EReturnStatus.FAILURE;
-        }
-        else if (powerUpPos != null && Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, goalPos.position))
-        {
-            Debug.Log("Power Up is closer");
-            return EReturnStatus.FAILURE;
-        }
-        else if (Vector3.Distance(transform.position, goalPos.position) <= 5f)
-        {
-            Debug.Log("CLoser to the goal");
-            return EReturnStatus.SUCCESS;
-        }
-        else
-        {
-            Debug.Log("running for goal");
-            navMeshAgent.SetDestination(goalPos.position);
-            return EReturnStatus.RUNNING;
-        }
-    }*/
-
     private EReturnStatus ScoreGoal()
     {
         if (transform.position == goalPos.position)
@@ -223,95 +322,7 @@ public class AIBehavior : MonoBehaviour
         }
     }
     
-   /*private EReturnStatus LocatePowerUp()
-    {
-        if(slot1 != null && slot2 != null)
-            {
-            return EReturnStatus.FAILURE;
-            }
-        if (powerUpPos == null)
-        {
-            List<Collider> hitColliders = Physics.OverlapSphere(transform.position, 25f).ToList();
-            for (int i = 0; i < hitColliders.Count; i++)
-            {
-                if (hitColliders[i].tag != "ItemBox")
-                {
-                    hitColliders.Remove(hitColliders[i]);
-                    i--;
-                }
-            }
-
-            if (hitColliders.Count == 0)
-            {
-                return EReturnStatus.SUCCESS;
-            }
-            else
-            {
-
-
-                powerUpPos = hitColliders[0].transform;
-
-                foreach (Collider _collider in hitColliders)
-                {
-                    if (Vector3.Distance(transform.position, powerUpPos.position) > Vector3.Distance(transform.position, _collider.transform.position))
-                    {
-                        powerUpPos = _collider.transform;
-                    }
-                }
-                return EReturnStatus.SUCCESS;
-            }
-        }
-        else
-        {
-            return EReturnStatus.SUCCESS;
-        }
-               
-    }*/
-    
-    /*private EReturnStatus LocateCompetitors()
-    {
-        if (competitorPos == null)
-        {
-            List<Collider> hitCompetitors = Physics.OverlapSphere(transform.position, 5f).ToList();
-            for (int i = 0; i < hitCompetitors.Count; i++)
-            {
-               
-                if (!hitCompetitors[i].GetComponent<Competitor>() || hitCompetitors[i].transform == this.transform)
-                {
-                    hitCompetitors.Remove(hitCompetitors[i]);
-                    i--;
-                }
-            }
-
-            if (hitCompetitors.Count == 0)
-            {
-                navMeshAgent.SetDestination(goalPos.position);
-                return EReturnStatus.SUCCESS;
-            }
-            else
-            {
-
-                competitorPos = hitCompetitors[0].transform;
-
-                foreach (Collider competitor in hitCompetitors)
-                {
-                    if (competitor.transform == this.transform) continue;
-
-                    if (Vector3.Distance(transform.position, competitorPos.position) > Vector3.Distance(transform.position, competitor.transform.position))
-                    {
-                        competitorPos = competitor.transform;
-                    }
-                }
-
-                return EReturnStatus.SUCCESS;
-            }
-        }
-        else
-        {
-            return EReturnStatus.SUCCESS;
-        }
-    }*/
-
+   
     private EReturnStatus CompareDistanceGoal()
     {
         if(competitorPos == null && powerUpPos == null)
@@ -537,6 +548,28 @@ public class AIBehavior : MonoBehaviour
         canAttack = true;
     }
 
+    IEnumerator Enhancement(bool slot1PU)
+    {
+        if(slot1PU)
+        {
+            canActivate1 = false;
+            slot1.ActivatePowerUp(competitor.Name, competitor.origin);
+            yield return new WaitForSeconds(slot1.duration);
+            slot1.ResetEffects(competitor.Name);
+            slot1 = null;
+            canActivate1 = true;
+        }
+        else
+        {
+            canActivate2 = false;
+            slot2.ActivatePowerUp(competitor.Name, competitor.origin);
+            yield return new WaitForSeconds(slot2.duration);
+            slot2.ResetEffects(competitor.Name);
+            slot2 = null;
+            canActivate2 = true;
+        }
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.GetComponent<Competitor>())
@@ -717,72 +750,63 @@ public class AIBehavior : MonoBehaviour
             Debug.Log(competitor.Name + " This shit don't work!!!");
 
 
+    }
 
-        
-        /*if (powerUpPos != null && competitor == null)
+    private void PowerUpCountdown()
+    {
+        if (slot1 == null && slot2 == null)
         {
-            if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+            UsePoweruUp1 = UsePowerUpStart;
+            UsePowerUp2 = UsePowerUpStart;
+        }
+        else if (slot1 != null && slot2 == null)
+        {
+            if (!slot1.isEnhancement)
             {
-                goalCloser = true;
-                powerUpCloser = false;
-                competitorCloser = false;
+                UsePoweruUp1 -= Time.deltaTime;
+                UsePowerUp2 = UsePowerUpStart;
             }
             else
             {
-                goalCloser = false;
-                powerUpCloser = true;
-                competitorCloser = false;
+                UsePoweruUp1 = UsePowerUpStart;
+                UsePowerUp2 = UsePowerUpStart;
             }
         }
-        else if( powerUpPos == null && competitorPos == null)
+        else if (slot1 == null && slot2 != null)
         {
-            goalCloser = true;
-            powerUpCloser = false;
-            competitorCloser = false;
-        }
-        else if(powerUpPos == null && competitorPos != null)
-        {
-            if(Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position))
+            if(!slot2.isEnhancement)
             {
-                goalCloser = true;
-                powerUpCloser = false;
-                competitorCloser = false;
+                UsePowerUp2 -= Time.deltaTime;
+                UsePoweruUp1 = UsePowerUpStart;
             }
             else
             {
-                goalCloser = false;
-                powerUpCloser = false;
-                competitorCloser = true;
+                UsePoweruUp1 = UsePowerUpStart;
+                UsePowerUp2 = UsePowerUpStart;
             }
         }
-        else if(powerUpPos != null && competitorPos != null)
+        else if(slot1 != null && slot2 != null)
         {
-            if(Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) && 
-                Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+            if (slot1.isEnhancement && !slot2.isEnhancement)
             {
-                goalCloser = true;
-                powerUpCloser = false;
-                competitorCloser = false;
+                UsePoweruUp1 = UsePowerUpStart;
+                UsePowerUp2 -= Time.deltaTime;
             }
-            else if(Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, goalPos.position) && 
-                Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, competitorPos.position))
+            else if (!slot1.isEnhancement && slot2.isEnhancement)
             {
-                goalCloser = false;
-                powerUpCloser = true;
-                competitorCloser = false;
+                UsePoweruUp1 -= Time.deltaTime;
+                UsePowerUp2 = UsePowerUpStart;
+            }
+            else if(!slot1.isEnhancement && !slot2.isEnhancement)
+            {
+                UsePoweruUp1 -= Time.deltaTime;
+                UsePowerUp2 -= Time.deltaTime;
             }
             else
             {
-                goalCloser = false;
-                powerUpCloser = false;
-                competitorCloser = true;
+                UsePoweruUp1 = UsePowerUpStart;
+                UsePowerUp2 = UsePowerUpStart;
             }
         }
-        else if (competitorPos == null)
-        {
-            Debug.Log(competitor.Name + " this shit dont work" + " Goal Pos: " + goalPos + " Competitor Pos: " + competitorPos + " Power up Pos: " + powerUpPos);
-
-        }*/
-
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CantTouchThis : PowerUp
 {
-    public CantTouchThis(bool _hasDuration, float _duration, float _radius) : base(_hasDuration, _duration, _radius)
+    public CantTouchThis(bool _isEnhancement, bool _hasDuration, float _duration, float _radius) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
 
     }
@@ -24,7 +24,7 @@ public class CantTouchThis : PowerUp
 
 
 
-        Debug.Log("Can't Touch This! Power Up Used!");
+        Debug.Log("Can't Touch This! Power Up Used by " + name);
 
     }
 
