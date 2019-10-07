@@ -4,17 +4,33 @@ using UnityEngine;
 
 public class PlayerCustomization : MonoBehaviour
 {
-	public int currency = 900;
+	public int currency { get; private set; } = 900;
 
-    struct HatEntity
-    {
+	[SerializeField] private int max_currency = 9999;
+	private List<GameObject>[] unlockedItems;
 
-    };
+	
 
-    struct BodyEntity
-    {
+	public bool addCurrency(int coins)
+	{
+		if (currency + coins < max_currency)
+		{
+			currency += coins;
+			return true;
+		}
+		currency = max_currency;
+		return false;
+	}
 
-    };
+	public bool subtractCurrency(int coins)
+	{
+		if (currency - coins >= 0)
+		{
+			currency -= coins;
+			return true;
+		}
+		return false;
+	}
 
 
 }
