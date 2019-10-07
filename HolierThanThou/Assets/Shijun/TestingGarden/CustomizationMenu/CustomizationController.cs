@@ -49,7 +49,6 @@ public class CustomizationController : MonoBehaviour
 	//README Make sure that your customization slots are in the same order (first at top) as the customization panels in the array. 
 	private void InitializeObjectSlot()
 	{
-		int i = 0;
 		slots = new List<GameObject>();
 		foreach (Transform child in player.transform)
 		{
@@ -57,7 +56,6 @@ public class CustomizationController : MonoBehaviour
 			{
 				slots.Add(child.gameObject);
 			}
-			i++;
 		}
 	}
 
@@ -65,16 +63,13 @@ public class CustomizationController : MonoBehaviour
 	{
 		currencyTextBox.GetComponent<Text>().text =
 			player.GetComponent<PlayerCustomization>().currency.ToString();
-		// TODO Player Character needs to keep track of how much currency the player has, 
-		// CustomizationSaving should only occur when changes to the player's settings are made. 
-		//currencyText.text = player.GetComponent<PlayerCustomization>().currency.ToString();
 	}
 
 	// TODO Refactor this so it doesn't just apply to Hats.
 	// Snap the option menu, and switch the customized entity automatically.
 	public void SwitchCustomization(int index)
 	{
-		customSwitcher = hatSlot.GetComponent<CustomizationSwitcher>();
+		customSwitcher = slots[panelIndex].GetComponent<CustomizationSwitcher>();
 		customSwitcher.SwitchCustomization(index);
 		panelIndices[panelIndex] = index;
 	}
