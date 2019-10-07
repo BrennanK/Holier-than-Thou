@@ -10,11 +10,13 @@ using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManage
 public class CustomizationController : MonoBehaviour
 {
 	[SerializeField] private GameObject[] panels;
+	[SerializeField] private Texture[] categories;
 	[SerializeField] private Transform currencyTextBox;
 	//Prefab for Hat and Body
 	[SerializeField] private GameObject hatSlot;
 	[SerializeField] private GameObject bodySlot;
 	[SerializeField] private List<GameObject> slots;
+	[SerializeField] private GameObject CategoriesIcon;
 	[SerializeField] private GameObject confirmDialogue;
 
 	private List<int>[] purchases;
@@ -101,6 +103,7 @@ public class CustomizationController : MonoBehaviour
 		panelIndex++;
 		panelIndex %= panels.Length; //Don't go over the maximum.
 		panels[panelIndex].SetActive(true);
+		ChangePanel();
 	}
 
 	public void Previous()
@@ -111,7 +114,16 @@ public class CustomizationController : MonoBehaviour
 		}
 		panelIndex--;
 		if (panelIndex < 0) panelIndex = panels.Length - 1; //Don't go under the minimum.
+		ChangePanel();
+	}
+
+	public void ChangePanel()
+	{
 		panels[panelIndex].SetActive(true);
+		if (CategoriesIcon.GetComponent<RawImage>())
+		{
+			CategoriesIcon.GetComponent<RawImage>().texture = categories[panelIndex];
+		}
 	}
 
 	public void InitializePurchase()
@@ -156,8 +168,7 @@ public class CustomizationController : MonoBehaviour
 
 	private int GetPrice(int index)
 	{
-		int ret = panels[panelIndex].GetComponent<FancyCustomization>().GetNeededCoins(index);
-		return ret;
+		return panels[panelIndex].GetComponent<FancyCustomization>().GetNeededCoins(index);
 	}
 
 	// TODO Player inventory needs to be in the Player class. 
