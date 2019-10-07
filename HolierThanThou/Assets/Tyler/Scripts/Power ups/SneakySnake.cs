@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SneakySnake : PowerUp
 {
-    public SneakySnake(bool _hasDuration, float _duration, float _radius) : base(_hasDuration, _duration, _radius)
+    public SneakySnake(bool _isEnhancement, bool _hasDuration, float _duration, float _radius) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
 
     }
@@ -22,7 +22,7 @@ public class SneakySnake : PowerUp
 
         _competitior.GetComponent<Competitor>().CantFindMe(duration);
 
-        Debug.Log("Sneaky Snake Power Up Used!");
+        Debug.Log("Sneaky Snake Power Up Used by " + name);
 
     }
 

@@ -9,7 +9,7 @@ public class GottaGoFast : PowerUp
 
     
 
-    public GottaGoFast(bool _hasDuration, float _duration, float _radius, float _speedMultiplier) : base(_hasDuration, _duration, _radius)
+    public GottaGoFast(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, float _speedMultiplier) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
         speedMultiplier = _speedMultiplier;
     }
@@ -22,7 +22,7 @@ public class GottaGoFast : PowerUp
         //var player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickPlayerExample>();
         //player.speed = player.speed + (player.speed * speedMultiplier);
 
-        //Debug.Log("Gotta go fast! Power Up Used!");
+        Debug.Log("Gotta go fast! Power Up Used by " + name);
 
 
 
@@ -33,8 +33,8 @@ public class GottaGoFast : PowerUp
     {
         base.ResetEffects(name);
 
-        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickPlayerExample>();
-        player.speed = playerStartSpeed;
+        //var player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickPlayerExample>();
+        //player.speed = playerStartSpeed;
     }
 
 }
