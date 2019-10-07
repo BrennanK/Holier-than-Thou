@@ -21,7 +21,9 @@ public class AIBehavior : MonoBehaviour
     private Transform goalPos;
     private Transform powerUpPos;
     private Transform competitorPos;
+    [SerializeField]
     public PowerUp slot1;
+    [SerializeField]
     public PowerUp slot2;
     private bool ableToGrab;
     private float powerUpCooldown;
@@ -31,6 +33,7 @@ public class AIBehavior : MonoBehaviour
     private bool goalCloser;
     private bool powerUpCloser;
     private bool competitorCloser;
+    private bool attackSuccess;
 
 
     private void OnDrawGizmos()
@@ -411,14 +414,18 @@ public class AIBehavior : MonoBehaviour
 
     private EReturnStatus AttackCompetitor()
     {
-        if(transform.position == competitorPos.position)
+        if(attackSuccess)
         {
+            competitorPos = null;
+            navMeshAgent.ResetPath();
+            navMeshAgent.SetDestination(goalPos.position);
+            Debug.Log("hit somebody");
             return EReturnStatus.SUCCESS;
         }
         else
         {
             navMeshAgent.SetDestination(competitorPos.position);
-            return EReturnStatus.RUNNING;
+            return EReturnStatus.FAILURE;
         }
     }
     
@@ -449,27 +456,22 @@ public class AIBehavior : MonoBehaviour
 
     private EReturnStatus GrabPowerUp()
     {
-        if(transform.position == powerUpPos.position)
+        if(transform.position.x == powerUpPos.position.x && transform.position.z == powerUpPos.position.z)
         {
             powerUpPos = null;
-            StartCoroutine(PUCooldown());
             navMeshAgent.ResetPath();
             navMeshAgent.SetDestination(goalPos.position);
+            StartCoroutine(PUCooldown());
+            Debug.Log("Grabbed the power up");
             return EReturnStatus.SUCCESS;
         }
         else
         {
             navMeshAgent.SetDestination(powerUpPos.position);
-            return EReturnStatus.RUNNING;
+            return EReturnStatus.FAILURE;
         }
     }
 
-    IEnumerator PUCooldown()
-    {
-        ableToGrab = false;
-        yield return new WaitForSeconds(5f);
-        ableToGrab = true;
-    }
 
     private EReturnStatus CheckAbleToGrabPowerUp()
     {
@@ -502,8 +504,16 @@ public class AIBehavior : MonoBehaviour
 
     //}
 
+    IEnumerator PUCooldown()
+    {
+        ableToGrab = false;
+        yield return new WaitForSeconds(5f);
+        ableToGrab = true;
+    }
+
     IEnumerator Knockback(GameObject enemy)
     {
+        attackSuccess = true;
         isBeingKnockedback = true;
         if(navMeshAgent.isOnNavMesh)
         {
@@ -513,11 +523,17 @@ public class AIBehavior : MonoBehaviour
         Vector3 moveDirection = transform.position - enemy.transform.position;
         GetComponent<Rigidbody>().velocity = moveDirection.normalized * 5;
         canAttack = false;
+        StartCoroutine(AttackCooldown());
         yield return new WaitForSeconds(.5f);
         navMeshAgent.enabled = true;
         UpdateTree();
         isBeingKnockedback = false;
-        yield return new WaitForSeconds(1f);
+    }
+
+    IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(5f);
+        attackSuccess = false;
         canAttack = true;
     }
 
@@ -531,72 +547,81 @@ public class AIBehavior : MonoBehaviour
 
     private void CheckForCompetitors()
     {
-        List<Collider> hitCompetitors = Physics.OverlapSphere(transform.position, checkRadius).ToList();
-        for (int i = 0; i < hitCompetitors.Count; i++)
+        if (canAttack)
         {
-
-            if (!hitCompetitors[i].GetComponent<Competitor>() || hitCompetitors[i].transform == this.transform)
+            List<Collider> hitCompetitors = Physics.OverlapSphere(transform.position, checkRadius).ToList();
+            for (int i = 0; i < hitCompetitors.Count; i++)
             {
-                hitCompetitors.Remove(hitCompetitors[i]);
-                i--;
-            }
-        }
-        if (hitCompetitors.Count == 0)
-        {
-            competitorPos = null;
-        }
-        else
-        {
 
-            competitorPos = hitCompetitors[0].transform;
-
-            foreach (Collider competitor in hitCompetitors)
-            {
-                if (competitor.transform == this.transform) continue;
-
-                if (Vector3.Distance(transform.position, competitorPos.position) > Vector3.Distance(transform.position, competitor.transform.position))
+                if (!hitCompetitors[i].GetComponent<Competitor>() || hitCompetitors[i].transform == this.transform)
                 {
-                    competitorPos = competitor.transform;
+                    hitCompetitors.Remove(hitCompetitors[i]);
+                    i--;
+                }
+            }
+            if (hitCompetitors.Count == 0)
+            {
+                competitorPos = null;
+            }
+            else
+            {
+
+                competitorPos = hitCompetitors[0].transform;
+
+                foreach (Collider competitor in hitCompetitors)
+                {
+                    if (competitor.transform == this.transform) continue;
+
+                    if (Vector3.Distance(transform.position, competitorPos.position) > Vector3.Distance(transform.position, competitor.transform.position))
+                    {
+                        competitorPos = competitor.transform;
+                    }
                 }
             }
         }
+        else competitorPos = null;
     }
 
     void CheckForPowerUps()
     {
-        if (slot1 != null && slot2 != null)
+        if (ableToGrab)
         {
-            return;
-        }
-            List<Collider> hitColliders = Physics.OverlapSphere(transform.position, checkRadius).ToList();
-            for (int i = 0; i < hitColliders.Count; i++)
+            if (slot1 == null && slot2 == null)
             {
-            
-                if (hitColliders[i].tag != "ItemBox")
-                {
-                    hitColliders.Remove(hitColliders[i]);
-                    i--;
-                }
-            }
 
-            if (hitColliders.Count == 0)
-            {
-            // powerUpPos = null;
-            }
-            else
-            {
-                powerUpPos = hitColliders[0].transform;
-
-                foreach (Collider _collider in hitColliders)
+                List<Collider> hitColliders = Physics.OverlapSphere(transform.position, checkRadius).ToList();
+                for (int i = 0; i < hitColliders.Count; i++)
                 {
-                    if (Vector3.Distance(transform.position, powerUpPos.position) > Vector3.Distance(transform.position, _collider.transform.position))
+
+                    if (hitColliders[i].tag != "ItemBox" || hitColliders[i].enabled == false)
                     {
-                        powerUpPos = _collider.transform;
+                        hitColliders.Remove(hitColliders[i]);
+                        i--;
                     }
+                }
 
+                if (hitColliders.Count == 0)
+                {
+                    // powerUpPos = null;
+                }
+                else
+                {
+                    powerUpPos = hitColliders[0].transform;
+
+                    foreach (Collider _collider in hitColliders)
+                    {
+                        if (Vector3.Distance(transform.position, powerUpPos.position) > Vector3.Distance(transform.position, _collider.transform.position))
+                        {
+                            powerUpPos = _collider.transform;
+                        }
+
+                    }
                 }
             }
+            else powerUpPos = null;
         }
+        else powerUpPos = null;
+    }
 
     void CompareDistances()
     {
