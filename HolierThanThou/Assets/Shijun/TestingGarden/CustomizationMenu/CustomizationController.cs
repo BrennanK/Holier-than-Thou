@@ -143,12 +143,10 @@ public class CustomizationController : MonoBehaviour
 	public void FinalizePurchase()
 	{
 		TurnOffDialogue();
-		int playerMoney = player.GetComponent<PlayerCustomization>().currency; //TODO replace with player profile's currency. 
 		int price = GetPrice(panelIndices[panelIndex]);
 
 		//Update the currency.
-		playerMoney -= price;
-		player.GetComponent<PlayerCustomization>().currency = playerMoney;
+		player.GetComponent<PlayerCustomization>().subtractCurrency(price);
 		UpdateCurrencyText();
 
 		purchases[panelIndex].Add(panelIndices[panelIndex]);
