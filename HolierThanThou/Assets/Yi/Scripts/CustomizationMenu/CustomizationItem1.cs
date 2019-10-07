@@ -11,7 +11,8 @@ namespace FancyScrollView.CustomizationMenu
         [SerializeField] Image image = default;
         [SerializeField] Image imageLarge = default;
         [SerializeField] Button button = default;
-        [SerializeField] Sprite[] Covers;
+
+		//private ScrollView scrollview;
 
         static class AnimatorHash
         {
@@ -28,7 +29,7 @@ namespace FancyScrollView.CustomizationMenu
             message.text = itemData.Message;
             messageLarge.text = Index.ToString();
 
-            image.sprite = Covers[Index];
+            image.sprite = transform.parent.parent.gameObject.GetComponent<ScrollView>().Covers[Index];
 
             var selected = Context.SelectedIndex == Index;
             imageLarge.color = selected

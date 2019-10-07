@@ -9,8 +9,9 @@ namespace FancyScrollView.CustomizationMenu
     {
         [SerializeField] Scroller scroller = default;
         [SerializeField] GameObject cellPrefab = default;
+		public Sprite[] Covers;
 
-        Action<int> onSelectionChanged;
+		Action<int> onSelectionChanged;
 
         protected override GameObject CellPrefab => cellPrefab;
 
