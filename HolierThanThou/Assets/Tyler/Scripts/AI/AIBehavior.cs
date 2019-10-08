@@ -28,6 +28,8 @@ public class AIBehavior : MonoBehaviour
     private float UsePowerUpStart = 10f;
     private float UsePoweruUp1;
     private float UsePowerUp2;
+    private bool enoughRange1;
+    private bool enoughRange2;
     private bool canActivate1;
     private bool canActivate2;
     private bool ableToGrab;
@@ -131,6 +133,28 @@ public class AIBehavior : MonoBehaviour
         {
             slot2.ActivatePowerUp(competitor.Name, competitor.origin);
             slot2 = null;
+        }
+
+        if(slot1 != null && !slot1.isEnhancement)
+        {
+            CheckInRange(slot1.radius, true);
+            if(enoughRange1)
+            {
+                slot1.ActivatePowerUp(competitor.Name, competitor.origin);
+                slot1 = null;
+
+            }
+        }
+
+        if (slot2 != null && !slot2.isEnhancement)
+        {
+            CheckInRange(slot2.radius, false);
+            if (enoughRange2)
+            {
+                slot2.ActivatePowerUp(competitor.Name, competitor.origin);
+                slot2 = null;
+
+            }
         }
     }
 
@@ -522,7 +546,7 @@ public class AIBehavior : MonoBehaviour
         ableToGrab = true;
     }
 
-    IEnumerator Knockback(GameObject enemy)
+    /*IEnumerator Knockback(GameObject enemy)
     {
         attackSuccess = true;
         isBeingKnockedback = true;
@@ -539,7 +563,7 @@ public class AIBehavior : MonoBehaviour
         navMeshAgent.enabled = true;
         UpdateTree();
         isBeingKnockedback = false;
-    }
+    }*/
 
     IEnumerator AttackCooldown()
     {
@@ -574,7 +598,7 @@ public class AIBehavior : MonoBehaviour
     {
         if(other.gameObject.GetComponent<Competitor>())
         {
-            StartCoroutine(Knockback(other.gameObject));
+           // StartCoroutine(Knockback(other.gameObject));
         }
     }
 
@@ -808,5 +832,39 @@ public class AIBehavior : MonoBehaviour
                 UsePowerUp2 = UsePowerUpStart;
             }
         }
+    }
+
+
+    private void CheckInRange(float radius, bool slot1)
+    {
+        List<Collider> hitCompetitors = Physics.OverlapSphere(transform.position, radius).ToList();
+        for (int i = 0; i < hitCompetitors.Count; i++)
+        {
+
+            if (!hitCompetitors[i].GetComponent<Competitor>() || hitCompetitors[i].transform == this.transform)
+            {
+                hitCompetitors.Remove(hitCompetitors[i]);
+                i--;
+            }
+        }
+        if (hitCompetitors.Count == 0)
+        {
+            return;
+        }
+        else
+        {
+            if (slot1 && hitCompetitors.Count >= 2)
+            {
+                enoughRange1 = true;
+                Debug.Log("Enough in Range");
+            }
+            else if (!slot1 && hitCompetitors.Count >= 2)
+            {
+                enoughRange2 = true;
+                Debug.Log("Enough in Range");
+            }
+            else return;
+        }
+              
     }
 }
