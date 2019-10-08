@@ -7,13 +7,24 @@ public class PlayerCustomization : MonoBehaviour
 	public int currency { get; private set; } = 900;
 
 	[SerializeField] private int max_currency = 9999;
-	[SerializeField] private string[] slots = new string[2] {"Hats", "Skins"};
+	[SerializeField] private string[] slots = new string[2] {"Hat", "Skin"};
 	private List<int>[] unlockedItems;
+	public int[] equippedItems { get; private set; }
 
 	public void Awake()
 	{
 		unlockedItems = new List<int>[slots.Length];
 		Load();
+	}
+
+	public void Start()
+	{
+		//TODO Call CustomizationSwitcher.SwitchCustomization() to the correct equipped item for each type of item.
+		//CustomizationSwitcher[] switchers = FindObjectsOfType<CustomizationSwitcher>();
+		//for (int i = 0; i < switchers.Length; i++)
+		//{
+		//	switchers[i].SwitchCustomization(equippedItems[i]);
+		//}
 	}
 
 	public void OnDestroy()
@@ -33,6 +44,7 @@ public class PlayerCustomization : MonoBehaviour
 		PlayerPrefs.Save();
 	}
 
+	//TODO
 	private void SaveUnlockedItems()
 	{
 		//create string of comma separated values for all values of the unlockedItems array of lists.

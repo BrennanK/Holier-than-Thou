@@ -5,35 +5,34 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.CustomizationMenu
 {
-    public class CustomizationManager : MonoBehaviour
-    {
-        [SerializeField] ScrollView scrollView = default;
-        [SerializeField] string[] NeededCoinsList;
-        [SerializeField] Text selectedItemInfo = default;
+	public class CustomizationManager : MonoBehaviour
+	{
+		[SerializeField] ScrollView scrollView = default;
+		//[SerializeField] string[] NeededCoinsList;
+		[SerializeField] Item[] CustomizationArray;
+		[SerializeField] Text selectedItemInfo = default;
 
-        void Start()
-        {
-            var items = NeededCoinsList.Select(i => new ItemData($"${i}")).ToArray();
+		void Start()
+		{
+			ItemData[] items = CustomizationArray.Select(i => new ItemData($"${i.getPrice()}")).ToArray();
 
-            //var items = Enumerable.Range(0, 20)
-            //    .Select(i => new ItemData($"Cell {i}"))
-            //    .ToArray();
 
-            scrollView.OnSelectionChanged(OnSelectionChanged);
-            scrollView.UpdateData(items);
-            scrollView.SelectCell(0);
-        }
 
-        void OnSelectionChanged(int index)
-        {
-            //selectedItemInfo.text = $"Selected item info: index {index}";
-            transform.GetComponentInParent<CustomizationController>().SwitchCustomization(index);
-        }
+			scrollView.OnSelectionChanged(OnSelectionChanged);
+			scrollView.UpdateData(items);
+			scrollView.SelectCell(0);
+		}
+
+		void OnSelectionChanged(int index)
+		{
+			//selectedItemInfo.text = $"Selected item info: index {index}";
+			transform.GetComponentInParent<CustomizationController>().SwitchCustomization(index);
+		}
 
 		public int GetNeededCoins(int index)
 		{
-			return Convert.ToInt32(NeededCoinsList[index]);
+			return Convert.ToInt32(CustomizationArray[index].getPrice());
 		}
 
-    }
+	}
 }

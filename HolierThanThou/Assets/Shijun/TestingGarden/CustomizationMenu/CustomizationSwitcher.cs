@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class CustomizationSwitcher : MonoBehaviour
 {
-    private GameObject[] customizations;
+    [SerializeField] private GameObject[] customizations;
+	[SerializeField] private ClothingOptions customizationType = default;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-		InitializeCustomizations();
-    }
-
-	private void InitializeCustomizations()
+	public void Start()
 	{
-		Transform children = GetComponent<Transform>();
-        customizations = new GameObject[children.childCount];
-        int counter = 0;
-        foreach (Transform child in children)
-        {
-            customizations[counter] = child.gameObject;
-            counter++;
-        }
+		for (int i = 0; i < customizations.Length; i++)
+		{
+			GameObject option = Instantiate(customizations[i]);
+			option.SetActive(false);
+			option.transform.parent = transform;
+			option.transform.localPosition += option.transform.parent.transform.position;
+			//option.transform.localRotation = Quaternion.identity;
+			//option.transform.localScale = Vector3.one;
+		}
+		if(transform.childCount > 0)
+		{
+			SwitchCustomization(0);
+		}
 	}
 
-    public void SwitchCustomization(int index)
+	public void SwitchCustomization(int index)
     {
-        foreach(GameObject option in customizations)
-        {
-            option.SetActive(false);
-        }
-        customizations[index].SetActive(true);
+		for (int i = 0; i < transform.childCount; i++)
+		{
+			transform.GetChild(i).gameObject.SetActive(false);
+		}
+		transform.GetChild(index).gameObject.SetActive(true);
     }
 }
