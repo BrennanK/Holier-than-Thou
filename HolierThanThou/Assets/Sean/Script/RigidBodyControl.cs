@@ -13,7 +13,7 @@ public class RigidBodyControl : MonoBehaviour
     public float inputDelay;
     public LayerMask ground;
     Rigidbody rBody;
-    Vector3 direction, jumpDirection;
+    Vector3 direction, jumpDirection, move;
 
     //Button Function Variable
     private DigitalJoystick m_digitalJoystickReference;
@@ -53,13 +53,14 @@ public class RigidBodyControl : MonoBehaviour
     void Run()
     {
         if (Mathf.Abs(direction.magnitude) > inputDelay && Grounded())
-        { 
+        {    
             rBody.AddForce(direction, ForceMode.Acceleration);
         } 
         else if ((Mathf.Abs(direction.magnitude) > inputDelay && !Grounded()))
-        {
+        { 
             rBody.AddForce(direction / airFriction, ForceMode.Acceleration);
         }
+
     }
 
     void Jump()

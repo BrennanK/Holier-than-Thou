@@ -7,6 +7,7 @@ public class BounceFunction : MonoBehaviour
     //Bounce Variables
     public float straightBounceDegree, verticalBounceDegree, sideBounceDegree;
     public float disToBouncable;
+    public float bounciness;
     public LayerMask bouncable;
     //Rigid Body for Speed
     Rigidbody rBody;
@@ -22,7 +23,7 @@ public class BounceFunction : MonoBehaviour
     void FixedUpdate()
     {
         //Using Player Velocity to determine how hard to bounce
-        straightBounceDegree = sideBounceDegree = rBody.velocity.magnitude;
+        straightBounceDegree = sideBounceDegree = rBody.velocity.magnitude * bounciness;
     }
     
     // Update is called once per frame
