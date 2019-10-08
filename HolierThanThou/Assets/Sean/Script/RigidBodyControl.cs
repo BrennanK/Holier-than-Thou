@@ -33,13 +33,13 @@ public class RigidBodyControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         HandleMovement();
         GetInput();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         Run();
         Jump();
