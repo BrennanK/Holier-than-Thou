@@ -9,7 +9,15 @@ public class PlayerCustomization : MonoBehaviour
 	[SerializeField] private int max_currency = 9999;
 	private List<GameObject>[] unlockedItems;
 
-	
+	public void Awake()
+	{
+		currency = PlayerPrefs.GetInt("Currency", 1000);
+	}
+
+	public void OnDestroy()
+	{
+		PlayerPrefs.SetInt("Currency", currency);
+	}
 
 	public bool addCurrency(int coins)
 	{
