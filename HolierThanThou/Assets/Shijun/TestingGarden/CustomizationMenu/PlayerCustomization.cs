@@ -7,16 +7,49 @@ public class PlayerCustomization : MonoBehaviour
 	public int currency { get; private set; } = 900;
 
 	[SerializeField] private int max_currency = 9999;
-	private List<GameObject>[] unlockedItems;
+	[SerializeField] private string[] slots = new string[2] {"Hats", "Skins"};
+	private List<int>[] unlockedItems;
 
 	public void Awake()
 	{
-		currency = PlayerPrefs.GetInt("Currency", 1000);
+		unlockedItems = new List<int>[slots.Length];
+		Load();
 	}
 
 	public void OnDestroy()
 	{
+		Save();
+	}
+
+	private void Load()
+	{
+		currency = PlayerPrefs.GetInt("Currency", 1000);
+	}
+
+	private void Save()
+	{
 		PlayerPrefs.SetInt("Currency", currency);
+		SaveUnlockedItems();
+		PlayerPrefs.Save();
+	}
+
+	private void SaveUnlockedItems()
+	{
+		//create string of comma separated values for all values of the unlockedItems array of lists.
+		string saveData = "";
+		//Create each list of values, separated by /n
+		for (int i = 0; i < unlockedItems.Length; i++)
+		{
+			saveData += slots[i];
+			for (int j = 0; j < unlockedItems[i].Count; j++)
+			{
+				saveData += unlockedItems[i][j];
+			}
+			saveData += "\n";
+		}
+		int x = 0;
+		x++;
+		//PlayerPrefs.SetString("UnlockedItems", saveData);
 	}
 
 	public bool addCurrency(int coins)
