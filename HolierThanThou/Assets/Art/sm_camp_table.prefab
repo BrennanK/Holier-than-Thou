@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 9065678186711529175}
   - component: {fileID: 8498949165519730932}
   - component: {fileID: 1529479589891839467}
+  - component: {fileID: 6877036375246147246}
+  - component: {fileID: 1898825927028295034}
+  - component: {fileID: 2041875945284388294}
   m_Layer: 0
   m_Name: sm_camp_table
   m_TagString: Untagged
@@ -77,3 +80,42 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &6877036375246147246
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627253748940360995}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8000001, y: 0.19, z: 0.95}
+  m_Center: {x: 0, y: 0.36, z: 0.01}
+--- !u!65 &1898825927028295034
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627253748940360995}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8000001, y: 0.14, z: 0.53}
+  m_Center: {x: 0, y: 0.01, z: 0.97}
+--- !u!65 &2041875945284388294
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627253748940360995}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8000001, y: 0.14, z: 0.53}
+  m_Center: {x: 0, y: 0.01, z: -0.97}
