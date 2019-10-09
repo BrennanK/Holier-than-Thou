@@ -156,6 +156,15 @@ public class AIBehavior : MonoBehaviour
 
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (navMeshAgent.enabled)
+            {
+                navMeshAgent.enabled = false;
+            }
+            else navMeshAgent.enabled = true;
+        }
     }
 
 
@@ -866,5 +875,22 @@ public class AIBehavior : MonoBehaviour
             else return;
         }
               
+    }
+
+    public void EnteredGoalArea()
+    {
+        var heading = goalPos.position - transform.position;
+        heading.y = 0;
+        var distance = heading.magnitude;
+        var direction = heading / distance;
+        var velocity = navMeshAgent.velocity;
+
+        navMeshAgent.enabled = false;
+        rb.AddForce(direction, ForceMode.Impulse);
+    }
+
+    public void ExitedGoalArea()
+    {
+        navMeshAgent.enabled = true;
     }
 }
