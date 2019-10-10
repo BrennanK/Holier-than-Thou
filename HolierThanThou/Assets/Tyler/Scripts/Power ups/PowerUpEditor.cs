@@ -13,6 +13,8 @@ public class PowerUpEditor : ScriptableObject
     public float BZ_radius;
     public float BZ_power;
     public float BZ_upwardForce;
+    public float BZ_disToGround;
+    public LayerMask BZ_ground;
 
     [HideInInspector]
     public bool CO_hasDuration = true;

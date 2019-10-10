@@ -90,9 +90,11 @@ public class BounceFunction : MonoBehaviour
     // Disable and re-enable RigidBodyControl after bounce
     IEnumerator pauseControl()
     {
-        transform.GetComponent<RigidBodyControl>().enabled = false;
-        yield return new WaitForSeconds(timer);
-        transform.GetComponent<RigidBodyControl>().enabled = true;
+        if (transform.GetComponent<RigidBodyControl>()) {
+            transform.GetComponent<RigidBodyControl>().enabled = false;
+            yield return new WaitForSeconds(timer);
+            transform.GetComponent<RigidBodyControl>().enabled = true;
+        }
     }
 
     
