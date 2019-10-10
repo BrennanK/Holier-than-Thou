@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomizationSwitcher : MonoBehaviour
+public class CustomizationSwitcher : MonoBehaviour, IInitializer<CustomizationSwitcher>
 {
-    [SerializeField] private GameObject[] customizations;
 	[SerializeField] private ClothingOptions customizationType = default;
+    private GameObject[] customizations;
 
 	public void Start()
 	{
@@ -22,6 +22,17 @@ public class CustomizationSwitcher : MonoBehaviour
 		{
 			SwitchCustomization(0);
 		}
+	}
+
+	public bool Equals(CustomizationSwitcher switcher) //this method is required for IGrabber.
+	{
+		return this.customizations == switcher.customizations &&
+			this.customizationType == switcher.customizationType;
+	}
+
+	public void Initialize(GameObject[] obj) //this method is required for IGrabber.
+	{
+		customizations = obj;
 	}
 
 	public void SwitchCustomization(int index)

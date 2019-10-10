@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManager;
@@ -9,16 +10,13 @@ using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManage
 //README Make sure that your customization slots are in the same order (first at top) as the customization panels in the array. 
 public class CustomizationController : MonoBehaviour
 {
-	[SerializeField] private GameObject[] panels;
+	[SerializeField] private GameObject[] panels; // CustomizationManagers
 	[SerializeField] private Texture[] categories;
+	[SerializeField] private GameObject categoriesIcon;
 	[SerializeField] private Transform currencyTextBox;
-	//Prefab for Hat and Body
-	[SerializeField] private GameObject hatSlot;
-	[SerializeField] private GameObject bodySlot;
-	[SerializeField] private List<GameObject> slots;
-	[SerializeField] private GameObject CategoriesIcon;
 	[SerializeField] private GameObject confirmDialogue;
 
+	private List<GameObject> equipmentSlots; // CustomizationSwitchers
 	private List<int>[] purchases;
 	private GameObject player;
 	//private int currentIndex;
@@ -26,15 +24,17 @@ public class CustomizationController : MonoBehaviour
 	private int[] panelIndices; //the currently selected indices of each panel. 
 	private CustomizationSwitcher customSwitcher;
 
-	private void Start()
+	private void Awake()
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
 		panelIndices = new int[panels.Length];
 
+		InitializeObjectSlots();
 		InitializePurchaseList();
-		InitializeObjectSlot();
+
 		UpdateCurrencyText();
 	}
+	#region Initializing
 
 	private void InitializePurchaseList()
 	{
@@ -47,32 +47,23 @@ public class CustomizationController : MonoBehaviour
 	}
 
 	//README Make sure that your customization slots are in the same order (first at top) as the customization panels in the array. 
-	private void InitializeObjectSlot()
+	private void InitializeObjectSlots()
 	{
-		slots = new List<GameObject>();
+		equipmentSlots = new List<GameObject>();
+		int i = 0;
 		foreach (Transform child in player.transform)
 		{
 			if (child.GetComponent<CustomizationSwitcher>())
 			{
-				slots.Add(child.gameObject);
+				equipmentSlots.Add(child.gameObject);
+				child.GetComponent<CustomizationSwitcher>().Initialize(
+					panels[i].GetComponent<FancyCustomization>().getCustomizations()
+					);
 			}
+			i++;
 		}
 	}
-
-	private void UpdateCurrencyText()
-	{
-		currencyTextBox.GetComponent<Text>().text =
-			player.GetComponent<PlayerCustomization>().currency.ToString();
-	}
-
-	// TODO Refactor this so it doesn't just apply to Hats.
-	// Snap the option menu, and switch the customized entity automatically.
-	public void SwitchCustomization(int index)
-	{
-		customSwitcher = slots[panelIndex].GetComponent<CustomizationSwitcher>();
-		customSwitcher.SwitchCustomization(index);
-		panelIndices[panelIndex] = index;
-	}
+	#endregion /Initializing
 
 	//if item in inventory, returns true;
 	//TODO extrapolate this to the player class.
@@ -88,6 +79,22 @@ public class CustomizationController : MonoBehaviour
 		return false;
 	}
 
+	#region UIManagement
+	private void UpdateCurrencyText()
+	{
+		currencyTextBox.GetComponent<Text>().text =
+			player.GetComponent<PlayerCustomization>().currency.ToString();
+	}
+
+	// TODO Refactor this so it doesn't just apply to Hats.
+	// Snap the option menu, and switch the customized entity automatically.
+	public void SwitchCustomization(int index)
+	{
+		customSwitcher = equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>();
+		customSwitcher.SwitchCustomization(index);
+		panelIndices[panelIndex] = index;
+	}
+
 	public void Next()
 	{
 		//Set all panels to false.
@@ -97,7 +104,6 @@ public class CustomizationController : MonoBehaviour
 		}
 		panelIndex++;
 		panelIndex %= panels.Length; //Don't go over the maximum.
-		panels[panelIndex].SetActive(true);
 		ChangePanel();
 	}
 
@@ -115,11 +121,15 @@ public class CustomizationController : MonoBehaviour
 	public void ChangePanel()
 	{
 		panels[panelIndex].SetActive(true);
-		if (CategoriesIcon.GetComponent<RawImage>())
+		if (categoriesIcon.GetComponent<RawImage>())
 		{
-			CategoriesIcon.GetComponent<RawImage>().texture = categories[panelIndex];
+			categoriesIcon.GetComponent<RawImage>().texture = categories[panelIndex];
 		}
 	}
+
+	#endregion /UIManagement
+
+	#region Purchasing
 
 	public void InitializePurchase()
 	{
@@ -165,6 +175,8 @@ public class CustomizationController : MonoBehaviour
 	{
 		return panels[panelIndex].GetComponent<FancyCustomization>().GetNeededCoins(index);
 	}
+
+	#endregion /Purchasing
 
 	// TODO Player inventory needs to be in the Player class. 
 	public void Equip()

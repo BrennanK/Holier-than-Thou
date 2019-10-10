@@ -298,13 +298,7 @@ MonoBehaviour:
   cellContainer: {fileID: 1933676394}
   scroller: {fileID: 126069000}
   cellPrefab: {fileID: 1901728338085442, guid: 34e1fd87ab6fa4ea9948dd561298519f, type: 3}
-  Covers:
-  - {fileID: 21300000, guid: 04c52682ace52d84985faf5e41fdc93b, type: 3}
-  - {fileID: 21300000, guid: 268cb25d0e77a7c42912931d686b67b5, type: 3}
-  - {fileID: 21300000, guid: 8ec13b3e89d9e024ba257ea26f5e2aa3, type: 3}
-  - {fileID: 21300000, guid: 5a40385e582f0d84da61ea4fc5c478bb, type: 3}
-  - {fileID: 21300000, guid: f5c1b1cf14e263d4093a89aff2f573e8, type: 3}
-  - {fileID: 21300000, guid: 9ec729eb8dc273f44bd694cf4d6f61c2, type: 3}
+  Covers: []
 --- !u!114 &126069000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,17 +343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c54508fe56b92241b24258b8a7bd2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customizations:
-  - {fileID: 296514571, guid: d635a405f3428fd4db2e14c4b7a8cde8, type: 3}
-  - {fileID: 1552919023, guid: 3b398fc1cdf501f4cb0cce327faf5ba1, type: 3}
-  - {fileID: 2143315366, guid: 0046a2055c464374991ffba25666b7a6, type: 3}
-  - {fileID: 320821951, guid: cdd1c92b66e01954485fe1cf9ab78c4d, type: 3}
-  - {fileID: 1523802725, guid: 70ea32ba5397b5d4ab2e8cb07d1bb50a, type: 3}
-  - {fileID: 1726801978, guid: b6b481a7495b5af46984d24ca0609ea7, type: 3}
-  - {fileID: 309267165, guid: f713d3114689eb646bda59427b0c2605, type: 3}
-  - {fileID: 1920302978, guid: 1ad2353df175a7549b951b99834bd662, type: 3}
-  - {fileID: 2034488996, guid: e962b97c53354b345a8ebe639991e2f3, type: 3}
-  - {fileID: 1383146486, guid: e4b64849671ce5540b30d374d6b985a0, type: 3}
   customizationType: 0
 --- !u!1 &162549773
 GameObject:
@@ -494,12 +477,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollView: {fileID: 126068999}
   CustomizationArray:
-  - {fileID: 206950647, guid: b67ed94f28aefcf48a7c9379c5eb3d09, type: 3}
-  - {fileID: 129758369, guid: 7a3d998ffce582c40be592966589269e, type: 3}
-  - {fileID: 1738921111, guid: 37ef959803e149343b3cbe776b4e6229, type: 3}
-  - {fileID: 377009296, guid: 0fafcb2a02632bf46b2fb650ac065c3d, type: 3}
-  - {fileID: 1557659206, guid: 7bdbcedf6d309f242a2bc44ed4d08086, type: 3}
-  - {fileID: 1076852213, guid: cad72af1fb728114ab8792d6a503b762, type: 3}
+  - {fileID: 206950645, guid: b67ed94f28aefcf48a7c9379c5eb3d09, type: 3}
+  - {fileID: 206950645, guid: 8cf3d87a8de616b48a56b53c1e8e43a0, type: 3}
+  - {fileID: 129758365, guid: 7a3d998ffce582c40be592966589269e, type: 3}
+  - {fileID: 1738921107, guid: 37ef959803e149343b3cbe776b4e6229, type: 3}
+  - {fileID: 206950645, guid: dc8ad30aab1c3334e938366c2fc60d76, type: 3}
+  - {fileID: 377009292, guid: 0fafcb2a02632bf46b2fb650ac065c3d, type: 3}
+  - {fileID: 1557659202, guid: 7bdbcedf6d309f242a2bc44ed4d08086, type: 3}
+  - {fileID: 1076852209, guid: cad72af1fb728114ab8792d6a503b762, type: 3}
+  - {fileID: 206950645, guid: b65f5c89596d2784b949dd4d1b6c1292, type: 3}
+  - {fileID: 206950645, guid: e86955a9897b8fd418430dc93aa58763, type: 3}
+  - {fileID: 206950645, guid: 13d33bbb5baa9e84d8bf7ba474ebe766, type: 3}
   selectedItemInfo: {fileID: 4011528165321613253}
 --- !u!1 &268743159
 GameObject:
@@ -1109,13 +1097,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c54508fe56b92241b24258b8a7bd2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customizations:
-  - {fileID: 206950645, guid: b67ed94f28aefcf48a7c9379c5eb3d09, type: 3}
-  - {fileID: 129758365, guid: 7a3d998ffce582c40be592966589269e, type: 3}
-  - {fileID: 1738921107, guid: 37ef959803e149343b3cbe776b4e6229, type: 3}
-  - {fileID: 377009292, guid: 0fafcb2a02632bf46b2fb650ac065c3d, type: 3}
-  - {fileID: 1557659202, guid: 7bdbcedf6d309f242a2bc44ed4d08086, type: 3}
-  - {fileID: 1076852209, guid: cad72af1fb728114ab8792d6a503b762, type: 3}
   customizationType: 1
 --- !u!1 &872361943
 GameObject:
@@ -2820,16 +2801,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollView: {fileID: 1565162417941387177}
   CustomizationArray:
-  - {fileID: 296514572, guid: d635a405f3428fd4db2e14c4b7a8cde8, type: 3}
-  - {fileID: 1552919024, guid: 3b398fc1cdf501f4cb0cce327faf5ba1, type: 3}
-  - {fileID: 2143315367, guid: 0046a2055c464374991ffba25666b7a6, type: 3}
-  - {fileID: 320821952, guid: cdd1c92b66e01954485fe1cf9ab78c4d, type: 3}
-  - {fileID: 1523802726, guid: 70ea32ba5397b5d4ab2e8cb07d1bb50a, type: 3}
-  - {fileID: 1726801979, guid: b6b481a7495b5af46984d24ca0609ea7, type: 3}
-  - {fileID: 309267166, guid: f713d3114689eb646bda59427b0c2605, type: 3}
-  - {fileID: 1920302979, guid: 1ad2353df175a7549b951b99834bd662, type: 3}
-  - {fileID: 2034488997, guid: e962b97c53354b345a8ebe639991e2f3, type: 3}
-  - {fileID: 1383146487, guid: e4b64849671ce5540b30d374d6b985a0, type: 3}
+  - {fileID: 296514571, guid: e880a81a0d10b7645b3ad327e15ddee6, type: 3}
+  - {fileID: 296514571, guid: d635a405f3428fd4db2e14c4b7a8cde8, type: 3}
+  - {fileID: 1552919023, guid: 3b398fc1cdf501f4cb0cce327faf5ba1, type: 3}
+  - {fileID: 2143315366, guid: 0046a2055c464374991ffba25666b7a6, type: 3}
+  - {fileID: 320821951, guid: cdd1c92b66e01954485fe1cf9ab78c4d, type: 3}
+  - {fileID: 1523802725, guid: 70ea32ba5397b5d4ab2e8cb07d1bb50a, type: 3}
+  - {fileID: 1726801978, guid: b6b481a7495b5af46984d24ca0609ea7, type: 3}
+  - {fileID: 309267165, guid: f713d3114689eb646bda59427b0c2605, type: 3}
+  - {fileID: 1920302978, guid: 1ad2353df175a7549b951b99834bd662, type: 3}
+  - {fileID: 2034488996, guid: e962b97c53354b345a8ebe639991e2f3, type: 3}
+  - {fileID: 1383146486, guid: e4b64849671ce5540b30d374d6b985a0, type: 3}
   selectedItemInfo: {fileID: 4011528165321613253}
 --- !u!222 &1565162417161327934
 CanvasRenderer:
@@ -2970,17 +2952,7 @@ MonoBehaviour:
   cellContainer: {fileID: 1565162418947195349}
   scroller: {fileID: 1565162417941387179}
   cellPrefab: {fileID: 1901728338085442, guid: 34e1fd87ab6fa4ea9948dd561298519f, type: 3}
-  Covers:
-  - {fileID: 21300000, guid: 1e955c0c02961f34ba6382a95ff1b099, type: 3}
-  - {fileID: 21300000, guid: 0af4b1816b664df449fdd711420903e8, type: 3}
-  - {fileID: 21300000, guid: 0017766b84d2b4a42b8f13f3b1887d91, type: 3}
-  - {fileID: 21300000, guid: 3b738d5ef55b8d042aee157e430af24f, type: 3}
-  - {fileID: 21300000, guid: 9ec729eb8dc273f44bd694cf4d6f61c2, type: 3}
-  - {fileID: 21300000, guid: 9ec729eb8dc273f44bd694cf4d6f61c2, type: 3}
-  - {fileID: 21300000, guid: 9ec729eb8dc273f44bd694cf4d6f61c2, type: 3}
-  - {fileID: 21300000, guid: 9ec729eb8dc273f44bd694cf4d6f61c2, type: 3}
-  - {fileID: 21300000, guid: 9ec729eb8dc273f44bd694cf4d6f61c2, type: 3}
-  - {fileID: 21300000, guid: 9ec729eb8dc273f44bd694cf4d6f61c2, type: 3}
+  Covers: []
 --- !u!114 &1565162417941387179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3135,11 +3107,8 @@ MonoBehaviour:
   categories:
   - {fileID: 2800000, guid: 53c1c2260e6c26c45a2bca1cbf1d211f, type: 3}
   - {fileID: 2800000, guid: df959e1ba6b73714987122f8996c2f87, type: 3}
+  categoriesIcon: {fileID: 1565162417733772178}
   currencyTextBox: {fileID: 2076706169}
-  hatSlot: {fileID: 3510731281689087435}
-  bodySlot: {fileID: 820190493}
-  slots: []
-  CategoriesIcon: {fileID: 1565162417733772178}
   confirmDialogue: {fileID: 932750442}
 --- !u!1 &1565162418729918569
 GameObject:
