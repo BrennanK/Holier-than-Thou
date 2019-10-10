@@ -15,8 +15,12 @@ MonoBehaviour:
   BZ_hasDuration: 0
   BZ_duration: 0
   BZ_radius: 15
-  BZ_power: 1000
-  BZ_upwardForce: 20
+  BZ_power: 10
+  BZ_upwardForce: 5
+  BZ_disToGround: 1
+  BZ_ground:
+    serializedVersion: 2
+    m_Bits: 512
   CO_hasDuration: 1
   CO_duration: 10
   CO_radius: 20

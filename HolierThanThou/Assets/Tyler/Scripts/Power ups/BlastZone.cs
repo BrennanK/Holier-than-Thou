@@ -8,6 +8,8 @@ public class BlastZone : PowerUp
 {
     private float power;
     private float upwardForce;
+    private LayerMask ground;
+    private float disToGround;
 
 
 
@@ -47,8 +49,13 @@ public class BlastZone : PowerUp
                 if (!competitor.untouchable)
                 {
                     competitor.navMeshOff = true;
-                    competitor.BeenBlasted();
-                    rb.AddExplosionForce(power, origin.position, radius, upwardForce);
+
+                    if(Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
+                    {
+                        competitor.BeenBlasted();
+                    }
+                    
+                    rb.AddExplosionForce(power, origin.position, radius, upwardForce, ForceMode.Impulse);
                 }
             }
         }
@@ -56,4 +63,6 @@ public class BlastZone : PowerUp
         Debug.Log("Blast Zone Power Up Used by " + name);
         
     }
+
+
 }
