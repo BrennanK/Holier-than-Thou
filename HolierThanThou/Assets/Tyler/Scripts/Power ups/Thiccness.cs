@@ -20,7 +20,7 @@ public class Thiccness : PowerUp
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemies)
         {
-            enemy.transform.localScale = new Vector3(2, 2, 2);
+            enemy.transform.localScale = new Vector3(.02f, .02f, .02f);
         }
 
         Debug.Log("Thiccness Power Up Used by " + name);
@@ -34,7 +34,7 @@ public class Thiccness : PowerUp
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var enemy in enemies)
         {
-            enemy.transform.localScale = new Vector3(1, 1, 1);
+            enemy.transform.localScale = new Vector3(.01f, .01f, .01f);
         }
     }
 }

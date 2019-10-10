@@ -9,11 +9,27 @@ public class AIBehavior : MonoBehaviour
 {
     private BehaviorTree.BehaviorTree _behaviorTree;
     public float behaviorTreeRefreshRate = 0.1f;
-    private NavMeshAgent navMeshAgent;
+    //private NavMeshAgent navMeshAgent;
     private Competitor competitor;
     private Rigidbody rb;
     public GameObject body;
-    
+
+    //New Controller Stuff
+    private float stoppingDistance = 1.0f;
+    private float jumpingDistance = 1.0f;
+
+    private float jumpingForce;
+    public float velocity = 5f;
+
+    float calcTimer = 0;
+    float calcRand = 0;
+
+    //public GameObject goal; already have this
+    NavMeshPath navMeshPath;
+    //private Rigidbody m_rigidbody; Already have this 
+    Queue<Vector3> m_cornersStack = new Queue<Vector3>();
+    private Vector3 m_currentGoal;
+
 
 
     //AI BlackBoard
@@ -45,14 +61,22 @@ public class AIBehavior : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, checkRadius);
+        if (m_cornersStack.Count > 0)
+        {
+            foreach (Vector3 corner in m_cornersStack)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(corner, 1.0f);
+            }
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        //navMeshAgent = GetComponent<NavMeshAgent>();
         competitor = GetComponent<Competitor>();
         rb = GetComponent<Rigidbody>();
         goalPos = GameObject.FindGameObjectWithTag("Goal").transform;
@@ -60,13 +84,30 @@ public class AIBehavior : MonoBehaviour
         ableToGrab = true;
         canActivate1 = true;
         canActivate2 = true;
-        //This is an Example of how to build the tree
-        //_behaviorTree = new BehaviorTree.BehaviorTree(new BehaviorTreeBuilder().Selector("Test Selector").Action("Test Action", TestFunction)
-        //    .End()
-        //    .Build()
-        //    );
 
-        _behaviorTree = new BehaviorTree.BehaviorTree(new BehaviorTreeBuilder()
+        //navMeshPath = new NavMeshPath();
+        //NavMesh.CalculatePath(transform.position, goalPos.transform.position, NavMesh.AllAreas, navMeshPath);
+
+        //foreach (Vector3 cornerPosition in navMeshPath.corners)
+        //{
+        //    m_cornersStack.Enqueue(cornerPosition);
+        //}
+
+
+        ResetTimer();
+        RunPathCalculation();
+        RecalculatePath();
+    
+
+
+
+    //This is an Example of how to build the tree
+    //_behaviorTree = new BehaviorTree.BehaviorTree(new BehaviorTreeBuilder().Selector("Test Selector").Action("Test Action", TestFunction)
+    //    .End()
+    //    .Build()
+    //    );
+
+    _behaviorTree = new BehaviorTree.BehaviorTree(new BehaviorTreeBuilder()
             .Sequence("Game Play")
                 .Condition("Is being knocked back", CheckForKnockBack)
                 .Condition("Is the Game Running", CheckForGameRunning)
@@ -104,6 +145,26 @@ public class AIBehavior : MonoBehaviour
         InvokeRepeating("UpdateTree", 0f, behaviorTreeRefreshRate);
     }
 
+    private void FixedUpdate()
+    {
+        if (Vector3.Distance(transform.position, m_currentGoal) < stoppingDistance)
+        {
+            RecalculatePath();
+        }
+
+        // The movement being applied is now AddForce with a ForceMode.Force instead of hard assigning the velocity - Brian 10/10
+        //m_rigidbody.velocity = (m_currentGoal - transform.position).normalized * velocity; 
+        rb.AddForce((m_currentGoal - transform.position).normalized, ForceMode.Force);
+
+        //This timer runs so the balls can re-calculate their paths - Brian 10/10
+        calcTimer += Time.deltaTime;
+        if (calcTimer > calcRand)
+        {
+            ResetTimer();
+            RunPathCalculation();
+        }
+    }
+
     private void Update()
     {
         CheckForCompetitors();
@@ -111,7 +172,13 @@ public class AIBehavior : MonoBehaviour
         CompareDistances();
         PowerUpCountdown();
 
-        if (competitor.navMeshOff)
+        if (Vector3.Distance(transform.position, m_currentGoal) < stoppingDistance)
+        {
+            RecalculatePath();
+        }
+
+
+        /*if (competitor.navMeshOff)
         {
             navMeshAgent.updatePosition = false;
         }
@@ -121,7 +188,7 @@ public class AIBehavior : MonoBehaviour
         if (navMeshAgent.velocity != Vector3.zero)
         {
             body.transform.Rotate(Vector3.right, 90 * Time.deltaTime * navMeshAgent.speed);
-        }
+        }*/
 
         if(UsePoweruUp1 <= 0)
         {
@@ -157,13 +224,53 @@ public class AIBehavior : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
+        /*if (Input.GetKeyDown(KeyCode.T))
         {
             if (navMeshAgent.enabled)
             {
                 navMeshAgent.enabled = false;
             }
             else navMeshAgent.enabled = true;
+        }*/
+    }
+
+    void ResetTimer()
+    {
+        calcTimer = 0;
+        calcRand = Random.Range(0.5f, 0.6f);
+    }
+
+    void RunPathCalculation()
+    {
+        m_cornersStack = new Queue<Vector3>();
+        navMeshPath = new NavMeshPath();
+        NavMesh.CalculatePath(transform.position, goalPos.transform.position, NavMesh.AllAreas, navMeshPath);
+
+        foreach (Vector3 cornerPosition in navMeshPath.corners)
+        {
+            m_cornersStack.Enqueue(cornerPosition);
+        }
+
+        RecalculatePath();
+    }
+
+    void RecalculatePath()
+    {
+        if (m_cornersStack.Count == 0)
+        {
+            if (Vector3.Distance(transform.position, goalPos.transform.position) >= stoppingDistance)
+            {
+                //if (Mathf.Abs(goalPos.transform.position.y - transform.position.y) > jumpingDistance)
+                //{
+                //    Debug.Log("Jumping...");
+                //    rb.AddForce(new Vector3(goalPos.transform.position.x - transform.position.x * 1000f, 10000f, goalPos.transform.position.z - transform.position.z * 1000f));
+                //    m_currentGoal = goalPos.transform.position;
+                //}
+            }
+        }
+        else
+        {
+            m_currentGoal = m_cornersStack.Dequeue();
         }
     }
 
@@ -185,7 +292,7 @@ public class AIBehavior : MonoBehaviour
         }
         else
         {
-            navMeshAgent.ResetPath();
+            //navMeshAgent.ResetPath();
             return EReturnStatus.FAILURE;
         }
     }
@@ -318,23 +425,27 @@ public class AIBehavior : MonoBehaviour
 
         if (competitorCloser)
         {
-            navMeshAgent.SetDestination(competitorPos.position);
+            m_currentGoal = competitorPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else if (powerUpCloser)
         {
-            navMeshAgent.SetDestination(powerUpPos.position);
+            m_currentGoal = powerUpPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else if (Vector3.Distance(transform.position, goalPos.position) <= 5f)
         {
-            navMeshAgent.SetDestination(goalPos.position);
+            m_currentGoal = goalPos.position;//
+            RecalculatePath();
             return EReturnStatus.SUCCESS;
         }
         else
         {
             Debug.Log(competitor.Name + " Targeting Goal");
-            navMeshAgent.SetDestination(goalPos.position);
+            m_currentGoal = goalPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
        
@@ -344,13 +455,14 @@ public class AIBehavior : MonoBehaviour
     {
         if (transform.position == goalPos.position)
         {
-            navMeshAgent.ResetPath();
+            //navMeshAgent.ResetPath();
             goalPos = null;
             return EReturnStatus.SUCCESS;
         }
         else
         {
-            navMeshAgent.SetDestination(goalPos.position);
+            m_currentGoal = goalPos.position;//
+            RecalculatePath();
             return EReturnStatus.RUNNING;
         }
     }
@@ -434,23 +546,27 @@ public class AIBehavior : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, competitorPos.position) <= 5f)
         {
-            navMeshAgent.SetDestination(competitorPos.position);
+            m_currentGoal = competitorPos.position;//
+            RecalculatePath();
             return EReturnStatus.SUCCESS;
         }
         else if(goalCloser)
         {
-            navMeshAgent.SetDestination(goalPos.position);
+            m_currentGoal = goalPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else if(powerUpCloser)
         {
-            navMeshAgent.SetDestination(powerUpPos.position);
+            m_currentGoal = powerUpPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else
         {
             Debug.Log(competitor.Name + " Targeting  opponent");
-            navMeshAgent.SetDestination(competitorPos.position);
+            m_currentGoal = competitorPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
             
@@ -461,14 +577,16 @@ public class AIBehavior : MonoBehaviour
         if(attackSuccess)
         {
             competitorPos = null;
-            navMeshAgent.ResetPath();
-            navMeshAgent.SetDestination(goalPos.position);
+            //navMeshAgent.ResetPath();
+            m_currentGoal = goalPos.position;//
+            RecalculatePath();
             Debug.Log("hit somebody");
             return EReturnStatus.SUCCESS;
         }
         else
         {
-            navMeshAgent.SetDestination(competitorPos.position);
+            m_currentGoal = competitorPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
     }
@@ -477,23 +595,27 @@ public class AIBehavior : MonoBehaviour
     {
         if(Vector3.Distance(transform.position, powerUpPos.position) <= 5f)
         {
-            navMeshAgent.SetDestination(powerUpPos.position);
+            m_currentGoal = powerUpPos.position;//
+            RecalculatePath();
             return EReturnStatus.SUCCESS;
         }
         else if(goalCloser)
         {
-            navMeshAgent.SetDestination(goalPos.position);
+            m_currentGoal = goalPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else if(competitorCloser)
         {
-            navMeshAgent.SetDestination(competitorPos.position);
+            m_currentGoal = competitorPos.position;
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else
         {
             Debug.Log(competitor.Name + " Targeting Power up");
-            navMeshAgent.SetDestination(powerUpPos.position);
+            m_currentGoal = powerUpPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
     }
@@ -503,15 +625,17 @@ public class AIBehavior : MonoBehaviour
         if(transform.position.x == powerUpPos.position.x && transform.position.z == powerUpPos.position.z)
         {
             powerUpPos = null;
-            navMeshAgent.ResetPath();
-            navMeshAgent.SetDestination(goalPos.position);
+            //navMeshAgent.ResetPath();
+            m_currentGoal = goalPos.position;//
+            RecalculatePath();
             StartCoroutine(PUCooldown());
             Debug.Log("Grabbed the power up");
             return EReturnStatus.SUCCESS;
         }
         else
         {
-            navMeshAgent.SetDestination(powerUpPos.position);
+            m_currentGoal = powerUpPos.position;//
+            RecalculatePath();
             return EReturnStatus.FAILURE;
         }
     }
@@ -883,14 +1007,14 @@ public class AIBehavior : MonoBehaviour
         heading.y = 0;
         var distance = heading.magnitude;
         var direction = heading / distance;
-        var velocity = navMeshAgent.velocity;
+        //var velocity = navMeshAgent.velocity;
 
-        navMeshAgent.enabled = false;
+        //navMeshAgent.enabled = false;
         rb.AddForce(direction, ForceMode.Impulse);
     }
 
     public void ExitedGoalArea()
     {
-        navMeshAgent.enabled = true;
+        //navMeshAgent.enabled = true;
     }
 }
