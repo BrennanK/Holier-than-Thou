@@ -19,4 +19,8 @@ public class Item : MonoBehaviour
 	{
 		return price;
 	}
+	public Sprite getCover()
+	{
+		return cover;
+	}
 };

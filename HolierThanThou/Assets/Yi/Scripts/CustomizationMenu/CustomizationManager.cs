@@ -9,18 +9,22 @@ namespace FancyScrollView.CustomizationMenu
 	{
 		[SerializeField] ScrollView scrollView = default;
 		//[SerializeField] string[] NeededCoinsList;
-		[SerializeField] Item[] CustomizationArray;
+		[SerializeField] GameObject[] CustomizationArray;
 		[SerializeField] Text selectedItemInfo = default;
 
 		void Start()
 		{
-			ItemData[] items = CustomizationArray.Select(i => new ItemData($"${i.getPrice()}")).ToArray();
+			ItemData[] items = CustomizationArray.Select(i => new ItemData($"${i.GetComponent<Item>().getPrice()}")).ToArray();
 
-
-
+			scrollView.Covers = CustomizationArray.Select(i => i.GetComponent<Item>().getCover()).ToArray();
 			scrollView.OnSelectionChanged(OnSelectionChanged);
 			scrollView.UpdateData(items);
 			scrollView.SelectCell(0);
+		}
+
+		public GameObject[] getCustomizations()
+		{
+			return CustomizationArray;
 		}
 
 		void OnSelectionChanged(int index)
@@ -31,7 +35,7 @@ namespace FancyScrollView.CustomizationMenu
 
 		public int GetNeededCoins(int index)
 		{
-			return Convert.ToInt32(CustomizationArray[index].getPrice());
+			return Convert.ToInt32(CustomizationArray[index].GetComponent<Item>().getPrice());
 		}
 
 	}
