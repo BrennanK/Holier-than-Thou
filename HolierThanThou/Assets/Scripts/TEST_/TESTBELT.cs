@@ -1,0 +1,25 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TESTBELT : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Vector3 _temp = other.GetComponent<Rigidbody>().velocity;
+
+        other.GetComponent<Rigidbody>().velocity = _temp + (transform.forward * .2f);
+    }
+}
