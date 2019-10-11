@@ -23,65 +23,64 @@ public class BounceFunction : MonoBehaviour
     void FixedUpdate()
     {
         //Using Player Velocity to determine how hard to bounce
-        straightBounceDegree = sideBounceDegree = rBody.velocity.magnitude * bounciness;
+        straightBounceDegree = sideBounceDegree = rBody.velocity.magnitude;
     }
     
-    // Update is called once per frame
     void LateUpdate()
     {
         // Bounce When Hitting Forward
         if (Physics.Raycast(transform.position, Vector3.forward, disToBouncable, bouncable))
         {
-            rBody.AddForce(0.0f, 0.0f, -1f * straightBounceDegree, ForceMode.Impulse);
+            rBody.AddForce(0.0f, 0.0f, -bounciness * straightBounceDegree, ForceMode.Impulse);
             Debug.Log("Bounce Back");
             StartCoroutine(pauseControl());
         }  
         // Bounce When Hitting Backward
         else if (Physics.Raycast(transform.position, Vector3.back, disToBouncable, bouncable))
         {
-            rBody.AddForce(0.0f, 0.0f, 1f * straightBounceDegree, ForceMode.Impulse);
+            rBody.AddForce(0.0f, 0.0f, bounciness * straightBounceDegree, ForceMode.Impulse);
             Debug.Log("Bounce Forward");
             StartCoroutine(pauseControl());
         }
         // Bounce When Hitting Left
         else if (Physics.Raycast(transform.position, Vector3.left, disToBouncable, bouncable))
         {
-            rBody.AddForce(1f * sideBounceDegree, 0.0f, 0.0f, ForceMode.Impulse);
+            rBody.AddForce(bounciness * sideBounceDegree, 0.0f, 0.0f, ForceMode.Impulse);
             Debug.Log("Bounce Right");
             StartCoroutine(pauseControl());
         }
         // Bounce When Hitting Right
         else if (Physics.Raycast(transform.position, Vector3.right, disToBouncable, bouncable))
         {
-            rBody.AddForce(-1f * sideBounceDegree, 0.0f, 0.0f, ForceMode.Impulse);
+            rBody.AddForce(-bounciness * sideBounceDegree, 0.0f, 0.0f, ForceMode.Impulse);
             Debug.Log("Bounce Left");
             StartCoroutine(pauseControl());
         }
         //Bounce When Hitting Forward Right
         else if (Physics.Raycast(transform.position, Vector3.Lerp(Vector3.forward, Vector3.right, 0.6f), disToBouncable, bouncable))
         {
-            rBody.AddForce(-1f * sideBounceDegree/2, 0.0f, -1f * straightBounceDegree/2, ForceMode.Impulse);
+            rBody.AddForce(-bounciness/2 * sideBounceDegree, 0.0f, -bounciness/2 * straightBounceDegree, ForceMode.Impulse);
             Debug.Log("Bounce left back");
             StartCoroutine(pauseControl());
         }
         // Bounce When Hitting Back Right
         else if (Physics.Raycast(transform.position, Vector3.Lerp(Vector3.back, Vector3.right, 0.6f), disToBouncable, bouncable))
         {
-            rBody.AddForce(-1f * sideBounceDegree / 2, 0.0f, 1f * straightBounceDegree / 2, ForceMode.Impulse);
+            rBody.AddForce(-bounciness / 2 * sideBounceDegree, 0.0f, bounciness / 2 * straightBounceDegree, ForceMode.Impulse);
             Debug.Log("Bounce left front");
             StartCoroutine(pauseControl());
         }
         // Bounce When Hitting Forward Left
         else if (Physics.Raycast(transform.position, Vector3.Lerp(Vector3.forward, Vector3.left, 0.6f), disToBouncable, bouncable))
         {
-            rBody.AddForce(1f * sideBounceDegree / 2, 0.0f, -1f * straightBounceDegree / 2, ForceMode.Impulse);
+            rBody.AddForce(bounciness / 2 * sideBounceDegree, 0.0f, -bounciness / 2 * straightBounceDegree, ForceMode.Impulse);
             Debug.Log("Bounce right back");
             StartCoroutine(pauseControl());
         }
         // Bounce When Hitting Back Left
         else if (Physics.Raycast(transform.position, Vector3.Lerp(Vector3.back, Vector3.left, 0.6f), disToBouncable, bouncable))
         {
-            rBody.AddForce(1f * sideBounceDegree / 2, 0.0f, 1f * straightBounceDegree / 2, ForceMode.Impulse);
+            rBody.AddForce(bounciness / 2 * sideBounceDegree, 0.0f, bounciness / 2 * straightBounceDegree, ForceMode.Impulse);
             Debug.Log("Bounce right front");
             StartCoroutine(pauseControl());
         }
