@@ -1,13 +1,12 @@
 ﻿//09-19: Use to switch the prefab under the player gameobject.
 
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManager;
 
-//README Make sure that your customization slots are in the same order (first at top) as the customization panels in the array. 
+//README Make sure that the order is the same for every customization scroller, category, customizationswitcher, etc. 
+//(hat, body) will mess up if paired with (body, hat)
 public class CustomizationController : MonoBehaviour
 {
 	[SerializeField] private GameObject[] panels; // CustomizationManagers
@@ -15,15 +14,16 @@ public class CustomizationController : MonoBehaviour
 	[SerializeField] private GameObject categoriesIcon;
 	[SerializeField] private Transform currencyTextBox;
 	[SerializeField] private GameObject confirmDialogue;
+	[SerializeField] Text selectedItemInfo = default;
 
 	private List<GameObject> equipmentSlots; // CustomizationSwitchers
 	private List<int>[] purchases;
 	private GameObject player;
-	//private int currentIndex;
 	private int panelIndex = 0;
 	private int[] panelIndices; //the currently selected indices of each panel. 
 	private CustomizationSwitcher customSwitcher;
 
+	#region Initializing
 	private void Awake()
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
@@ -31,10 +31,12 @@ public class CustomizationController : MonoBehaviour
 
 		InitializeObjectSlots();
 		InitializePurchaseList();
-
-		UpdateCurrencyText();
 	}
-	#region Initializing
+	private void Start()
+	{
+		//TODO Call CustomizationSwitcher.SwitchCustomization() to the correct equipped item for each type of item.
+		SwitchCustomization(panelIndices[panelIndex]);
+	}
 
 	private void InitializePurchaseList()
 	{
@@ -46,7 +48,7 @@ public class CustomizationController : MonoBehaviour
 		//TODO: Populate store purchases with prior purchases from Player Profile.
 	}
 
-	//README Make sure that your customization slots are in the same order (first at top) as the customization panels in the array. 
+	//README Make sure that your customization slots are in the same order (first at top).
 	private void InitializeObjectSlots()
 	{
 		equipmentSlots = new List<GameObject>();
@@ -80,19 +82,24 @@ public class CustomizationController : MonoBehaviour
 	}
 
 	#region UIManagement
-	private void UpdateCurrencyText()
+	public void UpdateCurrencyText()
 	{
 		currencyTextBox.GetComponent<Text>().text =
 			player.GetComponent<PlayerCustomization>().currency.ToString();
 	}
+	private void UpdateInfoText(int index)
+	{
+		selectedItemInfo.text = 
+			panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[index].GetComponent<Item>().getInfo();
+	}
 
-	// TODO Refactor this so it doesn't just apply to Hats.
-	// Snap the option menu, and switch the customized entity automatically.
 	public void SwitchCustomization(int index)
 	{
 		customSwitcher = equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>();
 		customSwitcher.SwitchCustomization(index);
 		panelIndices[panelIndex] = index;
+		// Fill the selectedItemInfo text with the customization's info.
+		UpdateInfoText(index);
 	}
 
 	public void Next()
@@ -125,6 +132,7 @@ public class CustomizationController : MonoBehaviour
 		{
 			categoriesIcon.GetComponent<RawImage>().texture = categories[panelIndex];
 		}
+		SwitchCustomization(panelIndices[panelIndex]);
 	}
 
 	#endregion /UIManagement

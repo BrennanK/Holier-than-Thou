@@ -10,7 +10,6 @@ namespace FancyScrollView.CustomizationMenu
 		[SerializeField] ScrollView scrollView = default;
 		//[SerializeField] string[] NeededCoinsList;
 		[SerializeField] GameObject[] CustomizationArray;
-		[SerializeField] Text selectedItemInfo = default;
 
 		void Start()
 		{
