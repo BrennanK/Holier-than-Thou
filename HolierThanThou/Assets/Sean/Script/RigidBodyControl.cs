@@ -94,8 +94,6 @@ public class RigidBodyControl : MonoBehaviour
         direction = t_cameraForward * m_digitalJoystickReference.Vertical * speed;
         direction += t_cameraRight * m_digitalJoystickReference.Horizontal * speed;
         direction.y = previousYVelocity;
-
-        transform.LookAt(transform.position + direction);
     }
 }
 

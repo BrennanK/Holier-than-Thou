@@ -36,8 +36,12 @@ public class Chillout : PowerUp
                 var rb = enemy.GetComponent<Rigidbody>();
                 var competitor = enemy.GetComponent<Competitor>();
 
-
+                
                 competitor.navMeshOff = true;
+                if (competitor.navMeshOff == true)
+                {
+                    rb.velocity = Vector3.zero;
+                }
                 competitor.BeenChilled(duration);
             }
         }
