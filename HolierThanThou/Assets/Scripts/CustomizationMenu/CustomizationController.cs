@@ -9,14 +9,14 @@ using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManage
 //(hat, body) will mess up if paired with (body, hat)
 public class CustomizationController : MonoBehaviour
 {
-	[SerializeField] private GameObject[] panels; // CustomizationManagers
+	[SerializeField] private GameObject[] panels; // FancyCustomizations / CustomizationManagers 
 	[SerializeField] private Texture[] categories;
 	[SerializeField] private GameObject categoriesIcon;
 	[SerializeField] private Transform currencyTextBox;
 	[SerializeField] private GameObject confirmDialogue;
 	[SerializeField] Text selectedItemInfo = default;
 
-	private List<GameObject> equipmentSlots; // CustomizationSwitchers
+	private List<GameObject> equipmentSlots; // CustomizationSwitchers 
 	private List<int>[] purchases;
 	private GameObject player;
 	private int panelIndex = 0;
@@ -95,11 +95,28 @@ public class CustomizationController : MonoBehaviour
 
 	public void SwitchCustomization(int index)
 	{
+		//update the preview.
 		customSwitcher = equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>();
 		customSwitcher.SwitchCustomization(index);
 		panelIndices[panelIndex] = index;
 		// Fill the selectedItemInfo text with the customization's info.
 		UpdateInfoText(index);
+	}
+
+	public void SwitchPanelCustomization(int pIndex, int index)
+	{
+		//set everything false
+		foreach(GameObject panel in panels)
+		{
+			panel.SetActive(false);
+		}
+		//set the index to the incoming index.
+		if((pIndex >= 0) && (pIndex < panels.Length))
+		{
+			panelIndex = pIndex;
+		}
+		ChangePanel(index);
+		panels[panelIndex].GetComponent<FancyCustomization>().GetScrollView().SelectCell(index);
 	}
 
 	public void Next()
@@ -111,7 +128,7 @@ public class CustomizationController : MonoBehaviour
 		}
 		panelIndex++;
 		panelIndex %= panels.Length; //Don't go over the maximum.
-		ChangePanel();
+		ChangePanel(panelIndices[panelIndex]);
 	}
 
 	public void Previous()
@@ -122,17 +139,17 @@ public class CustomizationController : MonoBehaviour
 		}
 		panelIndex--;
 		if (panelIndex < 0) panelIndex = panels.Length - 1; //Don't go under the minimum.
-		ChangePanel();
+		ChangePanel(panelIndices[panelIndex]);
 	}
 
-	public void ChangePanel()
+	public void ChangePanel(int index)
 	{
 		panels[panelIndex].SetActive(true);
 		if (categoriesIcon.GetComponent<RawImage>())
 		{
 			categoriesIcon.GetComponent<RawImage>().texture = categories[panelIndex];
 		}
-		SwitchCustomization(panelIndices[panelIndex]);
+		SwitchCustomization(index);
 	}
 
 	#endregion /UIManagement
