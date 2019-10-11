@@ -10,8 +10,8 @@ public class PlayerCustomization : MonoBehaviour
 	[SerializeField] private int defaultMoney = 10;
 
 	private List<string>[] unlockedItems;
-	private string defaultHat = "Hat Cowboy";
-	private string defaultBody = "Body AskingQs";
+	private string defaultHat = "Hat 0";
+	private string defaultBody = "Body";
 	private string toParse = "";
 	private char separatorChar = ',';
 	private char newLineChar = '.';
@@ -38,7 +38,7 @@ public class PlayerCustomization : MonoBehaviour
 
 	private void LoadUnlockedItems()
 	{
-		toParse = PlayerPrefs.GetString("UnlockedItems", $"Hat 0{separatorChar}{defaultHat}{newLineChar}Body{separatorChar}{defaultBody}{newLineChar}");
+		toParse = PlayerPrefs.GetString("UnlockedItems", $"{defaultHat}{newLineChar}{defaultBody}{newLineChar}");
 		int numTypes = System.Enum.GetNames(typeof(ClothingOptions)).Length;
 		char[] newLines = { newLineChar };
 		char[] commas = { separatorChar };
