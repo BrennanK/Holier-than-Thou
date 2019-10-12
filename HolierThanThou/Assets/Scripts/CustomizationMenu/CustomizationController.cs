@@ -84,7 +84,7 @@ public class CustomizationController : MonoBehaviour
 			//equipped items
 			selectedItemInfo.text = $"{thing.getName()}: Equipped";
 		}
-		else if(index == 0)
+		else if (index == 0)
 		{
 			//default items
 			selectedItemInfo.text = thing.getName();
@@ -121,7 +121,7 @@ public class CustomizationController : MonoBehaviour
 	{
 		RevertItemSelection();
 
-		panelIndex ++;
+		panelIndex++;
 		panelIndex %= panels.Length;
 
 		ChangePanel(panelIndices[panelIndex]);
@@ -131,12 +131,15 @@ public class CustomizationController : MonoBehaviour
 	{
 		RevertItemSelection();
 
-		panelIndex --;
-		panelIndex %= panels.Length;
+		panelIndex--;
+		if (panelIndex < 0)
+		{
+			panelIndex = panels.Length - 1;
+		}
 
 		ChangePanel(panelIndices[panelIndex]);
 	}
-	
+
 	//When you switch between panels, this should keep you equipped items on, but allow you to cutomize on your currently selected menu.
 	private void RevertItemSelection()
 	{
@@ -185,7 +188,7 @@ public class CustomizationController : MonoBehaviour
 	{
 		if (!CheckPlayerInventory()) //If it's not in the player inventory, continue purchasing.
 		{
-			int playerMoney = player.GetComponent<PlayerCustomization>().currency;  
+			int playerMoney = player.GetComponent<PlayerCustomization>().currency;
 			int price = GetPrice(panelIndices[panelIndex]);
 
 			if (playerMoney - price < 0)
