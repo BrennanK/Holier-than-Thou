@@ -23,7 +23,7 @@ public class PlayerCustomization : MonoBehaviour
 		FindObjectOfType<CustomizationController>().UpdateCurrencyText();
 		LoadUnlockedItems();
 		LoadEquippedItems();
-		EquipItems();
+		InitializeEquippedItems();
 	}
 
 	public void OnDestroy()
@@ -56,8 +56,6 @@ public class PlayerCustomization : MonoBehaviour
 				unlockedItems[i].Add(category[j]);
 			}
 		}
-		int debug = 0;
-		debug++;
 	}
 
 	private void LoadEquippedItems()
@@ -70,8 +68,42 @@ public class PlayerCustomization : MonoBehaviour
 		{
 			equippedItems[i] = nums[i];
 		}
-		int debug = 0;
-		debug++;
+	}
+
+	private void InitializeEquippedItems()
+	{
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex != 2)
+		{
+			int i = 0;
+			foreach (string item in equippedItems)
+			{
+				//find prefab of specific name
+				GameObject option = Instantiate((GameObject)Resources.Load($"Prefabs/{item}"));
+				option.SetActive(true);
+				option.transform.parent = transform.GetChild(i);
+				option.transform.localPosition += option.transform.parent.transform.position;
+				i++;
+			}
+		}
+		else
+		{
+			CustomizationController customizationController = FindObjectOfType<CustomizationController>();
+			//Go backwards through the children so that the customizations menu always starts off on the first menu.
+			for (int i = transform.childCount - 1; i >= 0; i--)
+			{
+				//find out 
+				CustomizationSwitcher cSwitcher = transform.GetChild(i).GetComponent<CustomizationSwitcher>();
+				GameObject[] options = cSwitcher.GetCustomizations();
+				for (int j = 0; j < options.Length; j++)
+				{
+					if (options[j].name == equippedItems[i])
+					{
+						customizationController.SwitchPanelCustomization(i, j);
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	#endregion /loading
@@ -142,6 +174,20 @@ public class PlayerCustomization : MonoBehaviour
 	}
 	#endregion /currency
 
+	//if item in inventory, returns true;
+	//TODO extrapolate this to the player class.
+	public bool CheckUnlockedItems(int panelIndex, string itemBeingChecked)
+	{
+		foreach (string itemName in unlockedItems[panelIndex])
+		{
+			if (itemName == itemBeingChecked)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public bool AddUnlockedItem(int index, string item)
 	{
 		if (!unlockedItems[index].Contains(item))
@@ -152,45 +198,24 @@ public class PlayerCustomization : MonoBehaviour
 		return false;
 	}
 
-	public bool SetEquippedItem(int index, string item)
+	//If item is equipped, returns true.
+	public bool CheckEquippedItem(int type, string name)
 	{
-		equippedItems[index] = item;
+		if (equippedItems[type] == name)
+		{
+			return true;
+		}
 		return false;
 	}
-	private void EquipItems()
+
+	public bool SetEquippedItem(int index, string item)
 	{
-		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex != 2)
+		if (index < 0 || index > equippedItems.Length - 1)
 		{
-			int i = 0;
-			foreach (string item in equippedItems)
-			{
-				//find prefab of specific name
-				GameObject option = Instantiate((GameObject)Resources.Load($"Prefabs/{item}"));
-				option.SetActive(true);
-				option.transform.parent = transform.GetChild(i);
-				option.transform.localPosition += option.transform.parent.transform.position;
-				i++;
-			}
+			return false;
 		}
-		else
-		{
-			CustomizationController customizationController = FindObjectOfType<CustomizationController>();
-			//Go backwards through the children so that the customizations menu always starts off on the first menu.
-			for (int i = transform.childCount - 1; i >= 0; i--)
-			{
-				//find out 
-				CustomizationSwitcher cSwitcher = transform.GetChild(i).GetComponent<CustomizationSwitcher>();
-				GameObject[] options = cSwitcher.GetCustomizations();
-				for (int j = 0; j < options.Length; j++)
-				{
-					if (options[j].name == equippedItems[i])
-					{
-						customizationController.SwitchPanelCustomization(i, j);
-						break;
-					}
-				}
-			}
-		}
+		equippedItems[index] = item;
+		return true;
 	}
 
 }
