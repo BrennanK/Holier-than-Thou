@@ -24,6 +24,8 @@ public class AIBehavior : MonoBehaviour
     float calcTimer = 0;
     float calcRand = 0;
 
+    bool gameRunning = false;
+
     //public GameObject goal; already have this
     NavMeshPath navMeshPath;
     //private Rigidbody m_rigidbody; Already have this 
@@ -94,9 +96,9 @@ public class AIBehavior : MonoBehaviour
         //}
 
 
-        ResetTimer();
-        RunPathCalculation();
-        RecalculatePath();
+        //ResetTimer();
+        //RunPathCalculation();
+        //RecalculatePath();
     
 
 
@@ -147,9 +149,12 @@ public class AIBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Vector3.Distance(transform.position, m_currentGoal) < stoppingDistance)
+        if (gameRunning)
         {
-            RecalculatePath();
+            if (Vector3.Distance(transform.position, m_currentGoal) < stoppingDistance)
+            {
+                RecalculatePath();
+            }
         }
 
         // The movement being applied is now AddForce with a ForceMode.Force instead of hard assigning the velocity - Brian 10/10
@@ -288,6 +293,10 @@ public class AIBehavior : MonoBehaviour
     {
         if (GameManager.gameRunning)
         {
+            gameRunning = true;
+            ResetTimer();
+            RunPathCalculation();
+            RecalculatePath();
             return EReturnStatus.SUCCESS;
         }
         else
