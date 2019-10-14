@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2143315366
+--- !u!1 &309267165
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1217779832}
-  - component: {fileID: 2143315368}
-  - component: {fileID: 2143315369}
-  - component: {fileID: 2143315367}
+  - component: {fileID: 100628559}
+  - component: {fileID: 309267167}
+  - component: {fileID: 309267168}
+  - component: {fileID: 309267166}
   m_Layer: 0
-  m_Name: SM_chesse Hat
+  m_Name: Hat Soda
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &1217779832
+--- !u!4 &100628559
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143315366}
-  m_LocalRotation: {x: -0, y: 0.9976497, z: -0.06852028, w: 0}
-  m_LocalPosition: {x: -6.89, y: 0, z: -31.75}
-  m_LocalScale: {x: 14000, y: 7000, z: 14000}
+  m_GameObject: {fileID: 309267165}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3.74}
+  m_LocalScale: {x: 4000, y: 4000, z: 4000}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 7.8580003, y: 180, z: 0}
---- !u!33 &2143315368
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &309267167
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143315366}
-  m_Mesh: {fileID: 4300000, guid: cf50e374ff6e5f84988338a50f17d09f, type: 3}
---- !u!23 &2143315369
+  m_GameObject: {fileID: 309267165}
+  m_Mesh: {fileID: 4300000, guid: 9c2e41258bcb9004d9d8c01952e176d0, type: 3}
+--- !u!23 &309267168
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143315366}
+  m_GameObject: {fileID: 309267165}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1013732458c510e44bb009ce6892f153, type: 2}
+  - {fileID: 2100000, guid: 4ba33accdadccd54287b66d7b2c19c7d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,13 +78,13 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &2143315367
+--- !u!114 &309267166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143315366}
+  m_GameObject: {fileID: 309267165}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec03a0b368cb4a044abcd23a4caeb123, type: 3}
@@ -92,5 +92,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: 200
   option: 0
-  itemName: Cheese Hat
-  cover: {fileID: 21300000, guid: 9ec729eb8dc273f44bd694cf4d6f61c2, type: 3}
+  itemName: Soda Hat
+  cover: {fileID: 21300000, guid: 268cb25d0e77a7c42912931d686b67b5, type: 3}

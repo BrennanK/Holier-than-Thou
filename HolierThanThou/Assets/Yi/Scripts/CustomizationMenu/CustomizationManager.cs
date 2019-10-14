@@ -11,14 +11,18 @@ namespace FancyScrollView.CustomizationMenu
 		//[SerializeField] string[] NeededCoinsList;
 		[SerializeField] GameObject[] CustomizationArray;
 
-		void Start()
+		void Awake()
 		{
 			ItemData[] items = CustomizationArray.Select(i => new ItemData($"${i.GetComponent<Item>().getPrice()}")).ToArray();
-
 			scrollView.Covers = CustomizationArray.Select(i => i.GetComponent<Item>().getCover()).ToArray();
 			scrollView.OnSelectionChanged(OnSelectionChanged);
 			scrollView.UpdateData(items);
 			scrollView.SelectCell(0);
+		}
+
+		public ScrollView GetScrollView()
+		{
+			return scrollView;
 		}
 
 		public GameObject[] getCustomizations()

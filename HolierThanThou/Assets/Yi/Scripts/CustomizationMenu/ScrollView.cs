@@ -48,17 +48,28 @@ namespace FancyScrollView.CustomizationMenu
         public void OnSelectionChanged(Action<int> callback)
         {
             onSelectionChanged = callback;
-        }
+		}
 
-        public void SelectCell(int index)
-        {
-            if (index < 0 || index >= ItemsSource.Count || index == Context.SelectedIndex)
-            {
-                return;
-            }
+		public void SelectCell(int index)
+		{
+			if (index < 0 || index >= ItemsSource.Count || index == Context.SelectedIndex)
+			{
+				return;
+			}
 
-            UpdateSelection(index);
-            scroller.ScrollTo(index, 0.35f, Ease.OutCubic);
-        }
-    }
+			UpdateSelection(index);
+			scroller.ScrollTo(index, 0.35f, Ease.OutCubic);
+		}
+
+		public void JumpToCell(int index)
+		{
+			if (index < 0 || index >= ItemsSource.Count || index == Context.SelectedIndex)
+			{
+				return;
+			}
+
+			UpdateSelection(index);
+			scroller.JumpTo(index);
+		}
+	}
 }

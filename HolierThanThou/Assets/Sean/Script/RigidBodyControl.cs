@@ -7,7 +7,7 @@ public class RigidBodyControl : MonoBehaviour
     // Movement Variables
     public float speed;
     public float jumpForce;
-    public float downAccel;
+    //public float downAccel;
     public float airFriction;
     public float disToGround;
     public float inputDelay;
@@ -71,9 +71,9 @@ public class RigidBodyControl : MonoBehaviour
             Debug.Log("Y velocity While Jump: " + rBody.velocity.y);
 
         }
-        else {
-            rBody.AddForce(Physics.gravity * downAccel, ForceMode.Force);
-        }
+        //else {
+        //    rBody.AddForce(Physics.gravity * downAccel, ForceMode.Force);
+        //}
     }
 
     //Ground Check

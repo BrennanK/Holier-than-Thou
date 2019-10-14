@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1920302978
+--- !u!1 &320821951
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 787850741}
-  - component: {fileID: 1920302980}
-  - component: {fileID: 1920302981}
-  - component: {fileID: 1920302979}
+  - component: {fileID: 971457005}
+  - component: {fileID: 320821953}
+  - component: {fileID: 320821954}
+  - component: {fileID: 320821952}
   m_Layer: 0
-  m_Name: SM_STraw_Hat
+  m_Name: Hat Fox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &787850741
+--- !u!4 &971457005
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920302978}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.6, y: -35.13, z: 0}
-  m_LocalScale: {x: 6000, y: 6000, z: 6000}
+  m_GameObject: {fileID: 320821951}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5000, y: 5000, z: 5000}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1920302980
+--- !u!33 &320821953
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920302978}
-  m_Mesh: {fileID: 4300000, guid: f181d6f1619db1d4f8c052dd46e1b608, type: 3}
---- !u!23 &1920302981
+  m_GameObject: {fileID: 320821951}
+  m_Mesh: {fileID: 4300000, guid: d57dc13db3fac6e4c8bf20a8af3edf9c, type: 3}
+--- !u!23 &320821954
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920302978}
+  m_GameObject: {fileID: 320821951}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fcb8f4f382e0a6e479732b5de533c760, type: 2}
+  - {fileID: 2100000, guid: ba4837023bbb33f4b84b272838df6721, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,13 +78,13 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1920302979
+--- !u!114 &320821952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920302978}
+  m_GameObject: {fileID: 320821951}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec03a0b368cb4a044abcd23a4caeb123, type: 3}
@@ -92,5 +92,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: 200
   option: 0
-  itemName: Straw Hat
-  cover: {fileID: 21300000, guid: 04c52682ace52d84985faf5e41fdc93b, type: 3}
+  itemName: Fox Hat
+  cover: {fileID: 21300000, guid: f5c1b1cf14e263d4093a89aff2f573e8, type: 3}

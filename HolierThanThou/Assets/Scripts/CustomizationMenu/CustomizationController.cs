@@ -1,6 +1,4 @@
-﻿//09-19: Use to switch the prefab under the player gameobject.
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManager;
@@ -9,15 +7,15 @@ using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManage
 //(hat, body) will mess up if paired with (body, hat)
 public class CustomizationController : MonoBehaviour
 {
-	[SerializeField] private GameObject[] panels; // CustomizationManagers
+	[SerializeField] private GameObject[] panels; // FancyCustomizations / CustomizationManagers 
 	[SerializeField] private Texture[] categories;
 	[SerializeField] private GameObject categoriesIcon;
 	[SerializeField] private Transform currencyTextBox;
 	[SerializeField] private GameObject confirmDialogue;
 	[SerializeField] Text selectedItemInfo = default;
+	[SerializeField] Text itemInfoText = default;
 
-	private List<GameObject> equipmentSlots; // CustomizationSwitchers
-	private List<int>[] purchases;
+	private List<GameObject> equipmentSlots; // CustomizationSwitchers 
 	private GameObject player;
 	private int panelIndex = 0;
 	private int[] panelIndices; //the currently selected indices of each panel. 
@@ -30,22 +28,10 @@ public class CustomizationController : MonoBehaviour
 		panelIndices = new int[panels.Length];
 
 		InitializeObjectSlots();
-		InitializePurchaseList();
 	}
 	private void Start()
 	{
-		//TODO Call CustomizationSwitcher.SwitchCustomization() to the correct equipped item for each type of item.
-		SwitchCustomization(panelIndices[panelIndex]);
-	}
 
-	private void InitializePurchaseList()
-	{
-		purchases = new List<int>[panels.Length];
-		for (int i = 0; i < purchases.Length; i++)
-		{
-			purchases[i] = new List<int>();
-		}
-		//TODO: Populate store purchases with prior purchases from Player Profile.
 	}
 
 	//README Make sure that your customization slots are in the same order (first at top).
@@ -68,17 +54,10 @@ public class CustomizationController : MonoBehaviour
 	#endregion /Initializing
 
 	//if item in inventory, returns true;
-	//TODO extrapolate this to the player class.
-	private bool CheckPlayerInventory(int index)
+	private bool CheckPlayerInventory()
 	{
-		foreach (int itemNo in purchases[panelIndex])
-		{
-			if (itemNo == index)
-			{
-				return true;
-			}
-		}
-		return false;
+		string name = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[panelIndices[panelIndex]].name;
+		return player.GetComponent<PlayerCustomization>().CheckUnlockedItems(panelIndex, name);
 	}
 
 	#region UIManagement
@@ -89,12 +68,33 @@ public class CustomizationController : MonoBehaviour
 	}
 	private void UpdateInfoText(int index)
 	{
-		selectedItemInfo.text = 
-			panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[index].GetComponent<Item>().getInfo();
+		GameObject obj = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[index];
+		Item thing = obj.GetComponent<Item>();
+		if (!CheckPlayerInventory())
+		{
+			//unpurchased items
+			selectedItemInfo.text = thing.getInfo();
+		}
+		else if (player.GetComponent<PlayerCustomization>().CheckEquippedItem(panelIndex, obj.name))
+		{
+			//equipped items
+			selectedItemInfo.text = $"{thing.getName()}: Equipped";
+		}
+		else if (index == 0)
+		{
+			//default items
+			selectedItemInfo.text = thing.getName();
+		}
+		else
+		{
+			//owned items
+			selectedItemInfo.text = $"{thing.getName()}: Owned";
+		}
 	}
 
 	public void SwitchCustomization(int index)
 	{
+		//update the preview.
 		customSwitcher = equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>();
 		customSwitcher.SwitchCustomization(index);
 		panelIndices[panelIndex] = index;
@@ -102,37 +102,78 @@ public class CustomizationController : MonoBehaviour
 		UpdateInfoText(index);
 	}
 
+	public void SwitchPanelCustomization(int pIndex, int index)
+	{
+		//set the index to the incoming index.
+		if ((pIndex >= 0) && (pIndex < panels.Length))
+		{
+			panelIndex = pIndex;
+		}
+		ChangePanel(index);
+		panels[panelIndex].GetComponent<FancyCustomization>().GetScrollView().SelectCell(index);
+	}
+
 	public void Next()
 	{
-		//Set all panels to false.
-		foreach (GameObject panel in panels)
-		{
-			panel.SetActive(false);
-		}
+		RevertItemSelection();
+
 		panelIndex++;
-		panelIndex %= panels.Length; //Don't go over the maximum.
-		ChangePanel();
+		panelIndex %= panels.Length;
+
+		ChangePanel(panelIndices[panelIndex]);
 	}
 
 	public void Previous()
 	{
+		RevertItemSelection();
+
+		panelIndex--;
+		if (panelIndex < 0)
+		{
+			panelIndex = panels.Length - 1;
+		}
+
+		ChangePanel(panelIndices[panelIndex]);
+	}
+
+	//When you switch between panels, this should keep you equipped items on, but allow you to cutomize on your currently selected menu.
+	private void RevertItemSelection()
+	{
+		string equippedItemName = player.GetComponent<PlayerCustomization>().equippedItems[panelIndex];
+		GameObject[] currentScrollMenu = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations();
+
+		//Find out where the equipped item is stored in the customization hierarchy.
+		int equipIndex = 0;
+		for (; equipIndex < currentScrollMenu.Length; equipIndex++)
+		{
+			if (currentScrollMenu[equipIndex].name == equippedItemName)
+			{
+				break;
+			}
+		}
+
+		//Change preview
+		customSwitcher = equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>();
+		customSwitcher.SwitchCustomization(equipIndex);
+
+		//Make sure the current panel is set to the equipped item
+		panelIndices[panelIndex] = equipIndex;
+		panels[panelIndex].GetComponent<FancyCustomization>().GetScrollView().SelectCell(equipIndex);
+	}
+
+	public void ChangePanel(int index)
+	{
 		foreach (GameObject panel in panels)
 		{
 			panel.SetActive(false);
 		}
-		panelIndex--;
-		if (panelIndex < 0) panelIndex = panels.Length - 1; //Don't go under the minimum.
-		ChangePanel();
-	}
-
-	public void ChangePanel()
-	{
 		panels[panelIndex].SetActive(true);
+
 		if (categoriesIcon.GetComponent<RawImage>())
 		{
 			categoriesIcon.GetComponent<RawImage>().texture = categories[panelIndex];
 		}
-		SwitchCustomization(panelIndices[panelIndex]);
+		SwitchCustomization(index);
 	}
 
 	#endregion /UIManagement
@@ -141,9 +182,9 @@ public class CustomizationController : MonoBehaviour
 
 	public void InitializePurchase()
 	{
-		if (!CheckPlayerInventory(panelIndices[panelIndex])) //If it's not in the player inventory, continue purchasing.
+		if (!CheckPlayerInventory()) //If it's not in the player inventory, continue purchasing.
 		{
-			int playerMoney = player.GetComponent<PlayerCustomization>().currency; //TODO replace with player profile's currency. 
+			int playerMoney = player.GetComponent<PlayerCustomization>().currency;
 			int price = GetPrice(panelIndices[panelIndex]);
 
 			if (playerMoney - price < 0)
@@ -152,6 +193,7 @@ public class CustomizationController : MonoBehaviour
 			}
 			else
 			{
+				itemInfoText.text = selectedItemInfo.text;
 				confirmDialogue.SetActive(true);
 			}
 		}
@@ -174,9 +216,15 @@ public class CustomizationController : MonoBehaviour
 		player.GetComponent<PlayerCustomization>().subtractCurrency(price);
 		UpdateCurrencyText();
 
-		purchases[panelIndex].Add(panelIndices[panelIndex]);
-		Debug.Log("You bought a NO." + panelIndices[panelIndex] + " equipment");
+		//Update the purchases
+		string name = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[panelIndices[panelIndex]].name;
+		bool result = player.GetComponent<PlayerCustomization>().AddUnlockedItem(panelIndex, name);
 
+		UpdateInfoText(panelIndices[panelIndex]);
+
+		Debug.Log($"{result}: You bought a NO.{panelIndices[panelIndex]} equipment");
+
+		Equip();
 	}
 
 	private int GetPrice(int index)
@@ -186,11 +234,10 @@ public class CustomizationController : MonoBehaviour
 
 	#endregion /Purchasing
 
-	// TODO Player inventory needs to be in the Player class. 
 	public void Equip()
 	{
 		// if it not purchased, tell player how much it is to purchase.
-		if (!CheckPlayerInventory(panelIndices[panelIndex])) // if it has been purchased, it returns true.
+		if (!CheckPlayerInventory()) // if it has not been purchased
 		{
 			int playerMoney = player.GetComponent<PlayerCustomization>().currency; //TODO replace with player profile's currency. 
 			int price = GetPrice(panelIndices[panelIndex]);
@@ -200,15 +247,25 @@ public class CustomizationController : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log("This item is worth " + price + " coins.");
+				Debug.Log("You may purchase this item for " + price + " coins.");
 			}
 		}
 		else //if it is purchased, the player can equip it.
 		{
-			// if it is currently equipped, do not equip it. 
-			Debug.Log("You equip a NO." + panelIndices[panelIndex] + " equipment");
-			// if it is not currently equipped, equip it. 
-			Debug.Log("You have already equipped the NO." + panelIndices[panelIndex] + " equipment");
+			string itemName = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[panelIndices[panelIndex]].name;
+			bool isEquipped = player.GetComponent<PlayerCustomization>().CheckEquippedItem(panelIndex, itemName);
+			if (isEquipped)
+			{
+				// if it is currently equipped, do not equip it. 
+				Debug.Log("You have already equipped the NO." + panelIndices[panelIndex] + " equipment");
+			}
+			else
+			{
+				// if it is not currently equipped, equip it. 
+				player.GetComponent<PlayerCustomization>().SetEquippedItem(panelIndex, itemName);
+				Debug.Log("You equip a NO." + panelIndices[panelIndex] + " equipment");
+				UpdateInfoText(panelIndices[panelIndex]);
+			}
 		}
 	}
 }

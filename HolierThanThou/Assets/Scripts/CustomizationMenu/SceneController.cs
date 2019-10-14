@@ -4,13 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-	List<int> scenes = new List<int>();
+	private List<int> scenes = new List<int>();
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		LoadScenes();
-		//When you switch to a scene, add the current scene's buildindex to that list.
+		//When you switch to a scene, add the current scene's buildIndex to that list.
 		scenes.Add(SceneManager.GetActiveScene().buildIndex);
 	}
 
@@ -41,10 +41,17 @@ public class SceneController : MonoBehaviour
 			//Don't put a comma on the end of the string.
 			if (i < scenes.Count - 1)
 			{
+				//Separate entries by comma
 				saveData += ',';
 			}
 		}
 		PlayerPrefs.SetString("Scenes", saveData);
+	}
+
+	public void OnApplicationQuit()
+	{
+		scenes.Clear();
+		SaveScenes();
 	}
 
 	public void GoToPreviousScene()
@@ -54,15 +61,28 @@ public class SceneController : MonoBehaviour
 		{
 			scenes.RemoveAt(scenes.Count - 1);
 		}
+		//If there are at least two scenes, you can go back one scene.
 		if (scenes.Count >= 2)
 		{
 			//scenes.Count - 1 is the index for the current scene.
 			//scenes.Count will always at least be 1, because it is incremented in the Start() method.
 			SceneManager.LoadScene(scenes[scenes.Count - 2]);
 		}
+		// if there is only one scene, it SHOULD be the main scene, but this will load the main menu in any other case.
 		else
 		{
 			SceneManager.LoadScene(0);
 		}
+	}
+
+	public void GoToScene(int index)
+	{
+		SceneManager.LoadScene(index);
+	}
+
+	public void GoToNextScene()
+	{
+		//this_scene++;
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 }

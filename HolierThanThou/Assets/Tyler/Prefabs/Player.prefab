@@ -788,6 +788,7 @@ GameObject:
   - component: {fileID: 4838207360244041269}
   - component: {fileID: 1520177103386057094}
   - component: {fileID: 4277066841262537074}
+  - component: {fileID: 1487143100378564585}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -889,7 +890,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   jumpForce: 8
-  downAccel: 1.5
   airFriction: 8
   disToGround: 1
   inputDelay: 0.1
@@ -996,7 +996,21 @@ MonoBehaviour:
   verticalBounceDegree: 0
   sideBounceDegree: 10
   disToBouncable: 0.6
+  bounciness: 0
   bouncable:
     serializedVersion: 2
     m_Bits: 1024
   timer: 0.5
+--- !u!114 &1487143100378564585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843923995302826759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5281d1d3aa0054346bd8923fa2ab5d36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  downAccel: 1.5

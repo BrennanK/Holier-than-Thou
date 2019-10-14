@@ -22,15 +22,22 @@ public class CustomizationSwitcher : MonoBehaviour, IInitializer<CustomizationSw
 		}
 	}
 
-	public bool Equals(CustomizationSwitcher switcher) //this method is required for IGrabber.
+	//this method is required for IInitializer.
+	public bool Equals(CustomizationSwitcher switcher)
 	{
 		return this.customizations == switcher.customizations &&
 			this.customizationType == switcher.customizationType;
 	}
 
-	public void Initialize(GameObject[] obj) //this method is required for IGrabber.
+	//this method is required for IInitializer.
+	public void Initialize(GameObject[] obj) 
 	{
 		customizations = obj;
+	}
+
+	public GameObject[] GetCustomizations()
+	{
+		return customizations;
 	}
 
 	public void SwitchCustomization(int index)
