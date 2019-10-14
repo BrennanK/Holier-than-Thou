@@ -82,6 +82,10 @@ public class PlayerCustomization : MonoBehaviour
 	{
 		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "CustomizationMenu")
 		{
+			if (transform.GetComponent<MeshRenderer>())
+			{
+				transform.GetComponent<MeshRenderer>().enabled = false;
+			}
 			int i = 0;
 			foreach (string item in equippedItems)
 			{
