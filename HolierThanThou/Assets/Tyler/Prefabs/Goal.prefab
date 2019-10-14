@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 252933133}
   m_Layer: 0
   m_Name: Goal
-  m_TagString: Untagged
+  m_TagString: Goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cbe49c388067e2459145bc74efce98c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpEditor: {fileID: 11400000, guid: bfc6dbf05da71374aa881574f239db90, type: 2}
+  radius: 5
+  disToGround: 1
+  power: 3
+  upwardForce: 1
+  ground:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &3120310719249573823
 MonoBehaviour:
   m_ObjectHideFlags: 0

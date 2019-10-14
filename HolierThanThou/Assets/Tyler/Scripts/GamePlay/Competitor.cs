@@ -14,7 +14,6 @@ public class Competitor : MonoBehaviour
     public bool navMeshOff;
 
     //Variables for power up effects
-    public Material startingMat;
     public float blastedDuration;
     public bool untouchable;
     public bool inivisible;

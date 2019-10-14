@@ -6,7 +6,6 @@ public class SpawnPointManager : MonoBehaviour
 {
     private GameObject[] spawnPoints;
 
-    public Camera mCamera;
 
 
     public List<Competitor> players = new List<Competitor>();
