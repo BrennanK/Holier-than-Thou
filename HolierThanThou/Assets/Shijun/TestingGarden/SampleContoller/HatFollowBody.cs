@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class HatFollowBody : MonoBehaviour
 {
-    private Transform hatTransform;
     public Transform bodyTransform;
-    public float hatTransformY;
+	public Transform parentTransform;
+	public float radius = 0.5f;
+
+    private Transform hatTransform;
 
     private void Start()
     {
         hatTransform = GetComponent<Transform>();
-        hatTransformY = hatTransform.localPosition.y;
-    }
+	}
 
     private void Update()
     {
-        hatTransform.localPosition = new Vector3(bodyTransform.localPosition.x, bodyTransform.localPosition.y + hatTransformY, bodyTransform.localPosition.z);
+        hatTransform.position = new Vector3(parentTransform.position.x, parentTransform.position.y + radius, parentTransform.position.z);
+		hatTransform.up = Vector3.up;
     }
 }
