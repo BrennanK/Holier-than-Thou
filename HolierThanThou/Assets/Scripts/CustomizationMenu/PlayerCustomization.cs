@@ -91,7 +91,6 @@ public class PlayerCustomization : MonoBehaviour
 					transform.GetChild(i)
 					);
 				option.SetActive(true);
-				//option.transform.localPosition += option.transform.parent.transform.position;
 				i++;
 			}
 		}
