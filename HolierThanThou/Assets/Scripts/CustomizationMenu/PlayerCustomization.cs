@@ -7,7 +7,7 @@ public class PlayerCustomization : MonoBehaviour
 	public int currency { get; private set; } = 900;
 	public string[] equippedItems { get; private set; }
 	[SerializeField] private int max_currency = 9999;
-	[SerializeField] private int defaultMoney = 10;
+	[SerializeField] private int defaultMoney = 0;
 
 	private List<string>[] unlockedItems;
 	private string defaultHat = "Hat 0";
@@ -18,9 +18,7 @@ public class PlayerCustomization : MonoBehaviour
 
 	public void Start()
 	{
-
-		currency = PlayerPrefs.GetInt("Currency", defaultMoney);
-		FindObjectOfType<CustomizationController>().UpdateCurrencyText();
+		LoadCurrency();
 		LoadUnlockedItems();
 		LoadEquippedItems();
 		InitializeEquippedItems();
@@ -35,6 +33,16 @@ public class PlayerCustomization : MonoBehaviour
 	}
 
 	#region loading
+
+	private void LoadCurrency()
+	{
+		currency = PlayerPrefs.GetInt("Currency", defaultMoney);
+		CustomizationController customControl = FindObjectOfType<CustomizationController>();
+		if (customControl)
+		{
+			customControl.UpdateCurrencyText();
+		}
+	}
 
 	private void LoadUnlockedItems()
 	{
@@ -78,10 +86,12 @@ public class PlayerCustomization : MonoBehaviour
 			foreach (string item in equippedItems)
 			{
 				//find prefab of specific name
-				GameObject option = Instantiate((GameObject)Resources.Load($"Prefabs/{item}"));
+				GameObject option = Instantiate(
+					(GameObject)Resources.Load($"Prefabs/{item}"), 
+					transform.GetChild(i)
+					);
 				option.SetActive(true);
-				option.transform.parent = transform.GetChild(i);
-				option.transform.localPosition += option.transform.parent.transform.position;
+				//option.transform.localPosition += option.transform.parent.transform.position;
 				i++;
 			}
 		}

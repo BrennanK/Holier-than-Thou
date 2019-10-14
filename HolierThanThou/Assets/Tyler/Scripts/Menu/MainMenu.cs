@@ -6,11 +6,6 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
-    public void LoadLevelOnClick(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
     public void QuitOnClick()
     {
 #if UNITY_EDITOR
