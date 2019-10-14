@@ -80,7 +80,7 @@ public class PlayerCustomization : MonoBehaviour
 
 	private void InitializeEquippedItems()
 	{
-		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex != 2)
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "CustomizationMenu")
 		{
 			int i = 0;
 			foreach (string item in equippedItems)

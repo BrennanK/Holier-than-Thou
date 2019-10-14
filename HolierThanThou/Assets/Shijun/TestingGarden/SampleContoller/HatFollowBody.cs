@@ -10,7 +10,7 @@ public class HatFollowBody : MonoBehaviour
 
 	private float radius = 0.5f;
 	private Transform hatTransform;
-	private float waitTime = 0.001f;
+	private float waitTime = 0.0001f;
 	private IEnumerator coroutine;
 
 	private void Start()
