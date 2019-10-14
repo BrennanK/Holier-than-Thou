@@ -19,7 +19,6 @@ public class CustomizationController : MonoBehaviour
 	private GameObject player;
 	private int panelIndex = 0;
 	private int[] panelIndices; //the currently selected indices of each panel. 
-	private CustomizationSwitcher customSwitcher;
 
 	#region Initializing
 	private void Awake()
@@ -28,10 +27,6 @@ public class CustomizationController : MonoBehaviour
 		panelIndices = new int[panels.Length];
 
 		InitializeObjectSlots();
-	}
-	private void Start()
-	{
-
 	}
 
 	//README Make sure that your customization slots are in the same order (first at top).
@@ -95,8 +90,7 @@ public class CustomizationController : MonoBehaviour
 	public void SwitchCustomization(int index)
 	{
 		//update the preview.
-		customSwitcher = equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>();
-		customSwitcher.SwitchCustomization(index);
+		equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>().SwitchCustomization(index);
 		panelIndices[panelIndex] = index;
 		// Fill the selectedItemInfo text with the customization's info.
 		UpdateInfoText(index);
@@ -153,8 +147,7 @@ public class CustomizationController : MonoBehaviour
 		}
 
 		//Change preview
-		customSwitcher = equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>();
-		customSwitcher.SwitchCustomization(equipIndex);
+		equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>().SwitchCustomization(equipIndex);
 
 		//Make sure the current panel is set to the equipped item
 		panelIndices[panelIndex] = equipIndex;

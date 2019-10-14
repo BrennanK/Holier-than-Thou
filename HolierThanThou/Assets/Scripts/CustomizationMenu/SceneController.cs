@@ -23,12 +23,16 @@ public class SceneController : MonoBehaviour
 		{
 			scenes.Add(System.Convert.ToInt32(sceneIndices[i]));
 		}
-		int debug = 0;
-		debug++;
 	}
 
 	public void OnDestroy()
 	{
+		SaveScenes();
+	}
+
+	public void OnApplicationQuit()
+	{
+		scenes.Clear();
 		SaveScenes();
 	}
 
@@ -48,17 +52,13 @@ public class SceneController : MonoBehaviour
 		PlayerPrefs.SetString("Scenes", saveData);
 	}
 
-	public void OnApplicationQuit()
-	{
-		scenes.Clear();
-		SaveScenes();
-	}
-
 	public void GoToPreviousScene()
 	{
 		//When you're going back a scene, remove the current last element of the scenes list.
-		if (scenes.Count > 0)
+		if (scenes.Count > 1)
 		{
+			//Remove the last two entries, since the previous scene will be added to the scenes list in the Start() function.
+			scenes.RemoveAt(scenes.Count - 1);
 			scenes.RemoveAt(scenes.Count - 1);
 		}
 		//If there are at least two scenes, you can go back one scene.
@@ -75,9 +75,14 @@ public class SceneController : MonoBehaviour
 		}
 	}
 
-	public void GoToScene(int index)
+	public void GoToScene(int buildIndex)
 	{
-		SceneManager.LoadScene(index);
+		SceneManager.LoadScene(buildIndex);
+	}
+
+	public void GoToScene(string sceneName)
+	{
+		SceneManager.LoadScene(sceneName);
 	}
 
 	public void GoToNextScene()
