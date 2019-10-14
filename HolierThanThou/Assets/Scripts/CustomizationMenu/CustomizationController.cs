@@ -1,6 +1,4 @@
-﻿//09-19: Use to switch the prefab under the player gameobject.
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManager;
@@ -18,7 +16,6 @@ public class CustomizationController : MonoBehaviour
 	[SerializeField] Text itemInfoText = default;
 
 	private List<GameObject> equipmentSlots; // CustomizationSwitchers 
-											 //private List<int>[] purchases;
 	private GameObject player;
 	private int panelIndex = 0;
 	private int[] panelIndices; //the currently selected indices of each panel. 
@@ -34,8 +31,7 @@ public class CustomizationController : MonoBehaviour
 	}
 	private void Start()
 	{
-		//TODO Call CustomizationSwitcher.SwitchCustomization() to the correct equipped item for each type of item.
-		SwitchCustomization(panelIndices[panelIndex]);
+
 	}
 
 	//README Make sure that your customization slots are in the same order (first at top).
@@ -228,6 +224,7 @@ public class CustomizationController : MonoBehaviour
 
 		Debug.Log($"{result}: You bought a NO.{panelIndices[panelIndex]} equipment");
 
+		Equip();
 	}
 
 	private int GetPrice(int index)
