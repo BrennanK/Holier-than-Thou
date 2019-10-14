@@ -12,7 +12,6 @@ public class AIBehavior : MonoBehaviour
     //private NavMeshAgent navMeshAgent;
     private Competitor competitor;
     private Rigidbody rb;
-    public GameObject body;
 
     //New Controller Stuff
     private float stoppingDistance = 1.0f;
