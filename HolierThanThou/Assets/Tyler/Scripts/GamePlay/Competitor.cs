@@ -18,6 +18,8 @@ public class Competitor : MonoBehaviour
     public float blastedDuration;
     public bool untouchable;
     public bool inivisible;
+    public bool ballOfSteel;
+    
 
     private void Awake()
     {
@@ -37,6 +39,11 @@ public class Competitor : MonoBehaviour
         get { return scoredGoal; }
 
         set { scoredGoal = value; }
+    }
+
+    public void BallOfSteel(float duration, BounceFunction bounce)
+    {
+        StartCoroutine(Unbouncable(duration, bounce));
     }
 
     public void BeenBlasted()
@@ -73,6 +80,16 @@ public class Competitor : MonoBehaviour
         untouchable = true;
         yield return new WaitForSeconds(duration);
         untouchable = false;
+
+    }
+
+    private IEnumerator Unbouncable(float duration, BounceFunction bounce)
+    {
+        ballOfSteel = true;
+        bounce.enabled = false;
+        yield return new WaitForSeconds(duration);
+        ballOfSteel = false;
+        bounce.enabled = true;
 
     }
 

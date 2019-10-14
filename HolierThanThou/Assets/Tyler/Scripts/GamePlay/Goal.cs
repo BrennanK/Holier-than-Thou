@@ -15,6 +15,7 @@ public class Goal : MonoBehaviour
     public float disToGround;
     public float power;
     public float upwardForce;
+    public float playerPower;
     public LayerMask ground;
 
     private int point = 1;
@@ -65,17 +66,25 @@ public class Goal : MonoBehaviour
                 var rb = enemy.GetComponent<Rigidbody>();
                 var competitor = enemy.GetComponent<Competitor>();
 
-                if (!competitor.untouchable)
+
+                if(enemy.tag == "Player")
+                {
+                    rb.AddExplosionForce(playerPower, transform.position, radius, upwardForce, ForceMode.Impulse);
+                }
+                else
                 {
                     competitor.navMeshOff = true;
+                    rb.AddExplosionForce(power, transform.position, radius, upwardForce, ForceMode.Impulse);
 
                     if (Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
                     {
                         competitor.BeenBlasted();
                     }
-
-                    rb.AddExplosionForce(power, transform.position, radius, upwardForce, ForceMode.Impulse);
                 }
+
+
+                    
+                
             }
         }
     }
