@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TESTBELT : MonoBehaviour
 {
+    public float push;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,6 @@ public class TESTBELT : MonoBehaviour
     {
         Vector3 _temp = other.GetComponent<Rigidbody>().velocity;
 
-        other.GetComponent<Rigidbody>().velocity = _temp + (transform.forward * .2f);
+        other.GetComponent<Rigidbody>().velocity = _temp + (transform.forward * push);
     }
 }

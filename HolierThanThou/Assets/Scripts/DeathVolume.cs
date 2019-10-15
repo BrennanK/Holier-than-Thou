@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DeathVolume : MonoBehaviour
 {
-    PowerUpTracker[] players;
+    Competitor[] players;
     Vector3[] startPoints;
     // Start is called before the first frame update
     void Start()
     {
-        players = new PowerUpTracker[FindObjectsOfType<PowerUpTracker>().Length];
-        players = FindObjectsOfType<PowerUpTracker>();
+        players = new Competitor[FindObjectsOfType<Competitor>().Length];
+        players = FindObjectsOfType<Competitor>();
 
         startPoints = new Vector3[players.Length];
         for(int i = 0; i < startPoints.Length; i++)
