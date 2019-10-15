@@ -30,6 +30,8 @@ public class AIBehavior : MonoBehaviour
     //private Rigidbody m_rigidbody; Already have this 
     Queue<Vector3> m_cornersStack = new Queue<Vector3>();
     private Vector3 m_currentGoal;
+    [SerializeField]
+    private Transform target;
 
 
 
@@ -81,6 +83,7 @@ public class AIBehavior : MonoBehaviour
         competitor = GetComponent<Competitor>();
         rb = GetComponent<Rigidbody>();
         goalPos = GameObject.FindGameObjectWithTag("Goal").transform;
+        target = goalPos;
         canAttack = true;
         ableToGrab = true;
         canActivate1 = true;
@@ -121,20 +124,20 @@ public class AIBehavior : MonoBehaviour
                             .End()
                         .Sequence("Goal Prioritization")
                             .Condition("Can I score", CheckIfScoredGoal)
-                            .Condition("Check distance to Goal", CompareDistanceGoal)
+                            //.Condition("Check distance to Goal", CompareDistanceGoal)
                             .Action("Move to Goal", MoveToGoal)
                             .Action("Score Goal", ScoreGoal)
                         .End()
                         .Sequence("Power Up Prioritization")
                             .Condition("Can I Grab a power up", CheckAbleToGrabPowerUp)
                             //.Condition("Is the Power up active?", CheckforPowerupActive)
-                            .Condition("Check distantce to power ups", CompareDistancePowerUp)
+                            //.Condition("Check distantce to power ups", CompareDistancePowerUp)
                             .Action("Move to Powerup", GoForPowerUp)
                             .Action("Grab Power up", GrabPowerUp)
                         .End()
                         .Sequence("Attack Player")
                             .Condition("Can I hit somebody?", CheckToHitSomeone)
-                            .Condition("is the competitor closer", CheckCompetitorDistance)
+                            //.Condition("is the competitor closer", CheckCompetitorDistance)
                             .Action("Move to Attack", GoForCompetitor)
                             .Action("Attack Competitor", AttackCompetitor)
                         .End()
@@ -248,7 +251,7 @@ public class AIBehavior : MonoBehaviour
     {
         m_cornersStack = new Queue<Vector3>();
         navMeshPath = new NavMeshPath();
-        NavMesh.CalculatePath(transform.position, goalPos.transform.position, NavMesh.AllAreas, navMeshPath);
+        NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, navMeshPath);
 
         foreach (Vector3 cornerPosition in navMeshPath.corners)
         {
@@ -262,7 +265,7 @@ public class AIBehavior : MonoBehaviour
     {
         if (m_cornersStack.Count == 0)
         {
-            if (Vector3.Distance(transform.position, goalPos.transform.position) >= stoppingDistance)
+            if (Vector3.Distance(transform.position, target.position) >= stoppingDistance)
             {
                 //if (Mathf.Abs(goalPos.transform.position.y - transform.position.y) > jumpingDistance)
                 //{
@@ -433,26 +436,26 @@ public class AIBehavior : MonoBehaviour
 
         if (competitorCloser)
         {
-            m_currentGoal = competitorPos.position;//
+            target = competitorPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else if (powerUpCloser)
         {
-            m_currentGoal = powerUpPos.position;//
+            target = powerUpPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else if (Vector3.Distance(transform.position, goalPos.position) <= 5f)
         {
-            m_currentGoal = goalPos.position;//
+            target = goalPos;//
             RecalculatePath();
             return EReturnStatus.SUCCESS;
         }
         else
         {
             Debug.Log(competitor.Name + " Targeting Goal");
-            m_currentGoal = goalPos.position;//
+           target = goalPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
@@ -469,7 +472,7 @@ public class AIBehavior : MonoBehaviour
         }
         else
         {
-            m_currentGoal = goalPos.position;//
+            target = goalPos;//
             RecalculatePath();
             return EReturnStatus.RUNNING;
         }
@@ -554,26 +557,27 @@ public class AIBehavior : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, competitorPos.position) <= 5f)
         {
-            m_currentGoal = competitorPos.position;//
+            target = competitorPos;//
             RecalculatePath();
+            Debug.Log(competitor.Name + " is close to hitting someone");
             return EReturnStatus.SUCCESS;
         }
         else if(goalCloser)
         {
-            m_currentGoal = goalPos.position;//
+            target = goalPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else if(powerUpCloser)
         {
-            m_currentGoal = powerUpPos.position;//
+            target = powerUpPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else
         {
-            Debug.Log(competitor.Name + " Targeting  opponent");
-            m_currentGoal = competitorPos.position;//
+            Debug.Log(competitor.Name + " is Targeting competitor");
+            target = competitorPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
@@ -586,14 +590,14 @@ public class AIBehavior : MonoBehaviour
         {
             competitorPos = null;
             //navMeshAgent.ResetPath();
-            m_currentGoal = goalPos.position;//
+            target = goalPos;//
             RecalculatePath();
             Debug.Log("hit somebody");
             return EReturnStatus.SUCCESS;
         }
         else
         {
-            m_currentGoal = competitorPos.position;//
+            target = competitorPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
@@ -603,26 +607,26 @@ public class AIBehavior : MonoBehaviour
     {
         if(Vector3.Distance(transform.position, powerUpPos.position) <= 5f)
         {
-            m_currentGoal = powerUpPos.position;//
+            target = powerUpPos;//
             RecalculatePath();
             return EReturnStatus.SUCCESS;
         }
         else if(goalCloser)
         {
-            m_currentGoal = goalPos.position;//
+            target = goalPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else if(competitorCloser)
         {
-            m_currentGoal = competitorPos.position;
+            target = competitorPos;
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
         else
         {
             Debug.Log(competitor.Name + " Targeting Power up");
-            m_currentGoal = powerUpPos.position;//
+            target = powerUpPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
@@ -634,7 +638,7 @@ public class AIBehavior : MonoBehaviour
         {
             powerUpPos = null;
             //navMeshAgent.ResetPath();
-            m_currentGoal = goalPos.position;//
+            target = goalPos;//
             RecalculatePath();
             StartCoroutine(PUCooldown());
             Debug.Log("Grabbed the power up");
@@ -642,7 +646,7 @@ public class AIBehavior : MonoBehaviour
         }
         else
         {
-            m_currentGoal = powerUpPos.position;//
+            target = powerUpPos;//
             RecalculatePath();
             return EReturnStatus.FAILURE;
         }
@@ -687,24 +691,16 @@ public class AIBehavior : MonoBehaviour
         ableToGrab = true;
     }
 
-    /*IEnumerator Knockback(GameObject enemy)
+    IEnumerator Knockback()
     {
         attackSuccess = true;
         isBeingKnockedback = true;
-        if(navMeshAgent.isOnNavMesh)
-        {
-            navMeshAgent.ResetPath();
-        }
-        navMeshAgent.enabled = false;
-        Vector3 moveDirection = transform.position - enemy.transform.position;
-        GetComponent<Rigidbody>().velocity = moveDirection.normalized * 5;
+        target = goalPos;
         canAttack = false;
         StartCoroutine(AttackCooldown());
         yield return new WaitForSeconds(.5f);
-        navMeshAgent.enabled = true;
-        UpdateTree();
         isBeingKnockedback = false;
-    }*/
+    }
 
     IEnumerator AttackCooldown()
     {
@@ -739,7 +735,7 @@ public class AIBehavior : MonoBehaviour
     {
         if(other.gameObject.GetComponent<Competitor>())
         {
-           // StartCoroutine(Knockback(other.gameObject));
+           StartCoroutine(Knockback());
         }
     }
 

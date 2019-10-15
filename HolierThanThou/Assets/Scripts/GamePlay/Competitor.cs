@@ -22,6 +22,7 @@ public class Competitor : MonoBehaviour
 
     private void Awake()
     {
+        this.transform.localScale = new Vector3(.025f, .025f, .025f);
         origin = this.transform;
         navMeshOff = false;
         untouchable = false;
