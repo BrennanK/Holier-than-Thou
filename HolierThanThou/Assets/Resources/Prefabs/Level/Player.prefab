@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521173926}
-  m_LocalRotation: {x: -0.24270092, y: -0.000026148207, z: 0.00011575559, w: -0.97010124}
+  m_LocalRotation: {x: -0.24270092, y: -0.00002614808, z: 0.00011575549, w: -0.97010124}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -87,7 +87,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890853717}
-  m_LocalRotation: {x: 0.20974186, y: 0.00005364199, z: -0.00024983645, w: 0.9777568}
+  m_LocalRotation: {x: 0.20974183, y: 0.000053642347, z: -0.00024983785, w: 0.9777568}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -864,7 +864,7 @@ GameObject:
   - component: {fileID: 4277066841262537074}
   - component: {fileID: 1487143100378564585}
   - component: {fileID: 2765026668253731753}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -988,6 +988,7 @@ MonoBehaviour:
   blastedDuration: 0
   untouchable: 0
   inivisible: 0
+  ballOfSteel: 0
 --- !u!54 &4838207360244041269
 Rigidbody:
   m_ObjectHideFlags: 0
