@@ -80,8 +80,12 @@ public class PlayerCustomization : MonoBehaviour
 
 	private void InitializeEquippedItems()
 	{
-		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex != 2)
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "CustomizationMenu")
 		{
+			if (transform.GetComponent<MeshRenderer>())
+			{
+				transform.GetComponent<MeshRenderer>().enabled = false;
+			}
 			int i = 0;
 			foreach (string item in equippedItems)
 			{
@@ -91,7 +95,6 @@ public class PlayerCustomization : MonoBehaviour
 					transform.GetChild(i)
 					);
 				option.SetActive(true);
-				//option.transform.localPosition += option.transform.parent.transform.position;
 				i++;
 			}
 		}
