@@ -36,7 +36,8 @@ public class AIBehavior : MonoBehaviour
 
 
     //AI BlackBoard
-    private float checkRadius = 5f;
+    private float powerUpCheck = 10f;
+    private float competitorCheck = 10f;
     private Transform goalPos;
     private Transform powerUpPos;
     private Transform competitorPos;
@@ -54,18 +55,22 @@ public class AIBehavior : MonoBehaviour
     private bool ableToGrab;
     private float powerUpCooldown;
     private bool canAttack;
-    private float attackCooldown;
+    private float attackCooldown = 5f;
     private bool isBeingKnockedback;
     private bool goalCloser;
     private bool powerUpCloser;
     private bool competitorCloser;
     private bool attackSuccess;
+    private bool bully = false;
+    private bool itemHog = false;
 
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, checkRadius);
+        Gizmos.DrawWireSphere(transform.position, powerUpCheck);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, competitorCheck);
         if (m_cornersStack.Count > 0)
         {
             foreach (Vector3 corner in m_cornersStack)
@@ -147,6 +152,21 @@ public class AIBehavior : MonoBehaviour
             .Build());
 
         InvokeRepeating("UpdateTree", 0f, behaviorTreeRefreshRate);
+    }
+
+    public void MakeBully()
+    {
+        competitorCheck = 50f;
+        attackCooldown = 2f;
+        powerUpCheck = 5;
+        bully = true;
+    }
+
+    public void MakeItemHog()
+    {
+        powerUpCheck = 5f;
+        powerUpCheck = 50f;
+        itemHog = true;
     }
 
     private void FixedUpdate()
@@ -244,7 +264,7 @@ public class AIBehavior : MonoBehaviour
     void ResetTimer()
     {
         calcTimer = 0;
-        calcRand = Random.Range(0.5f, 0.6f);
+        calcRand = Random.Range(0, 0.1f);
     }
 
     void RunPathCalculation()
@@ -555,7 +575,7 @@ public class AIBehavior : MonoBehaviour
 
     private EReturnStatus GoForCompetitor()
     {
-        if (Vector3.Distance(transform.position, competitorPos.position) <= 5f)
+        if (competitorPos != null && Vector3.Distance(transform.position, competitorPos.position) <= 5f)
         {
             target = competitorPos;//
             RecalculatePath();
@@ -605,7 +625,7 @@ public class AIBehavior : MonoBehaviour
     
     private EReturnStatus GoForPowerUp()
     {
-        if(Vector3.Distance(transform.position, powerUpPos.position) <= 5f)
+        if(powerUpPos != null && Vector3.Distance(transform.position, powerUpPos.position) <= 5f)
         {
             target = powerUpPos;//
             RecalculatePath();
@@ -704,7 +724,7 @@ public class AIBehavior : MonoBehaviour
 
     IEnumerator AttackCooldown()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(attackCooldown);
         attackSuccess = false;
         canAttack = true;
     }
@@ -743,7 +763,7 @@ public class AIBehavior : MonoBehaviour
     {
         if (canAttack)
         {
-            List<Collider> hitCompetitors = Physics.OverlapSphere(transform.position, checkRadius).ToList();
+            List<Collider> hitCompetitors = Physics.OverlapSphere(transform.position, competitorCheck).ToList();
             for (int i = 0; i < hitCompetitors.Count; i++)
             {
 
@@ -783,7 +803,7 @@ public class AIBehavior : MonoBehaviour
             if (slot1 == null && slot2 == null)
             {
 
-                List<Collider> hitColliders = Physics.OverlapSphere(transform.position, checkRadius).ToList();
+                List<Collider> hitColliders = Physics.OverlapSphere(transform.position, powerUpCheck).ToList();
                 for (int i = 0; i < hitColliders.Count; i++)
                 {
 
@@ -819,75 +839,110 @@ public class AIBehavior : MonoBehaviour
 
     void CompareDistances()
     {
-        if (competitorPos != null)
-        {
-            if (powerUpPos != null)
-            {
-                if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) &&
-                Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
-                {
-                    goalCloser = true;
-                    powerUpCloser = false;
-                    competitorCloser = false;
-                }
-                else if (Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, goalPos.position) &&
-                    Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, competitorPos.position))
-                {
-                    goalCloser = false;
-                    powerUpCloser = true;
-                    competitorCloser = false;
-                }
-                else
-                {
-                    goalCloser = false;
-                    powerUpCloser = false;
-                    competitorCloser = true;
-                }
-            }
-            else if (powerUpPos == null)
-            {
-                if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position))
-                {
-                    goalCloser = true;
-                    powerUpCloser = false;
-                    competitorCloser = false;
-                }
-                else
-                {
-                    goalCloser = false;
-                    powerUpCloser = false;
-                    competitorCloser = true;
-                }
-            }
-        }
-        else if (powerUpPos != null)
+        if (!bully && !itemHog)
         {
             if (competitorPos != null)
             {
-                if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) &&
-                Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+                if (powerUpPos != null)
                 {
-                    goalCloser = true;
-                    powerUpCloser = false;
-                    competitorCloser = false;
+                    if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) &&
+                    Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+                    {
+                        goalCloser = true;
+                        powerUpCloser = false;
+                        competitorCloser = false;
+                    }
+                    else if (Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, goalPos.position) &&
+                        Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, competitorPos.position))
+                    {
+                        goalCloser = false;
+                        powerUpCloser = true;
+                        competitorCloser = false;
+                    }
+                    else
+                    {
+                        goalCloser = false;
+                        powerUpCloser = false;
+                        competitorCloser = true;
+                    }
                 }
-                else if (Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, goalPos.position) &&
-                    Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, competitorPos.position))
+                else if (powerUpPos == null)
                 {
-                    goalCloser = false;
-                    powerUpCloser = true;
-                    competitorCloser = false;
-                }
-                else
-                {
-                    goalCloser = false;
-                    powerUpCloser = false;
-                    competitorCloser = true;
+                    if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position))
+                    {
+                        goalCloser = true;
+                        powerUpCloser = false;
+                        competitorCloser = false;
+                    }
+                    else
+                    {
+                        goalCloser = false;
+                        powerUpCloser = false;
+                        competitorCloser = true;
+                    }
                 }
             }
-            else if (competitorPos == null)
+            else if (powerUpPos != null)
             {
-                if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+                if (competitorPos != null)
+                {
+                    if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) &&
+                    Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+                    {
+                        goalCloser = true;
+                        powerUpCloser = false;
+                        competitorCloser = false;
+                    }
+                    else if (Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, goalPos.position) &&
+                        Vector3.Distance(transform.position, powerUpPos.position) < Vector3.Distance(transform.position, competitorPos.position))
+                    {
+                        goalCloser = false;
+                        powerUpCloser = true;
+                        competitorCloser = false;
+                    }
+                    else
+                    {
+                        goalCloser = false;
+                        powerUpCloser = false;
+                        competitorCloser = true;
+                    }
+                }
+                else if (competitorPos == null)
+                {
+                    if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
+                    {
+                        goalCloser = true;
+                        powerUpCloser = false;
+                        competitorCloser = false;
+                    }
+                    else
+                    {
+                        goalCloser = false;
+                        powerUpCloser = true;
+                        competitorCloser = false;
+                    }
+                }
+            }
+            else if (competitorPos == null && powerUpPos == null)
+            {
+                goalCloser = true;
+                powerUpCloser = false;
+                competitorCloser = false;
+            }
+            else
+                Debug.Log(competitor.Name + " This shit don't work!!!");
+        }
+        if(bully)
+        {
+            if (competitor != null)
+            {
+                if (powerUpPos != null && Vector3.Distance(transform.position, powerUpPos.position) <= 5f)
+                {
+                    powerUpCloser = true;
+                    goalCloser = false;
+                    competitorCloser = false;
+                }
+                else if (goalPos != null && Vector3.Distance(transform.position, goalPos.position) <= 5f)
                 {
                     goalCloser = true;
                     powerUpCloser = false;
@@ -895,21 +950,33 @@ public class AIBehavior : MonoBehaviour
                 }
                 else
                 {
+                    competitorCloser = true;
                     goalCloser = false;
-                    powerUpCloser = true;
-                    competitorCloser = false;
+                    powerUpCloser = false;
                 }
             }
         }
-        else if (competitorPos == null && powerUpPos == null)
+        if(itemHog)
         {
-            goalCloser = true;
-            powerUpCloser = false;
-            competitorCloser = false;
+            if(competitorPos != null && Vector3.Distance(transform.position, competitorPos.position) <= 5f)
+            {
+                competitorCloser = true;
+                goalCloser = false;
+                powerUpCloser = false;
+            }
+            else if (goalPos != null && Vector3.Distance(transform.position, goalPos.position) <= 5f)
+            {
+                goalCloser = true;
+                powerUpCloser = false;
+                competitorCloser = false;
+            }
+            else
+            {
+                powerUpCloser = true;
+                goalCloser = false;
+                competitorCloser = false;
+            }
         }
-        else
-            Debug.Log(competitor.Name + " This shit don't work!!!");
-
 
     }
 
