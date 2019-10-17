@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 206950648}
   - component: {fileID: 206950647}
   m_Layer: 0
-  m_Name: Body
+  m_Name: Body Bob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: db9069451d070c64d8a9ce4b6628946c, type: 3}
+  - {fileID: 2100000, guid: aedd107ab3ec49b44bf6c2c715119026, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,5 +92,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: 10
   option: 1
-  itemName: No Skin
+  itemName: Bob
   cover: {fileID: 21300000, guid: 9eebc643f32762841995814efa90b33f, type: 3}
