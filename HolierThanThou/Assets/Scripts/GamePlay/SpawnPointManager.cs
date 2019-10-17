@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SpawnPointManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class SpawnPointManager : MonoBehaviour
 
     public List<Competitor> players = new List<Competitor>();
     List<GameObject> startPoints = new List<GameObject>();
+    List<AIBehavior> AIDudes = new List<AIBehavior>();
 
     private void Start()
     {
@@ -23,6 +25,23 @@ public class SpawnPointManager : MonoBehaviour
         foreach (Competitor player in GameObject.FindObjectsOfType<Competitor>())
         {
             players.Add(player);
+        }
+
+        List<AIBehavior> AIDudes = FindObjectsOfType<AIBehavior>().ToList();
+        int currentIndex = 0;
+        int bully = Random.Range(1, 3);
+        int itemHog = Random.Range(1, 3);
+        
+        for(int i = 0; i < bully; i++)
+        {
+            AIDudes[currentIndex].MakeBully();
+            currentIndex++;
+        }
+
+        for(int i = 0; i < itemHog; i++)
+        {
+            AIDudes[currentIndex].MakeItemHog();
+            currentIndex++;
         }
 
         SpawnPlayers();
