@@ -35,13 +35,13 @@ public class GameManager : MonoBehaviour
         {
             matchTimer -= Time.deltaTime;
             inGameTimer.text = "Time " + Mathf.Round(matchTimer);
-                
+            
         }
         if(matchTimer <= 0)
         {
-            EndMatch(); 
+            EndMatch();
 
-        }        
+        }
 
     }
 

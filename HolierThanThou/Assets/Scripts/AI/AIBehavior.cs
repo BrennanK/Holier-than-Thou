@@ -164,7 +164,7 @@ public class AIBehavior : MonoBehaviour
 
     public void MakeItemHog()
     {
-        powerUpCheck = 5f;
+        competitorCheck = 5f;
         powerUpCheck = 50f;
         itemHog = true;
     }
@@ -181,7 +181,7 @@ public class AIBehavior : MonoBehaviour
 
         // The movement being applied is now AddForce with a ForceMode.Force instead of hard assigning the velocity - Brian 10/10
         //m_rigidbody.velocity = (m_currentGoal - transform.position).normalized * velocity; 
-        rb.AddForce((m_currentGoal - transform.position).normalized, ForceMode.Force);
+        rb.AddForce((m_currentGoal - transform.position).normalized * 8, ForceMode.Force);
 
         //This timer runs so the balls can re-calculate their paths - Brian 10/10
         calcTimer += Time.deltaTime;
@@ -189,6 +189,10 @@ public class AIBehavior : MonoBehaviour
         {
             ResetTimer();
             RunPathCalculation();
+        }
+        if(target == null)
+        {
+            target = goalPos;
         }
     }
 
@@ -271,6 +275,10 @@ public class AIBehavior : MonoBehaviour
     {
         m_cornersStack = new Queue<Vector3>();
         navMeshPath = new NavMeshPath();
+        if(target == null)
+        {
+            target = goalPos;
+        }
         NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, navMeshPath);
 
         foreach (Vector3 cornerPosition in navMeshPath.corners)
@@ -285,15 +293,15 @@ public class AIBehavior : MonoBehaviour
     {
         if (m_cornersStack.Count == 0)
         {
-            if (Vector3.Distance(transform.position, target.position) >= stoppingDistance)
-            {
-                //if (Mathf.Abs(goalPos.transform.position.y - transform.position.y) > jumpingDistance)
-                //{
-                //    Debug.Log("Jumping...");
-                //    rb.AddForce(new Vector3(goalPos.transform.position.x - transform.position.x * 1000f, 10000f, goalPos.transform.position.z - transform.position.z * 1000f));
-                //    m_currentGoal = goalPos.transform.position;
-                //}
-            }
+            //if (Vector3.Distance(transform.position, target.position) >= stoppingDistance)
+            //{
+            //    //if (Mathf.Abs(goalPos.transform.position.y - transform.position.y) > jumpingDistance)
+            //    //{
+            //    //    Debug.Log("Jumping...");
+            //    //    rb.AddForce(new Vector3(goalPos.transform.position.x - transform.position.x * 1000f, 10000f, goalPos.transform.position.z - transform.position.z * 1000f));
+            //    //    m_currentGoal = goalPos.transform.position;
+            //    //}
+            //}
         }
         else
         {
@@ -807,7 +815,7 @@ public class AIBehavior : MonoBehaviour
                 for (int i = 0; i < hitColliders.Count; i++)
                 {
 
-                    if (hitColliders[i].tag != "ItemBox" || hitColliders[i].enabled == false)
+                    if (hitColliders[i].tag != "ItemBox" || !hitColliders[i].gameObject.GetComponent<BoxCollider>().enabled)
                     {
                         hitColliders.Remove(hitColliders[i]);
                         i--;
@@ -824,7 +832,7 @@ public class AIBehavior : MonoBehaviour
 
                     foreach (Collider _collider in hitColliders)
                     {
-                        if (Vector3.Distance(transform.position, powerUpPos.position) > Vector3.Distance(transform.position, _collider.transform.position))
+                        if (Vector3.Distance(transform.position, powerUpPos.position) > Vector3.Distance(transform.position, _collider.transform.position) && _collider.gameObject.GetComponent<BoxCollider>().enabled)
                         {
                             powerUpPos = _collider.transform;
                         }
@@ -843,7 +851,7 @@ public class AIBehavior : MonoBehaviour
         {
             if (competitorPos != null)
             {
-                if (powerUpPos != null)
+                if (powerUpPos != null && powerUpPos.gameObject.activeSelf)
                 {
                     if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) &&
                     Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
@@ -882,7 +890,7 @@ public class AIBehavior : MonoBehaviour
                     }
                 }
             }
-            else if (powerUpPos != null)
+            else if (powerUpPos != null && powerUpPos.gameObject.activeSelf)
             {
                 if (competitorPos != null)
                 {
@@ -958,23 +966,26 @@ public class AIBehavior : MonoBehaviour
         }
         if(itemHog)
         {
-            if(competitorPos != null && Vector3.Distance(transform.position, competitorPos.position) <= 5f)
+            if (powerUpPos != null && powerUpPos.gameObject.activeSelf)
             {
-                competitorCloser = true;
-                goalCloser = false;
-                powerUpCloser = false;
-            }
-            else if (goalPos != null && Vector3.Distance(transform.position, goalPos.position) <= 5f)
-            {
-                goalCloser = true;
-                powerUpCloser = false;
-                competitorCloser = false;
-            }
-            else
-            {
-                powerUpCloser = true;
-                goalCloser = false;
-                competitorCloser = false;
+                if (competitorPos != null && Vector3.Distance(transform.position, competitorPos.position) <= 5f)
+                {
+                    competitorCloser = true;
+                    goalCloser = false;
+                    powerUpCloser = false;
+                }
+                else if (goalPos != null && Vector3.Distance(transform.position, goalPos.position) <= 5f)
+                {
+                    goalCloser = true;
+                    powerUpCloser = false;
+                    competitorCloser = false;
+                }
+                else
+                {
+                    powerUpCloser = true;
+                    goalCloser = false;
+                    competitorCloser = false;
+                }
             }
         }
 
