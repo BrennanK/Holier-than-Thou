@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public List<Competitor> players;
+    public List<Competitor> players = new List<Competitor>();
 
     public Text scoreText;
     public Text endGameScore;
