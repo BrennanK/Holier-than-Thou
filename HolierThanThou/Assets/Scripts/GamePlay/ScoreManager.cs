@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+	public static int scoreMultiplier = 10;
 	public List<Competitor> players = new List<Competitor>();
 
 	public Text scoreText;
@@ -25,7 +26,7 @@ public class ScoreManager : MonoBehaviour
 
 	public void UpdateScore(string name, int point)
 	{
-		var _competitior = players.Find(x => x.Name == name);
+		Competitor _competitior = players.Find(x => x.Name == name);
 
 		_competitior.Score += point;
 
