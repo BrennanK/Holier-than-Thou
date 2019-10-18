@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerCustomization : MonoBehaviour
 {
 	public int currency { get; private set; } = 900;
-	public string[] equippedItems { get; private set; }
-	[SerializeField] private int max_currency = 9999;
+	public string[] equippedItems { get; private set;}
+	//[SerializeField] private int max_currency = 9999;
 	[SerializeField] private int defaultMoney = 0;
 
 	private List<string>[] unlockedItems;
@@ -167,12 +167,12 @@ public class PlayerCustomization : MonoBehaviour
 
 	public bool addCurrency(int coins)
 	{
-		if (currency + coins < max_currency)
+		if (currency + coins < CurrencySystem.max_currency)
 		{
 			currency += coins;
 			return true;
 		}
-		currency = max_currency;
+		currency = CurrencySystem.max_currency;
 		return false;
 	}
 
@@ -187,6 +187,7 @@ public class PlayerCustomization : MonoBehaviour
 	}
 	#endregion /currency
 
+	#region inventory
 	//if item in inventory, returns true;
 	//TODO extrapolate this to the player class.
 	public bool CheckUnlockedItems(int panelIndex, string itemBeingChecked)
@@ -230,5 +231,7 @@ public class PlayerCustomization : MonoBehaviour
 		equippedItems[index] = item;
 		return true;
 	}
+
+	#endregion /inventory
 
 }
