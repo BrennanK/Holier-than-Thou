@@ -6,7 +6,6 @@ public class PlayerCustomization : MonoBehaviour
 {
 	public int currency { get; private set; } = 900;
 	public string[] equippedItems { get; private set;}
-	//[SerializeField] private int max_currency = 9999;
 	[SerializeField] private int defaultMoney = 0;
 
 	private List<string>[] unlockedItems;
