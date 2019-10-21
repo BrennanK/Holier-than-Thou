@@ -36,7 +36,7 @@ public class PowerUpBox : MonoBehaviour
         powerups[5] = new Thiccness(false, PUE.TH_hasDuration, PUE.TH_duration, PUE.TH_radius);
         powerups[6] = new BallsOfSteel(true, PUE.BS_hasDuration, PUE.BS_duration, PUE.BS_radius);
         powerups[7] = new ISeeDeadPeople(true, PUE.IS_hasDuration, PUE.IS_duration, PUE.IS_radius);
-        powerups[8] = new CalmDown(false, PUE.CD_hasDuration, PUE.CD_duration, PUE.CD_radius, PUE.CD_speedMultiplier);
+        powerups[8] = new CalmDown(false, PUE.CD_hasDuration, PUE.CD_duration, PUE.CD_radius, PUE.CD_aiSpeedMultiplier, PUE.CD_playerSpeedMultiplier);
 
         disableTimer = disableTimerStart;
 

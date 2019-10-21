@@ -73,5 +73,6 @@ public class PowerUpEditor : ScriptableObject
     [Header("Calm Down - 9")]
     public float CD_duration;
     public float CD_radius;
-    public float CD_speedMultiplier;
+    public float CD_aiSpeedMultiplier;
+    public float CD_playerSpeedMultiplier;
 }

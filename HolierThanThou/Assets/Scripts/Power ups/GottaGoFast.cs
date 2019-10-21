@@ -33,6 +33,7 @@ public class GottaGoFast : PowerUp
             origin.GetComponent<AIBehavior>().velocity *= aiSpeedMultiplier;
             
         }
+
         Debug.Log("Gotta go fast! Power Up Used by " + name);
 
         origin.GetComponent<Competitor>().WentFast(origin, duration, speedMultiplier);

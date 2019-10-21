@@ -71,6 +71,11 @@ public class Competitor : MonoBehaviour
         StartCoroutine(ResetSpeed(origin, duration, speedMultiplier));
     }
 
+    public void BeenSlowed(Competitor competitor, float duration, float speedMultiplier)
+    {
+        StartCoroutine(ReverseMovementSpeed(competitor, duration, speedMultiplier));
+    }
+
     IEnumerator Invis(float duration)
     {
         inivisible = true;
@@ -132,6 +137,20 @@ public class Competitor : MonoBehaviour
         else
         {
             origin.GetComponent<AIBehavior>().velocity /= speedMultiplier;
+        }
+    }
+
+    private IEnumerator ReverseMovementSpeed(Competitor competitor, float duration, float speedMultiplier)
+    {
+        yield return new WaitForSeconds(duration);
+
+        if (competitor.GetComponent<RigidBodyControl>())
+        {
+            competitor.GetComponent<RigidBodyControl>().speed /= speedMultiplier;
+        }
+        else
+        {
+            competitor.GetComponent<AIBehavior>().velocity /= speedMultiplier;
         }
     }
 }
