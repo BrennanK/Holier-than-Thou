@@ -18,6 +18,8 @@ MonoBehaviour:
   BZ_power: 20
   BZ_upwardForce: 5
   BZ_disToGround: 1
+  BZ_playerPower: 50
+  BZ_playerUpwardForce: 0.5
   BZ_ground:
     serializedVersion: 2
     m_Bits: 512
@@ -38,8 +40,8 @@ MonoBehaviour:
   TH_radius: 0
   TH_duration: 10
   BS_hasDuration: 1
-  BS_radius: 10
   BS_duration: 20
+  BS_radius: 10
   IS_hasDuration: 1
   IS_radius: 0
   IS_duration: 8

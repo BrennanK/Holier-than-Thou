@@ -33,16 +33,22 @@ public class Chillout : PowerUp
         {
             foreach (Collider enemy in enemies)
             {
-                var rb = enemy.GetComponent<Rigidbody>();
                 var competitor = enemy.GetComponent<Competitor>();
 
-                
-                competitor.navMeshOff = true;
-                if (competitor.navMeshOff == true)
-                {
-                    rb.velocity = Vector3.zero;
+                if (competitor.GetComponent<RigidBodyControl>()){
+
+                    competitor.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    competitor.GetComponent<Rigidbody>().freezeRotation = true;
+                    competitor.GetComponent<RigidBodyControl>().enabled = false;
                 }
-                competitor.BeenChilled(duration);
+                else{ 
+
+                competitor.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                competitor.GetComponent<Rigidbody>().freezeRotation = true;
+                competitor.GetComponent<AIBehavior>().enabled = false;
+                }
+
+                competitor.BeenChilled(competitor, duration);
             }
         }
 
