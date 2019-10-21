@@ -51,9 +51,9 @@ public class Competitor : MonoBehaviour
         StartCoroutine(TurnNavMeshBackOn(blastedDuration));
     }
 
-    public void BeenChilled(float duration)
+    public void BeenChilled(Competitor competitor ,float duration)
     {
-        StartCoroutine(TurnNavMeshBackOn(duration));
+        StartCoroutine(TurnMovementControlBackOn(competitor, duration));
     }
 
     public void CantTouchMe(float duration)
@@ -97,6 +97,22 @@ public class Competitor : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         navMeshOff = false;
+
+    }
+
+    private IEnumerator TurnMovementControlBackOn(Competitor competitor, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        if (competitor.GetComponent<RigidBodyControl>())
+        {
+            competitor.GetComponent<Rigidbody>().freezeRotation = false;
+            competitor.GetComponent<RigidBodyControl>().enabled = true;
+        }
+        else
+        {
+            competitor.GetComponent<Rigidbody>().freezeRotation = false;
+            competitor.GetComponent<AIBehavior>().enabled = true;
+        }
 
     }
 

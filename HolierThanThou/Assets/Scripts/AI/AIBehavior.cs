@@ -851,7 +851,7 @@ public class AIBehavior : MonoBehaviour
         {
             if (competitorPos != null)
             {
-                if (powerUpPos != null && powerUpPos.gameObject.activeSelf)
+                if (powerUpPos != null && powerUpPos.gameObject.GetComponent<Collider>().enabled)
                 {
                     if (Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, competitorPos.position) &&
                     Vector3.Distance(transform.position, goalPos.position) < Vector3.Distance(transform.position, powerUpPos.position))
@@ -890,7 +890,7 @@ public class AIBehavior : MonoBehaviour
                     }
                 }
             }
-            else if (powerUpPos != null && powerUpPos.gameObject.activeSelf)
+            else if (powerUpPos != null && powerUpPos.gameObject.GetComponent<Collider>().enabled)
             {
                 if (competitorPos != null)
                 {
