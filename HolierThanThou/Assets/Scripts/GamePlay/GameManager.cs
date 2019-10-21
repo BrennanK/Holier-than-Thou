@@ -7,18 +7,15 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static bool gameRunning;
-
     public Text startText;
-    private float startTimer = 5f;
-
     public GameObject EndMatchScreen;
     public GameObject GameUI;
-
     public Text inGameTimer;
-
-    private ScoreManager scoreManager;
-
     public float matchTimer;
+
+    private float startTimer = 5f;
+    private ScoreManager scoreManager;
+	private GameObject playerCustomizer;
 
     private void Start()
     {
@@ -27,7 +24,8 @@ public class GameManager : MonoBehaviour
         gameRunning = false;
         StartCoroutine(StartGame());
         inGameTimer.text = "Time " + matchTimer;
-    }
+		playerCustomizer = GameObject.FindGameObjectWithTag("Player");
+	}
 
     private void Update()
     {
@@ -35,13 +33,12 @@ public class GameManager : MonoBehaviour
         {
             matchTimer -= Time.deltaTime;
             inGameTimer.text = "Time " + Mathf.Round(matchTimer);
-                
+            
         }
         if(matchTimer <= 0)
         {
-            EndMatch(); 
-
-        }        
+            EndMatch();
+        }
 
     }
 
@@ -67,7 +64,13 @@ public class GameManager : MonoBehaviour
         EndMatchScreen.SetActive(true);
         GameUI.SetActive(false);
         scoreManager.UpdateEndGameUI();
+		PayPlayer();
     }
 
-
+	private void PayPlayer()
+	{
+		playerCustomizer.GetComponent<PlayerCustomization>().addCurrency(
+			playerCustomizer.GetComponent<Competitor>().Score * ScoreManager.scoreMultiplier
+			);
+	}
 }
