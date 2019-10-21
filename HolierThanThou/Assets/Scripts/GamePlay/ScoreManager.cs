@@ -33,10 +33,14 @@ public class ScoreManager : MonoBehaviour
 		UpdateScoreBoard();
 	}
 
+	public bool IsPlayerFirst()
+	{
+		return (players[0].Name == GameObject.FindGameObjectWithTag("Player").GetComponent<Competitor>().Name);
+	}
+
 	private void UpdateScoreBoard()
 	{
 		players = players.OrderByDescending(x => x.Score).ToList();
-
 
 		scoreText.text = "1st - " + players[0].Name + " - " + players[0].Score + " Points" +
 			"\n2nd - " + players[1].Name + " - " + players[1].Score + " Points" +
@@ -48,7 +52,7 @@ public class ScoreManager : MonoBehaviour
 			"\n8th - " + players[7].Name + " - " + players[7].Score + " Points";
 	}
 
-	public void UpdateEndGameUI()
+	public void UpdateEndGameUI(int winnings)
 	{
 		players = players.OrderByDescending(x => x.Score).ToList();
 

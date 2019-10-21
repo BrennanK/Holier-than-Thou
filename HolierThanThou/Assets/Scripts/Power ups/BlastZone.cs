@@ -10,6 +10,8 @@ public class BlastZone : PowerUp
     private float upwardForce;
     private LayerMask ground;
     private float disToGround;
+    private float playerPower;
+    private float playerUpwardForce;
 
 
 
@@ -48,14 +50,21 @@ public class BlastZone : PowerUp
 
                 if (!competitor.untouchable)
                 {
-                    competitor.navMeshOff = true;
 
-                    if(Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
+                    if (enemy.tag == "Player")
                     {
-                        competitor.BeenBlasted();
+                        rb.AddExplosionForce(playerPower, origin.position, radius, playerUpwardForce, ForceMode.Impulse);
                     }
-                    
-                    rb.AddExplosionForce(power, origin.position, radius, upwardForce, ForceMode.Impulse);
+                    else
+                    {
+                        competitor.navMeshOff = true;
+                        rb.AddExplosionForce(power, origin.position, radius, upwardForce, ForceMode.Impulse);
+
+                        if (Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
+                        {
+                            competitor.BeenBlasted();
+                        }
+                    }
                 }
             }
         }

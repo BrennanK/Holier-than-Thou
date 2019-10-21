@@ -14,6 +14,8 @@ public class PowerUpEditor : ScriptableObject
     public float BZ_power;
     public float BZ_upwardForce;
     public float BZ_disToGround;
+    public float BZ_playerPower;
+    public float BZ_playerUpwardForce;
     public LayerMask BZ_ground;
 
     [HideInInspector]
