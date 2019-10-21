@@ -66,6 +66,11 @@ public class Competitor : MonoBehaviour
         StartCoroutine(Invis(duration));
     }
 
+    public void WentFast(Transform origin, float duration, float speedMultiplier)
+    {
+        StartCoroutine(ResetSpeed(origin, duration, speedMultiplier));
+    }
+
     IEnumerator Invis(float duration)
     {
         inivisible = true;
@@ -116,4 +121,17 @@ public class Competitor : MonoBehaviour
 
     }
 
+    private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
+    {
+        yield return new WaitForSeconds(duration);
+
+        if (origin.GetComponent<RigidBodyControl>())
+        {
+            origin.GetComponent<RigidBodyControl>().speed /= speedMultiplier;
+        }
+        else
+        {
+            origin.GetComponent<AIBehavior>().velocity /= speedMultiplier;
+        }
+    }
 }

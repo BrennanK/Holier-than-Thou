@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class GottaGoFast : PowerUp
 { 
-    private float playerStartSpeed;
+    private float aiSpeedMultiplier;
+    private float playerSpeedMultiplier;
     private float speedMultiplier;
 
     
 
-    public GottaGoFast(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, float _speedMultiplier) : base(_isEnhancement, _hasDuration, _duration, _radius)
+    public GottaGoFast(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, float _aiSpeedMultiplier, float _playerSpeedMultiplier) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
-        speedMultiplier = _speedMultiplier;
+        aiSpeedMultiplier = _aiSpeedMultiplier;
+        playerSpeedMultiplier = _playerSpeedMultiplier;
     }
 
 
@@ -19,22 +21,22 @@ public class GottaGoFast : PowerUp
     {
         base.ActivatePowerUp(name, origin);
 
-        //var player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickPlayerExample>();
-        //player.speed = player.speed + (player.speed * speedMultiplier);
-
+        if (origin.GetComponent<RigidBodyControl>())
+        {
+            speedMultiplier = playerSpeedMultiplier;
+            origin.GetComponent<RigidBodyControl>().speed *= playerSpeedMultiplier;
+            
+        }
+        else
+        {
+            speedMultiplier = aiSpeedMultiplier;
+            origin.GetComponent<AIBehavior>().velocity *= aiSpeedMultiplier;
+            
+        }
         Debug.Log("Gotta go fast! Power Up Used by " + name);
 
+        origin.GetComponent<Competitor>().WentFast(origin, duration, speedMultiplier);
 
-
-    }
-
-
-    public override void ResetEffects(string name)
-    {
-        base.ResetEffects(name);
-
-        //var player = GameObject.FindGameObjectWithTag("Player").GetComponent<JoystickPlayerExample>();
-        //player.speed = playerStartSpeed;
     }
 
 }

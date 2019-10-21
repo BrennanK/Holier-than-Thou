@@ -28,9 +28,9 @@ public class PowerUpBox : MonoBehaviour
     {
         powerups = new PowerUp[9];
 
-        powerups[0] = new BlastZone(false, PUE.BZ_hasDuration, PUE.BZ_duration , PUE.BZ_radius, PUE.BZ_power, PUE.BZ_upwardForce);
+        powerups[0] = new BlastZone(false, PUE.BZ_hasDuration, PUE.BZ_duration , PUE.BZ_radius, PUE.BZ_power, PUE.BZ_upwardForce, PUE.BZ_playerPower, PUE.BZ_playerUpwardForce);
         powerups[1] = new Chillout(false, PUE.CO_hasDuration, PUE.CO_duration, PUE.CO_radius);
-        powerups[2] = new GottaGoFast(true, PUE.GF_hasDuration, PUE.GF_duration, PUE.GF_radius, PUE.GF_speedMultiplier);
+        powerups[2] = new GottaGoFast(true, PUE.GF_hasDuration, PUE.GF_duration, PUE.GF_radius, PUE.GF_aiSpeedMultiplier, PUE.GF_playerSpeedMultiplier);
         powerups[3] = new CantTouchThis(true, PUE.CTT_hasDuration, PUE.CTT_duration, PUE.CTT_radius);
         powerups[4] = new SneakySnake(true, PUE.SS_hasDuration, PUE.SS_duration, PUE.SS_radius);
         powerups[5] = new Thiccness(false, PUE.TH_hasDuration, PUE.TH_duration, PUE.TH_radius);
