@@ -12,10 +12,14 @@ public class HatFollowBody : MonoBehaviour
 	private Transform hatTransform;
 	private float waitTime = 0.0001f;
 	private IEnumerator coroutine;
+	private DigitalJoystick joystick;
+	private Camera camera;
 
 	private void Start()
 	{
 		hatTransform = GetComponent<Transform>();
+		joystick = FindObjectOfType<DigitalJoystick>();
+		camera = FindObjectOfType<Camera>();
 
 		Debug.Log("Starting: " + Time.time);
 		coroutine = SetRadius(waitTime);
@@ -36,6 +40,7 @@ public class HatFollowBody : MonoBehaviour
 
 	private void Update()
 	{
+		hatTransform.forward = parentTransform.forward;
 		hatTransform.position = new Vector3(parentTransform.position.x, parentTransform.position.y + radius, parentTransform.position.z);
 		hatTransform.up = Vector3.up;
 	}
