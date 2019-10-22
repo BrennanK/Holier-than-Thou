@@ -121,7 +121,7 @@ public class Competitor : MonoBehaviour
         else
         {
             competitor.GetComponent<Rigidbody>().freezeRotation = false;
-            competitor.GetComponent<AIBehavior>().enabled = true;
+            competitor.GetComponent<AIStateMachine>().enabled = true;
         }
 
     }
@@ -136,7 +136,7 @@ public class Competitor : MonoBehaviour
         }
         else
         {
-            origin.GetComponent<AIBehavior>().velocity /= speedMultiplier;
+            origin.GetComponent<AIStateMachine>().Velocity /= speedMultiplier;
         }
     }
 
@@ -150,7 +150,7 @@ public class Competitor : MonoBehaviour
         }
         else
         {
-            competitor.GetComponent<AIBehavior>().velocity /= speedMultiplier;
+            competitor.GetComponent<AIStateMachine>().Velocity /= speedMultiplier;
         }
     }
 }

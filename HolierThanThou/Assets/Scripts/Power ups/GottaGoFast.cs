@@ -30,7 +30,7 @@ public class GottaGoFast : PowerUp
         else
         {
             speedMultiplier = aiSpeedMultiplier;
-            origin.GetComponent<AIBehavior>().velocity *= aiSpeedMultiplier;
+            origin.GetComponent<AIStateMachine>().Velocity *= aiSpeedMultiplier;
             
         }
 
