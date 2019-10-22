@@ -11,7 +11,8 @@ public class AIStateMachine : MonoBehaviour {
         MOVING_TO_GOAL,
         SCORING_GOAL,
         GRABBING_POWERUP,
-        ATTACKING_PLAYER
+        ATTACKING_PLAYER,
+        GETTING_UNSTUCK
     }
 
     // TODO introduce the state stack...
@@ -25,7 +26,7 @@ public class AIStateMachine : MonoBehaviour {
 
     // AI Pathfinding
     private readonly float m_distanceToCommitToGoal = 10.0f;
-    private readonly float m_stoppingDistance = 10.0f;
+    private readonly float m_stoppingDistance = 5.0f;
     // private readonly float m_jumpingDistance = 1.0f;
     // private float m_jumpingForce;
 
@@ -71,6 +72,13 @@ public class AIStateMachine : MonoBehaviour {
     private bool m_isItemHog = false;
     private bool m_canActivatePowerUp1 = true;
     private bool m_canActivatePowerUp2 = true;
+
+    // getting unstuck
+    private float m_timeWithoutMovingToBeConsideredStuck = 2.0f;
+    private float m_timeWithoutMoving = 0f;
+    private Vector3 m_positionToGoToGetUnstuck;
+    private float m_maximumTimeToGetUnstuck = 2f;
+    private float m_timeElapsedTryingToGetUnstuck = 0f;
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.blue;
@@ -131,6 +139,23 @@ public class AIStateMachine : MonoBehaviour {
             case EAIState.USING_POWERUP:
                 ChangeState(EAIState.FINDING_OBJECTIVE);
                 break;
+            case EAIState.GETTING_UNSTUCK:
+                GettingUnstuckState();
+                break;
+        }
+
+        // Getting Unstuck
+        if(m_rigidbody.velocity.magnitude < 3.0f) {
+            m_timeWithoutMoving += Time.deltaTime;
+
+            if(m_timeWithoutMoving > m_timeWithoutMovingToBeConsideredStuck) {
+                m_timeElapsedTryingToGetUnstuck = 0f;
+                Vector3 randomInCircle = UnityEngine.Random.insideUnitCircle;
+                m_positionToGoToGetUnstuck = transform.position + new Vector3(randomInCircle.x, 0f, randomInCircle.y) * velocity;
+                ChangeState(EAIState.GETTING_UNSTUCK);
+            }
+        } else {
+            m_timeWithoutMoving = 0f;
         }
     }
 
@@ -355,6 +380,20 @@ public class AIStateMachine : MonoBehaviour {
     }
     #endregion
 
+    #region
+    private void GettingUnstuckState() {
+        m_timeElapsedTryingToGetUnstuck += Time.deltaTime;
+
+        if(m_timeElapsedTryingToGetUnstuck > m_maximumTimeToGetUnstuck) {
+            ChangeState(EAIState.FINDING_OBJECTIVE);
+            return;
+        }
+
+        Debug.DrawRay(transform.position, (m_positionToGoToGetUnstuck - transform.position), Color.red, Time.deltaTime);
+        HardGoToPosition(m_positionToGoToGetUnstuck);
+    }
+    #endregion
+
     // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
 
@@ -387,6 +426,11 @@ public class AIStateMachine : MonoBehaviour {
     private void HardFollowTarget() {
         Debug.DrawRay(transform.position, (target.position - transform.position), Color.green, Time.deltaTime);
         m_rigidbody.AddForce((target.position - transform.position).normalized * velocity, ForceMode.Force);
+    }
+
+    private void HardGoToPosition(Vector3 _position) {
+        Debug.DrawRay(transform.position, (_position - transform.position), Color.blue, Time.deltaTime);
+        m_rigidbody.AddForce((_position - transform.position).normalized * velocity, ForceMode.Force);
     }
 
     public void RunPathCalculation() {
