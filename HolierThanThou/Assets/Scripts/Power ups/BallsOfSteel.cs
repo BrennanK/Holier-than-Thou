@@ -32,10 +32,13 @@ public class BallsOfSteel : PowerUp
             {
                 origin = origin.GetChild(0);
                 origin.GetComponent<MeshRenderer>().material = ballOfSteelMaterial;
-                return;
             }
         }
-        origin.GetComponent<MeshRenderer>().material = ballOfSteelMaterial;
+        else
+        {
+            origin.GetComponent<MeshRenderer>().material = ballOfSteelMaterial;
+        }
+        
         competitor.BallOfSteel(origin, duration);
 
         Debug.Log("Balls of Steel Power Up Used by " + name);

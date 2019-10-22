@@ -113,9 +113,20 @@ public class Competitor : MonoBehaviour
     {
         ballOfSteel = true;
         yield return new WaitForSeconds(duration);
-        ballOfSteel = false;
-        origin.GetComponent<BounceFunction>().enabled = true;
-        origin.GetComponent<MeshRenderer>().sharedMaterial = startMaterial;
+
+
+        if (origin.tag == "Player")
+        {
+            origin.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material = startMaterial;
+            origin.GetComponent<BounceFunction>().enabled = true;
+            ballOfSteel = false;
+        }
+        else
+        {
+            origin.GetComponent<MeshRenderer>().material = startMaterial;
+            origin.GetComponentInParent<BounceFunction>().enabled = true;
+            ballOfSteel = false;
+        }
     }
 
     private IEnumerator TurnNavMeshBackOn(float duration)
