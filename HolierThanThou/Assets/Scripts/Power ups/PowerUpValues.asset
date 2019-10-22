@@ -41,12 +41,14 @@ MonoBehaviour:
   TH_radius: 0
   TH_duration: 10
   BS_hasDuration: 1
-  BS_duration: 20
   BS_radius: 10
+  BS_duration: 5
+  BS_material: {fileID: 2100000, guid: ba21123b55935bc4e9b1fd09b12f1387, type: 2}
   IS_hasDuration: 1
   IS_radius: 0
   IS_duration: 8
   CD_hasDuration: 1
-  CD_duration: 4
-  CD_radius: 20
-  CD_speedMultiplier: 0.75
+  CD_duration: 10
+  CD_radius: 100
+  CD_aiSpeedMultiplier: 0.75
+  CD_playerSpeedMultiplier: 0.75

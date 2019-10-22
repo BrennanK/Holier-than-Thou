@@ -6,40 +6,37 @@ using System;
 
 public class BallsOfSteel : PowerUp
 {
-    public BallsOfSteel(bool _isEnhancement, bool _hasDuration, float _duration, float _radius) : base(_isEnhancement, _hasDuration, _duration, _radius)
-    {
+    private Material ballOfSteelMaterial;
 
+
+    public BallsOfSteel(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, Material _material) : base(_isEnhancement, _hasDuration, _duration, _radius)
+    {
+        ballOfSteelMaterial = _material;
     }
 
     public override void ActivatePowerUp(string name, Transform origin)
     {
         base.ActivatePowerUp(name, origin);
 
-        List<Collider> enemies = Physics.OverlapSphere(origin.position, radius).ToList();
-        for (int i = 0; i < enemies.Count; i++)
+        var bounce = origin.GetComponent<BounceFunction>();
+        Competitor competitor = origin.GetComponent<Competitor>();
+
+        bounce.enabled = false;
+
+        
+
+        if (origin.childCount > 1)
         {
-            if (!enemies[i].GetComponent<Competitor>() || enemies[i].transform == origin)
+            origin = origin.GetChild(1);
+            if (origin.childCount > 0)
             {
-                enemies.Remove(enemies[i]);
-                i--;
+                origin = origin.GetChild(0);
+                origin.GetComponent<MeshRenderer>().material = ballOfSteelMaterial;
+                return;
             }
         }
-        if (enemies.Count == 0)
-        {
-            return;
-        }
-        else
-        {
-            foreach (Collider enemy in enemies)
-            {
-                var bounce = origin.GetComponent<BounceFunction>();
-                var rb = enemy.GetComponent<Rigidbody>();
-                var competitor = origin.GetComponent<Competitor>();
-
-                competitor.BallOfSteel(duration, bounce);
-
-            }
-        }
+        origin.GetComponent<MeshRenderer>().material = ballOfSteelMaterial;
+        competitor.BallOfSteel(origin, duration);
 
         Debug.Log("Balls of Steel Power Up Used by " + name);
 
