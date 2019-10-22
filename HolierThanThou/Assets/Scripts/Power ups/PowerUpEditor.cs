@@ -30,7 +30,8 @@ public class PowerUpEditor : ScriptableObject
     public float GF_radius = 0f;
     [Header("Gotta Go Fast - 3")]
     public float GF_duration;
-    public float GF_speedMultiplier;
+    public float GF_aiSpeedMultiplier;
+    public float GF_playerSpeedMultiplier;
 
     [HideInInspector]
     public bool CTT_hasDuration = true;
@@ -72,5 +73,6 @@ public class PowerUpEditor : ScriptableObject
     [Header("Calm Down - 9")]
     public float CD_duration;
     public float CD_radius;
-    public float CD_speedMultiplier;
+    public float CD_aiSpeedMultiplier;
+    public float CD_playerSpeedMultiplier;
 }
