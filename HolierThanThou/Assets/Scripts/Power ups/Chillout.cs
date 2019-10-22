@@ -35,20 +35,25 @@ public class Chillout : PowerUp
             {
                 var competitor = enemy.GetComponent<Competitor>();
 
-                if (competitor.GetComponent<RigidBodyControl>()){
+                if (!competitor.untouchable)
+                {
+                    if (competitor.GetComponent<RigidBodyControl>())
+                    {
 
-                    competitor.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    competitor.GetComponent<Rigidbody>().freezeRotation = true;
-                    competitor.GetComponent<RigidBodyControl>().enabled = false;
+                        competitor.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                        competitor.GetComponent<Rigidbody>().freezeRotation = true;
+                        competitor.GetComponent<RigidBodyControl>().enabled = false;
+                    }
+                    else
+                    {
+
+                        competitor.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                        competitor.GetComponent<Rigidbody>().freezeRotation = true;
+                        competitor.GetComponent<AIBehavior>().enabled = false;
+                    }
+
+                    competitor.BeenChilled(competitor, duration);
                 }
-                else{ 
-
-                competitor.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                competitor.GetComponent<Rigidbody>().freezeRotation = true;
-                competitor.GetComponent<AIBehavior>().enabled = false;
-                }
-
-                competitor.BeenChilled(competitor, duration);
             }
         }
 
