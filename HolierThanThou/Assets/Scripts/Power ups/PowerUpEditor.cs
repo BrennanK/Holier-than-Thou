@@ -56,10 +56,11 @@ public class PowerUpEditor : ScriptableObject
 
     [HideInInspector]
     public bool BS_hasDuration = true;
-
+    [HideInInspector]
+    public float BS_radius;
     [Header("Balls of Steel - 7")]
     public float BS_duration;
-    public float BS_radius = 10f;
+    public Material BS_material;
 
     [HideInInspector]
     public bool IS_hasDuration = true;
