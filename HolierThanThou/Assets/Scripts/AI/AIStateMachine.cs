@@ -77,7 +77,7 @@ public class AIStateMachine : MonoBehaviour {
     private float m_timeWithoutMovingToBeConsideredStuck = 2.0f;
     private float m_timeWithoutMoving = 0f;
     private Vector3 m_positionToGoToGetUnstuck;
-    private float m_maximumTimeToGetUnstuck = 2f;
+    private float m_maximumTimeToGetUnstuck = 1f;
     private float m_timeElapsedTryingToGetUnstuck = 0f;
 
     private void OnDrawGizmos() {
