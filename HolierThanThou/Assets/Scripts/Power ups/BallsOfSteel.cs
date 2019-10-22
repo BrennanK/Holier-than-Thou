@@ -7,7 +7,7 @@ using System;
 public class BallsOfSteel : PowerUp
 {
     private Material ballOfSteelMaterial;
-    
+
 
     public BallsOfSteel(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, Material _material) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
@@ -22,7 +22,19 @@ public class BallsOfSteel : PowerUp
         Competitor competitor = origin.GetComponent<Competitor>();
 
         bounce.enabled = false;
-        origin.GetComponent<MeshRenderer>().enabled = true;
+
+        
+
+        if (origin.childCount > 1)
+        {
+            origin = origin.GetChild(1);
+            if (origin.childCount > 0)
+            {
+                origin = origin.GetChild(0);
+                origin.GetComponent<MeshRenderer>().material = ballOfSteelMaterial;
+                return;
+            }
+        }
         origin.GetComponent<MeshRenderer>().material = ballOfSteelMaterial;
         competitor.BallOfSteel(origin, duration);
 
