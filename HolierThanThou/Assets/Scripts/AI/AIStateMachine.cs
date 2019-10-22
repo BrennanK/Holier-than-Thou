@@ -24,7 +24,7 @@ public class AIStateMachine : MonoBehaviour {
     private Rigidbody m_rigidbody;
 
     // AI Pathfinding
-    private readonly float m_distanceToCommitToGoal = 5.0f;
+    private readonly float m_distanceToCommitToGoal = 10.0f;
     private readonly float m_stoppingDistance = 10.0f;
     // private readonly float m_jumpingDistance = 1.0f;
     // private float m_jumpingForce;
