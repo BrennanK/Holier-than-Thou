@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     private float startTimer = 5f;
     private ScoreManager scoreManager;
 	private GameObject playerCustomizer;
+	private bool playerWon;
+	private bool gameOver = false;
 
     private void Start()
     {
@@ -35,8 +37,9 @@ public class GameManager : MonoBehaviour
             inGameTimer.text = "Time " + Mathf.Round(matchTimer);
             
         }
-        if(matchTimer <= 0)
+        if(matchTimer <= 0 && !gameOver)
         {
+			gameOver = true;
             EndMatch();
         }
 
@@ -63,14 +66,14 @@ public class GameManager : MonoBehaviour
         gameRunning = false;
         EndMatchScreen.SetActive(true);
         GameUI.SetActive(false);
-        scoreManager.UpdateEndGameUI();
-		PayPlayer();
-    }
+		scoreManager.UpdateEndGameUI(PayWinner());
+	}
 
-	private void PayPlayer()
+	private int PayWinner()
 	{
-		playerCustomizer.GetComponent<PlayerCustomization>().addCurrency(
-			playerCustomizer.GetComponent<Competitor>().Score * ScoreManager.scoreMultiplier
-			);
+		int winnings = (10 - playerCustomizer.GetComponent<Competitor>().Score) * ScoreManager.scoreMultiplier;
+		playerCustomizer.GetComponent<PlayerCustomization>().addCurrency(winnings);
+		int monies = playerCustomizer.GetComponent<PlayerCustomization>().currency;
+		return winnings;
 	}
 }

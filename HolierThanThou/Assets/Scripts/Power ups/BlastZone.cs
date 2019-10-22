@@ -10,14 +10,18 @@ public class BlastZone : PowerUp
     private float upwardForce;
     private LayerMask ground;
     private float disToGround;
+    private float playerPower;
+    private float playerUpwardForce;
 
 
 
 
-    public BlastZone(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, float _power, float _upwardForce) : base(_isEnhancement, _hasDuration, _duration, _radius)
+    public BlastZone(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, float _power, float _upwardForce, float _playerPower, float _playerUpwardForce) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
         power = _power;
         upwardForce = _upwardForce;
+        playerPower = _playerPower;
+        playerUpwardForce = _playerUpwardForce;
     }
 
     public override void ActivatePowerUp(string name, Transform origin)
@@ -48,14 +52,21 @@ public class BlastZone : PowerUp
 
                 if (!competitor.untouchable)
                 {
-                    competitor.navMeshOff = true;
 
-                    if(Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
+                    if (enemy.tag == "Player")
                     {
-                        competitor.BeenBlasted();
+                        rb.AddExplosionForce(playerPower, origin.position, radius, playerUpwardForce, ForceMode.Impulse);
                     }
-                    
-                    rb.AddExplosionForce(power, origin.position, radius, upwardForce, ForceMode.Impulse);
+                    else
+                    {
+                        competitor.navMeshOff = true;
+                        rb.AddExplosionForce(power, origin.position, radius, upwardForce, ForceMode.Impulse);
+
+                        if (Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
+                        {
+                            competitor.BeenBlasted();
+                        }
+                    }
                 }
             }
         }

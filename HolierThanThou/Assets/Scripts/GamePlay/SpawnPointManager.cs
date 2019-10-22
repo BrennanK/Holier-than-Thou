@@ -84,6 +84,7 @@ public class SpawnPointManager : MonoBehaviour
             competitor.GetComponent<AIBehavior>().enabled = false;
         }
         yield return new WaitForSeconds(duration);
+
         if (competitor.GetComponent<RigidBodyControl>())
         {
             competitor.GetComponent<RigidBodyControl>().enabled = true;

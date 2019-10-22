@@ -51,9 +51,9 @@ public class Competitor : MonoBehaviour
         StartCoroutine(TurnNavMeshBackOn(blastedDuration));
     }
 
-    public void BeenChilled(float duration)
+    public void BeenChilled(Competitor competitor ,float duration)
     {
-        StartCoroutine(TurnNavMeshBackOn(duration));
+        StartCoroutine(TurnMovementControlBackOn(competitor, duration));
     }
 
     public void CantTouchMe(float duration)
@@ -64,6 +64,16 @@ public class Competitor : MonoBehaviour
     public void CantFindMe(float duration)
     {
         StartCoroutine(Invis(duration));
+    }
+
+    public void WentFast(Transform origin, float duration, float speedMultiplier)
+    {
+        StartCoroutine(ResetSpeed(origin, duration, speedMultiplier));
+    }
+
+    public void BeenSlowed(Competitor competitor, float duration, float speedMultiplier)
+    {
+        StartCoroutine(ReverseMovementSpeed(competitor, duration, speedMultiplier));
     }
 
     IEnumerator Invis(float duration)
@@ -100,4 +110,47 @@ public class Competitor : MonoBehaviour
 
     }
 
+    private IEnumerator TurnMovementControlBackOn(Competitor competitor, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        if (competitor.GetComponent<RigidBodyControl>())
+        {
+            competitor.GetComponent<Rigidbody>().freezeRotation = false;
+            competitor.GetComponent<RigidBodyControl>().enabled = true;
+        }
+        else
+        {
+            competitor.GetComponent<Rigidbody>().freezeRotation = false;
+            competitor.GetComponent<AIBehavior>().enabled = true;
+        }
+
+    }
+
+    private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
+    {
+        yield return new WaitForSeconds(duration);
+
+        if (origin.GetComponent<RigidBodyControl>())
+        {
+            origin.GetComponent<RigidBodyControl>().speed /= speedMultiplier;
+        }
+        else
+        {
+            origin.GetComponent<AIBehavior>().velocity /= speedMultiplier;
+        }
+    }
+
+    private IEnumerator ReverseMovementSpeed(Competitor competitor, float duration, float speedMultiplier)
+    {
+        yield return new WaitForSeconds(duration);
+
+        if (competitor.GetComponent<RigidBodyControl>())
+        {
+            competitor.GetComponent<RigidBodyControl>().speed /= speedMultiplier;
+        }
+        else
+        {
+            competitor.GetComponent<AIBehavior>().velocity /= speedMultiplier;
+        }
+    }
 }
