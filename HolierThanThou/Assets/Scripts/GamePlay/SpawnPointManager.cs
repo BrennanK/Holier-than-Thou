@@ -26,7 +26,7 @@ public class SpawnPointManager : MonoBehaviour
             players.Add(player);
         }
 
-        List<AIBehavior> AIDudes = FindObjectsOfType<AIBehavior>().ToList();
+        List<AIStateMachine> AIDudes = FindObjectsOfType<AIStateMachine>().ToList();
         int currentIndex = 0;
         int bully = Random.Range(1, 3);
         int itemHog = Random.Range(1, 3);
@@ -64,6 +64,7 @@ public class SpawnPointManager : MonoBehaviour
     {
         var _competitior = players.Find(x => x.Name == nameX);
         _competitior.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+
         _competitior.ScoredGoal = false;
     }
 
@@ -81,7 +82,7 @@ public class SpawnPointManager : MonoBehaviour
         }
         else
         {
-            competitor.GetComponent<AIBehavior>().enabled = false;
+            competitor.GetComponent<AIStateMachine>().enabled = false;
         }
         yield return new WaitForSeconds(duration);
 
@@ -92,7 +93,7 @@ public class SpawnPointManager : MonoBehaviour
         }
         else
         {
-            competitor.GetComponent<AIBehavior>().enabled = true;
+            competitor.GetComponent<AIStateMachine>().enabled = true;
         }
     }
 }

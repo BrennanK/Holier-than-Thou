@@ -10,6 +10,11 @@ public class PowerUpBox : MonoBehaviour
     private PowerUpEditor PUE;
 
     private bool isDisabled;
+    public bool IsDisabled {
+        get {
+            return isDisabled;
+        }
+    }
 
     [SerializeField]
     private float disableTimerStart = 5f;
@@ -97,7 +102,7 @@ public class PowerUpBox : MonoBehaviour
         }
         else if(other.gameObject.tag == "Enemy")
         {
-            var enemy = other.gameObject.GetComponent<AIBehavior>();
+            var enemy = other.gameObject.GetComponent<AIStateMachine>();
 
             if (enemy.slot1 == null)
             {
