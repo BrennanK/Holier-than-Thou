@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManager;
 
-//README Make sure that the order is the same for every customization scroller, category, customizationswitcher, etc. 
+//README Make sure that the order is the same for every customization Scroller, category, customizationSwitcher, etc. 
 //(hat, body) will mess up if paired with (body, hat)
 public class CustomizationController : MonoBehaviour
 {
@@ -39,9 +39,12 @@ public class CustomizationController : MonoBehaviour
 			if (child.GetComponent<CustomizationSwitcher>())
 			{
 				equipmentSlots.Add(child.gameObject);
-				child.GetComponent<CustomizationSwitcher>().Initialize(
-					panels[i].GetComponent<FancyCustomization>().getCustomizations()
-					);
+				GameObject[] initArray = panels[i].GetComponent<FancyCustomization>().getCustomizations();
+				if(initArray == null)
+				{
+					initArray = panels[i].GetComponent<FancyCustomization>().InitializeCustomizationArray();
+				}
+				child.GetComponent<CustomizationSwitcher>().Initialize(initArray);
 			}
 			i++;
 		}
