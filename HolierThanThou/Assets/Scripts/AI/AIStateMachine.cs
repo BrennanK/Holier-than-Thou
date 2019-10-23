@@ -31,7 +31,7 @@ public class AIStateMachine : MonoBehaviour {
     // private float m_jumpingForce;
 
     // Timer
-    private float m_minimumTimeToCommitToANewState = 1f;
+    private float m_minimumTimeToCommitToANewState = 2f;
     private float m_timeOnCurrentState = 0;
 
     private float m_baseVelocity = 10f;
@@ -48,9 +48,6 @@ public class AIStateMachine : MonoBehaviour {
             }
         }
     }
-
-
-    private float m_speedBoost;
 
     private NavMeshPath m_navMeshPath;
     private Queue<Vector3> m_cornersQueue = new Queue<Vector3>();
@@ -77,7 +74,7 @@ public class AIStateMachine : MonoBehaviour {
     private float m_timeWithoutMovingToBeConsideredStuck = 2.0f;
     private float m_timeWithoutMoving = 0f;
     private Vector3 m_positionToGoToGetUnstuck;
-    private float m_maximumTimeToGetUnstuck = 1f;
+    private float m_maximumTimeToGetUnstuck = 2f;
     private float m_timeElapsedTryingToGetUnstuck = 0f;
 
     private void OnDrawGizmos() {
@@ -85,6 +82,7 @@ public class AIStateMachine : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForPowerUps);
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForCompetitors);
+
         if (m_cornersQueue.Count > 0) {
             foreach (Vector3 corner in m_cornersQueue) {
                 Gizmos.color = Color.red;
@@ -118,6 +116,10 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void Update() {
+        if (Vector3.Distance(transform.position, m_currentGoal) < m_stoppingDistance) {
+            RecalculatePath();
+        }
+
         m_timeOnCurrentState += Time.deltaTime;
 
         switch(m_currentState) {
@@ -152,6 +154,7 @@ public class AIStateMachine : MonoBehaviour {
                 m_timeElapsedTryingToGetUnstuck = 0f;
                 Vector3 randomInCircle = UnityEngine.Random.insideUnitCircle;
                 m_positionToGoToGetUnstuck = transform.position + new Vector3(randomInCircle.x, 0f, randomInCircle.y) * velocity;
+                ClearPath();
                 ChangeState(EAIState.GETTING_UNSTUCK);
             }
         } else {
@@ -226,7 +229,8 @@ public class AIStateMachine : MonoBehaviour {
             }
 
             // check if it is within distance...
-            if(Vector3.Distance(transform.position, competitor.transform.position) < m_distanceToCheckForCompetitors) {
+            if(Vector3.Distance(transform.position, competitor.transform.position) < m_distanceToCheckForCompetitors &&
+                Vector3.Distance(transform.position, competitor.transform.position) > m_distanceToCheckForCompetitors / 2.0f) {
                 allCompetitorsWithinDistance.Add(competitor);
             }
         }
@@ -317,7 +321,8 @@ public class AIStateMachine : MonoBehaviour {
         }
 
         // If we are too slow it is not interesting to attack other balls because we will not knockback them and won't get any multiplier...
-        if(m_rigidbody.velocity.magnitude < 5.0f) {
+        if(m_rigidbody.velocity.magnitude < 6.0f &&
+            Vector3.Distance(transform.position, target.position) < m_distanceToCheckForCompetitors / 2.0f) {
             target = null;
             Transform newTarget;
             if(CanGetPowerUp(out newTarget)) {
@@ -328,8 +333,6 @@ public class AIStateMachine : MonoBehaviour {
             RunPathCalculation();
             return;
         }
-
-        // TODO handle ways for the AI to leave the attacking player state
 
         // Debug.Log($"Attacking Player State");
         HardFollowTarget();
@@ -380,7 +383,7 @@ public class AIStateMachine : MonoBehaviour {
     }
     #endregion
 
-    #region
+    #region Getting Unstuck State
     private void GettingUnstuckState() {
         m_timeElapsedTryingToGetUnstuck += Time.deltaTime;
 
@@ -411,16 +414,11 @@ public class AIStateMachine : MonoBehaviour {
 
     // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
-    // ---------------------------------------------------------------------
 
     #region AI Pathfinding
     private void MoveTowardsCorner() {
-        if(Vector3.Distance(transform.position, m_currentGoal) < m_stoppingDistance) {
-            RecalculatePath();
-        }
-
         Debug.DrawRay(transform.position, (m_currentGoal - transform.position), Color.red, Time.deltaTime);
-        m_rigidbody.AddForce((m_currentGoal - transform.position).normalized * (velocity + m_speedBoost), ForceMode.Force);
+        m_rigidbody.AddForce((m_currentGoal - transform.position).normalized * velocity, ForceMode.Force);
     }
 
     private void HardFollowTarget() {
@@ -438,52 +436,30 @@ public class AIStateMachine : MonoBehaviour {
         m_navMeshPath = new NavMeshPath();
 
         if(target == null) {
-            // Debug.Log($"Target is null! Setting as the goal!");
             target = m_goalTransform;
             ChangeState(EAIState.MOVING_TO_GOAL);
         }
 
-        NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, m_navMeshPath);
-
-        foreach(Vector2 cornerPosition in m_navMeshPath.corners) {
-            m_cornersQueue.Enqueue(cornerPosition);
+        if(NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, m_navMeshPath)) {
+            foreach (Vector3 cornerPosition in m_navMeshPath.corners) {
+                m_cornersQueue.Enqueue(cornerPosition);
+            }
         }
-        m_cornersQueue.Enqueue(target.position);
 
         RecalculatePath();
     }
 
     public void RecalculatePath() {
         if(m_cornersQueue.Count == 0) {
-           // Debug.Log($"AI has 0 Corners!");
-            target = null;
-            ChangeState(EAIState.FINDING_OBJECTIVE);
+            // target = null;
+            // ChangeState(EAIState.FINDING_OBJECTIVE);
         } else {
-            Vector3 previousDirection = m_currentGoal - transform.position;
             m_currentGoal = m_cornersQueue.Dequeue();
-            Vector3 currentDirection = m_currentGoal - transform.position;
-
-            if(Vector3.Angle(previousDirection, currentDirection) > 15f) {
-                // Debug.Log($"Big angle from changing direction, adding artificial speed boost");
-                StartCoroutine(SpeedBoostRoutine());
-            }
         }
-    }
-
-    private IEnumerator SpeedBoostRoutine() {
-        m_speedBoost = 10f;
-        float timeToDecay = 3f;
-        float speedBoostPass = m_speedBoost / timeToDecay;
-
-        for(float i = 0; i < timeToDecay; i += Time.deltaTime) {
-            m_speedBoost -= speedBoostPass * Time.deltaTime;
-            yield return null;
-        }
-
-        m_speedBoost = 0f;
     }
 
     public void ClearPath() {
+        target = null;
         m_cornersQueue.Clear();
     }
     #endregion

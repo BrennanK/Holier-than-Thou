@@ -10,7 +10,7 @@ public class SpawnPointManager : MonoBehaviour
 
     public List<Competitor> players = new List<Competitor>();
     List<GameObject> startPoints = new List<GameObject>();
-    List<AIBehavior> AIDudes = new List<AIBehavior>();
+    List<AIStateMachine> AIDudes = new List<AIStateMachine>();
 
     private void Start()
     {
