@@ -5,14 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-
-    public void QuitOnClick()
-    {
+	[SerializeField] private int levelBuildIndexStart;
+	[SerializeField] private int levelBuildIndexEnd;
+	[SerializeField] private int SPECIFIC_LEVEL = 2;
+	[SerializeField] private bool randomize = true;
+	public void QuitOnClick()
+	{
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+		UnityEditor.EditorApplication.isPlaying = false;
 #endif
 
-        Application.Quit();
-    }
+		Application.Quit();
+	}
+
+	public void LoadLevel()
+	{
+		if (randomize)
+		{
+			int randInt = Random.Range(levelBuildIndexStart, levelBuildIndexEnd + 1);
+			Debug.Log($"Scene to be loaded: {randInt}");
+			SceneManager.LoadScene(randInt);
+		}
+		else
+		{
+			SceneManager.LoadScene(SPECIFIC_LEVEL);
+		}
+	}
 
 }

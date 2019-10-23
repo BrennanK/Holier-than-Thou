@@ -37,19 +37,23 @@ public class CalmDown : PowerUp
             foreach (Collider enemy in enemies)
             {
                 var competitor = enemy.GetComponent<Competitor>();
-                if (competitor.GetComponent<RigidBodyControl>())
-                {
-                speedMultiplier = playerSpeedMultiplier;
-                competitor.GetComponent<RigidBodyControl>().speed *= playerSpeedMultiplier;
-                }
 
-                else
+                if (!competitor.untouchable)
                 {
-                speedMultiplier = aiSpeedMultiplier;
-                competitor.GetComponent<AIBehavior>().velocity *= aiSpeedMultiplier;
-                }
+                    if (competitor.GetComponent<RigidBodyControl>())
+                    {
+                        speedMultiplier = playerSpeedMultiplier;
+                        competitor.GetComponent<RigidBodyControl>().speed *= playerSpeedMultiplier;
+                    }
 
-                competitor.GetComponent<Competitor>().BeenSlowed(competitor, duration, speedMultiplier);
+                    else
+                    {
+                        speedMultiplier = aiSpeedMultiplier;
+                        competitor.GetComponent<AIBehavior>().velocity *= aiSpeedMultiplier;
+                    }
+
+                    competitor.GetComponent<Competitor>().BeenSlowed(competitor, duration, speedMultiplier);
+                }
             }   
         }
         Debug.Log("Calm Down Power Up Used by " + name);

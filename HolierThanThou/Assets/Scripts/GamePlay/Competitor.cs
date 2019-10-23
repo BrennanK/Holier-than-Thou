@@ -18,7 +18,8 @@ public class Competitor : MonoBehaviour
     public bool untouchable;
     public bool inivisible;
     public bool ballOfSteel;
-    
+    public Material startMaterial;
+
 
     private void Awake()
     {
@@ -29,9 +30,24 @@ public class Competitor : MonoBehaviour
         inivisible = false;
     }
 
+    public void Start()
+    {
+        if (transform.childCount > 1)
+        {
+            Transform t = transform.GetChild(1);
+            if (t.childCount > 0)
+            {
+                t = t.GetChild(0);
+                startMaterial = t.GetComponent<MeshRenderer>().material;
+                return;
+            }
+        }
+        startMaterial = transform.GetComponent<MeshRenderer>().material;
+    }
+
     private void Update()
     {
-       
+
     }
 
     public bool ScoredGoal
@@ -41,9 +57,9 @@ public class Competitor : MonoBehaviour
         set { scoredGoal = value; }
     }
 
-    public void BallOfSteel(float duration, BounceFunction bounce)
+    public void BallOfSteel(Transform origin, float duration)
     {
-        StartCoroutine(Unbouncable(duration, bounce));
+        StartCoroutine(Unbouncable(origin, duration));
     }
 
     public void BeenBlasted()
@@ -51,14 +67,14 @@ public class Competitor : MonoBehaviour
         StartCoroutine(TurnNavMeshBackOn(blastedDuration));
     }
 
-    public void BeenChilled(Competitor competitor ,float duration)
+    public void BeenChilled(Competitor competitor, float duration)
     {
         StartCoroutine(TurnMovementControlBackOn(competitor, duration));
     }
 
     public void CantTouchMe(float duration)
-    {           
-        StartCoroutine(Untouchable(duration));      
+    {
+        StartCoroutine(Untouchable(duration));
     }
 
     public void CantFindMe(float duration)
@@ -93,14 +109,24 @@ public class Competitor : MonoBehaviour
 
     }
 
-    private IEnumerator Unbouncable(float duration, BounceFunction bounce)
+    private IEnumerator Unbouncable(Transform origin, float duration)
     {
         ballOfSteel = true;
-        bounce.enabled = false;
         yield return new WaitForSeconds(duration);
-        ballOfSteel = false;
-        bounce.enabled = true;
 
+
+        if (origin.tag == "Player")
+        {
+            origin.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material = startMaterial;
+            origin.GetComponent<BounceFunction>().enabled = true;
+            ballOfSteel = false;
+        }
+        else
+        {
+            origin.GetComponent<MeshRenderer>().material = startMaterial;
+            origin.GetComponentInParent<BounceFunction>().enabled = true;
+            ballOfSteel = false;
+        }
     }
 
     private IEnumerator TurnNavMeshBackOn(float duration)
