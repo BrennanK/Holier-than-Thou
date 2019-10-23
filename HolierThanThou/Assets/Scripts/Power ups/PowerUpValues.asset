@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BZ_hasDuration: 0
   BZ_duration: 0
-  BZ_radius: 15
+  BZ_radius: 25
   BZ_power: 20
   BZ_upwardForce: 5
   BZ_disToGround: 1
@@ -24,16 +24,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   CO_hasDuration: 1
-  CO_duration: 10
-  CO_radius: 20
+  CO_duration: 2
+  CO_radius: 10
   GF_hasDuration: 1
   GF_radius: 0
-  GF_duration: 10
+  GF_duration: 5
   GF_aiSpeedMultiplier: 1.25
   GF_playerSpeedMultiplier: 1.25
   CTT_hasDuration: 1
   CTT_radius: 0
-  CTT_duration: 7
+  CTT_duration: 5
   SS_hasDuration: 1
   SS_radius: 0
   SS_duration: 8
@@ -42,13 +42,13 @@ MonoBehaviour:
   TH_duration: 10
   BS_hasDuration: 1
   BS_radius: 10
-  BS_duration: 5
+  BS_duration: 4
   BS_material: {fileID: 2100000, guid: ba21123b55935bc4e9b1fd09b12f1387, type: 2}
   IS_hasDuration: 1
   IS_radius: 0
   IS_duration: 8
   CD_hasDuration: 1
-  CD_duration: 10
-  CD_radius: 100
-  CD_aiSpeedMultiplier: 0.75
-  CD_playerSpeedMultiplier: 0.75
+  CD_duration: 4
+  CD_radius: 25
+  CD_aiSpeedMultiplier: 0.25
+  CD_playerSpeedMultiplier: 0.25
