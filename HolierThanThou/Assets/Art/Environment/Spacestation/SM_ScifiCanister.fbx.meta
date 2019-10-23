@@ -1,21 +1,26 @@
 fileFormatVersion: 2
-guid: bf8b841750012e0489a4d8acd879fff2
+guid: d9178bae3e7ac41459cf4d54665298fe
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert1
+    2100000: BaseColor2
+    2100002: BaseColor1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube4
-    4300002: pCube25
+    4300000: pCylinder14
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: 8583ce491d23fd24493532020a136d64, type: 2}
+      name: BaseColor1
+    second: {fileID: 2100000, guid: 56e181ca42e684c4cb5d230014513c43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BaseColor2
+    second: {fileID: 2100000, guid: bf6522c6d01c4394cb39f5d130b0aac4, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
