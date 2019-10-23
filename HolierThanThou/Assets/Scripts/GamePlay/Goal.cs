@@ -10,6 +10,7 @@ public class Goal : MonoBehaviour
     [SerializeField]
     private PowerUpEditor powerUpEditor;
     private PowerUp powerUp;
+    private PointTracker pointTracker;
 
     public float radius;
     public float disToGround;
@@ -20,7 +21,7 @@ public class Goal : MonoBehaviour
     public LayerMask ground;
     Vector3 explodePosition;
 
-    private int point = 1;
+    private int point;
 
     private void Start()
     {
@@ -37,7 +38,11 @@ public class Goal : MonoBehaviour
 
         if (_competitor)
         {
+            pointTracker = _competitor.GetComponentInParent<PointTracker>();
+            point = pointTracker.PointVal();
             _competitor.ScoredGoal = true;
+            pointTracker.ResetMult();
+            pointTracker.ResetBasePoints();
             scoreManager.UpdateScore(_competitor.Name, point);
             StartCoroutine(spawnPointManager.RespawnTimer(_competitor.Name));
             StartCoroutine(spawnPointManager.PauseRigidBodyControl(_competitor, 2f));
