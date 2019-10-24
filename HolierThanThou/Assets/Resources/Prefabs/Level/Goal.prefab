@@ -113,6 +113,8 @@ MonoBehaviour:
   disToGround: 1
   power: 3
   upwardForce: 1
+  playerPower: 0
+  playerUpwardForce: 0
   ground:
     serializedVersion: 2
     m_Bits: 512
@@ -161,4 +163,4 @@ MonoBehaviour:
   EndMatchScreen: {fileID: 0}
   GameUI: {fileID: 0}
   inGameTimer: {fileID: 0}
-  matchTimer: 20
+  matchTimer: 120
