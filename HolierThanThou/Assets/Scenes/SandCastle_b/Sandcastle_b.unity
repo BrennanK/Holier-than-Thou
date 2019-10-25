@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44479498, g: 0.49434304, b: 0.573541, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1207,11 +1207,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: Name
-      value: Bestbotboy
-      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1266,6 +1261,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: Name
+      value: Bestbotboy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -3299,11 +3304,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: Name
-      value: Zeus
-      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3358,6 +3358,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: Name
+      value: Zeus
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -9330,7 +9340,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781179932}
-  m_LocalRotation: {x: -0.24270117, y: -0.000069807065, z: 0.00012658906, w: -0.9701011}
+  m_LocalRotation: {x: -0.2427011, y: -0.000069807065, z: 0.000126589, w: -0.9701012}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -10374,11 +10384,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: Name
-      value: Qt3.14159
-      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10433,6 +10438,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: Name
+      value: Qt3.14159
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -12373,11 +12388,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: Name
-      value: FranktheTank
-      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12432,6 +12442,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: Name
+      value: FranktheTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -13191,6 +13211,8 @@ MonoBehaviour:
   untouchable: 0
   inivisible: 0
   ballOfSteel: 0
+  startMaterial: {fileID: 0}
+  health: 3
 --- !u!114 &1078032226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19049,8 +19071,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547918572}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -200, z: 0}
+  m_LocalRotation: {x: 0.27568254, y: -0, z: -0, w: 0.96124876}
+  m_LocalPosition: {x: 0, y: 200, z: -320}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1078032230}
@@ -19119,7 +19141,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 69
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -22616,11 +22638,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: Name
-      value: Frank
-      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22675,6 +22692,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: Name
+      value: Frank
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -24174,11 +24201,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: Name
-      value: Pikachu
-      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24233,6 +24255,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: Name
+      value: Pikachu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -25151,11 +25183,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: Name
-      value: 10100011010010110110
-      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -25210,6 +25237,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685269, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: Name
+      value: 10100011010010110110
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -25517,6 +25554,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpEditor: {fileID: 11400000, guid: bfc6dbf05da71374aa881574f239db90, type: 2}
+  goal: 0
+  goalName: 
   radius: 5
   disToGround: 1
   power: 3
@@ -28176,7 +28215,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105757832}
-  m_LocalRotation: {x: 0.20974179, y: 0.000053741034, z: -0.00025023255, w: 0.9777568}
+  m_LocalRotation: {x: 0.20974173, y: 0.000053741092, z: -0.00025023273, w: 0.9777568}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
