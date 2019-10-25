@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7868071377837480245}
   - component: {fileID: 6350063308250849734}
   - component: {fileID: 2942338836947967947}
+  - component: {fileID: 4911469309572448704}
   m_Layer: 0
   m_Name: SM_SandBridge3
   m_TagString: Untagged
@@ -77,3 +78,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &4911469309572448704
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3988790722179722486}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300002, guid: b624ff3a007b35548a7731c4294a8fc8, type: 3}
