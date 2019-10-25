@@ -20,6 +20,31 @@ public class Competitor : MonoBehaviour
     public bool ballOfSteel;
     public Material startMaterial;
 
+    public int health = 3;
+
+    TrailRenderer trails;
+    Rigidbody myRB;
+
+    public void TakeDamage()
+    {
+        health--;
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        Vector3 bounce;
+        bounce = transform.position - collision.transform.position;
+        if (collision.gameObject.GetComponent<Rigidbody>() && collision.gameObject.GetComponent<Competitor>())
+        {
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * 40 * GetComponent<Rigidbody>().velocity.magnitude);
+        }
+    }
+    
 
     private void Awake()
     {
@@ -28,6 +53,8 @@ public class Competitor : MonoBehaviour
         navMeshOff = false;
         untouchable = false;
         inivisible = false;
+        myRB = GetComponent<Rigidbody>();
+        trails = GetComponent<TrailRenderer>();
     }
 
     public void Start()
@@ -47,7 +74,25 @@ public class Competitor : MonoBehaviour
 
     private void Update()
     {
-
+        if (myRB.velocity.magnitude > 25)
+        {
+            trails.material.color = Color.red;
+            trails.enabled = true;
+        }
+        else if (myRB.velocity.magnitude > 20)
+        {
+            trails.material.color = Color.green;
+            trails.enabled = true;
+        }
+        else if(myRB.velocity.magnitude > 15)
+        {
+            trails.material.color = Color.blue;
+            trails.enabled = true;
+        }
+        else
+        {
+            trails.enabled = false;
+        }
     }
 
     public bool ScoredGoal
