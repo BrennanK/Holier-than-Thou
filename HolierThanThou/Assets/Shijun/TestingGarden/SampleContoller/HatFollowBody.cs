@@ -13,7 +13,7 @@ public class HatFollowBody : MonoBehaviour
 	private float waitTime = 0.0001f;
 	private IEnumerator coroutine;
 
-	private float speed = 5f;
+	private float rotationSpeed = 5f;
 	private Vector3 currentPosition = Vector3.zero;
 	private Vector3 prevPosition = Vector3.zero;
 	private Vector3 newForward = Vector3.zero;
@@ -48,7 +48,7 @@ public class HatFollowBody : MonoBehaviour
 
 		currentForward = new Vector3(hatTransform.forward.x, 0, hatTransform.forward.z);
 
-		float step = speed * Time.deltaTime;
+		float step = rotationSpeed * Time.deltaTime;
 		Vector3 newDir = Vector3.RotateTowards(currentForward, newForward, step, 0.0f);
 
 		hatTransform.rotation = Quaternion.LookRotation(newDir);
