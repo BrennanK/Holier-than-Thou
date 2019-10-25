@@ -6,7 +6,7 @@ using System.Linq;
 public class SpawnPointManager : MonoBehaviour
 {
     private GameObject[] spawnPoints;
-
+    Goal spm;
 
     public List<Competitor> players = new List<Competitor>();
     List<GameObject> startPoints = new List<GameObject>();
@@ -14,7 +14,7 @@ public class SpawnPointManager : MonoBehaviour
 
     private void Start()
     {
-        
+        spm = GetComponent<Goal>();
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         for (int i = 0; i < spawnPoints.Length; i++)
         {
@@ -66,6 +66,7 @@ public class SpawnPointManager : MonoBehaviour
         _competitior.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
 
         _competitior.ScoredGoal = false;
+        spm.goal = false;
     }
 
     public IEnumerator RespawnTimer(string name)

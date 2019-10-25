@@ -1787,7 +1787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!191 &119368488
 OffMeshLink:
   m_ObjectHideFlags: 0
@@ -1797,11 +1797,11 @@ OffMeshLink:
   m_GameObject: {fileID: 119368487}
   m_Enabled: 1
   serializedVersion: 3
-  m_AreaIndex: 0
+  m_AreaIndex: 3
   m_AgentTypeID: 0
   m_Start: {fileID: 1435038586}
   m_End: {fileID: 1334940313}
-  m_CostOverride: -1
+  m_CostOverride: 1
   m_BiDirectional: 1
   m_Activated: 1
   m_AutoUpdatePositions: 0
@@ -5184,6 +5184,11 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &396338098 stripped
@@ -7048,6 +7053,11 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &531050471 stripped
@@ -7813,7 +7823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &616974691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7830,10 +7840,10 @@ MonoBehaviour:
   m_StartPoint: {x: -0.00000037372024, y: 27.234585, z: -2.6349833}
   m_EndPoint: {x: 0.00000018918227, y: 0.038700104, z: 2.0869856}
   m_Width: 3
-  m_CostModifier: -1
+  m_CostModifier: 6
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
-  m_Area: 0
+  m_Area: 3
 --- !u!4 &616974692
 Transform:
   m_ObjectHideFlags: 0
@@ -10681,6 +10691,11 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &809396135 stripped
@@ -11277,7 +11292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &827213973
 Transform:
   m_ObjectHideFlags: 0
@@ -13694,6 +13709,11 @@ PrefabInstance:
         type: 3}
       propertyPath: bouncable.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -18049,6 +18069,11 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &1402232051 stripped
@@ -18759,7 +18784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1435293783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18776,10 +18801,10 @@ MonoBehaviour:
   m_StartPoint: {x: -0.00000037372024, y: 27.234585, z: -2.6349833}
   m_EndPoint: {x: 0.00000018918227, y: 0.038700104, z: 2.0869856}
   m_Width: 3
-  m_CostModifier: -1
+  m_CostModifier: 6
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
-  m_Area: 0
+  m_Area: 3
 --- !u!4 &1435293784
 Transform:
   m_ObjectHideFlags: 0
@@ -21735,6 +21760,11 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &1690531300 stripped
@@ -22228,19 +22258,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 521173928, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.17130129
+      value: -0.17130119
       objectReference: {fileID: 0}
     - target: {fileID: 521173928, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.68691206
+      value: -0.6869121
       objectReference: {fileID: 0}
     - target: {fileID: 521173928, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.17192988
+      value: 0.17192978
       objectReference: {fileID: 0}
     - target: {fileID: 521173928, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.6850167
+      value: -0.68501675
       objectReference: {fileID: 0}
     - target: {fileID: 521173928, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22256,7 +22286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 890853719, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14792173
+      value: 0.14792164
       objectReference: {fileID: 0}
     - target: {fileID: 890853719, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalRotation.y
@@ -22276,7 +22306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 890853719, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.14869711
+      value: -0.14869702
       objectReference: {fileID: 0}
     - target: {fileID: 890853719, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25068,7 +25098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!191 &1917904971
 OffMeshLink:
   m_ObjectHideFlags: 0
@@ -25078,11 +25108,11 @@ OffMeshLink:
   m_GameObject: {fileID: 1917904970}
   m_Enabled: 1
   serializedVersion: 3
-  m_AreaIndex: 0
+  m_AreaIndex: 3
   m_AgentTypeID: 0
   m_Start: {fileID: 23643142}
   m_End: {fileID: 481686649}
-  m_CostOverride: -1
+  m_CostOverride: 1
   m_BiDirectional: 1
   m_Activated: 1
   m_AutoUpdatePositions: 0
@@ -26499,6 +26529,11 @@ PrefabInstance:
         type: 3}
       propertyPath: bouncable.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}

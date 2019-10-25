@@ -11,6 +11,8 @@ public class Goal : MonoBehaviour
     private PowerUpEditor powerUpEditor;
     private PowerUp powerUp;
     private PointTracker pointTracker;
+    public bool goal;
+    public string goalName;
 
     public float radius;
     public float disToGround;
@@ -35,6 +37,14 @@ public class Goal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var _competitor = other.gameObject.GetComponent<Competitor>();
+        if(other.tag == "Player")
+        {
+            goal = true;
+        }
+        if(other.tag == "Enemy")
+        {
+            goalName = other.GetComponent<Competitor>().name;
+        }
 
         if (_competitor)
         {
@@ -76,17 +86,25 @@ public class Goal : MonoBehaviour
 
                 if (enemy.tag == "Player")
                 {
-                    rb.AddExplosionForce(playerPower, explodePosition, radius, playerUpwardForce, ForceMode.Impulse);
+                    if(goal != true)
+                    {
+                        rb.AddExplosionForce(playerPower, explodePosition, radius, playerUpwardForce, ForceMode.Impulse);
+                    }
+                    
                 }
                 else
                 {
-                    competitor.navMeshOff = true;
-                    rb.AddExplosionForce(power, explodePosition, radius, upwardForce, ForceMode.Impulse);
-
-                    if (Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
+                    if(enemy.GetComponent<Competitor>().name != goalName)
                     {
-                        competitor.BeenBlasted();
+                        competitor.navMeshOff = true;
+                        rb.AddExplosionForce(power, explodePosition, radius, upwardForce, ForceMode.Impulse);
+
+                        if (Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
+                        {
+                            competitor.BeenBlasted();
+                        }
                     }
+                    
                 }
             }
         }
