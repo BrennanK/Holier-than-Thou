@@ -38,13 +38,13 @@ public class PointTracker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var crownBox = GameObject.FindGameObjectWithTag("CrownBox");
-        other = crownBox.GetComponentInParent<Collider>();
-        if (crownBox)
+        //var crownBox = GameObject.FindGameObjectWithTag("CrownBox");
+        //other = crownBox.GetComponentInParent<Collider>();
+        if (other.GetComponent<Crown>())
         {
             basePoints++;
-            Debug.Log("You picked up a crown!");
-            Object.Destroy(crownBox);
+            Debug.Log($"{gameObject.GetComponent<Competitor>().Name} picked up a crown!");
+            other.gameObject.SetActive(false);
         }
     }
     public int PointVal()

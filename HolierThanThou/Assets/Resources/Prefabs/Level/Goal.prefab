@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3120310719249573823}
   - component: {fileID: 874056830703359177}
   - component: {fileID: 252933133}
+  - component: {fileID: 4151172978489908292}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Goal
@@ -166,3 +167,16 @@ MonoBehaviour:
   GameUI: {fileID: 0}
   inGameTimer: {fileID: 0}
   matchTimer: 120
+--- !u!114 &4151172978489908292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3120310719249573816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47512d0721d12ae4c95429c2e04c6c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
