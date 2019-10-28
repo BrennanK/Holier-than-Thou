@@ -304,7 +304,6 @@ public class AIStateMachine : MonoBehaviour {
         Debug.Log($"Grabbing Power Up State");
         PowerUpBox boxBeingGrabbed = target.GetComponent<PowerUpBox>();
 
-        // TODO Handle ways for the AI to leave the grabbing power up state
         Transform newTarget;
         if(m_isBully && CanAttackOtherCompetitor(out newTarget) && HasSpentEnoughTimeOnCurrentState()) {
             target = newTarget;
@@ -314,8 +313,8 @@ public class AIStateMachine : MonoBehaviour {
 
         // Performing this check because the box can be disabled
         // maybe someone else grabbed the box while I was on my way to it :(
-        // maybe I got the box :)
-        if(boxBeingGrabbed == null || boxBeingGrabbed.IsDisabled) {
+        // maybe ME got the box :)
+        if(boxBeingGrabbed == null || boxBeingGrabbed.IsDisabled || (slot1 != null && slot2 != null)) {
             target = null;
             ChangeState(EAIState.FINDING_OBJECTIVE);
             return;
