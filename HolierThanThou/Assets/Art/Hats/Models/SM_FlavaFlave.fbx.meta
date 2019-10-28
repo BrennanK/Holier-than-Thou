@@ -20,10 +20,18 @@ ModelImporter:
     400012: transform13
     400014: transform14
     2100000: lambert1
+    2100002: lambert2
     2300000: pCylinder21
+    2300002: //RootNode
     3300000: pCylinder21
+    3300002: //RootNode
     4300000: pCylinder21
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2
+    second: {fileID: 2100000, guid: 5caf3019bd5eb7d4aa2af5d2bd7869bd, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
