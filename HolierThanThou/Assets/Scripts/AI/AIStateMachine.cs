@@ -116,10 +116,6 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void Update() {
-        if (Vector3.Distance(transform.position, m_currentGoal) < m_stoppingDistance) {
-            RecalculatePath();
-        }
-
         m_timeOnCurrentState += Time.deltaTime;
 
         switch(m_currentState) {
@@ -146,11 +142,16 @@ public class AIStateMachine : MonoBehaviour {
                 break;
         }
 
+        if (Vector3.Distance(transform.position, m_currentGoal) < m_stoppingDistance) {
+            RecalculatePath();
+        }
+
         // Getting Unstuck
-        if(m_rigidbody.velocity.magnitude < 3.0f) {
+        if (m_rigidbody.velocity.magnitude < 3.0f) {
             m_timeWithoutMoving += Time.deltaTime;
 
             if(m_timeWithoutMoving > m_timeWithoutMovingToBeConsideredStuck) {
+                m_timeWithoutMoving = 0;
                 m_timeElapsedTryingToGetUnstuck = 0f;
                 Vector3 randomInCircle = UnityEngine.Random.insideUnitCircle;
                 m_positionToGoToGetUnstuck = transform.position + new Vector3(randomInCircle.x, 0f, randomInCircle.y) * velocity;
@@ -255,6 +256,7 @@ public class AIStateMachine : MonoBehaviour {
 
     #region Using Power Ups
     private bool UseEnhacementPowerUp() {
+        Debug.Log($"AI - UseEnhancementPowerUp: {slot1 != null} | {slot2 != null}");
         if(slot1 != null && slot1.isEnhancement) {
             if(m_canActivatePowerUp1) {
                 UsePowerUp(true);
@@ -300,12 +302,22 @@ public class AIStateMachine : MonoBehaviour {
     #region Grabbing Power Up State
     private void GrabbingPowerUpState() {
         Debug.Log($"Grabbing Power Up State");
+        PowerUpBox boxBeingGrabbed = target.GetComponent<PowerUpBox>();
 
         // TODO Handle ways for the AI to leave the grabbing power up state
         Transform newTarget;
         if(m_isBully && CanAttackOtherCompetitor(out newTarget) && HasSpentEnoughTimeOnCurrentState()) {
             target = newTarget;
             ChangeState(EAIState.ATTACKING_PLAYER);
+            return;
+        }
+
+        // Performing this check because the box can be disabled
+        // maybe someone else grabbed the box while I was on my way to it :(
+        // maybe I got the box :)
+        if(boxBeingGrabbed == null || boxBeingGrabbed.IsDisabled) {
+            target = null;
+            ChangeState(EAIState.FINDING_OBJECTIVE);
             return;
         }
 

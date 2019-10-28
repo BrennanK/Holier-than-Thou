@@ -115,7 +115,6 @@ public class PowerUpBox : MonoBehaviour
                     enemy.slot1 = powerups[Random.Range(0, powerups.Length)];
 
                 DisablePowerUp();
-                //_powerUpTracker.UpdateUI();
                 return;
             }
             if (enemy.slot2 == null)
@@ -128,7 +127,6 @@ public class PowerUpBox : MonoBehaviour
                 else
                     enemy.slot2 = powerups[Random.Range(0, powerups.Length)];
                 DisablePowerUp();
-                //_powerUpTracker.UpdateUI();
                 return;
             }
         }
