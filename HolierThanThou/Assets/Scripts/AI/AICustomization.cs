@@ -32,7 +32,7 @@ public class AICustomization : MonoBehaviour
 		// Get ALL of the prefabs from the prefabs folder.
 		if(prefabs == null)
 		{
-			prefabs = Resources.LoadAll("Prefabs/").Select(p => (GameObject)p).ToArray();
+			prefabs = Resources.LoadAll("Prefabs/Equipment").Select(p => (GameObject)p).ToArray();
 		}
 		int i = 0;
 		foreach(string type in equipmentTypes)
@@ -71,7 +71,7 @@ public class AICustomization : MonoBehaviour
 		{
 			//find prefab of specific name
 			GameObject option = Instantiate(
-				(GameObject)Resources.Load($"Prefabs/{item}"),
+				(GameObject)Resources.Load($"Prefabs/Equipment/{item}"),
 				transform.GetChild(i)
 				);
 			option.SetActive(true);
