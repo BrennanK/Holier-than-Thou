@@ -10,13 +10,26 @@ ModelImporter:
     400002: pCylinder8
     400004: //RootNode
     2100000: lambert1
+    2100002: lambert4
     2300000: pCube1
     2300002: pCylinder8
+    2300004: //RootNode
     3300000: pCube1
     3300002: pCylinder8
+    3300004: //RootNode
     4300000: pCylinder8
     4300002: pCube1
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: c30fe2f0514bc7048b4097ed48488ec8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert4
+    second: {fileID: 2100000, guid: 5da4ef79aa8e8b245ad25dc32758f262, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
