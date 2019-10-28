@@ -109,10 +109,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpEditor: {fileID: 11400000, guid: bfc6dbf05da71374aa881574f239db90, type: 2}
-  radius: 5
+  goal: 0
+  goalName: 
+  radius: 15
   disToGround: 1
-  power: 3
-  upwardForce: 1
+  power: 40
+  upwardForce: 2.5
+  playerPower: 80
+  playerUpwardForce: 2.5
   ground:
     serializedVersion: 2
     m_Bits: 512
@@ -161,4 +165,4 @@ MonoBehaviour:
   EndMatchScreen: {fileID: 0}
   GameUI: {fileID: 0}
   inGameTimer: {fileID: 0}
-  matchTimer: 20
+  matchTimer: 120

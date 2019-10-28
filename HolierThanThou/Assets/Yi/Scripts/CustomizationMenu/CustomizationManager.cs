@@ -52,7 +52,7 @@ namespace FancyScrollView.CustomizationMenu
 			// Get ALL of the prefabs from the prefabs folder.
 			if (prefabs == null)
 			{
-				prefabs = Resources.LoadAll("Prefabs/").Select(p => (GameObject)p).ToArray();
+				prefabs = Resources.LoadAll("Prefabs/Equipment").Select(p => (GameObject)p).ToArray();
 			}
 			//Get all prefabs of Type "equipmentType."
 			foreach (GameObject prefab in prefabs)

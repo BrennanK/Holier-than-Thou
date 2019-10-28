@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 
 public class InspectorEditor : MonoBehaviour
 {
     [CustomEditor(typeof(Renamer))]
-    public class RenamerEditor : Editor
+	public class RenamerEditor : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -19,3 +20,4 @@ public class InspectorEditor : MonoBehaviour
         }
     }
 }
+#endif
