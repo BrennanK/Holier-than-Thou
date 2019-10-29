@@ -68,12 +68,13 @@ public class PowerUpBox : MonoBehaviour
     {
         var _powerUpTracker = other.gameObject.GetComponent<PowerUpTracker>();
         itemNumber = Mathf.Clamp(itemNumber, 0, (powerups.Length));
-
+        
         if (other.gameObject.tag == "Player")
         {
-
+            print("Hit");
             if (_powerUpTracker.slot1 == null)
             {
+                print("Slot 1");
                 if ((itemNumber - 1) >= 0)
                 {
                     _powerUpTracker.slot1 = powerups[itemNumber - 1];
@@ -87,7 +88,8 @@ public class PowerUpBox : MonoBehaviour
             }
             if (_powerUpTracker.slot2 == null)
             {
-                if((itemNumber - 1) >= 0) 
+                print("Slot 2");
+                if ((itemNumber - 1) >= 0) 
                 {
                     _powerUpTracker.slot2 = powerups[itemNumber -1];
                 }
