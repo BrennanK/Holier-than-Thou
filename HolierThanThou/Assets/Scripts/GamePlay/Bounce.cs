@@ -13,20 +13,25 @@ public class Bounce : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<Bounce>() && collision.gameObject.GetComponent<Competitor>().ballOfSteel == false)
-        {
-            Vector3 bounce;
-            //Gets the direction towards what they collided with
-            bounce = transform.position - collision.transform.position;
-            //if that thing is something has a rigidbody and is an enemy then it adds force in oposite directions.
-            //The important thing about this code is that it is played on all colliding objects at the same time
-            if (collision.gameObject.GetComponent<Rigidbody>())
-            {
-                collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude);
+        Vector3 bounce;
+        //Gets the direction towards what they collided with
+        bounce = transform.position - collision.transform.position;
 
-                if (collision.gameObject.CompareTag("Wall"))
+        if (gameObject.CompareTag("Wall"))
+        {
+            collision.gameObject.GetComponent<Rigidbody>().AddForce((-collision.contacts[0].normal + (Vector3.up * upBounceForce)) * obsticalBounceForce);
+        }
+        else if (collision.gameObject.GetComponent<Bounce>() && collision.gameObject.GetComponent<Competitor>())
+        {
+            if (!collision.gameObject.GetComponent<Competitor>().ballOfSteel)
+            {
+
+                //if that thing is something has a rigidbody and is an enemy then it adds force in oposite directions.
+                //The important thing about this code is that it is played on all colliding objects at the same time
+                if (collision.gameObject.GetComponent<Rigidbody>())
                 {
-                    gameObject.GetComponent<Rigidbody>().AddForce((collision.contacts[0].normal + (Vector3.up * upBounceForce)) * obsticalBounceForce);
+                    collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude);
+
                 }
             }
         }
