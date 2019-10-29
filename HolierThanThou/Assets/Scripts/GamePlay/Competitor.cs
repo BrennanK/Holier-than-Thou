@@ -108,9 +108,9 @@ public class Competitor : MonoBehaviour
         StartCoroutine(Untouchable(duration));
     }
 
-    public void CantFindMe(float duration)
+    public void CantFindMe(Transform origin, float duration)
     {
-        StartCoroutine(Invis(duration));
+        StartCoroutine(Invis(origin, duration));
     }
 
     public void WentFast(Transform origin, float duration, float speedMultiplier)
@@ -123,13 +123,61 @@ public class Competitor : MonoBehaviour
         StartCoroutine(ReverseMovementSpeed(competitor, duration, speedMultiplier));
     }
 
-    IEnumerator Invis(float duration)
+    IEnumerator Invis(Transform origin, float duration)
     {
+        var playerM = origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
+        Material[] playerH = new Material[0];
+        if (origin.GetChild(0).GetChild(0).gameObject.GetComponentInChildren<MeshRenderer>())
+        {
+            playerH = origin.GetChild(0).GetChild(0).gameObject.GetComponentInChildren<MeshRenderer>().materials;
+        }
+        Color originalColor = new Color(playerM.color.r, playerM.color.g, playerM.color.b, 1f);
+
         inivisible = true;
-        //GetComponent<MeshRenderer>().enabled = false;
+
         yield return new WaitForSeconds(duration);
+        if (origin.tag == "Player")
+        {
+
+            playerM.DisableKeyword("_ALPHATEST_ON");
+            playerM.DisableKeyword("_ALPHABLEND_ON");
+            playerM.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+            playerM.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            playerM.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            playerM.SetInt("_Zwrite", 1);
+            playerM.SetColor("_Color", originalColor);
+            playerM.renderQueue = -1;
+            playerM.SetFloat("_Mode", 0);
+
+            if (playerH.Length > 0)
+            {
+                for (int i = 0; i < playerH.Length; i++)
+                {
+                    Color originalHColor = new Color(playerH[i].color.r, playerH[i].color.g, playerH[i].color.b, 1f);
+                    playerH[i].DisableKeyword("_ALPHATEST_ON");
+                    playerH[i].DisableKeyword("_ALPHABLEND_ON");
+                    playerH[i].EnableKeyword("_ALPHAPREMULTIPLY_ON");
+                    playerH[i].SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                    playerH[i].SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                    playerH[i].SetInt("_Zwrite", 1);
+                    playerH[i].SetColor("_Color", originalHColor);
+                    playerH[i].renderQueue = -1;
+                    playerH[i].SetFloat("_Mode", 0);
+                }
+            }
+        }
+        else
+        {
+            origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
+
+            if (origin.GetChild(0).GetChild(0).gameObject.GetComponentInChildren<MeshRenderer>())
+            {
+                origin.GetChild(0).GetChild(0).gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
+            }
+
+        }
+
         inivisible = false;
-        //GetComponent<MeshRenderer>().enabled = true;
     }
 
     private IEnumerator Untouchable(float duration)
@@ -145,19 +193,11 @@ public class Competitor : MonoBehaviour
         ballOfSteel = true;
         yield return new WaitForSeconds(duration);
 
+        origin.GetComponent<MeshRenderer>().material = startMaterial;
+        //origin.GetComponentInParent<BounceFunction>().enabled = true;
+        origin.GetComponentInParent<Bounce>().enabled = true;
+        ballOfSteel = false;
 
-        if (origin.tag == "Player")
-        {
-            origin.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material = startMaterial;
-            origin.GetComponent<BounceFunction>().enabled = true;
-            ballOfSteel = false;
-        }
-        else
-        {
-            origin.GetComponent<MeshRenderer>().material = startMaterial;
-            origin.GetComponentInParent<BounceFunction>().enabled = true;
-            ballOfSteel = false;
-        }
     }
 
     private IEnumerator TurnNavMeshBackOn(float duration)
