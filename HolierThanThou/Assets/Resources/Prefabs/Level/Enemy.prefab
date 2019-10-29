@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 4328892631743013679}
   - component: {fileID: 3866675631678368280}
   - component: {fileID: 5380325847623781447}
+  - component: {fileID: 6044647542105994789}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -264,3 +265,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  slot1:
+    hasDuration: 0
+    duration: 0
+    radius: 0
+    isEnhancement: 0
+  slot2:
+    hasDuration: 0
+    duration: 0
+    radius: 0
+    isEnhancement: 0
+--- !u!114 &6044647542105994789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293815186656685268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b116e0a06f51df4884975a88518a55f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bouceOffForce: 40
+  upBounceForce: 0.75
+  obsticalBounceForce: 1000
