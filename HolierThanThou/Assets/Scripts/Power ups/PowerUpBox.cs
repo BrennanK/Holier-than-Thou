@@ -40,7 +40,7 @@ public class PowerUpBox : MonoBehaviour
         powerups[4] = new SneakySnake(true, PUE.SS_hasDuration, PUE.SS_duration, PUE.SS_radius);
         powerups[5] = new Thiccness(false, PUE.TH_hasDuration, PUE.TH_duration, PUE.TH_radius);
         powerups[6] = new BallsOfSteel(true, PUE.BS_hasDuration, PUE.BS_duration, PUE.BS_radius, PUE.BS_material);
-        powerups[7] = new ISeeDeadPeople(true, PUE.IS_hasDuration, PUE.IS_duration, PUE.IS_radius);
+        powerups[7] = new SuperBounce(true, PUE.SB_hasDuration, PUE.SB_duration, PUE.SB_radius, PUE.SB_bounceMultiplier);
         powerups[8] = new CalmDown(false, PUE.CD_hasDuration, PUE.CD_duration, PUE.CD_radius, PUE.CD_aiSpeedMultiplier, PUE.CD_playerSpeedMultiplier);
 
         disableTimer = disableTimerStart;
