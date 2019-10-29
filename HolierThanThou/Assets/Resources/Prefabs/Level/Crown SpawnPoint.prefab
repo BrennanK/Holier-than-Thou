@@ -4708,13 +4708,14 @@ GameObject:
   m_Component:
   - component: {fileID: 876171703184765858}
   - component: {fileID: 8004239793164732484}
+  - component: {fileID: 1402762761498880168}
   m_Layer: 0
   m_Name: Crown SpawnPoint
   m_TagString: CrownBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &876171703184765858
 Transform:
   m_ObjectHideFlags: 0
@@ -4742,3 +4743,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0965d5b267e79b41868039319fc1f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1402762761498880168
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8306400837405451379}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

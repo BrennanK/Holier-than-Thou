@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,30 +7,78 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool gameRunning;
-    public Text startText;
-    public GameObject EndMatchScreen;
-    public GameObject GameUI;
-    public Text inGameTimer;
-    public float matchTimer;
+    [SerializeField] private GameObject EndMatchScreen;
+    [SerializeField] private GameObject GameUI;
+    [SerializeField] private Text startText;
+	[SerializeField] private Text inGameTimer;
+	[SerializeField] private float matchTimer = 120.0f; // 2 minute rounds
+    [SerializeField] private GameObject[] CrownSpawnPoints;
+    [SerializeField] private float crownSpawnTimer = 9f;
 
+    public static bool gameRunning { get; private set; } = false;
     private float startTimer = 5f;
-    private ScoreManager scoreManager;
+	private ScoreManager scoreManager;
 	private GameObject playerCustomizer;
 	private bool playerWon;
 	private bool gameOver = false;
+	private List<GameObject> spawnPoints;
+	private int numCrowns = 3;
 
-    private void Start()
+
+	private void Start()
     {
-        scoreManager = gameObject.GetComponent<ScoreManager>();
+		InitializeTextField(ref startText, "StartText");
+		InitializeTextField(ref inGameTimer, "Timer");
+		InitializeGameObject(ref EndMatchScreen, "EndMatchScreen");
+		InitializeGameObject(ref GameUI, "GameUI");
+		InitializeCrownSpawnPoints();
+
+		scoreManager = gameObject.GetComponent<ScoreManager>();
         EndMatchScreen.SetActive(false);
-        gameRunning = false;
         StartCoroutine(StartGame());
-        inGameTimer.text = "Time " + matchTimer;
+		inGameTimer.text = "Time " + matchTimer;
 		playerCustomizer = GameObject.FindGameObjectWithTag("Player");
 	}
 
-    private void Update()
+	private void InitializeCrownSpawnPoints()
+	{
+		if(CrownSpawnPoints.Length != numCrowns)
+		{
+			Debug.LogError($"Crown Spawn Points array does not have {numCrowns} items in it.\nDrag and Drop the Crown SpawnPoints into the GameManager Script.");
+		}
+	}
+
+	private void InitializeTextField(ref Text component, string textName)
+	{
+		if (component == null)
+		{
+			Text[] Texts = Resources.FindObjectsOfTypeAll<Text>();
+			foreach (Text item in Texts)
+			{
+				if(item.name == textName)
+				{
+					component = item;
+				}
+			}
+		}
+	}
+
+	private void InitializeGameObject(ref GameObject component, string objectName)
+	{
+		if (component == null)
+		{
+			GameObject[] gameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+			foreach (GameObject item in gameObjects)
+			{
+				if (item.name == objectName)
+				{
+					component = item;
+				}
+			}
+		}
+	}
+
+	private void Update()
     {
         if(matchTimer > 0 && gameRunning)
         {
@@ -57,9 +106,38 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         startText.text = "GO!";
         gameRunning = true;
-        yield return new WaitForSeconds(1f);
-        Destroy(startText);
+		StartCoroutine(SpawnCrowns());
+		yield return new WaitForSeconds(1f);
+        startText.gameObject.SetActive(false);
     }
+
+	IEnumerator SpawnCrowns()
+	{
+		if (gameRunning)
+		{
+			yield return new WaitForSeconds(crownSpawnTimer);
+			//list out all spawnPoints that do NOT have an active crown
+			spawnPoints = new List<GameObject>();
+			foreach (GameObject crownSpawn in CrownSpawnPoints)
+			{
+				if (!crownSpawn.activeSelf)
+				{
+					spawnPoints.Add(crownSpawn);
+				}
+			}
+			if (spawnPoints.Count > 0)
+			{
+				//randomly choose between the available spawnPoints to spawn a crown in.
+				int randPoint = Random.Range(0, spawnPoints.Count);
+				//Spawn the crown by setting it to active.
+				spawnPoints[randPoint].SetActive(true);
+				Debug.Log($"{spawnPoints[randPoint].name} was just created!");
+			}
+			//repeat
+			StartCoroutine(SpawnCrowns());
+		}
+		yield return new WaitForSeconds(0);
+	}
 
     void EndMatch()
     {
