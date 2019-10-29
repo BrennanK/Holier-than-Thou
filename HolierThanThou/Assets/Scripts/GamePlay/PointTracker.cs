@@ -32,19 +32,19 @@ public class PointTracker : MonoBehaviour
         if (_competitor && vel.magnitude > 8)
         {
             multPoints++;
-            Debug.Log("mutltiplier increased!");
+            Debug.Log($"{gameObject.GetComponent<Competitor>().Name}'s multiplier increased!");
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        var crownBox = GameObject.FindGameObjectWithTag("CrownBox");
-        other = crownBox.GetComponentInParent<Collider>();
-        if (crownBox)
+        //var crownBox = GameObject.FindGameObjectWithTag("CrownBox");
+        //other = crownBox.GetComponentInParent<Collider>();
+        if (other.name.StartsWith("Crown"))
         {
             basePoints++;
-            Debug.Log("You picked up a crown!");
-            Object.Destroy(crownBox);
+            Debug.Log($"{gameObject.GetComponent<Competitor>().Name} picked up {other.name}!");
+            other.gameObject.SetActive(false);
         }
     }
     public int PointVal()

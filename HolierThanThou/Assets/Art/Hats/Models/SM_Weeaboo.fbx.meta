@@ -24,10 +24,18 @@ ModelImporter:
     400016: transform21
     400018: transform22
     2100000: lambert1
+    2100002: lambert10
     2300000: pSphere11
+    2300002: //RootNode
     3300000: pSphere11
+    3300002: //RootNode
     4300000: pSphere11
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert10
+    second: {fileID: 2100000, guid: 000ebea5052c3f44ea2d8053b1d949cb, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

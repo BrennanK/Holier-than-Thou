@@ -36,10 +36,18 @@ ModelImporter:
     400028: transform20
     400030: transform21
     2100000: lambert1
+    2100002: lambert11
     2300000: polySurface2
+    2300002: //RootNode
     3300000: polySurface2
+    3300002: //RootNode
     4300000: polySurface2
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert11
+    second: {fileID: 2100000, guid: 17164d4c3bbdce941852282e7b27b2df, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
