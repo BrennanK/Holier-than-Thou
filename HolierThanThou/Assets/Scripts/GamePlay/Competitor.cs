@@ -19,35 +19,13 @@ public class Competitor : MonoBehaviour
     public bool inivisible;
     public bool ballOfSteel;
     public Material startMaterial;
-    //Health used for bumper car mode
-    public int health = 3;
+    
     //trail is the trail render on the ball
     TrailRenderer trails;
     Rigidbody myRB;
+    
 
     //Called when a ball hits the thanoswall collider
-    public void TakeDamage()
-    {
-        health--;
-        if(health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    //used for bouce.
-    private void OnCollisionEnter(Collision collision)
-    {
-        Vector3 bounce;
-        //Gets the direction towards what they collided with
-        bounce = transform.position - collision.transform.position;
-        //if that thing is something has a rigidbody and is an enemy then it adds force in oposite directions.
-        //The important thing about this code is that it is played on all colliding objects at the same time
-        if (collision.gameObject.GetComponent<Rigidbody>() && collision.gameObject.GetComponent<Competitor>())
-        {
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * 40 * GetComponent<Rigidbody>().velocity.magnitude);
-        }
-    }
     
 
     private void Awake()
@@ -80,6 +58,7 @@ public class Competitor : MonoBehaviour
     {
         if(trails != null)
         {
+            trails.time = Mathf.Clamp(myRB.velocity.magnitude * .05f, 0, .3f);
             if (myRB.velocity.magnitude > 25)
             {
                 trails.material.color = Color.red;
@@ -97,7 +76,7 @@ public class Competitor : MonoBehaviour
             }
             else
             {
-                trails.enabled = false;
+                trails.material.color = Color.white;
             }
         }
     }
