@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class AIStateMachine : MonoBehaviour {
     public enum EAIState {
         FINDING_OBJECTIVE,
-        USING_POWERUP,
         MOVING_TO_GOAL,
         SCORING_GOAL,
         GRABBING_POWERUP,
@@ -134,9 +133,6 @@ public class AIStateMachine : MonoBehaviour {
             case EAIState.ATTACKING_PLAYER:
                 AttackingPlayerState();
                 break;
-            case EAIState.USING_POWERUP:
-                ChangeState(EAIState.FINDING_OBJECTIVE);
-                break;
             case EAIState.GETTING_UNSTUCK:
                 GettingUnstuckState();
                 break;
@@ -174,10 +170,14 @@ public class AIStateMachine : MonoBehaviour {
         target = null;
         Transform targetToFollow;
 
-        if(UseEnhacementPowerUp()) {
-            return;
+        // We only use power up if we can use both, because that means no power up active
+        if(m_canActivatePowerUp1 && m_canActivatePowerUp2) {
+            if (UseEnhacementPowerUp()) {
+                return;
+            } else if(UseNonEnhancementPowerUps()) {
+                return;
+            }
         } else if(CanGetPowerUp(out targetToFollow)) {
-            Debug.Log($"Getting Power Up!");
             target = targetToFollow;
             ChangeState(EAIState.GRABBING_POWERUP);
         } else if(CanAttackOtherCompetitor(out targetToFollow)) {
@@ -256,20 +256,52 @@ public class AIStateMachine : MonoBehaviour {
 
     #region Using Power Ups
     private bool UseEnhacementPowerUp() {
-        Debug.Log($"AI - UseEnhancementPowerUp: {slot1 != null} | {slot2 != null}");
         if(slot1 != null && slot1.isEnhancement) {
             if(m_canActivatePowerUp1) {
                 UsePowerUp(true);
             }
 
-            ChangeState(EAIState.USING_POWERUP);
+            ChangeState(EAIState.FINDING_OBJECTIVE);
             return true;
         } else if(slot2 != null && slot2.isEnhancement) {
             if(m_canActivatePowerUp2) {
                 UsePowerUp(false);
             }
 
-            ChangeState(EAIState.USING_POWERUP);
+            ChangeState(EAIState.FINDING_OBJECTIVE);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool UseNonEnhancementPowerUps() {
+        Competitor[] allCompetitors = FindObjectsOfType<Competitor>();
+        int numberOfCompetitorsCloseBy = 0;
+
+        foreach(Competitor competitor in allCompetitors) {
+            if(competitor != m_competitor && Vector3.Distance(transform.position, competitor.transform.position) < m_distanceToCheckForCompetitors) {
+                numberOfCompetitorsCloseBy++;
+            }
+        }
+
+        if(numberOfCompetitorsCloseBy < 2) {
+            return false;
+        }
+
+        if (slot1 != null && !slot1.isEnhancement) {
+            if(m_canActivatePowerUp1) {
+                UsePowerUp(true);
+            }
+
+            ChangeState(EAIState.FINDING_OBJECTIVE);
+            return true;
+        } else if(slot2 != null && !slot2.isEnhancement) {
+            if(m_canActivatePowerUp2) {
+                UsePowerUp(false);
+            }
+
+            ChangeState(EAIState.FINDING_OBJECTIVE);
             return true;
         }
 
@@ -277,6 +309,7 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void UsePowerUp(bool _isSlot1) {
+        Debug.Log($"{m_competitor.Name} using power up {(_isSlot1 ? slot1.ToString() : slot2.ToString())}");
         StartCoroutine(UsePowerUpRoutine(_isSlot1));
     }
 
@@ -301,7 +334,6 @@ public class AIStateMachine : MonoBehaviour {
 
     #region Grabbing Power Up State
     private void GrabbingPowerUpState() {
-        Debug.Log($"Grabbing Power Up State");
         PowerUpBox boxBeingGrabbed = target.GetComponent<PowerUpBox>();
 
         Transform newTarget;
@@ -429,17 +461,42 @@ public class AIStateMachine : MonoBehaviour {
     #region AI Pathfinding
     private void MoveTowardsCorner() {
         Debug.DrawRay(transform.position, (m_currentGoal - transform.position), Color.red, Time.deltaTime);
-        m_rigidbody.AddForce((m_currentGoal - transform.position).normalized * velocity, ForceMode.Force);
+
+        ApplyForceToDirection(m_currentGoal);
     }
 
     private void HardFollowTarget() {
         Debug.DrawRay(transform.position, (target.position - transform.position), Color.green, Time.deltaTime);
-        m_rigidbody.AddForce((target.position - transform.position).normalized * velocity, ForceMode.Force);
+        ApplyForceToDirection(target.position);
     }
 
     private void HardGoToPosition(Vector3 _position) {
         Debug.DrawRay(transform.position, (_position - transform.position), Color.blue, Time.deltaTime);
-        m_rigidbody.AddForce((_position - transform.position).normalized * velocity, ForceMode.Force);
+        ApplyForceToDirection(_position);
+    }
+
+    private void ApplyForceToDirection(Vector3 _direction) {
+        // TODO Use angles or Dot Product
+        Vector3 directionToMoveTo = _direction - transform.position;
+        float angleBetweenRigidbodyAndDirection = Vector3.Angle(directionToMoveTo, m_rigidbody.velocity);
+        Debug.Log($"[{m_competitor.Name}] angle between rigidbody velocity and direction to move: {Vector3.Angle(directionToMoveTo, m_rigidbody.velocity)}");
+
+        if(angleBetweenRigidbodyAndDirection > 100f) {
+            m_rigidbody.velocity = m_rigidbody.velocity  * 0.9f;
+        }
+
+
+        float multiplier = 1.0f;
+        if(Vector3.Distance(transform.position, _direction) < 5.0f) {
+            if(m_currentState == EAIState.ATTACKING_PLAYER) {
+                multiplier = 2.0f;
+            } else {
+                multiplier = 0.5f;
+            }
+        }
+
+
+        m_rigidbody.AddForce(directionToMoveTo.normalized * velocity * multiplier, ForceMode.Force);
     }
 
     public void RunPathCalculation() {

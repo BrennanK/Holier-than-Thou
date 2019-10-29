@@ -13,7 +13,9 @@ public class CustomizationController : MonoBehaviour
 	[SerializeField] private Transform currencyTextBox;
 	[SerializeField] private GameObject confirmDialogue;
 	[SerializeField] Text selectedItemInfo = default;
-	[SerializeField] Text itemInfoText = default;
+    [SerializeField] Text itemInfoText = default;
+    [SerializeField] InputField namingUser;
+    [SerializeField] Text namingText;
 
 	private List<GameObject> equipmentSlots; // CustomizationSwitchers 
 	private GameObject player;
@@ -25,6 +27,8 @@ public class CustomizationController : MonoBehaviour
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
 		panelIndices = new int[panels.Length];
+
+        namingText.text = PlayerPrefs.GetString("PLAYER_INPUT_NAME");
 
 		InitializeObjectSlots();
 	}
@@ -264,4 +268,16 @@ public class CustomizationController : MonoBehaviour
 			}
 		}
 	}
+
+    //Naming System: To send the customized name to the character
+    //And load the saved name from the playerprefs on Awake
+    public void UpdateCharacterName()
+    {
+        string playerName = namingUser.text.ToString();
+        namingText.text = playerName;
+        PlayerPrefs.SetString("PLAYER_INPUT_NAME", playerName);
+
+        //string testingStr = PlayerPrefs.GetString("PLAYER_INPUT_NAME");
+        //Debug.Log("PLAYER_INPUT_NAME: " + testingStr);
+    }
 }

@@ -63,11 +63,12 @@ public class PowerUpEditor : ScriptableObject
     public Material BS_material;
 
     [HideInInspector]
-    public bool IS_hasDuration = true;
+    public bool SB_hasDuration = true;
     [HideInInspector]
-    public float IS_radius = 0f;
-    [Header("I See Dead People - 8")]
-    public float IS_duration;
+    public float SB_radius = 0f;
+    [Header("Super Bounce - 8")]
+    public float SB_duration;
+    public float SB_bounceMultiplier;
 
     [HideInInspector]
     public bool CD_hasDuration = true;

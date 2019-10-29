@@ -145,6 +145,10 @@ public class GameManager : MonoBehaviour
         EndMatchScreen.SetActive(true);
         GameUI.SetActive(false);
 		scoreManager.UpdateEndGameUI(PayWinner());
+
+        PlayerProfile playerProfileForThisMatch = new PlayerProfile(1, scoreManager.gameWon);
+        SaveGameManager.instance.IncrementSavedData(playerProfileForThisMatch);
+        StoreServices.AchievementManager.instance.UpdateAllAchievements(playerProfileForThisMatch);
 	}
 
 	private int PayWinner()

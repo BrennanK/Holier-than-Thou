@@ -18,12 +18,12 @@ public class BallsOfSteel : PowerUp
     {
         base.ActivatePowerUp(name, origin);
 
-        var bounce = origin.GetComponent<BounceFunction>();
+        //var bounce = origin.GetComponent<BounceFunction>();
+        var bounce = origin.GetComponent<Bounce>();
+
         Competitor competitor = origin.GetComponent<Competitor>();
 
         bounce.enabled = false;
-
-        
 
         if (origin.childCount > 1)
         {
@@ -33,10 +33,6 @@ public class BallsOfSteel : PowerUp
                 origin = origin.GetChild(0);
                 origin.GetComponent<MeshRenderer>().material = ballOfSteelMaterial;
             }
-        }
-        else
-        {
-            origin.GetComponent<MeshRenderer>().material = ballOfSteelMaterial;
         }
         
         competitor.BallOfSteel(origin, duration);

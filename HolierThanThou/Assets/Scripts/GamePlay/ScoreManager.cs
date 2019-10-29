@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
 	public Text scoreText;
 	public Text endGameScore;
 	public Text winnerText;
+    public int gameWon;
 
 
 	private void Start()
@@ -20,6 +21,7 @@ public class ScoreManager : MonoBehaviour
 		{
 			players.Add(player);
 		}
+        gameWon = 0;
 
 		UpdateScoreBoard();
 	}
@@ -56,6 +58,12 @@ public class ScoreManager : MonoBehaviour
 	{
 		players = players.OrderByDescending(x => x.Score).ToList();
 
+        if(players[0].name == "Player")
+        {
+            gameWon = 1;
+        }
+        
+
 		winnerText.text = players[0].Name + " Has Won!";
 
 		endGameScore.text = "1st - " + players[0].Name + " - " + players[0].Score + " Points" +
@@ -66,5 +74,6 @@ public class ScoreManager : MonoBehaviour
 			"\n6th - " + players[5].Name + " - " + players[5].Score + " Points" +
 			"\n7th - " + players[6].Name + " - " + players[6].Score + " Points" +
 			"\n8th - " + players[7].Name + " - " + players[7].Score + " Points";
+            Debug.Log($"Player won games won is +{gameWon}");
 	}
 }
