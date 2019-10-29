@@ -26,5 +26,5 @@ Part 2: Goal
 
     <Text> Components
     Start Text = GameUI/StartText
-    In Game Timer = GameUI/TimerCanvas
+    In Game Timer = GameUI/TimerCanvas/TimerText
 ------------------
