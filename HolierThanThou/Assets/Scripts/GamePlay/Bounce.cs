@@ -13,7 +13,7 @@ public class Bounce : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<Bounce>())
+        if (collision.gameObject.GetComponent<Bounce>() && collision.gameObject.GetComponent<Competitor>().ballOfSteel == false)
         {
             Vector3 bounce;
             //Gets the direction towards what they collided with
