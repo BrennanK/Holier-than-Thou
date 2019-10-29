@@ -461,6 +461,7 @@ public class AIStateMachine : MonoBehaviour {
     #region AI Pathfinding
     private void MoveTowardsCorner() {
         Debug.DrawRay(transform.position, (m_currentGoal - transform.position), Color.red, Time.deltaTime);
+
         ApplyForceToDirection(m_currentGoal);
     }
 
@@ -475,16 +476,20 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void ApplyForceToDirection(Vector3 _direction) {
-        float dotProductBetweenDirectionAndForward = Vector3.Dot(_direction - transform.position, transform.forward);
+        // TODO Use angles or Dot Product
         Vector3 directionToMoveTo = _direction - transform.position;
-        float velocityMultiplier = 1f;
 
-        if(dotProductBetweenDirectionAndForward <= 1.0f && dotProductBetweenDirectionAndForward > 0) {
-            // Debug.Log($"[{m_competitor.Name}] Dot Product between {(_direction - transform.position)} and {transform.forward}: {Vector3.Dot(_direction - transform.position, transform.forward)}");
-            velocityMultiplier = dotProductBetweenDirectionAndForward;
+        float multiplier = 1.0f;
+        if(Vector3.Distance(transform.position, _direction) < 5.0f) {
+            if(m_currentState == EAIState.ATTACKING_PLAYER) {
+                multiplier = 2.0f;
+            } else {
+                multiplier = 0.5f;
+            }
         }
 
-        m_rigidbody.AddForce(directionToMoveTo.normalized * velocity * velocityMultiplier, ForceMode.Force);
+
+        m_rigidbody.AddForce(directionToMoveTo.normalized * velocity * multiplier, ForceMode.Force);
     }
 
     public void RunPathCalculation() {
