@@ -13,7 +13,8 @@ public class CustomizationController : MonoBehaviour
 	[SerializeField] private Transform currencyTextBox;
 	[SerializeField] private GameObject confirmDialogue;
 	[SerializeField] Text selectedItemInfo = default;
-	[SerializeField] Text itemInfoText = default;
+    [SerializeField] Text itemInfoText = default;
+    [SerializeField] InputField namingUser;
 
 	private List<GameObject> equipmentSlots; // CustomizationSwitchers 
 	private GameObject player;
@@ -264,4 +265,11 @@ public class CustomizationController : MonoBehaviour
 			}
 		}
 	}
+
+    //Naming System: To send the customized name to the character
+    public void UpdateCharacterName()
+    {
+        string userName = namingUser.text.ToString();
+        Debug.Log(userName);
+    }
 }
