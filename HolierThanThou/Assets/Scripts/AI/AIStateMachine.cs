@@ -481,8 +481,8 @@ public class AIStateMachine : MonoBehaviour {
         float angleBetweenRigidbodyAndDirection = Vector3.Angle(directionToMoveTo, m_rigidbody.velocity);
         Debug.Log($"[{m_competitor.Name}] angle between rigidbody velocity and direction to move: {Vector3.Angle(directionToMoveTo, m_rigidbody.velocity)}");
 
-        if(angleBetweenRigidbodyAndDirection > 90f) {
-            m_rigidbody.velocity = m_rigidbody.velocity / 1.5f;
+        if(angleBetweenRigidbodyAndDirection > 100f) {
+            m_rigidbody.velocity = m_rigidbody.velocity  * 0.9f;
         }
 
 
