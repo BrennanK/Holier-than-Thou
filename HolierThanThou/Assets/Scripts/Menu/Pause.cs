@@ -12,8 +12,13 @@ public class Pause : MonoBehaviour
     private bool isPaused;
 
     private void Start()
-    {
-        isPaused = false;
+	{
+		if(this.gameObject.name != "MenuKit")
+		{
+			Debug.LogError($"You are using an outdated version of the menu UI. \n " +
+				$"Get the new menu UI in Resources / Prefabs / Menus, called MenuKit. ");
+		}
+		isPaused = false;
         Time.timeScale = 1;
         PauseScreen.SetActive(false);
         OptionsScreen.SetActive(false);
