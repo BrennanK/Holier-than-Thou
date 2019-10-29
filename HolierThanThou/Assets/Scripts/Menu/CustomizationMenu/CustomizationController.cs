@@ -270,13 +270,14 @@ public class CustomizationController : MonoBehaviour
 	}
 
     //Naming System: To send the customized name to the character
+    //And load the saved name from the playerprefs on Awake
     public void UpdateCharacterName()
     {
         string playerName = namingUser.text.ToString();
         namingText.text = playerName;
         PlayerPrefs.SetString("PLAYER_INPUT_NAME", playerName);
 
-        string testingStr = PlayerPrefs.GetString("PLAYER_INPUT_NAME");
-        Debug.Log("PLAYER_INPUT_NAME: " + testingStr);
+        //string testingStr = PlayerPrefs.GetString("PLAYER_INPUT_NAME");
+        //Debug.Log("PLAYER_INPUT_NAME: " + testingStr);
     }
 }
