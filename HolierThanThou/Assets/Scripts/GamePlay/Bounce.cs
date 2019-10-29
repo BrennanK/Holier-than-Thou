@@ -20,14 +20,15 @@ public class Bounce : MonoBehaviour
             bounce = transform.position - collision.transform.position;
             //if that thing is something has a rigidbody and is an enemy then it adds force in oposite directions.
             //The important thing about this code is that it is played on all colliding objects at the same time
-            if (collision.gameObject.GetComponent<Rigidbody>())
+            if (collision.gameObject.GetComponent<Rigidbody>() && !gameObject.CompareTag("Wall"))
             {
                 collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude);
 
-                if (collision.gameObject.CompareTag("Wall"))
-                {
-                    gameObject.GetComponent<Rigidbody>().AddForce((collision.contacts[0].normal + (Vector3.up * upBounceForce)) * obsticalBounceForce);
-                }
+            }
+
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                gameObject.GetComponent<Rigidbody>().AddForce((collision.contacts[0].normal + (Vector3.up * upBounceForce)) * obsticalBounceForce);
             }
         }
     }
