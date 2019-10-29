@@ -25,7 +25,7 @@ public class ThanosWall : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Competitor>())
         {
-            collision.gameObject.GetComponent<Competitor>().TakeDamage();
+            //collision.gameObject.GetComponent<Competitor>().TakeDamage();
             //collision.gameObject.GetComponent<Rigidbody>().AddForce(pushBack * 50);
         }
     }
