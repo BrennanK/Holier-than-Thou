@@ -18,6 +18,7 @@ public class Competitor : MonoBehaviour
     public bool untouchable;
     public bool inivisible;
     public bool ballOfSteel;
+    public bool superBounce;
     public Material startMaterial;
     
     //trail is the trail render on the ball
@@ -121,6 +122,11 @@ public class Competitor : MonoBehaviour
     public void BeenSlowed(Competitor competitor, float duration, float speedMultiplier)
     {
         StartCoroutine(ReverseMovementSpeed(competitor, duration, speedMultiplier));
+    }
+
+    public void NormalBounce(Transform origin, float duration, float bounceMultiplier)
+    {
+        StartCoroutine(ReverseBounceMultiplier(origin, duration, bounceMultiplier));
     }
 
     IEnumerator Invis(Transform origin, float duration)
@@ -250,4 +256,13 @@ public class Competitor : MonoBehaviour
             competitor.GetComponent<AIStateMachine>().Velocity /= speedMultiplier;
         }
     }
+
+    private IEnumerator ReverseBounceMultiplier(Transform origin, float duration, float bounceMultiplier)
+    {
+        superBounce = true;
+        yield return new WaitForSeconds(duration);
+        origin.GetComponent<Bounce>().bouceOffForce /= bounceMultiplier;
+        superBounce = false;
+    }
+
 }
