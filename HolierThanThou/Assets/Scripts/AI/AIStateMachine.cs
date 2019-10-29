@@ -478,6 +478,13 @@ public class AIStateMachine : MonoBehaviour {
     private void ApplyForceToDirection(Vector3 _direction) {
         // TODO Use angles or Dot Product
         Vector3 directionToMoveTo = _direction - transform.position;
+        float angleBetweenRigidbodyAndDirection = Vector3.Angle(directionToMoveTo, m_rigidbody.velocity);
+        Debug.Log($"[{m_competitor.Name}] angle between rigidbody velocity and direction to move: {Vector3.Angle(directionToMoveTo, m_rigidbody.velocity)}");
+
+        if(angleBetweenRigidbodyAndDirection > 90f) {
+            m_rigidbody.velocity = m_rigidbody.velocity / 1.5f;
+        }
+
 
         float multiplier = 1.0f;
         if(Vector3.Distance(transform.position, _direction) < 5.0f) {
