@@ -16,7 +16,7 @@ Part 2: Goal
 - Score Manager 
     <Text> Components
     Score Text = GameUI/ PauseAndScoresCanvas/ InGameScoreBoard/ ScoreText
-    End Game Score = EndMatchScreen/ EndScores/ EndGameScoreText
+    End Game Score = EndMatchScreen/ EndScores/ Background/ Header/ EndGameScoreText
     Winner Text = EndMatchScreen/ EndScores/ WinnerText
 
 - Game Manager 
