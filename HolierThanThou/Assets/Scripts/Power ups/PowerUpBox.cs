@@ -31,7 +31,7 @@ public class PowerUpBox : MonoBehaviour
 
     private void Start()
     {
-        powerups = new PowerUp[9];
+        powerups = new PowerUp[10];
 
         powerups[0] = new BlastZone(false, PUE.BZ_hasDuration, PUE.BZ_duration , PUE.BZ_radius, PUE.BZ_power, PUE.BZ_upwardForce, PUE.BZ_playerPower, PUE.BZ_playerUpwardForce);
         powerups[1] = new Chillout(false, PUE.CO_hasDuration, PUE.CO_duration, PUE.CO_radius);
@@ -42,6 +42,7 @@ public class PowerUpBox : MonoBehaviour
         powerups[6] = new BallsOfSteel(true, PUE.BS_hasDuration, PUE.BS_duration, PUE.BS_radius, PUE.BS_material);
         powerups[7] = new SuperBounce(true, PUE.SB_hasDuration, PUE.SB_duration, PUE.SB_radius, PUE.SB_bounceMultiplier);
         powerups[8] = new CalmDown(false, PUE.CD_hasDuration, PUE.CD_duration, PUE.CD_radius, PUE.CD_aiSpeedMultiplier, PUE.CD_playerSpeedMultiplier);
+        powerups[9] = new DisMine(false, PUE.DM_hasDuration, PUE.DM_duration, PUE.DM_radius, PUE.DM_disMine, PUE.DM_positionOffSet);
 
         disableTimer = disableTimerStart;
 
