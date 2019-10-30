@@ -29,11 +29,36 @@ public class PowerUpTracker : MonoBehaviour
         canActivate2 = true;
         UpdateUI();
         competitor = GetComponent<Competitor>();
+
+        //Testing for Loading Powerups
+        //To fix the preload powerup forcibly
+        slot1 = null;
+        slot2 = null;
     }
 
 
     private void Update()
     {
+        //Testing for Loading Powerups
+        //if (slot1 == null)
+        //{
+        //    Debug.Log("slot1: Cannot find anything.");
+
+        //}
+        //else
+        //{
+        //    Debug.Log("slot1: " + slot1);
+        //}
+        //if (slot2 == null)
+        //{
+        //    Debug.Log("slot2: Cannot find anything.");
+
+        //}
+        //else
+        //{
+        //    Debug.Log("slot2: " + slot2);
+        //}
+        //End tesing
 
         if(activated1)
         {
