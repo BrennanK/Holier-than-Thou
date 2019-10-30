@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class AchievementUI : MonoBehaviour
 {
-    public Image acheivementBackgroundImage;
+    public Image acheivementBackgroundImange;
     public TextMeshProUGUI achievementName;
     public TextMeshProUGUI achievementDescription;
     public TextMeshProUGUI achievementCompletion;

@@ -1,5 +1,4 @@
-﻿//2019-10-30 Shijun Guo: Loading Icons for powerups
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,11 +18,6 @@ public class PowerUpTracker : MonoBehaviour
 
     private GameObject _player;
 
-    //An array to contain all the power-ups' images. The sequence same as PowerUpBox
-    public Sprite[] powerupImages;
-    //Images for the power-ups
-    public Image buttonImage1;
-    public Image buttonImage2;
     public Text itemButton1;
     public Text itemButton2;
     private Competitor competitor;
@@ -35,38 +29,13 @@ public class PowerUpTracker : MonoBehaviour
         canActivate2 = true;
         UpdateUI();
         competitor = GetComponent<Competitor>();
-
-        //Testing for Loading Powerups
-        //To fix the preload powerup forcibly
-        slot1 = null;
-        slot2 = null;
     }
 
 
     private void Update()
     {
-        //Testing for Loading Powerups
-        if (slot1 == null)
-        {
-            Debug.Log("slot1: Cannot find anything.");
 
-        }
-        else
-        {
-            Debug.Log("slot1: " + slot1);
-        }
-        //if (slot2 == null)
-        //{
-        //    Debug.Log("slot2: Cannot find anything.");
-
-        //}
-        //else
-        //{
-        //    Debug.Log("slot2: " + slot2);
-        //}
-        ////End tesing
-
-        if (activated1)
+        if(activated1)
         {
             canActivate1 = false;
             powerTimer1 -= Time.deltaTime;
@@ -96,7 +65,8 @@ public class PowerUpTracker : MonoBehaviour
             slot2 = null;
             canActivate2 = true;
             UpdateUI();
-        }
+        }        
+        
     }
 
     public void UseItem1()
@@ -154,66 +124,26 @@ public class PowerUpTracker : MonoBehaviour
     {
         if (slot1 != null)
         {
-            if (activated1)
+            if(activated1)
             {
                 itemButton1.text = slot1.ToString() + " " + Mathf.Round(powerTimer1);
             }
             else
-                itemButton1.text = slot1.ToString();
+            itemButton1.text = slot1.ToString();
         }
         else
-        {
             itemButton1.text = "No Item";
-            ResetPowerUpIcon(1);
-        }
 
-        if (slot2 != null)
+        if(slot2!=null)
         {
-            if (activated2)
+            if(activated2)
             {
                 itemButton2.text = slot2.ToString() + " " + Mathf.Round(powerTimer2);
             }
             else
-                itemButton2.text = slot2.ToString();
+            itemButton2.text = slot2.ToString();
         }
         else
-        {
-            itemButton1.text = "No Item";
-            ResetPowerUpIcon(2);
-        }
-    }
-
-    //The index of this function based on PowerUpBox
-    //The index: 9 is the default image for null or background.
-    public void LoadPowerUpIcon(int buttonNumber, int index)
-    {
-        switch (buttonNumber)
-        {
-            case 1:
-                buttonImage1.sprite = powerupImages[index];
-                break;
-            case 2:
-                buttonImage2.sprite = powerupImages[index];
-                break;
-            default:
-                Debug.LogError("The index of button has been beyond the amount of buttons.");
-                break;
-        }
-    }
-    //Empty shoul be the backgrond image.
-    public void ResetPowerUpIcon(int buttonNumber)
-    {
-        switch (buttonNumber)
-        {
-            case 1:
-                buttonImage1.sprite = powerupImages[9];
-                break;
-            case 2:
-                buttonImage2.sprite = powerupImages[9];
-                break;
-            default:
-                Debug.LogError("The index of button has been beyond the amount of buttons.");
-                break;
-        }
+            itemButton2.text = "No Item";
     }
 }

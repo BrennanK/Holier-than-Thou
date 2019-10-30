@@ -195,7 +195,6 @@ MonoBehaviour:
   untouchable: 0
   inivisible: 0
   ballOfSteel: 0
-  superBounce: 0
   startMaterial: {fileID: 0}
 --- !u!54 &7293815186656685294
 Rigidbody:
@@ -276,9 +275,6 @@ MonoBehaviour:
     duration: 0
     radius: 0
     isEnhancement: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &6044647542105994789
 MonoBehaviour:
   m_ObjectHideFlags: 0

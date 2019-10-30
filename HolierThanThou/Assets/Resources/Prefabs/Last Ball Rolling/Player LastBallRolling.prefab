@@ -864,7 +864,6 @@ GameObject:
   - component: {fileID: 2765026668253731753}
   - component: {fileID: 3149964945240107241}
   - component: {fileID: 7564594336090370864}
-  - component: {fileID: 1159249576128697067}
   m_Layer: 10
   m_Name: Player LastBallRolling
   m_TagString: Player
@@ -963,7 +962,6 @@ MonoBehaviour:
   untouchable: 0
   inivisible: 0
   ballOfSteel: 0
-  superBounce: 0
   startMaterial: {fileID: 0}
 --- !u!54 &4838207360244041269
 Rigidbody:
@@ -1045,17 +1043,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f11107c78461d8f4f95de5ca578d82b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1159249576128697067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2843923995302826759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d21da995d8606824c9266fb0bce11de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
