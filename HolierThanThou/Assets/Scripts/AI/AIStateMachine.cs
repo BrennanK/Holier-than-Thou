@@ -76,18 +76,30 @@ public class AIStateMachine : MonoBehaviour {
     private float m_maximumTimeToGetUnstuck = 2f;
     private float m_timeElapsedTryingToGetUnstuck = 0f;
 
+    [Header("Navigation")]
+    public LayerMask whatIsGround;
+
+    private const float km_agentRadius = 1.5f;
+
     private void OnDrawGizmos() {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForPowerUps);
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForCompetitors);
 
+        
+        if(m_currentGoal != null) {
+            Gizmos.DrawWireSphere(m_currentGoal, km_agentRadius);
+        }
+        
+        /*
         if (m_cornersQueue.Count > 0) {
             foreach (Vector3 corner in m_cornersQueue) {
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(corner, 1.0f);
+                Gizmos.DrawWireSphere(corner, km_agentRadius);
             }
         }
+        */
     }
 
     private void Start() {
@@ -415,13 +427,13 @@ public class AIStateMachine : MonoBehaviour {
 
     #region Score Goal State
     private void ScoreGoalState() {
-        // Debug.Log($"IMMA SCORE!!");
         if(Vector3.Distance(transform.position, target.position) >= m_distanceToCommitToGoal) {
             // something happened and we are far from the goal, guess I will just do something else (shrug)
             ChangeState(EAIState.FINDING_OBJECTIVE);
             return;
         }
 
+        
         HardFollowTarget();
     }
     #endregion
@@ -481,13 +493,8 @@ public class AIStateMachine : MonoBehaviour {
 
         float multiplier = 1.0f;
         if(Vector3.Distance(transform.position, _direction) < 5.0f) {
-            if(m_currentState == EAIState.ATTACKING_PLAYER) {
-                multiplier = 2.0f;
-            } else {
-                multiplier = 0.5f;
-            }
+            multiplier = 2.0f;
         }
-
 
         m_rigidbody.AddForce(directionToMoveTo.normalized * velocity * multiplier, ForceMode.Force);
     }
@@ -516,7 +523,32 @@ public class AIStateMachine : MonoBehaviour {
             // ChangeState(EAIState.FINDING_OBJECTIVE);
         } else {
             m_currentGoal = m_cornersQueue.Dequeue();
+            ValidateCurrentGoal();
         }
+    }
+
+    private void ValidateCurrentGoal() {
+        RaycastHit hitInfo;
+
+        Debug.DrawLine(transform.position, m_currentGoal, Color.blue, 5.0f);
+
+        int collisionIteration = 2;
+        // This is bad, the ideal way was getting the collision point and moving way from that
+        // But unity physics API is not capable of overlap sphere and detect the collision point :)
+        for(int i = 0; i < collisionIteration; i++) {
+            Collider[] colliders = Physics.OverlapSphere(m_currentGoal, km_agentRadius, whatIsGround);
+
+            foreach (Collider collider in colliders) {
+                float distanceApart;
+                Vector3 directionApart;
+                if(Physics.ComputePenetration(GetComponent<SphereCollider>(), m_currentGoal, Quaternion.identity, collider, collider.transform.position, Quaternion.identity, out directionApart, out distanceApart)) {
+                    Debug.Log("ComputePenetration");
+                    m_currentGoal += (directionApart * distanceApart * 1.25f);
+                }
+            }
+        }
+
+        Debug.DrawLine(transform.position, m_currentGoal, Color.green, 5.0f);
     }
 
     public void ClearPath() {
