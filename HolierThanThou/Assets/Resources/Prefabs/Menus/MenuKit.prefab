@@ -436,6 +436,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndMatchScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 7751794919561567366, guid: c54262610657b4d4abca36a30ed4ff47,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7751794919561567361, guid: c54262610657b4d4abca36a30ed4ff47,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -541,6 +546,26 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7751794919967443173, guid: c54262610657b4d4abca36a30ed4ff47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3548357823887671303}
+    - target: {fileID: 7751794919967443173, guid: c54262610657b4d4abca36a30ed4ff47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevelOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7751794920132751934, guid: c54262610657b4d4abca36a30ed4ff47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3548357823887671303}
+    - target: {fileID: 7751794920132751934, guid: c54262610657b4d4abca36a30ed4ff47,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Rematch
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c54262610657b4d4abca36a30ed4ff47, type: 3}
 --- !u!224 &4454664887393937396 stripped
@@ -564,7 +589,7 @@ PrefabInstance:
     - target: {fileID: 881663149599502065, guid: 2fb9565b549f4d744a0f18643838f51f,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 881663149599502064, guid: 2fb9565b549f4d744a0f18643838f51f,
         type: 3}
