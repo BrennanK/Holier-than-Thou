@@ -8,7 +8,7 @@ public class DamagingWall : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<LastBallRolling>())
         {
-            collision.gameObject.GetComponent<LastBallRolling>().TakeDamage();
+            //collision.gameObject.GetComponent<LastBallRolling>().TakeDamage();
         }
     }
 }

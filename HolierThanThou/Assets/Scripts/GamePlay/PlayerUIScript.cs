@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
 public class PlayerUIScript : MonoBehaviour
 {
     GameObject player;
@@ -21,9 +22,13 @@ public class PlayerUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        vel = player.GetComponent<Rigidbody>().velocity;
-        mag = vel.magnitude;
-        multiplier.text = player.GetComponent<PointTracker>().MultVal().ToString();
-        speed.text = mag.ToString();
+		if(multiplier != null && speed != null)
+		{
+			vel = player.GetComponent<Rigidbody>().velocity;
+			mag = vel.magnitude;
+			multiplier.text = player.GetComponent<PointTracker>().MultVal().ToString();
+			speed.text = mag.ToString();
+		}
     }
 }
+#endif
