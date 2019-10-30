@@ -29,4 +29,34 @@ public class UIScale : MonoBehaviour
 			}
 		}
 	}
+
+//#if UNITY_EDITOR
+//	private bool screenResolutionChanged = false;
+//	int currentHeight = 0;
+//	int previousHeight = 0;
+//	int currentWidth = 0;
+//	int previousWidth = 0;
+//	void Update()
+//	{
+//		currentHeight = Screen.height;
+//		currentWidth = Screen.width;
+//		if(currentHeight != previousHeight || currentWidth != previousWidth)
+//		{
+//			screenResolutionChanged = true;
+//		}
+//		previousHeight = currentHeight;
+//		previousWidth = currentWidth;
+
+//		if (screenResolutionChanged)
+//		{
+//			screenResolutionChanged = false;
+//			float adjustment = (float)Screen.height / (float)height;
+//			foreach (RectTransform item in ItemsToScale)
+//			{
+//				item.offsetMax *= adjustment;
+//				item.offsetMin *= adjustment;
+//			}
+//		}
+//	}
+//#endif
 }
