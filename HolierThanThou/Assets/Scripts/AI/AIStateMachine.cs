@@ -87,16 +87,19 @@ public class AIStateMachine : MonoBehaviour {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForCompetitors);
 
+        
         if(m_currentGoal != null) {
             Gizmos.DrawWireSphere(m_currentGoal, km_agentRadius);
         }
-
+        
+        /*
         if (m_cornersQueue.Count > 0) {
             foreach (Vector3 corner in m_cornersQueue) {
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(corner, km_agentRadius);
             }
         }
+        */
     }
 
     private void Start() {
@@ -424,13 +427,13 @@ public class AIStateMachine : MonoBehaviour {
 
     #region Score Goal State
     private void ScoreGoalState() {
-        // Debug.Log($"IMMA SCORE!!");
         if(Vector3.Distance(transform.position, target.position) >= m_distanceToCommitToGoal) {
             // something happened and we are far from the goal, guess I will just do something else (shrug)
             ChangeState(EAIState.FINDING_OBJECTIVE);
             return;
         }
 
+        
         HardFollowTarget();
     }
     #endregion
@@ -487,22 +490,11 @@ public class AIStateMachine : MonoBehaviour {
     private void ApplyForceToDirection(Vector3 _direction) {
         // TODO Use angles or Dot Product
         Vector3 directionToMoveTo = _direction - transform.position;
-        float angleBetweenRigidbodyAndDirection = Vector3.Angle(directionToMoveTo, m_rigidbody.velocity);
-
-        if(angleBetweenRigidbodyAndDirection > 100f) {
-            m_rigidbody.velocity = m_rigidbody.velocity  * 0.9f;
-        }
-
 
         float multiplier = 1.0f;
         if(Vector3.Distance(transform.position, _direction) < 5.0f) {
-            if(m_currentState == EAIState.ATTACKING_PLAYER) {
-                multiplier = 2.0f;
-            } else {
-                multiplier = 0.5f;
-            }
+            multiplier = 2.0f;
         }
-
 
         m_rigidbody.AddForce(directionToMoveTo.normalized * velocity * multiplier, ForceMode.Force);
     }
@@ -536,26 +528,24 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void ValidateCurrentGoal() {
-        Debug.Log($"Validating current goal...");
         RaycastHit hitInfo;
-        
 
         Debug.DrawLine(transform.position, m_currentGoal, Color.blue, 5.0f);
 
-        int collisionIteration = 1;
+        int collisionIteration = 2;
         // This is bad, the ideal way was getting the collision point and moving way from that
         // But unity physics API is not capable of overlap sphere and detect the collision point :)
         for(int i = 0; i < collisionIteration; i++) {
             Collider[] colliders = Physics.OverlapSphere(m_currentGoal, km_agentRadius, whatIsGround);
 
             foreach (Collider collider in colliders) {
-                m_currentGoal += (m_currentGoal - collider.transform.position).normalized;
+                float distanceApart;
+                Vector3 directionApart;
+                if(Physics.ComputePenetration(GetComponent<SphereCollider>(), m_currentGoal, Quaternion.identity, collider, collider.transform.position, Quaternion.identity, out directionApart, out distanceApart)) {
+                    Debug.Log("ComputePenetration");
+                    m_currentGoal += (directionApart * distanceApart * 1.25f);
+                }
             }
-        }
-
-        // then we do a final check to remove the goal of being halfway through the ground
-        if(Physics.Raycast(m_currentGoal, Vector3.down, out hitInfo, 1f, whatIsGround)) {
-            m_currentGoal += new Vector3(0f, 1.0f, 0f);
         }
 
         Debug.DrawLine(transform.position, m_currentGoal, Color.green, 5.0f);
