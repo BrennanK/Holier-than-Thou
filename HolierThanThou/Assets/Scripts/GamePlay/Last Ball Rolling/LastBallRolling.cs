@@ -38,15 +38,17 @@ public class LastBallRolling : MonoBehaviour
             
             for(int i = 0; i < allPlayers.Length; i++)
             {
-                if(allPlayers[i].Name == other.GetComponent<Competitor>().Name)
+                if(allPlayers[i] != null && allPlayers[i].Name == other.GetComponent<Competitor>().Name)
                 {
-                    allPlayers[i].Score = 0;
-                    scoreManRef.UpdateScore(allPlayers[i].Name, allPlayers[i].Score);
+                    allPlayers[i] = null;
                 }
                 else
                 {
-                    allPlayers[i].Score += 1;
-                    scoreManRef.UpdateScore(allPlayers[i].Name, allPlayers[i].Score);
+                    if(allPlayers[i] != null)
+                    {
+                        allPlayers[i].Score += 1;
+                        scoreManRef.UpdateScore(allPlayers[i].Name, allPlayers[i].Score);
+                    }
                 }
             }
 
@@ -59,11 +61,10 @@ public class LastBallRolling : MonoBehaviour
             {
                 other.GetComponent<Gravity>().enabled = false;
                 playerOut = true;
-                LastBallRollingComplete();
             }
         }
 
-        if(numberOut >= 7 && !playerOut)
+        if(numberOut >= 7)
         {
             LastBallRollingComplete();
         }
@@ -72,7 +73,10 @@ public class LastBallRolling : MonoBehaviour
     public void LastBallRollingComplete()
     {
         gameCompleted = true;
-        print("Player Gets: " + numberOut * 100 + " $!$!$!$!$!$!$");
+        if(FindObjectOfType<GameManager>().matchTimer > 3f)
+        {
+            FindObjectOfType<GameManager>().matchTimer = 3f;
+        }
 
     }
 }
