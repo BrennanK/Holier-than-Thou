@@ -68,6 +68,7 @@ public class AIStateMachine : MonoBehaviour {
     private bool m_isBeingKnockedback;
     private bool m_isBully = false;
     private bool m_isItemHog = false;
+    private bool m_isDummyAI = false;
     private bool m_canActivatePowerUp1 = true;
     private bool m_canActivatePowerUp2 = true;
 
@@ -126,6 +127,12 @@ public class AIStateMachine : MonoBehaviour {
         m_distanceToCheckForCompetitors = 5f;
         m_distanceToCheckForPowerUps = 50f;
         m_isItemHog = true;
+    }
+
+    public void MakeDummy() {
+        m_distanceToCheckForCompetitors = 0f;
+        m_distanceToCheckForPowerUps = 0f;
+        m_isDummyAI = true;
     }
 
     private void Update() {
