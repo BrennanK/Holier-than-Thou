@@ -6,6 +6,9 @@ public class LastBallRolling : MonoBehaviour
 {
     //used for bonus money
     int numberOut;
+    float xOffset;
+    float yOffset;
+    float zOffset;
 
     bool playerOut;
     bool gameCompleted;
@@ -26,14 +29,16 @@ public class LastBallRolling : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Bounce>() && !gameCompleted)
+        if (other.GetComponent<Bounce>())
         {
             //turn off a whole bunch of stuff to stop errors from poping up
             numberOut++;
             other.GetComponent<Rigidbody>().useGravity = false;
+            other.GetComponent<Rigidbody>().angularDrag = 50;
             other.GetComponent<Rigidbody>().velocity = Vector3.zero;
             other.GetComponent<SphereCollider>().enabled = false;
-            other.transform.position = new Vector3(0, -200, 0);
+            other.transform.position = new Vector3(xOffset, -200 + yOffset, zOffset);
+            xOffset += 3f;
             other.GetComponent<Bounce>().enabled = false;
             
             for(int i = 0; i < allPlayers.Length; i++)
@@ -60,6 +65,8 @@ public class LastBallRolling : MonoBehaviour
             if (other.GetComponent<RigidBodyControl>())
             {
                 other.GetComponent<Gravity>().enabled = false;
+                other.GetComponent<RigidBodyControl>().enabled = false;
+                other.GetComponentInChildren<Camera>().enabled = false;
                 playerOut = true;
             }
         }
