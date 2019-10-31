@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject EndMatchScreen;
+    [SerializeField] private GameObject lBREndMatchScreen;
     [SerializeField] private GameObject GameUI;
     [SerializeField] private Text startText;
 	[SerializeField] private Text inGameTimer;
@@ -141,10 +142,18 @@ public class GameManager : MonoBehaviour
 
     void EndMatch()
     {
+        if (FindObjectOfType<LastBallRolling>())
+        {
+            lBREndMatchScreen.SetActive(true);
+            scoreManager.UpdateLastBallRollingEndGameUI(PayWinner());
+        }
+        else
+        {
+            EndMatchScreen.SetActive(true);
+            scoreManager.UpdateEndGameUI(PayWinner());
+        }
         gameRunning = false;
-        EndMatchScreen.SetActive(true);
         GameUI.SetActive(false);
-		scoreManager.UpdateEndGameUI(PayWinner());
 
         PlayerProfile playerProfileForThisMatch = new PlayerProfile(1, scoreManager.gameWon);
         SaveGameManager.instance.IncrementSavedData(playerProfileForThisMatch);

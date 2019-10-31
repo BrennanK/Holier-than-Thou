@@ -15,27 +15,23 @@ public class AIStateMachine : MonoBehaviour {
         GETTING_UNSTUCK
     }
 
-    // TODO introduce the state stack...
-    private Stack<EAIState> m_stateStack = new Stack<EAIState>();
-
     private EAIState m_currentState;
 
     // Cached Components
     private Competitor m_competitor;
     private Rigidbody m_rigidbody;
+    private PointTracker m_pointTrackerReference;
 
     // AI Pathfinding
     private readonly float m_distanceToCommitToGoal = 10.0f;
     private readonly float m_stoppingDistance = 5.0f;
-    // private readonly float m_jumpingDistance = 1.0f;
-    // private float m_jumpingForce;
 
     // Timer
     private float m_minimumTimeToCommitToANewState = 2f;
     private float m_timeOnCurrentState = 0;
 
-    private float m_baseVelocity = 10f;
-    private float velocity = 10f;
+    private float m_baseVelocity = 15f;
+    private float velocity = 15f;
     public float Velocity {
         get {
             return velocity;
@@ -62,15 +58,14 @@ public class AIStateMachine : MonoBehaviour {
 
     public PowerUp slot1;
     public PowerUp slot2;
-
-    private float m_usePowerUpStart = 10f;
-    private float m_attackCooldown = 5f;
-    private bool m_isBeingKnockedback;
     private bool m_isBully = false;
     private bool m_isItemHog = false;
     private bool m_isDummyAI = false;
     private bool m_canActivatePowerUp1 = true;
     private bool m_canActivatePowerUp2 = true;
+
+    // Crown Rationale
+    private readonly int m_multiplierToFocusScoring = 75;
 
     // getting unstuck
     private float m_timeWithoutMovingToBeConsideredStuck = 2.0f;
@@ -83,6 +78,10 @@ public class AIStateMachine : MonoBehaviour {
     public LayerMask whatIsGround;
 
     private const float km_agentRadius = 1.5f;
+
+    // Debug
+    private float m_distanceToCurrentGoal;
+    private float m_queueSize = 0;
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.blue;
@@ -109,16 +108,20 @@ public class AIStateMachine : MonoBehaviour {
         slot1 = null;
         slot2 = null;
 
+        m_pointTrackerReference = GetComponent<PointTracker>();
         m_competitor = GetComponent<Competitor>();
         m_rigidbody = GetComponent<Rigidbody>();
         m_goalTransform = GameObject.FindGameObjectWithTag("Goal").transform;
         target = m_goalTransform;
         ChangeState(EAIState.FINDING_OBJECTIVE);
+
+        if(m_pointTrackerReference == null) {
+            Debug.LogError($"AI {gameObject.name} doesn't have a point tracker");
+        }
     }
 
     public void MakeBully() {
         m_distanceToCheckForCompetitors = 50f;
-        m_attackCooldown = 2f;
         m_distanceToCheckForPowerUps = 5f;
         m_isBully = true;
     }
@@ -138,7 +141,11 @@ public class AIStateMachine : MonoBehaviour {
     private void Update() {
         m_timeOnCurrentState += Time.deltaTime;
 
-        switch(m_currentState) {
+        m_queueSize = m_cornersQueue.Count;
+        m_distanceToCurrentGoal = Vector3.Distance(transform.position, m_currentGoal);
+        
+
+        switch (m_currentState) {
             case EAIState.MOVING_TO_GOAL:
                 MoveToGoalState();
                 break;
@@ -185,8 +192,6 @@ public class AIStateMachine : MonoBehaviour {
 
     // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
-    // ---------------------------------------------------------------------
-    // ---------------------------------------------------------------------
     // Handling AI States
 
     #region Finding Objective
@@ -217,7 +222,6 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private bool CanGetCrown(out Transform _closestCrown) {
-        Debug.Log($"Checking if can get crown");
         Crown[] allCrowns = FindObjectsOfType<Crown>();
         List<Crown> crownsWithinDistance = new List<Crown>();
 
@@ -226,8 +230,6 @@ public class AIStateMachine : MonoBehaviour {
                 crownsWithinDistance.Add(crown);
             }
         }
-
-        Debug.Log($"all crowns: {allCrowns.Length} - crownsWithinDistance: {crownsWithinDistance.Count}");
 
         if(crownsWithinDistance.Count == 0) {
             _closestCrown = null;
@@ -365,7 +367,6 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void UsePowerUp(bool _isSlot1) {
-        Debug.Log($"{m_competitor.Name} using power up {(_isSlot1 ? slot1.ToString() : slot2.ToString())}");
         StartCoroutine(UsePowerUpRoutine(_isSlot1));
     }
 
@@ -458,7 +459,6 @@ public class AIStateMachine : MonoBehaviour {
             return;
         }
 
-        // Debug.Log($"Attacking Player State");
         HardFollowTarget();
     }
     #endregion
@@ -469,23 +469,25 @@ public class AIStateMachine : MonoBehaviour {
         Transform powerUpToGet;
         Transform playerToAttack;
 
-        if(CanGetCrown(out crownToGet)) {
-            target = crownToGet;
-            ChangeState(EAIState.GRABBING_CROWN);
-            RunPathCalculation();
-            return;
-        } else if(CanGetPowerUp(out powerUpToGet)) {
-            if (Vector3.Distance(transform.position, powerUpToGet.position) < Vector3.Distance(transform.position, target.position)) {
-                target = powerUpToGet;
-                ChangeState(EAIState.GRABBING_POWERUP);
+        if(m_pointTrackerReference.PointVal() < m_multiplierToFocusScoring) {
+            if (CanGetCrown(out crownToGet)) {
+                target = crownToGet;
+                ChangeState(EAIState.GRABBING_CROWN);
                 RunPathCalculation();
                 return;
-            }
-        } else if(CanAttackOtherCompetitor(out playerToAttack) && HasSpentEnoughTimeOnCurrentState()) {
-            if(Vector3.Distance(transform.position, playerToAttack.position) < Vector3.Distance(transform.position, target.position)) {
-                target = playerToAttack;
-                ChangeState(EAIState.ATTACKING_PLAYER);
-                return;
+            } else if (CanGetPowerUp(out powerUpToGet)) {
+                if (Vector3.Distance(transform.position, powerUpToGet.position) < Vector3.Distance(transform.position, target.position)) {
+                    target = powerUpToGet;
+                    ChangeState(EAIState.GRABBING_POWERUP);
+                    RunPathCalculation();
+                    return;
+                }
+            } else if (CanAttackOtherCompetitor(out playerToAttack) && HasSpentEnoughTimeOnCurrentState()) {
+                if (Vector3.Distance(transform.position, playerToAttack.position) < Vector3.Distance(transform.position, target.position)) {
+                    target = playerToAttack;
+                    ChangeState(EAIState.ATTACKING_PLAYER);
+                    return;
+                }
             }
         }
 
@@ -574,7 +576,6 @@ public class AIStateMachine : MonoBehaviour {
             }
         }
 
-
         float multiplier = 1.0f;
         if(Vector3.Distance(transform.position, _direction) < 5.0f) {
             multiplier = 2.0f;
@@ -602,23 +603,21 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     public void RecalculatePath() {
-        if(m_cornersQueue.Count == 0) {
-            // target = null;
-            // ChangeState(EAIState.FINDING_OBJECTIVE);
-        } else {
+        if(m_cornersQueue.Count == 0 && target != null) {
+            m_currentGoal = target.position;
+        } else if(m_cornersQueue.Count > 0) {
             m_currentGoal = m_cornersQueue.Dequeue();
             ValidateCurrentGoal();
+        } else {
+            ChangeState(EAIState.FINDING_OBJECTIVE);
         }
     }
 
     private void ValidateCurrentGoal() {
-        RaycastHit hitInfo;
 
         Debug.DrawLine(transform.position, m_currentGoal, Color.blue, 5.0f);
 
-        int collisionIteration = 2;
-        // This is bad, the ideal way was getting the collision point and moving way from that
-        // But unity physics API is not capable of overlap sphere and detect the collision point :)
+        int collisionIteration = 1;
         for(int i = 0; i < collisionIteration; i++) {
             Collider[] colliders = Physics.OverlapSphere(m_currentGoal, km_agentRadius, whatIsGround);
 
@@ -626,7 +625,7 @@ public class AIStateMachine : MonoBehaviour {
                 float distanceApart;
                 Vector3 directionApart;
                 if(Physics.ComputePenetration(GetComponent<SphereCollider>(), m_currentGoal, Quaternion.identity, collider, collider.transform.position, Quaternion.identity, out directionApart, out distanceApart)) {
-                    m_currentGoal += (directionApart * distanceApart * 1.5f);
+                    m_currentGoal += (directionApart * distanceApart);
                 }
             }
         }
