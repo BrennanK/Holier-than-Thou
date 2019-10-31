@@ -79,6 +79,8 @@ public class PowerUpBox : MonoBehaviour
                 if ((itemNumber - 1) >= 0)
                 {
                     _powerUpTracker.slot1 = powerups[itemNumber - 1];
+                    //Load the target icon for UI
+                    _powerUpTracker.LoadPowerUpIcon(1, itemNumber - 1);
                 }
                 else
                 _powerUpTracker.slot1 = powerups[Random.Range(0, powerups.Length)] ;
@@ -93,6 +95,8 @@ public class PowerUpBox : MonoBehaviour
                 if ((itemNumber - 1) >= 0) 
                 {
                     _powerUpTracker.slot2 = powerups[itemNumber -1];
+                    //Load the target icon for UI
+                    _powerUpTracker.LoadPowerUpIcon(2, itemNumber - 1);
                 }
                 else
                 _powerUpTracker.slot2 = powerups[Random.Range(0, powerups.Length)];
