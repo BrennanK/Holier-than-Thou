@@ -28,7 +28,7 @@ public class CustomizationController : MonoBehaviour
 		player = GameObject.FindGameObjectWithTag("Player");
 		panelIndices = new int[panels.Length];
 
-        namingText.text = PlayerPrefs.GetString("PLAYER_INPUT_NAME");
+        namingText.text = PlayerPrefs.GetString("PLAYER_INPUT_NAME", "Input Name");
 
 		InitializeObjectSlots();
 	}
