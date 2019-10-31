@@ -1,18 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class VolumeSlider : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] private Slider slider;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void Start()
+	{
+		//Load Data
+		slider.value = PlayerPrefs.GetFloat(slider.name, 1f);
+	}
+
+	public void IncrementVolume(float amount)
+	{
+		slider.value += amount;
+	}
+
+	public void SaveData()
+	{
+		PlayerPrefs.SetFloat(slider.name, slider.value);
+	}
 }
