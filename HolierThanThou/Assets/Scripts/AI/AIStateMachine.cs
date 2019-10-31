@@ -9,6 +9,7 @@ public class AIStateMachine : MonoBehaviour {
         FINDING_OBJECTIVE,
         MOVING_TO_GOAL,
         SCORING_GOAL,
+        GRABBING_CROWN,
         GRABBING_POWERUP,
         ATTACKING_PLAYER,
         GETTING_UNSTUCK
@@ -54,6 +55,7 @@ public class AIStateMachine : MonoBehaviour {
     [SerializeField] private Transform target;
 
     // AI Blackboard
+    private float m_distanceToCheckForCrowns = 40f;
     private float m_distanceToCheckForPowerUps = 10f;
     private float m_distanceToCheckForCompetitors = 10f;
     private Transform m_goalTransform;
@@ -86,6 +88,8 @@ public class AIStateMachine : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForPowerUps);
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForCompetitors);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForCrowns);
 
         
         if(m_currentGoal != null) {
@@ -140,6 +144,9 @@ public class AIStateMachine : MonoBehaviour {
             case EAIState.GRABBING_POWERUP:
                 GrabbingPowerUpState();
                 break;
+            case EAIState.GRABBING_CROWN:
+                GrabbingCrownState();
+                break;
             case EAIState.ATTACKING_PLAYER:
                 AttackingPlayerState();
                 break;
@@ -181,22 +188,54 @@ public class AIStateMachine : MonoBehaviour {
         Transform targetToFollow;
 
         // We only use power up if we can use both, because that means no power up active
-        if(m_canActivatePowerUp1 && m_canActivatePowerUp2) {
+        if (m_canActivatePowerUp1 && m_canActivatePowerUp2) {
             if (UseEnhacementPowerUp()) {
                 return;
-            } else if(UseNonEnhancementPowerUps()) {
+            } else if (UseNonEnhancementPowerUps()) {
                 return;
             }
-        } else if(CanGetPowerUp(out targetToFollow)) {
+        } else if (CanGetCrown(out targetToFollow)) {
+            target = targetToFollow;
+            ChangeState(EAIState.GRABBING_CROWN);
+        } else if (CanGetPowerUp(out targetToFollow)) {
             target = targetToFollow;
             ChangeState(EAIState.GRABBING_POWERUP);
-        } else if(CanAttackOtherCompetitor(out targetToFollow)) {
+        } else if (CanAttackOtherCompetitor(out targetToFollow)) {
             target = targetToFollow;
             ChangeState(EAIState.ATTACKING_PLAYER);
             return;
         }
 
         RunPathCalculation();
+    }
+
+    private bool CanGetCrown(out Transform _closestCrown) {
+        Debug.Log($"Checking if can get crown");
+        Crown[] allCrowns = FindObjectsOfType<Crown>();
+        List<Crown> crownsWithinDistance = new List<Crown>();
+
+        foreach(Crown crown in allCrowns) {
+            if(Vector3.Distance(transform.position, crown.transform.position) < m_distanceToCheckForCrowns && crown.gameObject.activeSelf) {
+                crownsWithinDistance.Add(crown);
+            }
+        }
+
+        Debug.Log($"all crowns: {allCrowns.Length} - crownsWithinDistance: {crownsWithinDistance.Count}");
+
+        if(crownsWithinDistance.Count == 0) {
+            _closestCrown = null;
+            return false;
+        }
+
+        Crown closestCrown = crownsWithinDistance[0];
+        for(int i = 1; i < crownsWithinDistance.Count; i++) {
+            if(Vector3.Distance(transform.position, closestCrown.transform.position) > Vector3.Distance(transform.position, crownsWithinDistance[i].transform.position)) {
+                closestCrown = crownsWithinDistance[i];
+            }
+        }
+
+        _closestCrown = closestCrown.transform;
+        return true;
     }
 
     private bool CanGetPowerUp(out Transform targetToFollow) {
@@ -357,6 +396,18 @@ public class AIStateMachine : MonoBehaviour {
         // maybe someone else grabbed the box while I was on my way to it :(
         // maybe ME got the box :)
         if(boxBeingGrabbed == null || boxBeingGrabbed.IsDisabled || (slot1 != null && slot2 != null)) {
+            target = null;
+            ChangeState(EAIState.FINDING_OBJECTIVE);
+            return;
+        }
+
+        MoveTowardsCorner();
+    }
+    #endregion
+
+    #region Grabbing Crown State
+    private void GrabbingCrownState() {
+        if(!target.gameObject.activeSelf) {
             target = null;
             ChangeState(EAIState.FINDING_OBJECTIVE);
             return;
