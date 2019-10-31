@@ -92,14 +92,12 @@ public class AIStateMachine : MonoBehaviour {
             Gizmos.DrawWireSphere(m_currentGoal, km_agentRadius);
         }
         
-        /*
         if (m_cornersQueue.Count > 0) {
             foreach (Vector3 corner in m_cornersQueue) {
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(corner, km_agentRadius);
             }
         }
-        */
     }
 
     private void Start() {
@@ -491,6 +489,16 @@ public class AIStateMachine : MonoBehaviour {
         // TODO Use angles or Dot Product
         Vector3 directionToMoveTo = _direction - transform.position;
 
+        if(_direction.y - transform.position.y > 1.0f) {
+            if(Vector3.Angle(transform.forward, directionToMoveTo) > 90f) {
+                // Invalid, AI is trying to climb up walls
+                target = null;
+                ChangeState(EAIState.FINDING_OBJECTIVE);
+                return;
+            }
+        }
+
+
         float multiplier = 1.0f;
         if(Vector3.Distance(transform.position, _direction) < 5.0f) {
             multiplier = 2.0f;
@@ -542,8 +550,7 @@ public class AIStateMachine : MonoBehaviour {
                 float distanceApart;
                 Vector3 directionApart;
                 if(Physics.ComputePenetration(GetComponent<SphereCollider>(), m_currentGoal, Quaternion.identity, collider, collider.transform.position, Quaternion.identity, out directionApart, out distanceApart)) {
-                    Debug.Log("ComputePenetration");
-                    m_currentGoal += (directionApart * distanceApart * 1.25f);
+                    m_currentGoal += (directionApart * distanceApart * 1.5f);
                 }
             }
         }
