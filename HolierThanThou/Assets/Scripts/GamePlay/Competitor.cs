@@ -202,7 +202,12 @@ public class Competitor : MonoBehaviour
     private IEnumerator Unbouncable(Transform origin, float duration)
     {
         ballOfSteel = true;
-        yield return new WaitForSeconds(duration);
+		AudioManager am = FindObjectOfType<AudioManager>();
+		if (am != null)
+		{
+			am.Play("BallsOfSteel");
+		}
+		yield return new WaitForSeconds(duration);
 
         origin.GetComponent<MeshRenderer>().material = startMaterial;
         //origin.GetComponentInParent<BounceFunction>().enabled = true;
@@ -236,6 +241,11 @@ public class Competitor : MonoBehaviour
 
     private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
     {
+		AudioManager am = FindObjectOfType<AudioManager>();
+		if (am != null) 
+		{
+			am.Play("SpeedBuff"); 
+		}
         yield return new WaitForSeconds(duration);
 
         if (origin.GetComponent<RigidBodyControl>())

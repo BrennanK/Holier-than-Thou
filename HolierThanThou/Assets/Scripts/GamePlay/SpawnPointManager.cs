@@ -73,9 +73,13 @@ public class SpawnPointManager : MonoBehaviour
 
         _competitior.ScoredGoal = false;
         spm.goal = false;
-    }
+		if (nameX == GameObject.FindGameObjectWithTag("Player").GetComponent<Competitor>().Name)
+		{
+			FindObjectOfType<AudioManager>().Play("Respawn");
+		}
+	}
 
-    public IEnumerator RespawnTimer(string name)
+	public IEnumerator RespawnTimer(string name)
     {
         yield return new WaitForSeconds(2f);
         RespawnPlayer(name);

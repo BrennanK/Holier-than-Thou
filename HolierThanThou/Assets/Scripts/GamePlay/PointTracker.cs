@@ -29,10 +29,19 @@ public class PointTracker : MonoBehaviour
         var vel = this.GetComponentInParent<Rigidbody>().velocity;
         var _competitor = other.gameObject.GetComponent<Competitor>();
 
-        if (_competitor && vel.magnitude > 8)
+        if (_competitor != null)
         {
-            multPoints++;
-            Debug.Log($"{gameObject.GetComponent<Competitor>().Name}'s multiplier increased!");
+			Debug.Log($"Magnitude: {vel.magnitude}");
+			if(vel.magnitude > 8)
+			{
+				multPoints++;
+				Debug.Log($"{gameObject.GetComponent<Competitor>().Name}'s multiplier increased!");
+				FindObjectOfType<AudioManager>().Play("HitBlop"); // "HitBlop"
+			}
+			else
+			{
+				FindObjectOfType<AudioManager>().Play("Blop");
+			}
         }
     }
 
