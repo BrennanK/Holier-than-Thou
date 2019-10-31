@@ -30,6 +30,12 @@ public class SpawnPointManager : MonoBehaviour
         int currentIndex = 0;
         int bully = Random.Range(1, 3);
         int itemHog = Random.Range(1, 3);
+        int dummies = Random.Range(1, 3);
+
+        for(int i = 0; i < dummies; i++) {
+            AIDudes[currentIndex].MakeDummy();
+            currentIndex++;
+        }
         
         for(int i = 0; i < bully; i++)
         {
