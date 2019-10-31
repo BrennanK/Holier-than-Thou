@@ -30,8 +30,8 @@ public class AIStateMachine : MonoBehaviour {
     private float m_minimumTimeToCommitToANewState = 2f;
     private float m_timeOnCurrentState = 0;
 
-    private float m_baseVelocity = 10f;
-    private float velocity = 10f;
+    private float m_baseVelocity = 15f;
+    private float velocity = 15f;
     public float Velocity {
         get {
             return velocity;
@@ -222,7 +222,6 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private bool CanGetCrown(out Transform _closestCrown) {
-        Debug.Log($"Checking if can get crown");
         Crown[] allCrowns = FindObjectsOfType<Crown>();
         List<Crown> crownsWithinDistance = new List<Crown>();
 
@@ -231,8 +230,6 @@ public class AIStateMachine : MonoBehaviour {
                 crownsWithinDistance.Add(crown);
             }
         }
-
-        Debug.Log($"all crowns: {allCrowns.Length} - crownsWithinDistance: {crownsWithinDistance.Count}");
 
         if(crownsWithinDistance.Count == 0) {
             _closestCrown = null;
@@ -370,7 +367,6 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void UsePowerUp(bool _isSlot1) {
-        Debug.Log($"{m_competitor.Name} using power up {(_isSlot1 ? slot1.ToString() : slot2.ToString())}");
         StartCoroutine(UsePowerUpRoutine(_isSlot1));
     }
 
@@ -463,7 +459,6 @@ public class AIStateMachine : MonoBehaviour {
             return;
         }
 
-        // Debug.Log($"Attacking Player State");
         HardFollowTarget();
     }
     #endregion
@@ -608,11 +603,13 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     public void RecalculatePath() {
-        if(m_cornersQueue.Count == 0) {
+        if(m_cornersQueue.Count == 0 && target != null) {
             m_currentGoal = target.position;
-        } else {
+        } else if(m_cornersQueue.Count > 0) {
             m_currentGoal = m_cornersQueue.Dequeue();
             ValidateCurrentGoal();
+        } else {
+            ChangeState(EAIState.FINDING_OBJECTIVE);
         }
     }
 
