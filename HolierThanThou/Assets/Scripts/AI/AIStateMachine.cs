@@ -15,9 +15,6 @@ public class AIStateMachine : MonoBehaviour {
         GETTING_UNSTUCK
     }
 
-    // TODO introduce the state stack...
-    private Stack<EAIState> m_stateStack = new Stack<EAIState>();
-
     private EAIState m_currentState;
 
     // Cached Components
@@ -27,8 +24,6 @@ public class AIStateMachine : MonoBehaviour {
     // AI Pathfinding
     private readonly float m_distanceToCommitToGoal = 10.0f;
     private readonly float m_stoppingDistance = 5.0f;
-    // private readonly float m_jumpingDistance = 1.0f;
-    // private float m_jumpingForce;
 
     // Timer
     private float m_minimumTimeToCommitToANewState = 2f;
@@ -62,10 +57,6 @@ public class AIStateMachine : MonoBehaviour {
 
     public PowerUp slot1;
     public PowerUp slot2;
-
-    private float m_usePowerUpStart = 10f;
-    private float m_attackCooldown = 5f;
-    private bool m_isBeingKnockedback;
     private bool m_isBully = false;
     private bool m_isItemHog = false;
     private bool m_isDummyAI = false;
@@ -118,7 +109,6 @@ public class AIStateMachine : MonoBehaviour {
 
     public void MakeBully() {
         m_distanceToCheckForCompetitors = 50f;
-        m_attackCooldown = 2f;
         m_distanceToCheckForPowerUps = 5f;
         m_isBully = true;
     }
@@ -183,8 +173,6 @@ public class AIStateMachine : MonoBehaviour {
         }
     }
 
-    // ---------------------------------------------------------------------
-    // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
     // Handling AI States
@@ -612,13 +600,10 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void ValidateCurrentGoal() {
-        RaycastHit hitInfo;
 
         Debug.DrawLine(transform.position, m_currentGoal, Color.blue, 5.0f);
 
         int collisionIteration = 2;
-        // This is bad, the ideal way was getting the collision point and moving way from that
-        // But unity physics API is not capable of overlap sphere and detect the collision point :)
         for(int i = 0; i < collisionIteration; i++) {
             Collider[] colliders = Physics.OverlapSphere(m_currentGoal, km_agentRadius, whatIsGround);
 
