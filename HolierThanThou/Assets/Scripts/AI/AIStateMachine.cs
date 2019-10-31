@@ -63,6 +63,9 @@ public class AIStateMachine : MonoBehaviour {
     private bool m_canActivatePowerUp1 = true;
     private bool m_canActivatePowerUp2 = true;
 
+    // Crown Rationale
+    private int m_multiplierToFocusScoring;
+
     // getting unstuck
     private float m_timeWithoutMovingToBeConsideredStuck = 2.0f;
     private float m_timeWithoutMoving = 0f;
@@ -603,7 +606,7 @@ public class AIStateMachine : MonoBehaviour {
 
         Debug.DrawLine(transform.position, m_currentGoal, Color.blue, 5.0f);
 
-        int collisionIteration = 2;
+        int collisionIteration = 1;
         for(int i = 0; i < collisionIteration; i++) {
             Collider[] colliders = Physics.OverlapSphere(m_currentGoal, km_agentRadius, whatIsGround);
 
