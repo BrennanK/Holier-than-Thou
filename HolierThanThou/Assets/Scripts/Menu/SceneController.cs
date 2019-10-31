@@ -28,6 +28,7 @@ public class SceneController : MonoBehaviour
 			if (SceneManager.GetActiveScene().buildIndex == 0)
 			{
 				//turn on the Main Menu.
+				Resources.FindObjectsOfTypeAll<MainMenu>()[0].ResetNameText();
 				transform.GetChild(0).gameObject.SetActive(true);
 			}
 			else
