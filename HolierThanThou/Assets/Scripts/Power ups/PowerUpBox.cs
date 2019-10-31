@@ -23,7 +23,7 @@ public class PowerUpBox : MonoBehaviour
 
     
     [SerializeField]
-    private int itemNumber;
+    public int itemNumber;
 
 
     private GameObject player;
