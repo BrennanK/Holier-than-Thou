@@ -386,7 +386,12 @@ public class AIStateMachine : MonoBehaviour {
         PowerUpBox boxBeingGrabbed = target.GetComponent<PowerUpBox>();
 
         Transform newTarget;
-        if(m_isBully && CanAttackOtherCompetitor(out newTarget) && HasSpentEnoughTimeOnCurrentState()) {
+        if(CanGetCrown(out newTarget)) {
+            target = newTarget;
+            ChangeState(EAIState.GRABBING_CROWN);
+            RunPathCalculation();
+            return;
+        } else if(m_isBully && CanAttackOtherCompetitor(out newTarget) && HasSpentEnoughTimeOnCurrentState()) {
             target = newTarget;
             ChangeState(EAIState.ATTACKING_PLAYER);
             return;
@@ -424,6 +429,14 @@ public class AIStateMachine : MonoBehaviour {
             return;
         }
 
+        Transform newGoal;
+        if(CanGetCrown(out newGoal)) {
+            target = newGoal;
+            ChangeState(EAIState.GRABBING_CROWN);
+            RunPathCalculation();
+            return;
+        }
+
         // If we are too slow it is not interesting to attack other balls because we will not knockback them and won't get any multiplier...
         if(m_rigidbody.velocity.magnitude < 6.0f &&
             Vector3.Distance(transform.position, target.position) < m_distanceToCheckForCompetitors / 2.0f) {
@@ -440,16 +453,21 @@ public class AIStateMachine : MonoBehaviour {
 
         // Debug.Log($"Attacking Player State");
         HardFollowTarget();
-
     }
     #endregion
 
     #region Move To Goal State
     private void MoveToGoalState() {
+        Transform crownToGet;
         Transform powerUpToGet;
         Transform playerToAttack;
 
-        if(CanGetPowerUp(out powerUpToGet)) {
+        if(CanGetCrown(out crownToGet)) {
+            target = crownToGet;
+            ChangeState(EAIState.GRABBING_CROWN);
+            RunPathCalculation();
+            return;
+        } else if(CanGetPowerUp(out powerUpToGet)) {
             if (Vector3.Distance(transform.position, powerUpToGet.position) < Vector3.Distance(transform.position, target.position)) {
                 target = powerUpToGet;
                 ChangeState(EAIState.GRABBING_POWERUP);
