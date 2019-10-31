@@ -9,6 +9,7 @@ public class AIStateMachine : MonoBehaviour {
         FINDING_OBJECTIVE,
         MOVING_TO_GOAL,
         SCORING_GOAL,
+        GRABBING_CROWN,
         GRABBING_POWERUP,
         ATTACKING_PLAYER,
         GETTING_UNSTUCK
@@ -54,6 +55,7 @@ public class AIStateMachine : MonoBehaviour {
     [SerializeField] private Transform target;
 
     // AI Blackboard
+    private float m_distanceToCheckForCrowns = 40f;
     private float m_distanceToCheckForPowerUps = 10f;
     private float m_distanceToCheckForCompetitors = 10f;
     private Transform m_goalTransform;
@@ -86,20 +88,20 @@ public class AIStateMachine : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForPowerUps);
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForCompetitors);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForCrowns);
 
         
         if(m_currentGoal != null) {
             Gizmos.DrawWireSphere(m_currentGoal, km_agentRadius);
         }
         
-        /*
         if (m_cornersQueue.Count > 0) {
             foreach (Vector3 corner in m_cornersQueue) {
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(corner, km_agentRadius);
             }
         }
-        */
     }
 
     private void Start() {
@@ -142,6 +144,9 @@ public class AIStateMachine : MonoBehaviour {
             case EAIState.GRABBING_POWERUP:
                 GrabbingPowerUpState();
                 break;
+            case EAIState.GRABBING_CROWN:
+                GrabbingCrownState();
+                break;
             case EAIState.ATTACKING_PLAYER:
                 AttackingPlayerState();
                 break;
@@ -183,22 +188,54 @@ public class AIStateMachine : MonoBehaviour {
         Transform targetToFollow;
 
         // We only use power up if we can use both, because that means no power up active
-        if(m_canActivatePowerUp1 && m_canActivatePowerUp2) {
+        if (m_canActivatePowerUp1 && m_canActivatePowerUp2) {
             if (UseEnhacementPowerUp()) {
                 return;
-            } else if(UseNonEnhancementPowerUps()) {
+            } else if (UseNonEnhancementPowerUps()) {
                 return;
             }
-        } else if(CanGetPowerUp(out targetToFollow)) {
+        } else if (CanGetCrown(out targetToFollow)) {
+            target = targetToFollow;
+            ChangeState(EAIState.GRABBING_CROWN);
+        } else if (CanGetPowerUp(out targetToFollow)) {
             target = targetToFollow;
             ChangeState(EAIState.GRABBING_POWERUP);
-        } else if(CanAttackOtherCompetitor(out targetToFollow)) {
+        } else if (CanAttackOtherCompetitor(out targetToFollow)) {
             target = targetToFollow;
             ChangeState(EAIState.ATTACKING_PLAYER);
             return;
         }
 
         RunPathCalculation();
+    }
+
+    private bool CanGetCrown(out Transform _closestCrown) {
+        Debug.Log($"Checking if can get crown");
+        Crown[] allCrowns = FindObjectsOfType<Crown>();
+        List<Crown> crownsWithinDistance = new List<Crown>();
+
+        foreach(Crown crown in allCrowns) {
+            if(Vector3.Distance(transform.position, crown.transform.position) < m_distanceToCheckForCrowns && crown.gameObject.activeSelf) {
+                crownsWithinDistance.Add(crown);
+            }
+        }
+
+        Debug.Log($"all crowns: {allCrowns.Length} - crownsWithinDistance: {crownsWithinDistance.Count}");
+
+        if(crownsWithinDistance.Count == 0) {
+            _closestCrown = null;
+            return false;
+        }
+
+        Crown closestCrown = crownsWithinDistance[0];
+        for(int i = 1; i < crownsWithinDistance.Count; i++) {
+            if(Vector3.Distance(transform.position, closestCrown.transform.position) > Vector3.Distance(transform.position, crownsWithinDistance[i].transform.position)) {
+                closestCrown = crownsWithinDistance[i];
+            }
+        }
+
+        _closestCrown = closestCrown.transform;
+        return true;
     }
 
     private bool CanGetPowerUp(out Transform targetToFollow) {
@@ -349,7 +386,12 @@ public class AIStateMachine : MonoBehaviour {
         PowerUpBox boxBeingGrabbed = target.GetComponent<PowerUpBox>();
 
         Transform newTarget;
-        if(m_isBully && CanAttackOtherCompetitor(out newTarget) && HasSpentEnoughTimeOnCurrentState()) {
+        if(CanGetCrown(out newTarget)) {
+            target = newTarget;
+            ChangeState(EAIState.GRABBING_CROWN);
+            RunPathCalculation();
+            return;
+        } else if(m_isBully && CanAttackOtherCompetitor(out newTarget) && HasSpentEnoughTimeOnCurrentState()) {
             target = newTarget;
             ChangeState(EAIState.ATTACKING_PLAYER);
             return;
@@ -368,10 +410,30 @@ public class AIStateMachine : MonoBehaviour {
     }
     #endregion
 
+    #region Grabbing Crown State
+    private void GrabbingCrownState() {
+        if(!target.gameObject.activeSelf) {
+            target = null;
+            ChangeState(EAIState.FINDING_OBJECTIVE);
+            return;
+        }
+
+        MoveTowardsCorner();
+    }
+    #endregion
+
     #region Attacking Player State
     private void AttackingPlayerState() {
         if(Vector3.Distance(target.position, transform.position) > m_distanceToCheckForCompetitors) {
             ChangeState(EAIState.FINDING_OBJECTIVE);
+            return;
+        }
+
+        Transform newGoal;
+        if(CanGetCrown(out newGoal)) {
+            target = newGoal;
+            ChangeState(EAIState.GRABBING_CROWN);
+            RunPathCalculation();
             return;
         }
 
@@ -391,16 +453,21 @@ public class AIStateMachine : MonoBehaviour {
 
         // Debug.Log($"Attacking Player State");
         HardFollowTarget();
-
     }
     #endregion
 
     #region Move To Goal State
     private void MoveToGoalState() {
+        Transform crownToGet;
         Transform powerUpToGet;
         Transform playerToAttack;
 
-        if(CanGetPowerUp(out powerUpToGet)) {
+        if(CanGetCrown(out crownToGet)) {
+            target = crownToGet;
+            ChangeState(EAIState.GRABBING_CROWN);
+            RunPathCalculation();
+            return;
+        } else if(CanGetPowerUp(out powerUpToGet)) {
             if (Vector3.Distance(transform.position, powerUpToGet.position) < Vector3.Distance(transform.position, target.position)) {
                 target = powerUpToGet;
                 ChangeState(EAIState.GRABBING_POWERUP);
@@ -491,6 +558,16 @@ public class AIStateMachine : MonoBehaviour {
         // TODO Use angles or Dot Product
         Vector3 directionToMoveTo = _direction - transform.position;
 
+        if(_direction.y - transform.position.y > 1.0f) {
+            if(Vector3.Angle(transform.forward, directionToMoveTo) > 90f) {
+                // Invalid, AI is trying to climb up walls
+                target = null;
+                ChangeState(EAIState.FINDING_OBJECTIVE);
+                return;
+            }
+        }
+
+
         float multiplier = 1.0f;
         if(Vector3.Distance(transform.position, _direction) < 5.0f) {
             multiplier = 2.0f;
@@ -542,8 +619,7 @@ public class AIStateMachine : MonoBehaviour {
                 float distanceApart;
                 Vector3 directionApart;
                 if(Physics.ComputePenetration(GetComponent<SphereCollider>(), m_currentGoal, Quaternion.identity, collider, collider.transform.position, Quaternion.identity, out directionApart, out distanceApart)) {
-                    Debug.Log("ComputePenetration");
-                    m_currentGoal += (directionApart * distanceApart * 1.25f);
+                    m_currentGoal += (directionApart * distanceApart * 1.5f);
                 }
             }
         }

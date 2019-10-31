@@ -77,4 +77,20 @@ public class PowerUpEditor : ScriptableObject
     public float CD_radius;
     public float CD_aiSpeedMultiplier;
     public float CD_playerSpeedMultiplier;
+
+    [HideInInspector]
+    public bool DM_hasDuration = false;
+    [Header("Dis Mine - 10")]
+    public float DM_duration;
+    public float DM_radius = 0f;
+    public float DM_power;
+    public float DM_upwardForce;
+    public float DM_disToGround;
+    public float DM_playerPower;
+    public float DM_playerUpwardForce;
+    public float DM_positionOffSet;
+    public LayerMask DM_ground;
+    public GameObject DM_disMine;
+    
+
 }

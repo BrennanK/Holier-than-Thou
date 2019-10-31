@@ -129,6 +129,11 @@ public class Competitor : MonoBehaviour
         StartCoroutine(ReverseBounceMultiplier(origin, duration, bounceMultiplier));
     }
 
+    public void DisMine(float duration, GameObject disMine, Vector3 position, Quaternion rotation)
+    {
+        StartCoroutine(MineDelayActivation(duration, disMine, position, rotation));
+    }
+
     IEnumerator Invis(Transform origin, float duration)
     {
         var playerM = origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
@@ -263,6 +268,12 @@ public class Competitor : MonoBehaviour
         yield return new WaitForSeconds(duration);
         origin.GetComponent<Bounce>().bouceOffForce /= bounceMultiplier;
         superBounce = false;
+    }
+
+    private IEnumerator MineDelayActivation(float duration, GameObject disMine, Vector3 position, Quaternion rotation)
+    {
+        yield return new WaitForSeconds(duration);
+        Instantiate(disMine, position, rotation);
     }
 
 }

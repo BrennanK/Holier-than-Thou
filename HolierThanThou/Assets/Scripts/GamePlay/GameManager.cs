@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject GameUI;
     [SerializeField] private Text startText;
 	[SerializeField] private Text inGameTimer;
-	[SerializeField] private float matchTimer = 120.0f; // 2 minute rounds
+	[SerializeField] public float matchTimer = 120.0f; // 2 minute rounds
     [SerializeField] private GameObject[] CrownSpawnPoints;
     [SerializeField] private float crownSpawnTimer = 9f;
 
