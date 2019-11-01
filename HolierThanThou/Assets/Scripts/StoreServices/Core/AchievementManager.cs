@@ -76,6 +76,9 @@ namespace StoreServices
 
 
             //Other
+            TrackStandardAchievementUsingInternalID(InternalIDs.achievement_cant_touch_me, _profileIncrement.hitSomebody);
+            TrackStandardAchievementUsingInternalID(InternalIDs.achievement_alley_oop, _profileIncrement.AlleyOop);
+            TrackStandardAchievementUsingInternalID(InternalIDs.achievement_denied, _profileIncrement.denied);
 
             PersistAchievements();
         }

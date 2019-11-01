@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] CrownSpawnPoints;
     [SerializeField] private float crownSpawnTimer = 9f;
 
+    private PlayerAchievementTracker playerAchievements;
+
     public static bool gameRunning { get; private set; } = false;
     private float startTimer = 5f;
 	private ScoreManager scoreManager;
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(StartGame());
 		inGameTimer.text = "Time " + matchTimer;
 		playerCustomizer = GameObject.FindGameObjectWithTag("Player");
+        playerAchievements = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAchievementTracker>();
 	}
 
 	private void InitializeCrownSpawnPoints()
@@ -154,8 +157,12 @@ public class GameManager : MonoBehaviour
         }
         gameRunning = false;
         GameUI.SetActive(false);
+        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAchievementTracker>();
 
         PlayerProfile playerProfileForThisMatch = new PlayerProfile(1, scoreManager.gameWon);
+        playerProfileForThisMatch.hitSomebody = playerAchievements.hitSomebody;
+        playerProfileForThisMatch.AlleyOop = playerAchievements.ScoredAfterHit;
+        playerProfileForThisMatch.denied = playerAchievements.knockedFirst;
         SaveGameManager.instance.IncrementSavedData(playerProfileForThisMatch);
         StoreServices.AchievementManager.instance.UpdateAllAchievements(playerProfileForThisMatch);
 	}

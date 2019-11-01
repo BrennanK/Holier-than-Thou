@@ -16,6 +16,8 @@ public class ScoreManager : MonoBehaviour
 	public Text winnerText;
     public int gameWon;
 
+    public string firstPlace;
+
 
 	private void Start()
 	{
@@ -54,6 +56,8 @@ public class ScoreManager : MonoBehaviour
 			"\n6th - " + players[5].Name + " - " + players[5].Score + " Points" +
 			"\n7th - " + players[6].Name + " - " + players[6].Score + " Points" +
 			"\n8th - " + players[7].Name + " - " + players[7].Score + " Points";
+
+        firstPlace = players[0].Name;
 	}
 
 	public void UpdateEndGameUI(int winnings)
