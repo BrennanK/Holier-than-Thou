@@ -10,6 +10,7 @@ public class Bounce : MonoBehaviour
     public float upBounceForce = .75f;
     [Tooltip("Force applied to player and AI when hitting things tagged 'Wall'")]
     public float obsticalBounceForce = 1000f;
+ 
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -31,6 +32,7 @@ public class Bounce : MonoBehaviour
                 if (collision.gameObject.GetComponent<Rigidbody>())
                 {
                     collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude);
+
 
                 }
             }

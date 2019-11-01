@@ -11,6 +11,8 @@ public class PlayerUIScript : MonoBehaviour
     public Text speed;
     private float mag;
     private Vector3 vel;
+    public Text quickness;
+    public Text basePoints;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +29,9 @@ public class PlayerUIScript : MonoBehaviour
 			vel = player.GetComponent<Rigidbody>().velocity;
 			mag = vel.magnitude;
 			multiplier.text = player.GetComponent<PointTracker>().MultVal().ToString();
-			speed.text = mag.ToString();
+            basePoints.text = player.GetComponent<PointTracker>().baseVal().ToString();
+            quickness.text = player.GetComponent<PointTracker>().GetBounceVal().ToString();
+            speed.text = mag.ToString();
 		}
     }
 }

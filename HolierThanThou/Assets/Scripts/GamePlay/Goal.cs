@@ -23,7 +23,7 @@ public class Goal : MonoBehaviour
     public LayerMask ground;
     Vector3 explodePosition;
 
-    private int point;
+    private float point;
 
     private void Start()
     {
@@ -51,9 +51,10 @@ public class Goal : MonoBehaviour
             pointTracker = _competitor.GetComponentInParent<PointTracker>();
             point = pointTracker.PointVal();
             _competitor.ScoredGoal = true;
+            _competitor.GetComponentInParent<Crown>().resetCrown();
             pointTracker.ResetMult();
             pointTracker.ResetBasePoints();
-            scoreManager.UpdateScore(_competitor.Name, point);
+            scoreManager.UpdateScore(_competitor.Name, (int)point);
             StartCoroutine(spawnPointManager.RespawnTimer(_competitor.Name));
             StartCoroutine(spawnPointManager.PauseRigidBodyControl(_competitor, 2f));
             Explosion();
