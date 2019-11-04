@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4236307785006803193}
   - component: {fileID: 3548357823887671303}
   - component: {fileID: 7215178823121580735}
+  - component: {fileID: 4352877867937277518}
   m_Layer: 5
   m_Name: MenuKit
   m_TagString: Untagged
@@ -145,6 +146,19 @@ MonoBehaviour:
   - {fileID: 2524523623095999084}
   width: 800
   height: 480
+--- !u!114 &4352877867937277518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7713812751875214157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47512d0721d12ae4c95429c2e04c6c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
 --- !u!1001 &2379904426635264215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -443,17 +457,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7294361987443082876, guid: f91d58b23fed8ac408bce0eb4564771e,
+    - target: {fileID: 7294361988634719553, guid: f91d58b23fed8ac408bce0eb4564771e,
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7294361987443082876, guid: f91d58b23fed8ac408bce0eb4564771e,
+    - target: {fileID: 7294361988634719553, guid: f91d58b23fed8ac408bce0eb4564771e,
         type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7294361987443082876, guid: f91d58b23fed8ac408bce0eb4564771e,
+    - target: {fileID: 7294361988634719553, guid: f91d58b23fed8ac408bce0eb4564771e,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -563,17 +577,17 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7294361988634719553, guid: f91d58b23fed8ac408bce0eb4564771e,
+    - target: {fileID: 7294361987443082876, guid: f91d58b23fed8ac408bce0eb4564771e,
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7294361988634719553, guid: f91d58b23fed8ac408bce0eb4564771e,
+    - target: {fileID: 7294361987443082876, guid: f91d58b23fed8ac408bce0eb4564771e,
         type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7294361988634719553, guid: f91d58b23fed8ac408bce0eb4564771e,
+    - target: {fileID: 7294361987443082876, guid: f91d58b23fed8ac408bce0eb4564771e,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

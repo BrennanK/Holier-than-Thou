@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3866675631678368280}
   - component: {fileID: 5380325847623781447}
   - component: {fileID: 6044647542105994789}
-  - component: {fileID: 7968996717532960158}
+  - component: {fileID: 1354039636}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e917f5206b0449640afad7ba32189c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Charizard
+  Name: Gandalf
   Score: 0
   origin: {fileID: 0}
   navMeshOff: 0
@@ -226,9 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5368d2298e35d1e4fb633d438d942293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  straightBounceDegree: 0
+  straightBounceDegree: 10
   verticalBounceDegree: 0
-  sideBounceDegree: 0
+  sideBounceDegree: 10
   disToBouncable: 0.6
   bounciness: 0.03
   bouncable:
@@ -295,7 +295,7 @@ MonoBehaviour:
   bouceOffForce: 40
   upBounceForce: 0.75
   obsticalBounceForce: 1000
---- !u!114 &7968996717532960158
+--- !u!114 &1354039636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
