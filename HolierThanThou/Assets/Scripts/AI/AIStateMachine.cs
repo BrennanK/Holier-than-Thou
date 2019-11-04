@@ -30,8 +30,8 @@ public class AIStateMachine : MonoBehaviour {
     private float m_minimumTimeToCommitToANewState = 2f;
     private float m_timeOnCurrentState = 0;
 
-    private float m_baseVelocity = 15f;
-    private float velocity = 15f;
+    private float m_baseVelocity = 20f;
+    private float velocity = 20f;
     public float Velocity {
         get {
             return velocity;
@@ -232,7 +232,6 @@ public class AIStateMachine : MonoBehaviour {
         GameObject[] crownBoxes = GameObject.FindGameObjectsWithTag("CrownBox");
 
         if(crownBoxes.Length == 0) {
-            Debug.LogWarning($"[AI] There's no Crown Boxes on the map!");
             _closestCrown = null;
             return false;
         }

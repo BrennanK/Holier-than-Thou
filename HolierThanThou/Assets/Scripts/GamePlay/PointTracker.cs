@@ -24,29 +24,24 @@ public class PointTracker : MonoBehaviour
         totalPoints = basePoints * multPoints;
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        var vel = this.GetComponentInParent<Rigidbody>().velocity;
-        var _competitor = other.gameObject.GetComponent<Competitor>();
-
-        if (_competitor != null)
-        {
-			Debug.Log($"Magnitude: {vel.magnitude}");
-			if(vel.magnitude > 8)
-			{
-				multPoints++;
-				Debug.Log($"{gameObject.GetComponent<Competitor>().Name}'s multiplier increased!");
-				FindObjectOfType<AudioManager>().Play("HitBlop"); // "HitBlop"
-			}
-			else
-			{
-				FindObjectOfType<AudioManager>().Play("Blop");
-			}
-        }
-    }
-
      private void OnCollisionExit(Collision collision)
     {
+
+        var vel = this.GetComponentInParent<Rigidbody>().velocity;
+        var _competitor = collision.gameObject.GetComponent<Competitor>();
+        if (_competitor != null)
+        {
+            Debug.Log($"Magnitude: {vel.magnitude}");
+            if (vel.magnitude > 8)
+            {
+                Debug.Log($"{gameObject.GetComponent<Competitor>().Name}'s multiplier increased!");
+                FindObjectOfType<AudioManager>().Play("HitBlop"); // "HitBlop"
+            }
+            else
+            {
+                FindObjectOfType<AudioManager>().Play("Blop");
+            }
+        }
         //Checking if you are colliding with a competitor
         if (collision.collider.GetComponentInParent<Competitor>() != null)
         {
@@ -110,8 +105,7 @@ public class PointTracker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //var crownBox = GameObject.FindGameObjectWithTag("CrownBox");
-        //other = crownBox.GetComponentInParent<Collider>();
+    
         if (other.name.StartsWith("Crown"))
         {
             GetComponentInParent<Crown>().addCrownVal();
