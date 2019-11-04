@@ -14,6 +14,10 @@ public class PlayerAchievementTracker : MonoBehaviour
     public bool ScoredAfterHit = false;//Alley-oop achievement
     public float distFromGoal;
     public bool knockedFirst = false;//Denied achievement
+    public bool scoredGoal = false;//Score! achievement
+    public bool usedPowerUp = true;// No Hands achievement
+    public bool usedJump = true;//Grounded achievement
+
 
 
 
@@ -43,8 +47,22 @@ public class PlayerAchievementTracker : MonoBehaviour
             startHitTimer = false;
         }
 
+        if(PC.ScoredGoal)
+        {
+            scoredGoal = true;
+        }
     }
 
+
+    public void TooglePowerupUsed()
+    {
+        usedPowerUp = false;
+    }
+
+    public void ToggleJumped()
+    {
+        usedJump = false;
+    }
 
     private void OnCollisionEnter(Collision other)
     {
