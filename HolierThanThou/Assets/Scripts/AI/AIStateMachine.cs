@@ -229,13 +229,17 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private bool CanGetCrown(out Transform _closestCrown) {
-        _closestCrown = null;
-        return false;
+        GameObject[] crownBoxes = GameObject.FindGameObjectsWithTag("CrownBox");
 
-        Crown[] allCrowns = FindObjectsOfType<Crown>();
-        List<Crown> crownsWithinDistance = new List<Crown>();
+        if(crownBoxes.Length == 0) {
+            Debug.LogWarning($"[AI] There's no Crown Boxes on the map!");
+            _closestCrown = null;
+            return false;
+        }
+        
+        List<GameObject> crownsWithinDistance = new List<GameObject>();
 
-        foreach(Crown crown in allCrowns) {
+        foreach(GameObject crown in crownBoxes) {
             if(Vector3.Distance(transform.position, crown.transform.position) < m_distanceToCheckForCrowns && crown.gameObject.activeSelf) {
                 crownsWithinDistance.Add(crown);
             }
@@ -246,7 +250,7 @@ public class AIStateMachine : MonoBehaviour {
             return false;
         }
 
-        Crown closestCrown = crownsWithinDistance[0];
+        GameObject closestCrown = crownsWithinDistance[0];
         for(int i = 1; i < crownsWithinDistance.Count; i++) {
             if(Vector3.Distance(transform.position, closestCrown.transform.position) > Vector3.Distance(transform.position, crownsWithinDistance[i].transform.position)) {
                 closestCrown = crownsWithinDistance[i];
