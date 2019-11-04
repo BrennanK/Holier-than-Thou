@@ -144,7 +144,7 @@ public class PointTracker : MonoBehaviour
         return basePoints;
     }
 
-    public float GetBounceValue()
+    public float GetBounceVal()
     {
         return bounceVal;
     }
