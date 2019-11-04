@@ -18,10 +18,15 @@ public class Bounce : MonoBehaviour
         //Gets the direction towards what they collided with
         bounce = transform.position - collision.transform.position;
 
+        bounce.x = Mathf.Clamp(bounce.x, 0, 500000);
+        bounce.y = Mathf.Clamp(bounce.y, 0, 500000);
+        bounce.z = Mathf.Clamp(bounce.z, 0, 500000);
+
         if (gameObject.CompareTag("Wall"))
         {
             collision.gameObject.GetComponent<Rigidbody>().AddForce((-collision.contacts[0].normal + (Vector3.up * upBounceForce)) * obsticalBounceForce);
         }
+
         else if (collision.gameObject.GetComponent<Bounce>() && collision.gameObject.GetComponent<Competitor>())
         {
             if (!collision.gameObject.GetComponent<Competitor>().ballOfSteel)

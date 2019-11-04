@@ -30,8 +30,8 @@ public class AIStateMachine : MonoBehaviour {
     private float m_minimumTimeToCommitToANewState = 2f;
     private float m_timeOnCurrentState = 0;
 
-    private float m_baseVelocity = 15f;
-    private float velocity = 15f;
+    private float m_baseVelocity = 20f;
+    private float velocity = 20f;
     public float Velocity {
         get {
             return velocity;
