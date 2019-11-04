@@ -232,7 +232,6 @@ public class AIStateMachine : MonoBehaviour {
         GameObject[] crownBoxes = GameObject.FindGameObjectsWithTag("CrownBox");
 
         if(crownBoxes.Length == 0) {
-            Debug.LogWarning($"[AI] There's no Crown Boxes on the map!");
             _closestCrown = null;
             return false;
         }
