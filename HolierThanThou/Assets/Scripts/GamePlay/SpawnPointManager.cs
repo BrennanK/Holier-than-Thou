@@ -75,7 +75,7 @@ public class SpawnPointManager : MonoBehaviour
         spm.goal = false;
 		if (nameX == GameObject.FindGameObjectWithTag("Player").GetComponent<Competitor>().Name)
 		{
-			FindObjectOfType<AudioManager>().Play("Respawn");
+			//FindObjectOfType<AudioManager>().Play("Respawn");
 		}
 	}
 
