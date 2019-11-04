@@ -95,6 +95,13 @@ GameObject:
   - component: {fileID: 5380325847623781447}
   - component: {fileID: 6044647542105994789}
   - component: {fileID: 7968996717532960158}
+  - component: {fileID: 1972562285}
+  - component: {fileID: 1825073218}
+  - component: {fileID: 1178471292}
+  - component: {fileID: 9713067}
+  - component: {fileID: 581660124}
+  - component: {fileID: 1027221477}
+  - component: {fileID: 1354039636}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -188,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e917f5206b0449640afad7ba32189c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Charizard
+  Name: Gandalf
   Score: 0
   origin: {fileID: 0}
   navMeshOff: 0
@@ -226,9 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5368d2298e35d1e4fb633d438d942293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  straightBounceDegree: 0
+  straightBounceDegree: 10
   verticalBounceDegree: 0
-  sideBounceDegree: 0
+  sideBounceDegree: 10
   disToBouncable: 0.6
   bounciness: 0.03
   bouncable:
@@ -296,6 +303,90 @@ MonoBehaviour:
   upBounceForce: 0.75
   obsticalBounceForce: 1000
 --- !u!114 &7968996717532960158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293815186656685268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21da995d8606824c9266fb0bce11de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1972562285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293815186656685268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21da995d8606824c9266fb0bce11de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1825073218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293815186656685268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21da995d8606824c9266fb0bce11de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1178471292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293815186656685268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21da995d8606824c9266fb0bce11de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9713067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293815186656685268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21da995d8606824c9266fb0bce11de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &581660124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293815186656685268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21da995d8606824c9266fb0bce11de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1027221477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293815186656685268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21da995d8606824c9266fb0bce11de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1354039636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
