@@ -30,7 +30,7 @@ public class PlayerUIScript : MonoBehaviour
 			mag = vel.magnitude;
 			multiplier.text = player.GetComponent<PointTracker>().MultVal().ToString();
             basePoints.text = player.GetComponent<PointTracker>().baseVal().ToString();
-            quickness.text = player.GetComponent<PointTracker>().GetBounceVal().ToString();
+            //quickness.text = player.GetComponent<PointTracker>().GetBounceVal().ToString();
             speed.text = mag.ToString();
 		}
     }

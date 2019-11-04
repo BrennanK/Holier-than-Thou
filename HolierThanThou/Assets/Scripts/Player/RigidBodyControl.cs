@@ -19,6 +19,10 @@ public class RigidBodyControl : MonoBehaviour
     private DigitalJoystick m_digitalJoystickReference;
     private JumpButton m_joyButtonReference;
 
+    //Player Achievement Tracker
+    private PlayerAchievementTracker PAT;
+    private bool hasJumped = false;
+
     //Camera Function Variable
     private Camera m_mainCamera;
 
@@ -30,6 +34,7 @@ public class RigidBodyControl : MonoBehaviour
         m_digitalJoystickReference = FindObjectOfType<DigitalJoystick>();
         m_joyButtonReference = FindObjectOfType<JumpButton>();
         m_mainCamera = FindObjectOfType<Camera>();
+        PAT = gameObject.GetComponent<PlayerAchievementTracker>();
     }
 
     // Update is called once per frame
@@ -69,7 +74,11 @@ public class RigidBodyControl : MonoBehaviour
         {
             rBody.AddForce(jumpDirection * jumpForce, ForceMode.Impulse);
             Debug.Log("Y velocity While Jump: " + rBody.velocity.y);
-
+            if(!hasJumped)
+            {
+                PAT.ToggleJumped();
+                hasJumped = true;
+            }
         }
         //else {
         //    rBody.AddForce(Physics.gravity * downAccel, ForceMode.Force);

@@ -16,6 +16,9 @@ public class ScoreManager : MonoBehaviour
 	public Text winnerText;
     public int gameWon;
 
+    public bool playerLast = false;
+    public bool placedFourth = false;
+
     public string firstPlace;
 
 
@@ -26,6 +29,7 @@ public class ScoreManager : MonoBehaviour
 			players.Add(player);
 		}
         gameWon = 0;
+
 
 		UpdateScoreBoard();
 	}
@@ -67,6 +71,14 @@ public class ScoreManager : MonoBehaviour
         if(players[0].name == "Player")
         {
             gameWon = 1;
+        }
+        else if(players[7].name == "Player")
+        {
+            playerLast = true;
+        }
+        else if(players[3].name == "Player")
+        {
+            placedFourth = true;
         }
         
 

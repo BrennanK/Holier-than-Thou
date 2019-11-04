@@ -28,6 +28,10 @@ public class PowerUpTracker : MonoBehaviour
     public Text itemButton2;
     private Competitor competitor;
 
+    private PlayerAchievementTracker PAT;
+
+    public bool usedPowerup = false;
+
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -40,6 +44,8 @@ public class PowerUpTracker : MonoBehaviour
         //To fix the preload powerup forcibly
         slot1 = null;
         slot2 = null;
+
+        PAT = gameObject.GetComponent<PlayerAchievementTracker>();
     }
 
 
@@ -111,11 +117,22 @@ public class PowerUpTracker : MonoBehaviour
                     powerTimer1 = slot1.duration;
                     activated1 = true;
                     slot1.ActivatePowerUp(competitor.Name, competitor.origin);
+                    if(!usedPowerup)
+                    {
+                        PAT.TooglePowerupUsed();
+                        usedPowerup = true;
+                    }
+
                 }
                 else
                 {
                     slot1.ActivatePowerUp(competitor.Name, competitor.origin);
                     slot1 = null;
+                    if (!usedPowerup)
+                    {
+                        PAT.TooglePowerupUsed();
+                        usedPowerup = true;
+                    }
 
                 }
                 UpdateUI();
@@ -137,11 +154,21 @@ public class PowerUpTracker : MonoBehaviour
                     powerTimer2 = slot2.duration;
                     activated2 = true;
                     slot2.ActivatePowerUp(competitor.Name, competitor.origin);
+                    if (!usedPowerup)
+                    {
+                        PAT.TooglePowerupUsed();
+                        usedPowerup = true;
+                    }
                 }
                 else
                 {
                     slot2.ActivatePowerUp(competitor.Name, competitor.origin);
                     slot2 = null;
+                    if (!usedPowerup)
+                    {
+                        PAT.TooglePowerupUsed();
+                        usedPowerup = true;
+                    }
                 }
                 UpdateUI();
             }
