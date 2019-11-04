@@ -61,6 +61,7 @@ public class AIStateMachine : MonoBehaviour {
     private bool m_isBully = false;
     private bool m_isItemHog = false;
     private bool m_isDummyAI = false;
+
     private bool m_canActivatePowerUp1 = true;
     private bool m_canActivatePowerUp2 = true;
 
@@ -105,6 +106,7 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void Start() {
+        UnityEngine.Profiling.Profiler.BeginSample("AI Start");
         slot1 = null;
         slot2 = null;
 
@@ -118,6 +120,7 @@ public class AIStateMachine : MonoBehaviour {
         if(m_pointTrackerReference == null) {
             Debug.LogError($"AI {gameObject.name} doesn't have a point tracker");
         }
+        UnityEngine.Profiling.Profiler.EndSample();
     }
 
     public void MakeBully() {
@@ -139,6 +142,8 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void Update() {
+        UnityEngine.Profiling.Profiler.BeginSample("AI Update");
+
         m_timeOnCurrentState += Time.deltaTime;
 
         m_queueSize = m_cornersQueue.Count;
@@ -188,6 +193,8 @@ public class AIStateMachine : MonoBehaviour {
         } else {
             m_timeWithoutMoving = 0f;
         }
+
+        UnityEngine.Profiling.Profiler.EndSample();
     }
 
     // ---------------------------------------------------------------------
@@ -222,6 +229,9 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private bool CanGetCrown(out Transform _closestCrown) {
+        _closestCrown = null;
+        return false;
+
         Crown[] allCrowns = FindObjectsOfType<Crown>();
         List<Crown> crownsWithinDistance = new List<Crown>();
 
@@ -438,7 +448,7 @@ public class AIStateMachine : MonoBehaviour {
         }
 
         Transform newGoal;
-        if(CanGetCrown(out newGoal)) {
+        if(CanGetCrown(out newGoal) && !m_isBully) {
             target = newGoal;
             ChangeState(EAIState.GRABBING_CROWN);
             RunPathCalculation();
