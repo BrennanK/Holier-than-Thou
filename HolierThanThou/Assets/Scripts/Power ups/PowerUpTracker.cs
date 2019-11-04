@@ -183,14 +183,15 @@ public class PowerUpTracker : MonoBehaviour
         {
             if (activated1)
             {
-                itemButton1.text = slot1.ToString() + " " + Mathf.Round(powerTimer1);
+                itemButton1.text = /*slot1.ToString() + */"" + Mathf.Round(powerTimer1);
             }
-            else
-                itemButton1.text = slot1.ToString();
+            //else
+            //    itemButton1.text = slot1.ToString();
         }
         else
         {
-            itemButton1.text = "No Item";
+            //itemButton1.text = "No Item";
+            itemButton1.text = "";
             ResetPowerUpIcon(1);
         }
 
@@ -198,14 +199,15 @@ public class PowerUpTracker : MonoBehaviour
         {
             if (activated2)
             {
-                itemButton2.text = slot2.ToString() + " " + Mathf.Round(powerTimer2);
+                itemButton2.text = /*slot2.ToString() + */"" + Mathf.Round(powerTimer2);
             }
-            else
-                itemButton2.text = slot2.ToString();
+            //else
+            //    itemButton2.text = slot2.ToString();
         }
         else
         {
-            itemButton1.text = "No Item";
+            //itemButton1.text = "No Item";
+            itemButton1.text = "";
             ResetPowerUpIcon(2);
         }
     }
