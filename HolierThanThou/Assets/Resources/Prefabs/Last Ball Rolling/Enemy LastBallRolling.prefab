@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 3866675631678368280}
   - component: {fileID: 5380325847623781447}
   - component: {fileID: 6044647542105994789}
+  - component: {fileID: 6701208446245431725}
   - component: {fileID: 1331569821595930744}
   m_Layer: 10
   m_Name: Enemy LastBallRolling
@@ -195,6 +196,7 @@ MonoBehaviour:
   untouchable: 0
   inivisible: 0
   ballOfSteel: 0
+  superBounce: 0
   startMaterial: {fileID: 0}
 --- !u!54 &7293815186656685294
 Rigidbody:
@@ -254,6 +256,9 @@ MonoBehaviour:
     duration: 0
     radius: 0
     isEnhancement: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &6044647542105994789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +274,18 @@ MonoBehaviour:
   bouceOffForce: 40
   upBounceForce: 0.75
   obsticalBounceForce: 1000
+--- !u!114 &6701208446245431725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293815186656685268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21da995d8606824c9266fb0bce11de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1331569821595930744
 MonoBehaviour:
   m_ObjectHideFlags: 0

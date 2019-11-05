@@ -6,16 +6,14 @@ public class LastBallRolling : MonoBehaviour
 {
     //used for bonus money
     int numberOut;
-    float xOffset;
-    float yOffset;
-    float zOffset;
 
     bool playerOut;
     bool gameCompleted;
 
     Competitor[] allPlayers;
     ScoreManager scoreManRef;
-    
+
+    public GameObject[] winnersCircle;
 
     private void Start()
     {
@@ -32,14 +30,15 @@ public class LastBallRolling : MonoBehaviour
         if (other.GetComponent<Bounce>())
         {
             //turn off a whole bunch of stuff to stop errors from poping up
+            other.transform.position = winnersCircle[numberOut].transform.position;
             numberOut++;
             other.GetComponent<Rigidbody>().useGravity = false;
             other.GetComponent<Rigidbody>().angularDrag = 50;
             other.GetComponent<Rigidbody>().velocity = Vector3.zero;
             other.GetComponent<SphereCollider>().enabled = false;
-            other.transform.position = new Vector3(xOffset, -200 + yOffset, zOffset);
-            xOffset += 3f;
             other.GetComponent<Bounce>().enabled = false;
+            other.transform.rotation = Quaternion.Euler(Vector3.back);
+            other.gameObject.GetComponentInChildren<HatFollowBody>().transform.rotation = Quaternion.Euler(new Vector3(0,-180,0));
             
             for(int i = 0; i < allPlayers.Length; i++)
             {
@@ -73,6 +72,7 @@ public class LastBallRolling : MonoBehaviour
 
         if(numberOut >= 7)
         {
+            transform.position = new Vector3(0, 10, 0);
             LastBallRollingComplete();
         }
     }
@@ -80,10 +80,8 @@ public class LastBallRolling : MonoBehaviour
     public void LastBallRollingComplete()
     {
         gameCompleted = true;
-        if(FindObjectOfType<GameManager>().matchTimer > 3f)
-        {
-            FindObjectOfType<GameManager>().matchTimer = 3f;
-        }
-
+        
+        FindObjectOfType<GameManager>().matchTimer = 3f;
+        
     }
 }
