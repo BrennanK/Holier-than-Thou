@@ -61,16 +61,6 @@ public class PowerUpTracker : MonoBehaviour
         {
             Debug.Log("slot1: " + slot1);
         }
-        //if (slot2 == null)
-        //{
-        //    Debug.Log("slot2: Cannot find anything.");
-
-        //}
-        //else
-        //{
-        //    Debug.Log("slot2: " + slot2);
-        //}
-        ////End tesing
 
         if (activated1)
         {
@@ -183,15 +173,14 @@ public class PowerUpTracker : MonoBehaviour
         {
             if (activated1)
             {
-                itemButton1.text = /*slot1.ToString() + */"" + Mathf.Round(powerTimer1);
+                itemButton1.text = "";
             }
-            //else
-            //    itemButton1.text = slot1.ToString();
+
+            itemButton1.text = "";
         }
         else
         {
-            //itemButton1.text = "No Item";
-            itemButton1.text = "";
+            itemButton1.text = "No Item";
             ResetPowerUpIcon(1);
         }
 
@@ -199,15 +188,14 @@ public class PowerUpTracker : MonoBehaviour
         {
             if (activated2)
             {
-                itemButton2.text = /*slot2.ToString() + */"" + Mathf.Round(powerTimer2);
+                itemButton2.text = "";
             }
-            //else
-            //    itemButton2.text = slot2.ToString();
+
+            itemButton2.text = "";
         }
         else
         {
-            //itemButton1.text = "No Item";
-            itemButton1.text = "";
+            itemButton2.text = "No Item";
             ResetPowerUpIcon(2);
         }
     }
@@ -235,10 +223,10 @@ public class PowerUpTracker : MonoBehaviour
         switch (buttonNumber)
         {
             case 1:
-                buttonImage1.sprite = powerupImages[9];
+                buttonImage1.sprite = powerupImages[10];
                 break;
             case 2:
-                buttonImage2.sprite = powerupImages[9];
+                buttonImage2.sprite = powerupImages[10];
                 break;
             default:
                 Debug.LogError("The index of button has been beyond the amount of buttons.");
