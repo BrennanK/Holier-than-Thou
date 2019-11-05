@@ -6,8 +6,7 @@ public class PowerUpBox : MonoBehaviour
 {
     public PowerUp[] powerups;
 
-    [SerializeField]
-    private PowerUpEditor PUE;
+    public PowerUpEditor PUE;
 
     private bool isDisabled;
     public bool IsDisabled {
@@ -31,18 +30,18 @@ public class PowerUpBox : MonoBehaviour
 
     private void Start()
     {
-        powerups = new PowerUp[10];
+        powerups = new PowerUp[9];
 
         powerups[0] = new BlastZone(false, PUE.BZ_hasDuration, PUE.BZ_duration , PUE.BZ_radius, PUE.BZ_power, PUE.BZ_upwardForce, PUE.BZ_playerPower, PUE.BZ_playerUpwardForce);
         powerups[1] = new Chillout(false, PUE.CO_hasDuration, PUE.CO_duration, PUE.CO_radius);
         powerups[2] = new GottaGoFast(true, PUE.GF_hasDuration, PUE.GF_duration, PUE.GF_radius, PUE.GF_aiSpeedMultiplier, PUE.GF_playerSpeedMultiplier);
         powerups[3] = new CantTouchThis(true, PUE.CTT_hasDuration, PUE.CTT_duration, PUE.CTT_radius);
         powerups[4] = new SneakySnake(true, PUE.SS_hasDuration, PUE.SS_duration, PUE.SS_radius);
-        powerups[5] = new Thiccness(false, PUE.TH_hasDuration, PUE.TH_duration, PUE.TH_radius);
-        powerups[6] = new BallsOfSteel(true, PUE.BS_hasDuration, PUE.BS_duration, PUE.BS_radius, PUE.BS_material);
-        powerups[7] = new SuperBounce(true, PUE.SB_hasDuration, PUE.SB_duration, PUE.SB_radius, PUE.SB_bounceMultiplier);
-        powerups[8] = new CalmDown(false, PUE.CD_hasDuration, PUE.CD_duration, PUE.CD_radius, PUE.CD_aiSpeedMultiplier, PUE.CD_playerSpeedMultiplier);
-        powerups[9] = new DisMine(false, PUE.DM_hasDuration, PUE.DM_duration, PUE.DM_radius, PUE.DM_disMine, PUE.DM_positionOffSet);
+        powerups[5] = new BallsOfSteel(true, PUE.BS_hasDuration, PUE.BS_duration, PUE.BS_radius, PUE.BS_material);
+        powerups[6] = new SuperBounce(true, PUE.SB_hasDuration, PUE.SB_duration, PUE.SB_radius, PUE.SB_bounceMultiplier);
+        powerups[7] = new CalmDown(false, PUE.CD_hasDuration, PUE.CD_duration, PUE.CD_radius, PUE.CD_aiSpeedMultiplier, PUE.CD_playerSpeedMultiplier);
+        powerups[8] = new DisMine(false, PUE.DM_hasDuration, PUE.DM_duration, PUE.DM_radius, PUE.DM_disMine, PUE.DM_positionOffSet);
+        //powerups[9] = new Thiccness(false, PUE.TH_hasDuration, PUE.TH_duration, PUE.TH_radius);
 
         disableTimer = disableTimerStart;
 

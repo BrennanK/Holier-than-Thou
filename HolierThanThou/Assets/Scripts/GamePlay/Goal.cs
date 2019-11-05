@@ -57,6 +57,7 @@ public class Goal : MonoBehaviour
             scoreManager.UpdateScore(_competitor.Name, (int)point);
             StartCoroutine(spawnPointManager.RespawnTimer(_competitor.Name));
             StartCoroutine(spawnPointManager.PauseRigidBodyControl(_competitor, 2f));
+            StartCoroutine(spawnPointManager.PauseCamera(_competitor));
             Explosion();
         }
     }

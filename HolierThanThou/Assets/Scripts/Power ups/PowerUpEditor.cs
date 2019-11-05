@@ -48,17 +48,10 @@ public class PowerUpEditor : ScriptableObject
     public float SS_duration;
 
     [HideInInspector]
-    public bool TH_hasDuration = true;
-    [HideInInspector]
-    public float TH_radius = 0f;
-    [Header("Thiccness - 6")]
-    public float TH_duration;
-
-    [HideInInspector]
     public bool BS_hasDuration = true;
     [HideInInspector]
     public float BS_radius;
-    [Header("Balls of Steel - 7")]
+    [Header("Balls of Steel - 6")]
     public float BS_duration;
     public Material BS_material;
 
@@ -66,13 +59,13 @@ public class PowerUpEditor : ScriptableObject
     public bool SB_hasDuration = true;
     [HideInInspector]
     public float SB_radius = 0f;
-    [Header("Super Bounce - 8")]
+    [Header("Super Bounce - 7")]
     public float SB_duration;
     public float SB_bounceMultiplier;
 
     [HideInInspector]
     public bool CD_hasDuration = true;
-    [Header("Calm Down - 9")]
+    [Header("Calm Down - 8")]
     public float CD_duration;
     public float CD_radius;
     public float CD_aiSpeedMultiplier;
@@ -80,7 +73,7 @@ public class PowerUpEditor : ScriptableObject
 
     [HideInInspector]
     public bool DM_hasDuration = false;
-    [Header("Dis Mine - 10")]
+    [Header("Dis Mine - 9")]
     public float DM_duration;
     public float DM_radius = 0f;
     public float DM_power;
@@ -91,6 +84,11 @@ public class PowerUpEditor : ScriptableObject
     public float DM_positionOffSet;
     public LayerMask DM_ground;
     public GameObject DM_disMine;
-    
 
+    //[HideInInspector]
+    //public bool TH_hasDuration = true;
+    //[HideInInspector]
+    //public float TH_radius = 0f;
+    //[Header("Thiccness - 10")]
+    //public float TH_duration;
 }
