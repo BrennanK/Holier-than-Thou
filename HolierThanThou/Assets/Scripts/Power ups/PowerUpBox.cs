@@ -71,10 +71,10 @@ public class PowerUpBox : MonoBehaviour
         
         if (other.gameObject.tag == "Player")
         {
-            print("Hit");
+            //print("Hit");
             if (_powerUpTracker.slot1 == null)
             {
-                print("Slot 1");
+                //print("Slot 1");
                 if ((itemNumber - 1) >= 0)
                 {
                     _powerUpTracker.slot1 = powerups[itemNumber - 1];
@@ -82,7 +82,12 @@ public class PowerUpBox : MonoBehaviour
                     _powerUpTracker.LoadPowerUpIcon(1, itemNumber - 1);
                 }
                 else
-                _powerUpTracker.slot1 = powerups[Random.Range(0, powerups.Length)] ;
+                {
+                    int random = Random.Range(0, powerups.Length);
+                    _powerUpTracker.slot1 = powerups[random];
+                    _powerUpTracker.LoadPowerUpIcon(1, random);              
+                }
+                
 
                 DisablePowerUp();
                 _powerUpTracker.UpdateUI();
@@ -90,7 +95,7 @@ public class PowerUpBox : MonoBehaviour
             }
             if (_powerUpTracker.slot2 == null)
             {
-                print("Slot 2");
+                //print("Slot 2");
                 if ((itemNumber - 1) >= 0) 
                 {
                     _powerUpTracker.slot2 = powerups[itemNumber -1];
@@ -98,13 +103,17 @@ public class PowerUpBox : MonoBehaviour
                     _powerUpTracker.LoadPowerUpIcon(2, itemNumber - 1);
                 }
                 else
-                _powerUpTracker.slot2 = powerups[Random.Range(0, powerups.Length)];
+                {
+                    int randomSec = Random.Range(0, powerups.Length);
+                    _powerUpTracker.slot2 = powerups[randomSec];
+                    _powerUpTracker.LoadPowerUpIcon(2, randomSec);
+                }
+                //_powerUpTracker.slot2 = powerups[Random.Range(0, powerups.Length)];
 
                 DisablePowerUp();
                 _powerUpTracker.UpdateUI();
                 return;
             }
-            
         }
         else if(other.gameObject.tag == "Enemy")
         {
