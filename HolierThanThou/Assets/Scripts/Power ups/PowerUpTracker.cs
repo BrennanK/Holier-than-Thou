@@ -171,10 +171,10 @@ public class PowerUpTracker : MonoBehaviour
     {
         if (slot1 != null)
         {
-            if (activated1)
-            {
-                itemButton1.text = "";
-            }
+            //if (activated1)
+            //{
+            //    itemButton1.text = "";
+            //}
 
             itemButton1.text = "";
         }
@@ -186,10 +186,10 @@ public class PowerUpTracker : MonoBehaviour
 
         if (slot2 != null)
         {
-            if (activated2)
-            {
-                itemButton2.text = "";
-            }
+            //if (activated2)
+            //{
+            //    itemButton2.text = "";
+            //}
 
             itemButton2.text = "";
         }
@@ -223,10 +223,10 @@ public class PowerUpTracker : MonoBehaviour
         switch (buttonNumber)
         {
             case 1:
-                buttonImage1.sprite = powerupImages[10];
+                buttonImage1.sprite = powerupImages[9];
                 break;
             case 2:
-                buttonImage2.sprite = powerupImages[10];
+                buttonImage2.sprite = powerupImages[9];
                 break;
             default:
                 Debug.LogError("The index of button has been beyond the amount of buttons.");
