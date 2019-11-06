@@ -1,52 +1,71 @@
-﻿// An edited Scritps by Shijun (2019-09-25)
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CustomizationManager : MonoBehaviour
+namespace FancyScrollView.CustomizationMenu
 {
-    [SerializeField] private GameObject projectionSystem;
+	public class CustomizationManager : MonoBehaviour
+	{
+		[SerializeField] private ScrollView scrollView = default;
+		[SerializeField] private string equipmentType = "Body";
 
-    //Find the positions to read and write decorations.
-    [SerializeField] private Transform[] accessorySlots;
+		private static GameObject[] prefabs;
+		private GameObject[] CustomizationArray;
 
-    //Find the inventory to load decorations.
-        //The List itself is the type of accessories for target positions.
-        //The Dimension 0 of the Array is the serial number for specific accessory.
-        //The Dimension 1 of the Array is the doability of the specific accessory:
-            //If the int is bigger than 0, it is the price for the accessory.
-            //If the int is lower than 0, it the status (unlocked) for the accessory.
-    private List<int[,]> accessories = new List<int[,]>();
+		void Awake()
+		{
+			InitializeCustomizationArray();
+			ItemData[] items = CustomizationArray.Select(i => new ItemData($"${i.GetComponent<Item>().getPrice()}")).ToArray();
+			scrollView.Covers = CustomizationArray.Select(i => i.GetComponent<Item>().getCover()).ToArray();
+			scrollView.OnSelectionChanged(OnSelectionChanged);
+			scrollView.UpdateData(items);
+			scrollView.SelectCell(0);
+		}
 
-    /// <summary>
-    /// Find and return the accessible positions under Player GameObject.
-    /// </summary>
-    /// <returns></returns>
-    private int InitialDecorationSlots()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        accessorySlots = new Transform[player.transform.childCount];
-        int counter = 0;
-        foreach (Transform child in player.transform)
-        {
-            accessorySlots[counter] = child;
-            counter++;
-        }
-        return counter++;
-    }
+		public ScrollView GetScrollView()
+		{
+			return scrollView;
+		}
 
-    /// <summary>
-    /// Generate the accessories lists based on the amount of accessible positions.
-    /// </summary>
-    private void InitialAccessories()
-    {
+		public GameObject[] getCustomizations()
+		{
+			return CustomizationArray;
+		}
 
+		void OnSelectionChanged(int index)
+		{
+			//selectedItemInfo.text = $"Selected item info: index {index}";
+			transform.GetComponentInParent<CustomizationController>().SwitchCustomization(index);
+		}
 
+		public int GetNeededCoins(int index)
+		{
+			return Convert.ToInt32(CustomizationArray[index].GetComponent<Item>().getPrice());
+		}
 
+		public GameObject[] InitializeCustomizationArray()
+		{
+			// Make a container for the prefabs to load in.
+			List<GameObject> prefabsOfCustomizationType = new List<GameObject>();
+			// Get ALL of the prefabs from the prefabs folder.
+			if (prefabs == null)
+			{
+				prefabs = Resources.LoadAll("Prefabs/Equipment").Select(p => (GameObject)p).ToArray();
+			}
+			//Get all prefabs of Type "equipmentType."
+			foreach (GameObject prefab in prefabs)
+			{
+				if (prefab.name.StartsWith(equipmentType))
+				{
+					prefabsOfCustomizationType.Add(prefab);
+				}
+			}
+			CustomizationArray = new GameObject[prefabsOfCustomizationType.Count];
+			CustomizationArray = prefabsOfCustomizationType.ToArray();
+			return CustomizationArray;
+		}
 
-        ////int[,] tArray = new int[];
-        //for (int i = 0; i < InitialDecorationSlots(); i++)
-        //{
-        //    //accessories.Add(int[,])
-        //}
-    }
+	}
 }

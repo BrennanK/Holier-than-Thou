@@ -37,18 +37,30 @@ MonoBehaviour:
   SS_hasDuration: 1
   SS_radius: 0
   SS_duration: 8
-  TH_hasDuration: 1
-  TH_radius: 0
-  TH_duration: 10
   BS_hasDuration: 1
   BS_radius: 10
   BS_duration: 4
   BS_material: {fileID: 2100000, guid: ba21123b55935bc4e9b1fd09b12f1387, type: 2}
-  IS_hasDuration: 1
-  IS_radius: 0
-  IS_duration: 8
+  SB_hasDuration: 1
+  SB_radius: 0
+  SB_duration: 0
+  SB_bounceMultiplier: 0
   CD_hasDuration: 1
   CD_duration: 4
   CD_radius: 25
   CD_aiSpeedMultiplier: 0.25
   CD_playerSpeedMultiplier: 0.25
+  DM_hasDuration: 0
+  DM_duration: 1
+  DM_radius: 25
+  DM_power: 20
+  DM_upwardForce: 5
+  DM_disToGround: 1
+  DM_playerPower: 50
+  DM_playerUpwardForce: 0.5
+  DM_positionOffSet: 1
+  DM_ground:
+    serializedVersion: 2
+    m_Bits: 512
+  DM_disMine: {fileID: 6145423799432401000, guid: 3d12591043f7e634d93f25719f15835e,
+    type: 3}

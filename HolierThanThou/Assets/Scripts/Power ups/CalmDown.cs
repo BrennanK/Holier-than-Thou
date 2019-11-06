@@ -49,7 +49,7 @@ public class CalmDown : PowerUp
                     else
                     {
                         speedMultiplier = aiSpeedMultiplier;
-                        competitor.GetComponent<AIBehavior>().velocity *= aiSpeedMultiplier;
+                        competitor.GetComponent<AIStateMachine>().Velocity *= aiSpeedMultiplier;
                     }
 
                     competitor.GetComponent<Competitor>().BeenSlowed(competitor, duration, speedMultiplier);

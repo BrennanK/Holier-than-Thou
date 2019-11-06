@@ -10,7 +10,18 @@ public class Bounce : MonoBehaviour
     public float upBounceForce = .75f;
     [Tooltip("Force applied to player and AI when hitting things tagged 'Wall'")]
     public float obsticalBounceForce = 1000f;
- 
+
+    private float maxBounce;
+
+    public void Start()
+    {
+        maxBounce = bouceOffForce;
+    }
+
+    public void SetMaxmiumBounce()
+    {
+        bouceOffForce = maxBounce;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -18,9 +29,9 @@ public class Bounce : MonoBehaviour
         //Gets the direction towards what they collided with
         bounce = transform.position - collision.transform.position;
 
-        bounce.x = Mathf.Clamp(bounce.x, 0, 500000);
-        bounce.y = Mathf.Clamp(bounce.y, 0, 500000);
-        bounce.z = Mathf.Clamp(bounce.z, 0, 500000);
+        //bounce.x = Mathf.Clamp(bounce.x, 0, 500000);
+        //bounce.y = Mathf.Clamp(bounce.y, 0, 500000);
+        //bounce.z = Mathf.Clamp(bounce.z, 0, 500000);
 
         if (gameObject.CompareTag("Wall"))
         {
@@ -36,7 +47,7 @@ public class Bounce : MonoBehaviour
                 //The important thing about this code is that it is played on all colliding objects at the same time
                 if (collision.gameObject.GetComponent<Rigidbody>())
                 {
-                    collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude);
+                    collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 0, 500000));
 
 
                 }

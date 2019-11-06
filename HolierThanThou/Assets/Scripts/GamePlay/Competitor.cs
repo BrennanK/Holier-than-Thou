@@ -276,7 +276,7 @@ public class Competitor : MonoBehaviour
     {
         superBounce = true;
         yield return new WaitForSeconds(duration);
-        origin.GetComponent<Bounce>().bouceOffForce /= bounceMultiplier;
+        origin.GetComponent<Bounce>().SetMaxmiumBounce();
         superBounce = false;
     }
 

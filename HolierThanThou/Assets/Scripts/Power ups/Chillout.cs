@@ -49,7 +49,7 @@ public class Chillout : PowerUp
 
                         competitor.GetComponent<Rigidbody>().velocity = Vector3.zero;
                         competitor.GetComponent<Rigidbody>().freezeRotation = true;
-                        competitor.GetComponent<AIBehavior>().enabled = false;
+                        competitor.GetComponent<AIStateMachine>().enabled = false;
                     }
 
                     competitor.BeenChilled(competitor, duration);
