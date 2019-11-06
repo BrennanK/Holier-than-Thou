@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour
 	[Range(1.0f, 1.5f)]
 	public float rangeMax;
 
+	[SerializeField] private int maxVolume = 100;
+
 
 	// Start is called before the first frame update
 	void Awake()
@@ -40,10 +42,10 @@ public class AudioManager : MonoBehaviour
 				case Sound.SoundType.SFX:
 					s.source.pitch = UnityEngine.Random.Range(rangeMin, rangeMax);
 					Debug.Log($"Pitch: {s.source.pitch}");
-					sliderVolume = PlayerPrefs.GetFloat(SFXSlider);
+					sliderVolume = (float)PlayerPrefs.GetFloat(SFXSlider)/ (float)maxVolume;
 					break;
 				case Sound.SoundType.Music:
-					sliderVolume = PlayerPrefs.GetFloat(MusicSlider);
+					sliderVolume = (float)PlayerPrefs.GetFloat(MusicSlider)/ (float)maxVolume;
 					break;
 				default:
 					sliderVolume = 0;
