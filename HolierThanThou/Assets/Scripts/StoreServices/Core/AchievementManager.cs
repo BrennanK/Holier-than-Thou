@@ -1,6 +1,7 @@
 ﻿using StoreServices.Core.Achievements;
 using System.Linq;
 using UnityEngine;
+using System;
 
 namespace StoreServices
 {
@@ -37,6 +38,7 @@ namespace StoreServices
             if(PlayerPrefs.HasKey(ACHIEVEMENTS_SAVE_STRING))
             {
                 LoadAchievements();
+
             }
             else
             {
@@ -54,6 +56,7 @@ namespace StoreServices
             {
                 achievementInstances[i] = JsonUtility.FromJson<AchievementInstance>(PlayerPrefs.GetString($"{ACHIEVEMENTS_SAVE_STRING}_{allAchievements[i].internalAchievementID}"));
                 achievementInstances[i].SetAchievementReference(allAchievements[i]);
+
             }
         }
 
@@ -84,6 +87,7 @@ namespace StoreServices
             TrackStandardAchievementUsingInternalID(InternalIDs.achievement_middle_of_pack, _profileIncrement.placedFourth);
             TrackStandardAchievementUsingInternalID(InternalIDs.achievement_no_hands, _profileIncrement.usedPowerUp);
             TrackStandardAchievementUsingInternalID(InternalIDs.achievement_grounded, _profileIncrement.hasJumped);
+
 
             PersistAchievements();
         }
@@ -129,6 +133,8 @@ namespace StoreServices
                 Debug.Log($"{achievementBeingUpdated.AchievementName} was completed!");
             }
         }
+
+        
 
         private void PersistAchievements()
         {
