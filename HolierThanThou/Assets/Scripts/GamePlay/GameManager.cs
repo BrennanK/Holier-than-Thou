@@ -135,7 +135,6 @@ public class GameManager : MonoBehaviour
 				int randPoint = Random.Range(0, spawnPoints.Count);
 				//Spawn the crown by setting it to active.
 				spawnPoints[randPoint].SetActive(true);
-				Debug.Log($"{spawnPoints[randPoint].name} was just created!");
 			}
 			//repeat
 			StartCoroutine(SpawnCrowns());

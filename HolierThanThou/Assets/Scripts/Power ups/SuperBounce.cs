@@ -22,8 +22,6 @@ public class SuperBounce : PowerUp
 
         competitor.NormalBounce(origin, duration, bounceMultiplier);
 
-        Debug.Log("Super Bounce Power Up Used by " + name);
-
     }
 
     

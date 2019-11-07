@@ -16,7 +16,6 @@ public class MainMenu : MonoBehaviour
 	public void ResetNameText()
 	{
 		namingUser.text = PlayerPrefs.GetString("PLAYER_INPUT_NAME", "Input Name");
-		//namingText.text = namingUser.text;
 	}
 	public void QuitOnClick()
 	{
@@ -34,9 +33,6 @@ public class MainMenu : MonoBehaviour
 		string playerName = namingUser.text.ToString();
 		namingText.text = playerName;
 		PlayerPrefs.SetString("PLAYER_INPUT_NAME", playerName);
-
-		//string testingStr = PlayerPrefs.GetString("PLAYER_INPUT_NAME");
-		//Debug.Log("PLAYER_INPUT_NAME: " + testingStr);
 	}
 
 

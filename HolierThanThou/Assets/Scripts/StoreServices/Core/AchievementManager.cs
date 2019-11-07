@@ -31,7 +31,6 @@ namespace StoreServices
                 Destroy(gameObject);
             }
 
-            Debug.Log($"Starting Achievement Manager!");
             // Create all achievement instances and/or check for persistence
             achievementInstances = new AchievementInstance[allAchievements.Length];
 
@@ -51,7 +50,6 @@ namespace StoreServices
 
         private void LoadAchievements()
         {
-            Debug.Log("Loading Achievements");
             for(int i = 0; i < allAchievements.Length; i++)
             {
                 achievementInstances[i] = JsonUtility.FromJson<AchievementInstance>(PlayerPrefs.GetString($"{ACHIEVEMENTS_SAVE_STRING}_{allAchievements[i].internalAchievementID}"));
@@ -62,8 +60,6 @@ namespace StoreServices
 
         public void UpdateAllAchievements(PlayerProfile _profileIncrement)
         {
-            //Debug.Log($"Final Player Position; {_finalPlayerPosition}");
-
             //Games Completed Achievements
             TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_first_timer, _profileIncrement.gamesPlayed);
             TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_10_Down, _profileIncrement.gamesPlayed);
@@ -109,7 +105,6 @@ namespace StoreServices
             if(achievementBeingUpdated.Complete)
             {
                 achievementBeingUpdated.AlreadyCompleted = true;
-                Debug.Log($"{achievementBeingUpdated.AchievementName} was completed");
             }
         }
 
@@ -130,7 +125,6 @@ namespace StoreServices
             if(achievementBeingUpdated.Complete)
             {
                 achievementBeingUpdated.AlreadyCompleted = true;
-                Debug.Log($"{achievementBeingUpdated.AchievementName} was completed!");
             }
         }
 
@@ -138,8 +132,6 @@ namespace StoreServices
 
         private void PersistAchievements()
         {
-            Debug.Log($"Persist Achievements");
-
             PlayerPrefs.SetInt(ACHIEVEMENTS_SAVE_STRING, 1);
             for(int i = 0; i < achievementInstances.Length; i++)
             {

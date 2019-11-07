@@ -65,8 +65,6 @@ public class SneakySnake : PowerUp
 
         competitor.CantFindMe(origin, duration);
 
-        Debug.Log("Sneaky Snake Power Up Used by " + name);
-
     }
 
     

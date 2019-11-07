@@ -92,7 +92,6 @@ public class ScoreManager : MonoBehaviour
 			"\n6th - " + players[5].Name + " - " + players[5].Score + " Points" +
 			"\n7th - " + players[6].Name + " - " + players[6].Score + " Points" +
 			"\n8th - " + players[7].Name + " - " + players[7].Score + " Points";
-            Debug.Log($"Player won games won is +{gameWon}");
 	}
 
     public void UpdateLastBallRollingEndGameUI(int winnings)
@@ -115,6 +114,5 @@ public class ScoreManager : MonoBehaviour
             "\n6th - " + players[5].Name + " - " + players[5].Score + " Points" +
             "\n7th - " + players[6].Name + " - " + players[6].Score + " Points" +
             "\n8th - " + players[7].Name + " - " + players[7].Score + " Points";
-        Debug.Log($"Player won games won is +{gameWon}");
     }
 }

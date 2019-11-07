@@ -62,7 +62,5 @@ public class DisMineExplosion : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log("Dis Minw triggered Up Used by " + name);
     }
 }

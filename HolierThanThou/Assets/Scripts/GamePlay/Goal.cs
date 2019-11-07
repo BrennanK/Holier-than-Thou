@@ -29,7 +29,6 @@ public class Goal : MonoBehaviour
     {
         spawnPointManager = gameObject.GetComponent<SpawnPointManager>();
         scoreManager = gameObject.GetComponent<ScoreManager>();
-        //powerUp = new BlastZone(false, powerUpEditor.BZ_hasDuration, powerUpEditor.BZ_duration, radius, power, upwardForce);
         explodePosition = new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z);
     }
 
@@ -64,8 +63,6 @@ public class Goal : MonoBehaviour
 
     void Explosion()
     {
-        //powerUp.ActivatePowerUp(gameObject.name, this.transform);
-
         List<Collider> enemies = Physics.OverlapSphere(transform.position, radius).ToList();
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -110,12 +107,5 @@ public class Goal : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        // Draw a semitransparent blue cube at the transforms position
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
-        Gizmos.DrawCube(explodePosition, new Vector3(1, 1, 1));
     }
 }

@@ -30,10 +30,6 @@ public class AchievementUIManager : MonoBehaviour
                 achievementsInUI[i].UpdateAchievement(achievementInstances[i].AchievementName, achievementInstances[i].AchievementDescription, $"{Mathf.Round(percentageProgress)}%");
             }
         }
-        else
-        {
-            Debug.Log($"Achievements on game and achievements on UI are not the same!");
-        }
         prefabCanvas.SetActive(false);
     }
 

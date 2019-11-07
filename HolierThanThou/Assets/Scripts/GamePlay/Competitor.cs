@@ -210,7 +210,6 @@ public class Competitor : MonoBehaviour
 		yield return new WaitForSeconds(duration);
 
         origin.GetComponent<MeshRenderer>().material = startMaterial;
-        //origin.GetComponentInParent<BounceFunction>().enabled = true;
         origin.GetComponentInParent<Bounce>().enabled = true;
         ballOfSteel = false;
 

@@ -22,10 +22,6 @@ public class CantTouchThis : PowerUp
 
         _competitior.GetComponent<Competitor>().CantTouchMe(duration);
 
-
-
-        Debug.Log("Can't Touch This! Power Up Used by " + name);
-
     }
 
     

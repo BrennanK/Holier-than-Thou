@@ -70,8 +70,6 @@ public class BlastZone : PowerUp
                 }
             }
         }
-
-        Debug.Log("Blast Zone Power Up Used by " + name);
         
     }
 

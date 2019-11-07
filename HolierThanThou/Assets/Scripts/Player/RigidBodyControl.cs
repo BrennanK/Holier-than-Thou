@@ -73,16 +73,12 @@ public class RigidBodyControl : MonoBehaviour
         if (m_joyButtonReference.pressed && Grounded()) 
         {
             rBody.AddForce(jumpDirection * jumpForce, ForceMode.Impulse);
-            Debug.Log("Y velocity While Jump: " + rBody.velocity.y);
             if(!hasJumped)
             {
                 PAT.ToggleJumped();
                 hasJumped = true;
             }
         }
-        //else {
-        //    rBody.AddForce(Physics.gravity * downAccel, ForceMode.Force);
-        //}
     }
 
     //Ground Check

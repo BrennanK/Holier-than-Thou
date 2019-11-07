@@ -34,8 +34,6 @@ public class GottaGoFast : PowerUp
             
         }
 
-        Debug.Log("Gotta go fast! Power Up Used by " + name);
-
         origin.GetComponent<Competitor>().WentFast(origin, duration, speedMultiplier);
 
     }

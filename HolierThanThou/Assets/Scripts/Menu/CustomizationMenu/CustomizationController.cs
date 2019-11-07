@@ -189,7 +189,7 @@ public class CustomizationController : MonoBehaviour
 
 			if (playerMoney - price < 0)
 			{
-				Debug.Log("You need " + (price - playerMoney) + " more coins to purchase.");
+
 			}
 			else
 			{
@@ -197,10 +197,7 @@ public class CustomizationController : MonoBehaviour
 				confirmDialogue.SetActive(true);
 			}
 		}
-		else
-		{
-			Debug.Log("You have already bought the NO." + panelIndices[panelIndex] + " equipment");
-		}
+
 	}
 	public void TurnOffDialogue()
 	{
@@ -222,7 +219,6 @@ public class CustomizationController : MonoBehaviour
 
 		UpdateInfoText(panelIndices[panelIndex]);
 
-		Debug.Log($"{result}: You bought a NO.{panelIndices[panelIndex]} equipment");
 
 		Equip();
 	}
@@ -239,16 +235,7 @@ public class CustomizationController : MonoBehaviour
 		// if it not purchased, tell player how much it is to purchase.
 		if (!CheckPlayerInventory()) // if it has not been purchased
 		{
-			int playerMoney = player.GetComponent<PlayerCustomization>().currency; //TODO replace with player profile's currency. 
-			int price = GetPrice(panelIndices[panelIndex]);
-			if (playerMoney - price < 0)
-			{
-				Debug.Log("You need " + (price - playerMoney) + " more coins to purchase.");
-			}
-			else
-			{
-				Debug.Log("You may purchase this item for " + price + " coins.");
-			}
+
 		}
 		else //if it is purchased, the player can equip it.
 		{
@@ -256,14 +243,12 @@ public class CustomizationController : MonoBehaviour
 			bool isEquipped = player.GetComponent<PlayerCustomization>().CheckEquippedItem(panelIndex, itemName);
 			if (isEquipped)
 			{
-				// if it is currently equipped, do not equip it. 
-				Debug.Log("You have already equipped the NO." + panelIndices[panelIndex] + " equipment");
+
 			}
 			else
 			{
 				// if it is not currently equipped, equip it. 
 				player.GetComponent<PlayerCustomization>().SetEquippedItem(panelIndex, itemName);
-				Debug.Log("You equip a NO." + panelIndices[panelIndex] + " equipment");
 				UpdateInfoText(panelIndices[panelIndex]);
 			}
 		}
@@ -277,7 +262,5 @@ public class CustomizationController : MonoBehaviour
         namingText.text = playerName;
         PlayerPrefs.SetString("PLAYER_INPUT_NAME", playerName);
 
-        //string testingStr = PlayerPrefs.GetString("PLAYER_INPUT_NAME");
-        //Debug.Log("PLAYER_INPUT_NAME: " + testingStr);
     }
 }
