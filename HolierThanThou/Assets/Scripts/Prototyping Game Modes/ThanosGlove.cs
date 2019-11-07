@@ -12,7 +12,9 @@ public class ThanosGlove : MonoBehaviour
         {
             if (poof.gameObject != null)
             {
-                Instantiate(poof, other.transform.position, Quaternion.Euler(Vector3.zero));
+                GameObject instantiatedPoofRefrence = Instantiate(poof, other.transform.position, poof.transform.rotation);
+                instantiatedPoofRefrence.AddComponent<Destroyer>();
+                instantiatedPoofRefrence.GetComponent<Destroyer>().gameObjectLifeTime = 1f;
             }
             Destroy(other.gameObject);
         }
