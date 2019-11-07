@@ -529,6 +529,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685268, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -614,7 +619,8 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &59556850 stripped
 Transform:
@@ -1143,6 +1149,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685268, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1550,7 +1561,7 @@ PrefabInstance:
     - target: {fileID: 943676857769065581, guid: eb889fed31c02c44a96476e2dabd3415,
         type: 3}
       propertyPath: itemNumber
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb889fed31c02c44a96476e2dabd3415, type: 3}
@@ -1606,6 +1617,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685268, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
@@ -1692,7 +1708,8 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &179354015 stripped
 Transform:
@@ -2103,7 +2120,7 @@ PrefabInstance:
     - target: {fileID: 943676857769065581, guid: eb889fed31c02c44a96476e2dabd3415,
         type: 3}
       propertyPath: itemNumber
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb889fed31c02c44a96476e2dabd3415, type: 3}
@@ -2838,6 +2855,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685268, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2923,7 +2945,8 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &354340427 stripped
 Transform:
@@ -3556,6 +3579,7 @@ MonoBehaviour:
   MusicSlider: MusicSliderBar
   rangeMin: 0.8
   rangeMax: 1.2
+  maxVolume: 100
 --- !u!114 &477239600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3606,7 +3630,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477239598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -49.700012, y: 14.061826, z: 101.70003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8590,7 +8614,7 @@ PrefabInstance:
     - target: {fileID: 943676857769065581, guid: eb889fed31c02c44a96476e2dabd3415,
         type: 3}
       propertyPath: itemNumber
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb889fed31c02c44a96476e2dabd3415, type: 3}
@@ -10419,7 +10443,7 @@ PrefabInstance:
     - target: {fileID: 943676857769065581, guid: eb889fed31c02c44a96476e2dabd3415,
         type: 3}
       propertyPath: itemNumber
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb889fed31c02c44a96476e2dabd3415, type: 3}
@@ -11303,6 +11327,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685268, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11388,7 +11417,8 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &1425117480 stripped
 Transform:
@@ -11413,6 +11443,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685268, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
@@ -11499,7 +11534,8 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &1459047323 stripped
 Transform:
@@ -12266,6 +12302,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685268, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12351,7 +12392,8 @@ PrefabInstance:
       propertyPath: bouncable.m_Bits
       value: 1024
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
 --- !u!4 &1563665775 stripped
 Transform:
@@ -15310,7 +15352,7 @@ PrefabInstance:
     - target: {fileID: 943676857769065581, guid: eb889fed31c02c44a96476e2dabd3415,
         type: 3}
       propertyPath: itemNumber
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb889fed31c02c44a96476e2dabd3415, type: 3}

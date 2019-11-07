@@ -10,16 +10,16 @@ public class VolumeSlider : MonoBehaviour
 	private void Start()
 	{
 		//Load Data
-		slider.value = PlayerPrefs.GetFloat(slider.name, 1f);
+		slider.value = PlayerPrefs.GetInt(slider.name, 100);
 	}
 
-	public void IncrementVolume(float amount)
+	public void IncrementVolume(int amount)
 	{
 		slider.value += amount;
 	}
 
 	public void SaveData()
 	{
-		PlayerPrefs.SetFloat(slider.name, slider.value);
+		PlayerPrefs.SetInt(slider.name, (int)slider.value);
 	}
 }
