@@ -85,10 +85,4 @@ public class PowerUpEditor : ScriptableObject
     public LayerMask DM_ground;
     public GameObject DM_disMine;
 
-    //[HideInInspector]
-    //public bool TH_hasDuration = true;
-    //[HideInInspector]
-    //public float TH_radius = 0f;
-    //[Header("Thiccness - 10")]
-    //public float TH_duration;
 }

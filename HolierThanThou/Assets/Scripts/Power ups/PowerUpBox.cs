@@ -41,7 +41,7 @@ public class PowerUpBox : MonoBehaviour
         powerups[6] = new SuperBounce(true, PUE.SB_hasDuration, PUE.SB_duration, PUE.SB_radius, PUE.SB_bounceMultiplier);
         powerups[7] = new CalmDown(false, PUE.CD_hasDuration, PUE.CD_duration, PUE.CD_radius, PUE.CD_aiSpeedMultiplier, PUE.CD_playerSpeedMultiplier);
         powerups[8] = new DisMine(false, PUE.DM_hasDuration, PUE.DM_duration, PUE.DM_radius, PUE.DM_disMine, PUE.DM_positionOffSet);
-        //powerups[9] = new Thiccness(false, PUE.TH_hasDuration, PUE.TH_duration, PUE.TH_radius);
+        
 
         disableTimer = disableTimerStart;
 
