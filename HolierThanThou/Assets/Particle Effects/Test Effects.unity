@@ -14673,7 +14673,7 @@ PrefabInstance:
     - target: {fileID: 1592526415610814716, guid: bef8359c0e981ff408ac18533f470916,
         type: 3}
       propertyPath: m_Name
-      value: Crown
+      value: PE_Crown
       objectReference: {fileID: 0}
     - target: {fileID: 1592526415610814713, guid: bef8359c0e981ff408ac18533f470916,
         type: 3}
@@ -14998,6 +14998,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1064859982969598015, guid: 0cb196432d1f78440bf54858243a7017,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.22812
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064859982969598015, guid: 0cb196432d1f78440bf54858243a7017,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.22812
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064859982969598015, guid: 0cb196432d1f78440bf54858243a7017,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.22812
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064859982969598012, guid: 0cb196432d1f78440bf54858243a7017,
+        type: 3}
+      propertyPath: ShapeModule.type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064859982912980424, guid: 0cb196432d1f78440bf54858243a7017,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.21951
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064859982912980424, guid: 0cb196432d1f78440bf54858243a7017,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.21951
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064859982912980424, guid: 0cb196432d1f78440bf54858243a7017,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.21951
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064859982912980425, guid: 0cb196432d1f78440bf54858243a7017,
+        type: 3}
+      propertyPath: ShapeModule.type
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cb196432d1f78440bf54858243a7017, type: 3}
 --- !u!1001 &1592526414455156047
@@ -15010,7 +15050,7 @@ PrefabInstance:
     - target: {fileID: 1592526415610814716, guid: bef8359c0e981ff408ac18533f470916,
         type: 3}
       propertyPath: m_Name
-      value: CalmDown
+      value: PE_CalmDown
       objectReference: {fileID: 0}
     - target: {fileID: 1592526415610814713, guid: bef8359c0e981ff408ac18533f470916,
         type: 3}
