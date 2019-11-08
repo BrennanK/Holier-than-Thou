@@ -56,7 +56,6 @@ public class CalmDown : PowerUp
                 }
             }   
         }
-        Debug.Log("Calm Down Power Up Used by " + name);
     }
 
 

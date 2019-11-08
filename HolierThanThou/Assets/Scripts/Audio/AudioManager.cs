@@ -41,7 +41,6 @@ public class AudioManager : MonoBehaviour
 			{
 				case Sound.SoundType.SFX:
 					s.source.pitch = UnityEngine.Random.Range(pitchRangeMin, pitchRangeMax);
-					Debug.Log($"Pitch: {s.source.pitch}");
 					sliderVolume = (float)PlayerPrefs.GetFloat(SFXSlider)/ (float)maxVolume;
 					break;
 				case Sound.SoundType.Music:

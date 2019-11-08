@@ -24,7 +24,5 @@ public class DisMine : PowerUp
 
         origin.GetComponent<Competitor>().DisMine(duration, disMine, position, rotation);
 
-        Debug.Log("Dis Mine Power Up Used by " + name);
-
     }
 }

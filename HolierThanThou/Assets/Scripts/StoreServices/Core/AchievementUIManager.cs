@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using System.Linq;
 using UnityEngine;
 
 public class AchievementUIManager : MonoBehaviour
@@ -12,10 +13,13 @@ public class AchievementUIManager : MonoBehaviour
 
 
 
+
     // Start is called before the first frame update
     void Start()
     {
-        StoreServices.Core.Achievements.AchievementInstance[] achievementInstances = StoreServices.AchievementManager.instance.AchievementInstances;
+        StoreServices.Core.Achievements.AchievementInstance[] achievementInstances = StoreServices.AchievementManager.instance.AchievementInstances.OrderBy(a => a.AlreadyCompleted).ThenByDescending(a =>a.ProgressInPercentage).ToArray();
+
+
 
         if(achievementInstances.Length == achievementsInUI.Length)
         {
@@ -25,10 +29,6 @@ public class AchievementUIManager : MonoBehaviour
                 percentageProgress *= 100;
                 achievementsInUI[i].UpdateAchievement(achievementInstances[i].AchievementName, achievementInstances[i].AchievementDescription, $"{Mathf.Round(percentageProgress)}%");
             }
-        }
-        else
-        {
-            Debug.Log($"Achievements on game and achievements on UI are not the same!");
         }
         prefabCanvas.SetActive(false);
     }

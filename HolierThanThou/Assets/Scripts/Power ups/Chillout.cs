@@ -57,7 +57,5 @@ public class Chillout : PowerUp
             }
         }
 
-        Debug.Log("Chillout power up used by " + name);
-
     }
 }

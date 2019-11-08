@@ -18,7 +18,6 @@ public class BallsOfSteel : PowerUp
     {
         base.ActivatePowerUp(name, origin);
 
-        //var bounce = origin.GetComponent<BounceFunction>();
         var bounce = origin.GetComponent<Bounce>();
 
         Competitor competitor = origin.GetComponent<Competitor>();
@@ -36,8 +35,6 @@ public class BallsOfSteel : PowerUp
         }
         
         competitor.BallOfSteel(origin, duration);
-
-        Debug.Log("Balls of Steel Power Up Used by " + name);
 
     }
 

@@ -49,14 +49,11 @@ public class SaveGameManager : MonoBehaviour
 
     private void SaveGame()
     {
-        Debug.Log("Game Saved");
         PlayerPrefs.SetString(HAS_SAVED_GAME, JsonUtility.ToJson(currentLoadedSaveData));
     }
 
     private void LoadSavedGame()
     {
-        Debug.Log("Loading Game");
-        Debug.Log($"Loaded Game: {PlayerPrefs.GetString(HAS_SAVED_GAME)}");
         currentLoadedSaveData = JsonUtility.FromJson<SaveData>(PlayerPrefs.GetString(HAS_SAVED_GAME));
     }
 

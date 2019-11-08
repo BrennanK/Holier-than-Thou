@@ -105,9 +105,6 @@ public class SceneController : MonoBehaviour
 		{
 			int start = SceneManager.sceneCountInBuildSettings;
 			int randInt = Random.Range(levelBuildIndexStart, start);
-#if DEBUG
-			Debug.Log($"Scene to be loaded: {randInt}");
-#endif
 			SceneManager.LoadScene(randInt);
 		}
 		else

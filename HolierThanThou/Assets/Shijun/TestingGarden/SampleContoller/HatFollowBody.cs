@@ -23,16 +23,14 @@ public class HatFollowBody : MonoBehaviour
 	{
 		hatTransform = GetComponent<Transform>();
 
-		Debug.Log("Starting: " + Time.time);
 		coroutine = SetRadius(waitTime);
 		StartCoroutine(coroutine);
-		Debug.Log("Ending: " + Time.time);
 	}
 
 	IEnumerator SetRadius(float Count)
 	{
 		yield return new WaitForSeconds(Count);
-		Debug.Log("Waiting: " + Time.time);
+
 		if (bodyTransform.childCount > 0)
 		{
 			radius = parentTransform.GetComponent<MeshFilter>().mesh.bounds.extents.x * scaleFactor;

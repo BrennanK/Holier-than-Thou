@@ -51,17 +51,6 @@ public class PowerUpTracker : MonoBehaviour
 
     private void Update()
     {
-        //Testing for Loading Powerups
-        if (slot1 == null)
-        {
-            Debug.Log("slot1: Cannot find anything.");
-
-        }
-        else
-        {
-            Debug.Log("slot1: " + slot1);
-        }
-
         if (activated1)
         {
             canActivate1 = false;
@@ -127,8 +116,7 @@ public class PowerUpTracker : MonoBehaviour
                 }
                 UpdateUI();
             }
-            else
-                Debug.Log("No Power up in slot 1!");
+
         }
     }
 
@@ -162,8 +150,7 @@ public class PowerUpTracker : MonoBehaviour
                 }
                 UpdateUI();
             }
-            else
-                Debug.Log("No Power up in slot 2!");
+
         }
     }
 
@@ -171,11 +158,6 @@ public class PowerUpTracker : MonoBehaviour
     {
         if (slot1 != null)
         {
-            //if (activated1)
-            //{
-            //    itemButton1.text = "";
-            //}
-
             itemButton1.text = "";
         }
         else
@@ -186,10 +168,6 @@ public class PowerUpTracker : MonoBehaviour
 
         if (slot2 != null)
         {
-            //if (activated2)
-            //{
-            //    itemButton2.text = "";
-            //}
 
             itemButton2.text = "";
         }
@@ -213,7 +191,6 @@ public class PowerUpTracker : MonoBehaviour
                 buttonImage2.sprite = powerupImages[index];
                 break;
             default:
-                Debug.LogError("The index of button has been beyond the amount of buttons.");
                 break;
         }
     }
@@ -229,7 +206,6 @@ public class PowerUpTracker : MonoBehaviour
                 buttonImage2.sprite = powerupImages[9];
                 break;
             default:
-                Debug.LogError("The index of button has been beyond the amount of buttons.");
                 break;
         }
     }

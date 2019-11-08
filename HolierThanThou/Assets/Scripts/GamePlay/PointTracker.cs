@@ -26,15 +26,12 @@ public class PointTracker : MonoBehaviour
 
      private void OnCollisionExit(Collision collision)
     {
-
         var vel = this.GetComponentInParent<Rigidbody>().velocity;
         var _competitor = collision.gameObject.GetComponent<Competitor>();
         if (_competitor != null)
         {
-            Debug.Log($"Magnitude: {vel.magnitude}");
             if (vel.magnitude > 8)
             {
-                Debug.Log($"{gameObject.GetComponent<Competitor>().Name}'s multiplier increased!");
                 FindObjectOfType<AudioManager>().Play("HitBlop"); // "HitBlop"
             }
             else
@@ -55,7 +52,6 @@ public class PointTracker : MonoBehaviour
             if (GetComponentInParent<Rigidbody>().velocity.magnitude < collision.collider.GetComponentInParent<Rigidbody>().velocity.magnitude && collision.collider.GetComponentInParent<Rigidbody>().velocity.magnitude > 10 && GetComponentInParent<Rigidbody>().velocity.magnitude > 10)
             {
                 GetComponentInParent<PointTracker>().multPoints = GetComponentInParent<PointTracker>().multPoints + (multCalc(bounceVal));
-                Debug.Log("I bounced him harder");
 
             }
 
@@ -109,7 +105,6 @@ public class PointTracker : MonoBehaviour
         if (other.name.StartsWith("Crown"))
         {
             GetComponentInParent<Crown>().addCrownVal();
-            Debug.Log($"{gameObject.GetComponent<Competitor>().Name} picked up {other.name}!");
             other.gameObject.SetActive(false);
         }
     }

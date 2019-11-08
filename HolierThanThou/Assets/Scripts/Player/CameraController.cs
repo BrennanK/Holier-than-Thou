@@ -27,22 +27,6 @@ public class CameraController : MonoBehaviour
         {
             myCamera.m_YAxis.Value = Mathf.Lerp(myCamera.m_YAxis.Value, 1, .1f); ;
         }
-
-        //RaycastHit hit;
-        /*
-        if (Physics.SphereCast(myPLayer.transform.position, 2f,myCamera.transform.position - myPLayer.transform.position, out hit, myCamera.m_Orbits[1].m_Radius))
-        {
-            myCamera.m_Orbits[1].m_Radius = Mathf.Lerp(myCamera.m_Orbits[1].m_Radius, Vector3.Distance(hit.point, myPLayer.transform.position), .1f);
-            myCamera.m_Orbits[0].m_Radius = Mathf.Lerp(myCamera.m_Orbits[0].m_Radius, Vector3.Distance(hit.point, myPLayer.transform.position), .1f);
-        }
-        else
-        {
-            myCamera.m_Orbits[1].m_Radius = Mathf.Lerp(myCamera.m_Orbits[1].m_Radius, 10, .5f);
-            myCamera.m_Orbits[0].m_Radius = Mathf.Lerp(myCamera.m_Orbits[0].m_Radius, 8, .5f);
-        }
-        */
-
-
     }
     
 }

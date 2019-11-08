@@ -1,6 +1,7 @@
 ﻿using StoreServices.Core.Achievements;
 using System.Linq;
 using UnityEngine;
+using System;
 
 namespace StoreServices
 {
@@ -30,13 +31,13 @@ namespace StoreServices
                 Destroy(gameObject);
             }
 
-            Debug.Log($"Starting Achievement Manager!");
             // Create all achievement instances and/or check for persistence
             achievementInstances = new AchievementInstance[allAchievements.Length];
 
             if(PlayerPrefs.HasKey(ACHIEVEMENTS_SAVE_STRING))
             {
                 LoadAchievements();
+
             }
             else
             {
@@ -49,18 +50,16 @@ namespace StoreServices
 
         private void LoadAchievements()
         {
-            Debug.Log("Loading Achievements");
             for(int i = 0; i < allAchievements.Length; i++)
             {
                 achievementInstances[i] = JsonUtility.FromJson<AchievementInstance>(PlayerPrefs.GetString($"{ACHIEVEMENTS_SAVE_STRING}_{allAchievements[i].internalAchievementID}"));
                 achievementInstances[i].SetAchievementReference(allAchievements[i]);
+
             }
         }
 
         public void UpdateAllAchievements(PlayerProfile _profileIncrement)
         {
-            //Debug.Log($"Final Player Position; {_finalPlayerPosition}");
-
             //Games Completed Achievements
             TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_first_timer, _profileIncrement.gamesPlayed);
             TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_10_Down, _profileIncrement.gamesPlayed);
@@ -85,6 +84,7 @@ namespace StoreServices
             TrackStandardAchievementUsingInternalID(InternalIDs.achievement_no_hands, _profileIncrement.usedPowerUp);
             TrackStandardAchievementUsingInternalID(InternalIDs.achievement_grounded, _profileIncrement.hasJumped);
 
+
             PersistAchievements();
         }
 
@@ -105,7 +105,6 @@ namespace StoreServices
             if(achievementBeingUpdated.Complete)
             {
                 achievementBeingUpdated.AlreadyCompleted = true;
-                Debug.Log($"{achievementBeingUpdated.AchievementName} was completed");
             }
         }
 
@@ -126,14 +125,13 @@ namespace StoreServices
             if(achievementBeingUpdated.Complete)
             {
                 achievementBeingUpdated.AlreadyCompleted = true;
-                Debug.Log($"{achievementBeingUpdated.AchievementName} was completed!");
             }
         }
 
+        
+
         private void PersistAchievements()
         {
-            Debug.Log($"Persist Achievements");
-
             PlayerPrefs.SetInt(ACHIEVEMENTS_SAVE_STRING, 1);
             for(int i = 0; i < achievementInstances.Length; i++)
             {

@@ -71,10 +71,8 @@ public class PowerUpBox : MonoBehaviour
         
         if (other.gameObject.tag == "Player")
         {
-            //print("Hit");
             if (_powerUpTracker.slot1 == null)
             {
-                //print("Slot 1");
                 if ((itemNumber - 1) >= 0)
                 {
                     _powerUpTracker.slot1 = powerups[itemNumber - 1];
@@ -95,11 +93,9 @@ public class PowerUpBox : MonoBehaviour
             }
             if (_powerUpTracker.slot2 == null)
             {
-                //print("Slot 2");
                 if ((itemNumber - 1) >= 0) 
                 {
                     _powerUpTracker.slot2 = powerups[itemNumber -1];
-                    //Load the target icon for UI
                     _powerUpTracker.LoadPowerUpIcon(2, itemNumber - 1);
                 }
                 else
@@ -108,7 +104,6 @@ public class PowerUpBox : MonoBehaviour
                     _powerUpTracker.slot2 = powerups[randomSec];
                     _powerUpTracker.LoadPowerUpIcon(2, randomSec);
                 }
-                //_powerUpTracker.slot2 = powerups[Random.Range(0, powerups.Length)];
 
                 DisablePowerUp();
                 _powerUpTracker.UpdateUI();
