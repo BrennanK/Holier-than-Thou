@@ -8,9 +8,19 @@ public class MainMenu : MonoBehaviour
 {
 	[SerializeField] private InputField namingUser;
 	[SerializeField] private Text namingText;
+	[SerializeField] private Button StartButton;
+	[SerializeField] private Button CustomizationButton;
 	public void Start()
 	{
 		ResetNameText();
+		AssignButtons();
+	}
+
+	public void AssignButtons()
+	{
+		SceneController controllerOfScenes = FindObjectOfType<SceneController>();
+		StartButton.onClick.AddListener(controllerOfScenes.GoToScene);
+		CustomizationButton.onClick.AddListener(delegate { controllerOfScenes.GoToScene(1); });
 	}
 
 	public void ResetNameText()

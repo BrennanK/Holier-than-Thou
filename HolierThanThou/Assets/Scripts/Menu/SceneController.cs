@@ -46,18 +46,6 @@ public class SceneController : MonoBehaviour
 			{
 				scenes.Clear();
 				scenes.Add(SceneManager.GetActiveScene().buildIndex);
-#if DEBUG
-#if UNITY_EDITOR
-				AudioManager[] AMs = FindObjectsOfType<AudioManager>();
-				foreach (AudioManager audioManager in AMs)
-				{
-					if(audioManager.gameObject.GetComponent<DoNotDestroy>() == null)
-					{
-						Destroy(audioManager.gameObject);
-					}
-				}
-#endif
-#endif
 			}
 			if (scenes.Count > 0)
 			{
@@ -73,7 +61,24 @@ public class SceneController : MonoBehaviour
 		{
 			scenes.Add(SceneManager.GetActiveScene().buildIndex);
 		}
+#if DEBUG
+#if UNITY_EDITOR
+		DestroyCompetingAudioManagerScript();
+#endif
+#endif
 		ResetMenus();
+	}
+
+	private void DestroyCompetingAudioManagerScript()
+	{
+		AudioManager[] AMs = FindObjectsOfType<AudioManager>();
+		foreach (AudioManager audioManager in AMs)
+		{
+			if (audioManager.gameObject.GetComponent<DoNotDestroy>() == null)
+			{
+				Destroy(audioManager.gameObject);
+			}
+		}
 	}
 
 	public void GoToPreviousScene()
