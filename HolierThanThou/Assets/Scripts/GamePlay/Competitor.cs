@@ -47,8 +47,8 @@ public class Competitor : MonoBehaviour
             Transform t = transform.GetChild(1);
             if (t.childCount > 0)
             {
-                t = t.GetChild(0);
-                startMaterial = t.GetComponent<MeshRenderer>().material;
+                //t = t.GetChild(0);
+                startMaterial = t.GetComponentInChildren<MeshRenderer>().material;
                 return;
             }
         }
@@ -194,7 +194,9 @@ public class Competitor : MonoBehaviour
     private IEnumerator Untouchable(float duration)
     {
         untouchable = true;
+		GameObject particles = InstantiateParticleEffect("PE_CantTouchThisPurple");
         yield return new WaitForSeconds(duration);
+		RemoveParticleEffect(particles);
         untouchable = false;
 
     }
@@ -217,7 +219,9 @@ public class Competitor : MonoBehaviour
 
     private IEnumerator TurnNavMeshBackOn(float duration)
     {
-        yield return new WaitForSeconds(duration);
+		GameObject particles = InstantiateParticleEffect("PE_Disintegrate");
+		yield return new WaitForSeconds(duration);
+		RemoveParticleEffect(particles);
         navMeshOff = false;
 
     }
@@ -240,6 +244,11 @@ public class Competitor : MonoBehaviour
 
     private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
     {
+		//Disable the current trail.
+		Transform particleTrail = transform.Find("PE_CompetitorTrail");
+		particleTrail.gameObject.SetActive(false);
+		GameObject particles = InstantiateParticleEffect("PE_GottaGoFast");
+		
 		AudioManager am = FindObjectOfType<AudioManager>();
 		if (am != null) 
 		{
@@ -247,7 +256,10 @@ public class Competitor : MonoBehaviour
 		}
         yield return new WaitForSeconds(duration);
 
-        if (origin.GetComponent<RigidBodyControl>())
+		RemoveParticleEffect(particles);
+		particleTrail.gameObject.SetActive(true);
+
+		if (origin.GetComponent<RigidBodyControl>())
         {
             origin.GetComponent<RigidBodyControl>().speed /= speedMultiplier;
         }
@@ -259,7 +271,9 @@ public class Competitor : MonoBehaviour
 
     private IEnumerator ReverseMovementSpeed(Competitor competitor, float duration, float speedMultiplier)
     {
-        yield return new WaitForSeconds(duration);
+		GameObject particles = InstantiateParticleEffect("PE_CalmDown");
+		yield return new WaitForSeconds(duration);
+		RemoveParticleEffect(particles);
 
         if (competitor.GetComponent<RigidBodyControl>())
         {
@@ -284,5 +298,21 @@ public class Competitor : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Instantiate(disMine, position, rotation);
     }
+
+	private GameObject InstantiateParticleEffect(string effect)
+	{
+		GameObject option = Instantiate(
+		(GameObject)Resources.Load($"Prefabs/Particle Effects/{effect}"),
+		transform.GetChild(1) //Place it on the BODY component.
+		);
+		option.SetActive(true);
+		return option;
+	}
+
+	private void RemoveParticleEffect(GameObject option)
+	{
+		//option.SetActive(false);
+		Destroy(option);
+	}
 
 }

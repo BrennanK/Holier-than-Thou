@@ -22,21 +22,18 @@ public class SceneController : MonoBehaviour
 	private void ResetMenus()
 	{
 		//If the current scene is the Main Menu
-		if (transform.childCount > 0)
+		if (SceneManager.GetActiveScene().buildIndex == 0)
 		{
-			//If the Main Menu canvas exists.
-			if (SceneManager.GetActiveScene().buildIndex == 0)
-			{
-				//turn on the Main Menu.
-				Resources.FindObjectsOfTypeAll<MainMenu>()[0].ResetNameText();
-				transform.GetChild(0).gameObject.SetActive(true);
-			}
-			else
-			{
-				//turn off the Main Menu.
-				transform.GetChild(0).gameObject.SetActive(false);
-			}
+			//turn on the Main Menu.
+			MainMenu[] Canvas = Resources.FindObjectsOfTypeAll<MainMenu>();
+			Canvas[0].ResetNameText();
+			Canvas[0].gameObject.SetActive(true);
 		}
+		//else
+		//{
+		//	//turn off the Main Menu.
+		//	transform.GetChild(0).gameObject.SetActive(false);
+		//}
 	}
 
 	private void ChangedActiveScene(Scene current, Scene next)
@@ -64,7 +61,24 @@ public class SceneController : MonoBehaviour
 		{
 			scenes.Add(SceneManager.GetActiveScene().buildIndex);
 		}
+#if DEBUG
+#if UNITY_EDITOR
+		DestroyCompetingAudioManagerScript();
+#endif
+#endif
 		ResetMenus();
+	}
+
+	private void DestroyCompetingAudioManagerScript()
+	{
+		AudioManager[] AMs = FindObjectsOfType<AudioManager>();
+		foreach (AudioManager audioManager in AMs)
+		{
+			if (audioManager.gameObject.GetComponent<DoNotDestroy>() == null)
+			{
+				Destroy(audioManager.gameObject);
+			}
+		}
 	}
 
 	public void GoToPreviousScene()

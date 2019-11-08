@@ -4,14 +4,14 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
-	public Sound[] sounds;
-	public string SFXSlider = "SoundsSliderBar";
-	public string MusicSlider = "MusicSliderBar";
+	[SerializeField] private Sound[] sounds;
+	[SerializeField] private string SFXSlider = "SoundsSliderBar";
+	[SerializeField] private string MusicSlider = "MusicSliderBar";
 
 	[Range(0.5f, 1.0f)]
-	public float rangeMin;
+	[SerializeField] private float pitchRangeMin;
 	[Range(1.0f, 1.5f)]
-	public float rangeMax;
+	[SerializeField] private float pitchRangeMax;
 
 	[SerializeField] private int maxVolume = 100;
 
@@ -40,7 +40,7 @@ public class AudioManager : MonoBehaviour
 			switch (s.type)
 			{
 				case Sound.SoundType.SFX:
-					s.source.pitch = UnityEngine.Random.Range(rangeMin, rangeMax);
+					s.source.pitch = UnityEngine.Random.Range(pitchRangeMin, pitchRangeMax);
 					sliderVolume = (float)PlayerPrefs.GetFloat(SFXSlider)/ (float)maxVolume;
 					break;
 				case Sound.SoundType.Music:
