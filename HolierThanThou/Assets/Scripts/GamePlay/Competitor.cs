@@ -25,10 +25,8 @@ public class Competitor : MonoBehaviour
     TrailRenderer trails;
     Rigidbody myRB;
     
-
     //Called when a ball hits the thanoswall collider
     
-
     private void Awake()
     {
         this.transform.localScale = new Vector3(.025f, .025f, .025f);
@@ -47,7 +45,6 @@ public class Competitor : MonoBehaviour
             Transform t = transform.GetChild(1);
             if (t.childCount > 0)
             {
-                //t = t.GetChild(0);
                 startMaterial = t.GetComponentInChildren<MeshRenderer>().material;
                 return;
             }
@@ -245,7 +242,7 @@ public class Competitor : MonoBehaviour
     private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
     {
 		//Disable the current trail.
-		Transform particleTrail = transform.Find("PE_CompetitorTrail");
+		Transform particleTrail = transform.FindDeepChild("PE_CompetitorTrail");
 		particleTrail.gameObject.SetActive(false);
 		GameObject particles = InstantiateParticleEffect("PE_GottaGoFast");
 		
@@ -303,7 +300,7 @@ public class Competitor : MonoBehaviour
 	{
 		GameObject option = Instantiate(
 		(GameObject)Resources.Load($"Prefabs/Particle Effects/{effect}"),
-		transform.GetChild(1) //Place it on the BODY component.
+		transform.GetChild(0) //Place it on the Hat component in order for it to not rotate.
 		);
 		option.SetActive(true);
 		return option;
