@@ -21,6 +21,7 @@ public class PlayerCustomization : MonoBehaviour
 		LoadUnlockedItems();
 		LoadEquippedItems();
 		InitializeEquippedItems();
+		NamePlayer();
 	}
 
 	public void OnDestroy()
@@ -115,6 +116,15 @@ public class PlayerCustomization : MonoBehaviour
 					}
 				}
 			}
+		}
+	}
+
+	private void NamePlayer()
+	{
+		Competitor competitor = GetComponent<Competitor>();
+		if (competitor)
+		{
+			competitor.Name = PlayerPrefs.GetString("PLAYER_INPUT_NAME", "Player");
 		}
 	}
 

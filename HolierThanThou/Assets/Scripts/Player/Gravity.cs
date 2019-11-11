@@ -15,7 +15,7 @@ public class Gravity : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         rBody.AddForce(Physics.gravity * downAccel, ForceMode.Force);
     }

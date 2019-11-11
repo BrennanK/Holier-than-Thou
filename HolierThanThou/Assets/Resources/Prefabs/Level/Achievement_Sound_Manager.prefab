@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1133552145231020034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1133552145231020063}
+  - component: {fileID: 1133552145231020061}
+  - component: {fileID: 1133552145231020060}
+  - component: {fileID: 1133552145231020035}
+  m_Layer: 0
+  m_Name: Achievement_Sound_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1133552145231020063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133552145231020034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1133552145231020061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133552145231020034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c1deae681f83e4e910667895eb4770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allAchievements:
+  - {fileID: 11400000, guid: 5884b503c19bef64f9b3cae77e6d7c5c, type: 2}
+  - {fileID: 11400000, guid: a2aa669f1afd5c74abb9b73b7481a0f7, type: 2}
+  - {fileID: 11400000, guid: 4cc3fb5dec02a25489b06fb754f00b5b, type: 2}
+  - {fileID: 11400000, guid: 1bcedbf2438762d42bce81a89baa5646, type: 2}
+  - {fileID: 11400000, guid: d2754ed572b337745a69cc5a6d5925e7, type: 2}
+  - {fileID: 11400000, guid: 06ead554fda04e74d994de9d777359f8, type: 2}
+  - {fileID: 11400000, guid: f337c38f11fc243499c1cdde2931f980, type: 2}
+  - {fileID: 11400000, guid: c593ef6f4f40f134e8abeee7e763109f, type: 2}
+  - {fileID: 11400000, guid: ae0f24ff34f8f5c4d9bc851726dde8ef, type: 2}
+  - {fileID: 11400000, guid: 86b0985e76cb22a4d8dbf6f4a3446838, type: 2}
+  - {fileID: 11400000, guid: 9a4fee0ca295e67428138b5aea5a33ee, type: 2}
+  - {fileID: 11400000, guid: 2075a9dd18fc60d4cb08975ee3fc39ce, type: 2}
+  - {fileID: 11400000, guid: 0caf13e8736cd814582c5fbd8df91000, type: 2}
+  - {fileID: 11400000, guid: fae1faae1f72e4449979f01dfc0b998e, type: 2}
+  - {fileID: 11400000, guid: bcf0694330ae3aa4b83f174547a5961d, type: 2}
+  - {fileID: 11400000, guid: d7dbf5142bbf0dc439e7e58459cb23ca, type: 2}
+  achievementInstances: []
+--- !u!114 &1133552145231020060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133552145231020034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba15b74f56839e94480485e5a5697233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1133552145231020035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133552145231020034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a855a2c05559d469b55ee0f3addd83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Blop
+    clip: {fileID: 8300000, guid: f4209d23f60332445b5aeb0e7aa364fe, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: HitBlop
+    clip: {fileID: 8300000, guid: df2d4fca0a0c75a47bd18e53ee70a8cd, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: Respawn
+    clip: {fileID: 8300000, guid: c1df5af8eddd0cb42a93b936daed22bc, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: BallsOfSteel
+    clip: {fileID: 8300000, guid: b8f65edb97dfe304681f370ec30b2349, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: SpeedBuff
+    clip: {fileID: 8300000, guid: aaf7217201aae4747ade2695738faa4d, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: ButtonClick
+    clip: {fileID: 8300000, guid: 7ec351f3e201abc4b93bbc83b1f24a06, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  SFXSlider: SoundsSliderBar
+  MusicSlider: MusicSliderBar
+  pitchRangeMin: 0.8
+  pitchRangeMax: 1.5
+  maxVolume: 100
