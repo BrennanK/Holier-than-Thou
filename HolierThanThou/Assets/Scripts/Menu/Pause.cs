@@ -10,6 +10,7 @@ public class Pause : MonoBehaviour
     public GameObject GameUI;
 
     private bool isPaused;
+    AudioManager am;
 
     private void Start()
 	{
@@ -22,6 +23,7 @@ public class Pause : MonoBehaviour
         Time.timeScale = 1;
         PauseScreen.SetActive(false);
         OptionsScreen.SetActive(false);
+        am = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -59,4 +61,11 @@ public class Pause : MonoBehaviour
         SceneManager.LoadScene(scene.name);
     }
 
+    public void ButtonClick()
+    {
+        if (am != null)
+        {
+            am.Play("ButtonClick");
+        }
+    }
 }

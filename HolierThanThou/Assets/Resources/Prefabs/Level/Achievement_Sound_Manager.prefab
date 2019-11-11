@@ -89,7 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Blop
-    clip: {fileID: 8300000, guid: 647199345f6d0474a9d7c3a3852f69b4, type: 3}
+    clip: {fileID: 8300000, guid: f4209d23f60332445b5aeb0e7aa364fe, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0.5
@@ -97,7 +97,7 @@ MonoBehaviour:
     type: 0
     source: {fileID: 0}
   - name: HitBlop
-    clip: {fileID: 8300000, guid: c6f7e498439794444ac2e0e589c0ec7a, type: 3}
+    clip: {fileID: 8300000, guid: df2d4fca0a0c75a47bd18e53ee70a8cd, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0.5
@@ -122,6 +122,14 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SpeedBuff
     clip: {fileID: 8300000, guid: aaf7217201aae4747ade2695738faa4d, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: ButtonClick
+    clip: {fileID: 8300000, guid: 7ec351f3e201abc4b93bbc83b1f24a06, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0.5
