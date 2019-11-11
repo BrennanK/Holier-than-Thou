@@ -13,10 +13,9 @@ public class PowerUpEditor : ScriptableObject
     public float BZ_radius;
     public float BZ_power;
     public float BZ_upwardForce;
-    public float BZ_disToGround;
     public float BZ_playerPower;
     public float BZ_playerUpwardForce;
-    public LayerMask BZ_ground;
+
 
     [HideInInspector]
     public bool CO_hasDuration = true;
@@ -78,11 +77,9 @@ public class PowerUpEditor : ScriptableObject
     public float DM_radius = 0f;
     public float DM_power;
     public float DM_upwardForce;
-    public float DM_disToGround;
     public float DM_playerPower;
     public float DM_playerUpwardForce;
     public float DM_positionOffSet;
-    public LayerMask DM_ground;
     public GameObject DM_disMine;
 
 }

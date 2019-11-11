@@ -51,13 +51,10 @@ public class DisMineExplosion : MonoBehaviour
                     else
                     {
                         competitor.navMeshOff = true;
+                        competitor.GetComponent<AIStateMachine>().enabled = false;
                         rb.AddExplosionForce(PUE.DM_power, transform.position, PUE.DM_radius, PUE.DM_upwardForce, ForceMode.Impulse);
                         Destroy(transform.parent.gameObject);
-
-                        if (Physics.Raycast(competitor.transform.position, Vector3.down, PUE.DM_disToGround, PUE.DM_ground) == true)
-                        {
-                            competitor.BeenBlasted();
-                        }
+                        competitor.Blast(competitor.transform, 0.8f);
                     }
                 }
             }

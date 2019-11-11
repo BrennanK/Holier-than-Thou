@@ -7,13 +7,11 @@ public class Goal : MonoBehaviour
 {
     private SpawnPointManager spawnPointManager;
     private ScoreManager scoreManager;
-    [SerializeField]
-    private PowerUpEditor powerUpEditor;
-    private PowerUp powerUp;
     private PointTracker pointTracker;
     public bool goal;
     public string goalName;
 
+    public float duration;
     public float radius;
     public float disToGround;
     public float power;
@@ -95,13 +93,12 @@ public class Goal : MonoBehaviour
                 {
                     if(enemy.GetComponent<Competitor>().name != goalName)
                     {
-                        competitor.navMeshOff = true;
-                        rb.AddExplosionForce(power, explodePosition, radius, upwardForce, ForceMode.Impulse);
 
-                        if (Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
-                        {
-                            competitor.BeenBlasted();
-                        }
+                        competitor.navMeshOff = true;
+                        competitor.GetComponent<AIStateMachine>().enabled = false;
+                        rb.AddExplosionForce(power, explodePosition, radius, upwardForce, ForceMode.Impulse);
+                        competitor.Blast(competitor.transform, duration);
+
                     }
                     
                 }

@@ -91,10 +91,12 @@ public class Competitor : MonoBehaviour
         StartCoroutine(Unbouncable(origin, duration));
     }
 
-    public void BeenBlasted()
+    public void Blast(Transform transform, float duration)
     {
-        StartCoroutine(TurnNavMeshBackOn(blastedDuration));
+        StartCoroutine(BeenBlasted(transform, duration));
     }
+
+
 
     public void BeenChilled(Competitor competitor, float duration)
     {
@@ -129,6 +131,18 @@ public class Competitor : MonoBehaviour
     public void DisMine(float duration, GameObject disMine, Vector3 position, Quaternion rotation)
     {
         StartCoroutine(MineDelayActivation(duration, disMine, position, rotation));
+    }
+
+    public IEnumerator BeenBlasted(Transform transform, float duration)
+    {
+        GameObject particles = InstantiateParticleEffect("PE_Disintegrate");
+        yield return new WaitForSeconds(duration);
+
+        transform.GetComponent<Competitor>().navMeshOff = false;
+        transform.GetComponent<AIStateMachine>().enabled = true;
+        RemoveParticleEffect(particles);
+
+
     }
 
     IEnumerator Invis(Transform origin, float duration)
@@ -211,15 +225,6 @@ public class Competitor : MonoBehaviour
         origin.GetComponent<MeshRenderer>().material = startMaterial;
         origin.GetComponentInParent<Bounce>().enabled = true;
         ballOfSteel = false;
-
-    }
-
-    private IEnumerator TurnNavMeshBackOn(float duration)
-    {
-		GameObject particles = InstantiateParticleEffect("PE_Disintegrate");
-		yield return new WaitForSeconds(duration);
-		RemoveParticleEffect(particles);
-        navMeshOff = false;
 
     }
 

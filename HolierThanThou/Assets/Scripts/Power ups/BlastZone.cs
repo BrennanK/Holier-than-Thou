@@ -60,12 +60,12 @@ public class BlastZone : PowerUp
                     else
                     {
                         competitor.navMeshOff = true;
+                        competitor.GetComponent<AIStateMachine>().enabled = false;
                         rb.AddExplosionForce(power, origin.position, radius, upwardForce, ForceMode.Impulse);
 
-                        if (Physics.Raycast(competitor.transform.position, Vector3.down, disToGround, ground) == true)
-                        {
-                            competitor.BeenBlasted();
-                        }
+
+                        competitor.Blast(competitor.transform, 1.0f);
+                        
                     }
                 }
             }
