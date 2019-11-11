@@ -11,7 +11,7 @@ public class Crown : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        crownPH = TransformDeepChildExtension.FindDeepChild(this.transform, "Crown").gameObject;
+        crownPH = TransformDeepChildExtension.FindDeepChild(this.transform, "PE_Crown").gameObject;
         
     }
 
