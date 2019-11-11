@@ -23,12 +23,12 @@ public class Pause : MonoBehaviour
         Time.timeScale = 1;
         PauseScreen.SetActive(false);
         OptionsScreen.SetActive(false);
-        am = FindObjectOfType<AudioManager>();
+        
     }
 
     private void Update()
     {
-        
+        am = FindObjectOfType<AudioManager>();
     }
 
     public void TogglePause()
