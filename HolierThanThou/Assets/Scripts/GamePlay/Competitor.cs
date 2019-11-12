@@ -32,6 +32,7 @@ public class Competitor : MonoBehaviour
 
     private void Awake()
     {
+        StartCoroutine(FindAudioManager(0.1f));
         this.transform.localScale = new Vector3(.025f, .025f, .025f);
         origin = this.transform;
         navMeshOff = false;
@@ -40,6 +41,7 @@ public class Competitor : MonoBehaviour
         myRB = GetComponent<Rigidbody>();
         trails = GetComponent<TrailRenderer>();
     }
+
 
     public void Start()
     {
@@ -53,6 +55,15 @@ public class Competitor : MonoBehaviour
             }
         }
         startMaterial = transform.GetComponent<MeshRenderer>().material;
+        
+        
+    }
+
+    public IEnumerator FindAudioManager(float duration)
+    {
+        
+        yield return new WaitForSeconds(duration);
+        am = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -80,7 +91,7 @@ public class Competitor : MonoBehaviour
                 trails.material.color = Color.white;
             }
         }
-        am = FindObjectOfType<AudioManager>();
+        
     }
 
     public bool ScoredGoal
