@@ -104,8 +104,40 @@ MonoBehaviour:
     loop: 0
     type: 0
     source: {fileID: 0}
-  - name: Respawn
-    clip: {fileID: 8300000, guid: c1df5af8eddd0cb42a93b936daed22bc, type: 3}
+  - name: BlastZone
+    clip: {fileID: 8300000, guid: c0aec4cee0f2a4841ae7193b3d1fcf33, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: Chillout
+    clip: {fileID: 8300000, guid: 96b04e7720178a245b0d00ccc2ce94c7, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: GottaGoFast
+    clip: {fileID: 8300000, guid: aaf7217201aae4747ade2695738faa4d, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: CantTouchThis
+    clip: {fileID: 8300000, guid: 871af3511869ce5409935caf91b82544, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: SneakySnake
+    clip: {fileID: 8300000, guid: 384c615009579a54a915fc31640b903d, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0.5
@@ -120,8 +152,24 @@ MonoBehaviour:
     loop: 0
     type: 0
     source: {fileID: 0}
-  - name: SpeedBuff
-    clip: {fileID: 8300000, guid: aaf7217201aae4747ade2695738faa4d, type: 3}
+  - name: SuperBounce
+    clip: {fileID: 8300000, guid: 9d21fb8af5d0c7f4398488ba052f7b7e, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: CalmDown
+    clip: {fileID: 8300000, guid: c1df5af8eddd0cb42a93b936daed22bc, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  - name: DisMine
+    clip: {fileID: 8300000, guid: 208547823314df14993b53c06b826cd9, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0.5

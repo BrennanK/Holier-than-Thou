@@ -24,9 +24,12 @@ public class Competitor : MonoBehaviour
     //trail is the trail render on the ball
     TrailRenderer trails;
     Rigidbody myRB;
-    
+
     //Called when a ball hits the thanoswall collider
-    
+
+    //AudioManager
+    AudioManager am;
+
     private void Awake()
     {
         this.transform.localScale = new Vector3(.025f, .025f, .025f);
@@ -77,6 +80,7 @@ public class Competitor : MonoBehaviour
                 trails.material.color = Color.white;
             }
         }
+        am = FindObjectOfType<AudioManager>();
     }
 
     public bool ScoredGoal
@@ -86,31 +90,47 @@ public class Competitor : MonoBehaviour
         set { scoredGoal = value; }
     }
 
-    public void BallOfSteel(Transform origin, float duration)
-    {
-        StartCoroutine(Unbouncable(origin, duration));
-    }
 
     public void Blast(Transform transform, float duration)
     {
         StartCoroutine(BeenBlasted(transform, duration));
     }
 
+    public IEnumerator BeenBlasted(Transform transform, float duration)
+    {
+        if (am != null)
+        {
+            am.Play("BlastZone");
+        }
+        yield return new WaitForSeconds(duration);
 
+        transform.GetComponent<Competitor>().navMeshOff = false;
+        transform.GetComponent<AIStateMachine>().enabled = true;
+    }
 
     public void BeenChilled(Competitor competitor, float duration)
     {
         StartCoroutine(TurnMovementControlBackOn(competitor, duration));
     }
 
-    public void CantTouchMe(float duration)
+    private IEnumerator TurnMovementControlBackOn(Competitor competitor, float duration)
     {
-        StartCoroutine(Untouchable(duration));
-    }
+        if (am != null)
+        {
+            am.Play("Chillout");
+        }
+        yield return new WaitForSeconds(duration);
+        if (competitor.GetComponent<RigidBodyControl>())
+        {
+            competitor.GetComponent<Rigidbody>().freezeRotation = false;
+            competitor.GetComponent<RigidBodyControl>().enabled = true;
+        }
+        else
+        {
+            competitor.GetComponent<Rigidbody>().freezeRotation = false;
+            competitor.GetComponent<AIStateMachine>().enabled = true;
+        }
 
-    public void CantFindMe(Transform origin, float duration)
-    {
-        StartCoroutine(Invis(origin, duration));
     }
 
     public void WentFast(Transform origin, float duration, float speedMultiplier)
@@ -118,29 +138,54 @@ public class Competitor : MonoBehaviour
         StartCoroutine(ResetSpeed(origin, duration, speedMultiplier));
     }
 
-    public void BeenSlowed(Competitor competitor, float duration, float speedMultiplier)
+    private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
     {
-        StartCoroutine(ReverseMovementSpeed(competitor, duration, speedMultiplier));
-    }
+        //Disable the current trail.
+        Transform particleTrail = transform.FindDeepChild("PE_CompetitorTrail");
+        particleTrail.gameObject.SetActive(false);
+        GameObject particles = InstantiateParticleEffect("PE_GottaGoFast");
 
-    public void NormalBounce(Transform origin, float duration, float bounceMultiplier)
-    {
-        StartCoroutine(ReverseBounceMultiplier(origin, duration, bounceMultiplier));
-    }
-
-    public void DisMine(float duration, GameObject disMine, Vector3 position, Quaternion rotation)
-    {
-        StartCoroutine(MineDelayActivation(duration, disMine, position, rotation));
-    }
-
-    public IEnumerator BeenBlasted(Transform transform, float duration)
-    {
+        //AudioManager am = FindObjectOfType<AudioManager>();
+        if (am != null)
+        {
+            am.Play("GottaGoFast");
+        }
         yield return new WaitForSeconds(duration);
 
-        transform.GetComponent<Competitor>().navMeshOff = false;
-        transform.GetComponent<AIStateMachine>().enabled = true;
+        RemoveParticleEffect(particles);
+        particleTrail.gameObject.SetActive(true);
 
+        if (origin.GetComponent<RigidBodyControl>())
+        {
+            origin.GetComponent<RigidBodyControl>().speed /= speedMultiplier;
+        }
+        else
+        {
+            origin.GetComponent<AIStateMachine>().Velocity /= speedMultiplier;
+        }
+    }
 
+    public void CantTouchMe(float duration)
+    {
+        StartCoroutine(Untouchable(duration));
+    }
+
+    private IEnumerator Untouchable(float duration)
+    {
+        untouchable = true;
+        GameObject particles = InstantiateParticleEffect("PE_CantTouchThisPurple");
+        if (am != null)
+        {
+            am.Play("CantTouchThis");
+        }
+        yield return new WaitForSeconds(duration);
+        RemoveParticleEffect(particles);
+        untouchable = false;
+    }
+
+    public void CantFindMe(Transform origin, float duration)
+    {
+        StartCoroutine(Invis(origin, duration));
     }
 
     IEnumerator Invis(Transform origin, float duration)
@@ -154,6 +199,11 @@ public class Competitor : MonoBehaviour
         Color originalColor = new Color(playerM.color.r, playerM.color.g, playerM.color.b, 1f);
 
         inivisible = true;
+
+        if (am != null)
+        {
+            am.Play("SneakySnake");
+        }
 
         yield return new WaitForSeconds(duration);
         if (origin.tag == "Player")
@@ -200,25 +250,20 @@ public class Competitor : MonoBehaviour
         inivisible = false;
     }
 
-    private IEnumerator Untouchable(float duration)
+    public void BallOfSteel(Transform origin, float duration)
     {
-        untouchable = true;
-		GameObject particles = InstantiateParticleEffect("PE_CantTouchThisPurple");
-        yield return new WaitForSeconds(duration);
-		RemoveParticleEffect(particles);
-        untouchable = false;
-
+        StartCoroutine(Unbouncable(origin, duration));
     }
 
     private IEnumerator Unbouncable(Transform origin, float duration)
     {
         ballOfSteel = true;
-		AudioManager am = FindObjectOfType<AudioManager>();
-		if (am != null)
-		{
-			am.Play("BallsOfSteel");
-		}
-		yield return new WaitForSeconds(duration);
+        //AudioManager am = FindObjectOfType<AudioManager>();
+        if (am != null)
+        {
+            am.Play("BallsOfSteel");
+        }
+        yield return new WaitForSeconds(duration);
 
         origin.GetComponent<MeshRenderer>().material = startMaterial;
         origin.GetComponentInParent<Bounce>().enabled = true;
@@ -226,54 +271,37 @@ public class Competitor : MonoBehaviour
 
     }
 
-    private IEnumerator TurnMovementControlBackOn(Competitor competitor, float duration)
+    public void NormalBounce(Transform origin, float duration, float bounceMultiplier)
     {
-        yield return new WaitForSeconds(duration);
-        if (competitor.GetComponent<RigidBodyControl>())
-        {
-            competitor.GetComponent<Rigidbody>().freezeRotation = false;
-            competitor.GetComponent<RigidBodyControl>().enabled = true;
-        }
-        else
-        {
-            competitor.GetComponent<Rigidbody>().freezeRotation = false;
-            competitor.GetComponent<AIStateMachine>().enabled = true;
-        }
-
+        StartCoroutine(ReverseBounceMultiplier(origin, duration, bounceMultiplier));
     }
 
-    private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
+    private IEnumerator ReverseBounceMultiplier(Transform origin, float duration, float bounceMultiplier)
     {
-		//Disable the current trail.
-		Transform particleTrail = transform.FindDeepChild("PE_CompetitorTrail");
-		particleTrail.gameObject.SetActive(false);
-		GameObject particles = InstantiateParticleEffect("PE_GottaGoFast");
-		
-		AudioManager am = FindObjectOfType<AudioManager>();
-		if (am != null) 
-		{
-			am.Play("SpeedBuff"); 
-		}
+        superBounce = true;
+        if (am != null)
+        {
+            am.Play("SuperBounce");
+        }
         yield return new WaitForSeconds(duration);
+        origin.GetComponent<Bounce>().SetMaxmiumBounce();
+        superBounce = false;
+    }
 
-		RemoveParticleEffect(particles);
-		particleTrail.gameObject.SetActive(true);
-
-		if (origin.GetComponent<RigidBodyControl>())
-        {
-            origin.GetComponent<RigidBodyControl>().speed /= speedMultiplier;
-        }
-        else
-        {
-            origin.GetComponent<AIStateMachine>().Velocity /= speedMultiplier;
-        }
+    public void BeenSlowed(Competitor competitor, float duration, float speedMultiplier)
+    {
+        StartCoroutine(ReverseMovementSpeed(competitor, duration, speedMultiplier));
     }
 
     private IEnumerator ReverseMovementSpeed(Competitor competitor, float duration, float speedMultiplier)
     {
-		GameObject particles = InstantiateParticleEffect("PE_CalmDown");
-		yield return new WaitForSeconds(duration);
-		RemoveParticleEffect(particles);
+        GameObject particles = InstantiateParticleEffect("PE_CalmDown");
+        if (am != null)
+        {
+            am.Play("CalmDown");
+        }
+        yield return new WaitForSeconds(duration);
+        RemoveParticleEffect(particles);
 
         if (competitor.GetComponent<RigidBodyControl>())
         {
@@ -285,16 +313,17 @@ public class Competitor : MonoBehaviour
         }
     }
 
-    private IEnumerator ReverseBounceMultiplier(Transform origin, float duration, float bounceMultiplier)
+    public void DisMine(float duration, GameObject disMine, Vector3 position, Quaternion rotation)
     {
-        superBounce = true;
-        yield return new WaitForSeconds(duration);
-        origin.GetComponent<Bounce>().SetMaxmiumBounce();
-        superBounce = false;
+        StartCoroutine(MineDelayActivation(duration, disMine, position, rotation));
     }
 
     private IEnumerator MineDelayActivation(float duration, GameObject disMine, Vector3 position, Quaternion rotation)
     {
+        if (am != null)
+        {
+            am.Play("DisMine");
+        }
         yield return new WaitForSeconds(duration);
         Instantiate(disMine, position, rotation);
     }
