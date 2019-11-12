@@ -8,6 +8,7 @@ public class SceneController : MonoBehaviour
 	[SerializeField] private int SPECIFIC_LEVEL = 2;
 	[SerializeField] private bool randomize = true;
 	private List<int> scenes = new List<int>();
+	private Deck<int> deckOfScenes = new Deck<int>();
 	private static bool isInitialized = false;
 
 	void Awake()
@@ -16,6 +17,11 @@ public class SceneController : MonoBehaviour
 		{
 			SceneManager.activeSceneChanged += ChangedActiveScene;
 			isInitialized = true;
+			for (int i = levelBuildIndexStart; i < SceneManager.sceneCountInBuildSettings; i++)
+			{
+				deckOfScenes.Add(i, false);
+			}
+			deckOfScenes.Shuffle();
 		}
 	}
 
@@ -108,9 +114,7 @@ public class SceneController : MonoBehaviour
 	{
 		if (randomize)
 		{
-			int start = SceneManager.sceneCountInBuildSettings;
-			int randInt = Random.Range(levelBuildIndexStart, start);
-			SceneManager.LoadScene(randInt);
+			SceneManager.LoadScene(deckOfScenes.Draw());
 		}
 		else
 		{
