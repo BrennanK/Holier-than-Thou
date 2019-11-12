@@ -135,12 +135,10 @@ public class Competitor : MonoBehaviour
 
     public IEnumerator BeenBlasted(Transform transform, float duration)
     {
-        GameObject particles = InstantiateParticleEffect("PE_Disintegrate");
         yield return new WaitForSeconds(duration);
 
         transform.GetComponent<Competitor>().navMeshOff = false;
         transform.GetComponent<AIStateMachine>().enabled = true;
-        RemoveParticleEffect(particles);
 
 
     }

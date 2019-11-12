@@ -8,7 +8,16 @@ public class DisMineExplosion : MonoBehaviour
 
     public PowerUpEditor PUE;
 
-    private void OnTriggerEnter(Collider other)
+	private float duration = 0.8f;
+	private GameObject explodingObject;
+
+	private void Awake()
+	{
+		explodingObject = Instantiate((GameObject)Resources.Load("Prefabs/Level/BasicGameObject"));
+		explodingObject.AddComponent<ExplosionEffect>();
+	}
+
+	private void OnTriggerEnter(Collider other)
     {
         var _competitor = other.gameObject.GetComponent<Competitor>();
 
@@ -28,8 +37,16 @@ public class DisMineExplosion : MonoBehaviour
                 enemies.Remove(enemies[i]);
                 i--;
             }
-        }
-        if (enemies.Count == 0)
+		}
+		explodingObject.transform.Translate(transform.position, Space.World);
+		ExplosionEffect effect = explodingObject.GetComponent<ExplosionEffect>();
+		if (effect == null)
+		{
+			effect = explodingObject.AddComponent<ExplosionEffect>();
+		}
+		effect.StartExplosion(duration, Vector3.zero);
+
+		if (enemies.Count == 0)
         {
             return;
         }
@@ -54,10 +71,10 @@ public class DisMineExplosion : MonoBehaviour
                         competitor.GetComponent<AIStateMachine>().enabled = false;
                         rb.AddExplosionForce(PUE.DM_power, transform.position, PUE.DM_radius, PUE.DM_upwardForce, ForceMode.Impulse);
                         Destroy(transform.parent.gameObject);
-                        competitor.Blast(competitor.transform, 0.8f);
+                        competitor.Blast(competitor.transform, duration);
                     }
                 }
             }
         }
-    }
+	}
 }

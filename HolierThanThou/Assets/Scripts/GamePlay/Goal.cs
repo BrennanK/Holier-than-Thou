@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    private SpawnPointManager spawnPointManager;
-    private ScoreManager scoreManager;
-    private PointTracker pointTracker;
     public bool goal;
     public string goalName;
 
@@ -21,6 +18,11 @@ public class Goal : MonoBehaviour
     public LayerMask ground;
     Vector3 explodePosition;
 
+    private SpawnPointManager spawnPointManager;
+    private ScoreManager scoreManager;
+    private PointTracker pointTracker;
+	private ExplosionEffect explosion;
+	private float explosionYOffset = 3.8f;
     private float point;
 
     private void Start()
@@ -28,6 +30,7 @@ public class Goal : MonoBehaviour
         spawnPointManager = gameObject.GetComponent<SpawnPointManager>();
         scoreManager = gameObject.GetComponent<ScoreManager>();
         explodePosition = new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z);
+		explosion = gameObject.AddComponent<ExplosionEffect>();
     }
 
 
@@ -70,7 +73,8 @@ public class Goal : MonoBehaviour
                 i--;
             }
         }
-        if (enemies.Count == 0)
+		explosion.StartExplosion(duration, Vector3.zero, explosionYOffset);
+		if (enemies.Count == 0)
         {
             return;
         }

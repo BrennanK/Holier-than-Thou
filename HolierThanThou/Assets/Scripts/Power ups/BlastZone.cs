@@ -12,23 +12,20 @@ public class BlastZone : PowerUp
     private float disToGround;
     private float playerPower;
     private float playerUpwardForce;
+	private GameObject explodingObject;
 
-
-
-
-    public BlastZone(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, float _power, float _upwardForce, float _playerPower, float _playerUpwardForce) : base(_isEnhancement, _hasDuration, _duration, _radius)
+	public BlastZone(bool _isEnhancement, bool _hasDuration, float _duration, float _radius, float _power, float _upwardForce, float _playerPower, float _playerUpwardForce) : base(_isEnhancement, _hasDuration, _duration, _radius)
     {
         power = _power;
         upwardForce = _upwardForce;
         playerPower = _playerPower;
         playerUpwardForce = _playerUpwardForce;
-    }
+		explodingObject = Object.Instantiate((GameObject)Resources.Load("Prefabs/Level/BasicGameObject"));
+	}
 
     public override void ActivatePowerUp(string name, Transform origin)
     {
         base.ActivatePowerUp(name, origin);
-
-
 
         List<Collider> enemies = Physics.OverlapSphere(origin.position, radius).ToList();
         for (int i = 0; i < enemies.Count; i++)
@@ -39,7 +36,15 @@ public class BlastZone : PowerUp
                 i--;
             }
         }
-        if(enemies.Count == 0)
+		explodingObject.transform.Translate(origin.position, Space.World);
+		ExplosionEffect effect = explodingObject.GetComponent<ExplosionEffect>();
+		if (effect == null)
+		{
+			effect = explodingObject.AddComponent<ExplosionEffect>();
+		}
+		effect.StartExplosion(duration, Vector3.zero);
+
+		if (enemies.Count == 0)
         {
             return;
         }
