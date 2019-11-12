@@ -36,7 +36,7 @@ public class BlastZone : PowerUp
                 i--;
             }
         }
-		explodingObject.transform.Translate(origin.position, Space.World);
+		explodingObject.transform.position = origin.position;
 		ExplosionEffect effect = explodingObject.GetComponent<ExplosionEffect>();
 		if (effect == null)
 		{

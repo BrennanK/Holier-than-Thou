@@ -38,7 +38,7 @@ public class DisMineExplosion : MonoBehaviour
                 i--;
             }
 		}
-		explodingObject.transform.Translate(transform.position, Space.World);
+		explodingObject.transform.position = transform.position;
 		ExplosionEffect effect = explodingObject.GetComponent<ExplosionEffect>();
 		if (effect == null)
 		{
