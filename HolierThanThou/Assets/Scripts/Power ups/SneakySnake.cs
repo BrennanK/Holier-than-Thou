@@ -17,9 +17,9 @@ public class SneakySnake : PowerUp
         Material[] playerH = new Material[0];
         var playerM = origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
 
-        if (origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>())
+        if (origin.GetChild(0).GetChild(2).gameObject.GetComponentInChildren<MeshRenderer>())
         {
-             playerH = origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>().materials;
+             playerH = origin.GetChild(0).GetChild(2).gameObject.GetComponentInChildren<MeshRenderer>().materials;
         }
 
         Color playerColor = new Color(playerM.color.r, playerM.color.g, playerM.color.b, 0.3f);
@@ -51,15 +51,16 @@ public class SneakySnake : PowerUp
                     playerH[i].SetFloat("_Mode", 3);
                 }
 
-            }
-
         }
+
+    }
         else
         {
             origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
-            if (origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>())
+            origin.GetChild(0).GetChild(1).gameObject.SetActive(false);
+            if (origin.GetChild(0).GetChild(2).gameObject.GetComponentInChildren<MeshRenderer>())
             {
-                origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+                origin.GetChild(0).GetChild(2).gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
             }
         }
 
