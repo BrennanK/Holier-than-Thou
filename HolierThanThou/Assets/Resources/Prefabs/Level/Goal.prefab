@@ -109,9 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cbe49c388067e2459145bc74efce98c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpEditor: {fileID: 11400000, guid: bfc6dbf05da71374aa881574f239db90, type: 2}
   goal: 0
   goalName: 
+  duration: 1
   radius: 15
   disToGround: 1
   power: 40
@@ -149,7 +149,13 @@ MonoBehaviour:
   players: []
   scoreText: {fileID: 0}
   endGameScore: {fileID: 0}
+  lastBallRollingEndGameText: {fileID: 0}
+  lBRWinnerText: {fileID: 0}
   winnerText: {fileID: 0}
+  gameWon: 0
+  playerLast: 0
+  placedFourth: 0
+  firstPlace: 
 --- !u!114 &252933133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,11 +168,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9278700a166087941b39cbd3ff912b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startText: {fileID: 0}
   EndMatchScreen: {fileID: 0}
+  lBREndMatchScreen: {fileID: 0}
   GameUI: {fileID: 0}
+  startText: {fileID: 0}
   inGameTimer: {fileID: 0}
   matchTimer: 120
+  CrownSpawnPoints: []
+  crownSpawnTimer: 9
 --- !u!114 &4151172978489908292
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -126,6 +126,11 @@ public class PlayerCustomization : MonoBehaviour
 		{
 			competitor.Name = PlayerPrefs.GetString("PLAYER_INPUT_NAME", "Player");
 		}
+		ScoreManager sm = GameObject.FindObjectOfType<ScoreManager>();
+		if (sm != null)
+		{
+			sm.UpdateScoreBoard();
+		}
 	}
 
 	#endregion /loading

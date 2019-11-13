@@ -48,7 +48,7 @@ public class ScoreManager : MonoBehaviour
 		return (players[0].Name == GameObject.FindGameObjectWithTag("Player").GetComponent<Competitor>().Name);
 	}
 
-	private void UpdateScoreBoard()
+	public void UpdateScoreBoard()
 	{
 		players = players.OrderByDescending(x => x.Score).ToList();
 

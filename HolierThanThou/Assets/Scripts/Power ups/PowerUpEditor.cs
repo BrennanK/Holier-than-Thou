@@ -7,9 +7,8 @@ public class PowerUpEditor : ScriptableObject
 {
     [HideInInspector]
     public bool BZ_hasDuration = false;
-    //[HideInInspector]
-    public float BZ_duration = 1f;
     [Header("Blast Zone - 1")]
+    public float BZ_duration = 1f;
     public float BZ_radius;
     public float BZ_power;
     public float BZ_upwardForce;
