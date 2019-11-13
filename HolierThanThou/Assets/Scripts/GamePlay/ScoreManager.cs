@@ -24,14 +24,10 @@ public class ScoreManager : MonoBehaviour
 
 	private void Start()
 	{
-		foreach (Competitor player in GameObject.FindObjectsOfType<Competitor>())
-		{
-			players.Add(player);
-		}
-        gameWon = 0;
-
-
-		UpdateScoreBoard();
+        if(players.Count == 0)
+        {
+            SetPlayerList();
+        }
 	}
 
 	public void UpdateScore(string name, int point)
@@ -48,8 +44,26 @@ public class ScoreManager : MonoBehaviour
 		return (players[0].Name == GameObject.FindGameObjectWithTag("Player").GetComponent<Competitor>().Name);
 	}
 
+    public void SetPlayerList()
+    {
+        if (players.Count == 0)
+        {
+            foreach (Competitor player in GameObject.FindObjectsOfType<Competitor>())
+            {
+                players.Add(player);
+            }
+            gameWon = 0;
+            UpdateScoreBoard();
+        }
+    }
+
 	public void UpdateScoreBoard()
 	{
+        if(players.Count == 0)
+        {
+            SetPlayerList();
+        }
+
 		players = players.OrderByDescending(x => x.Score).ToList();
 
 		scoreText.text = "1st - " + players[0].Name + " - " + players[0].Score + " Points" +
