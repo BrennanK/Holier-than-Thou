@@ -478,7 +478,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuKit
       objectReference: {fileID: 0}
-    - target: {fileID: 7638110509916112660, guid: c0eb956654464a44198f2796a9252112,
+    - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -588,7 +588,7 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
+    - target: {fileID: 7638110509916112660, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -3117,6 +3117,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1094506851}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: winnerText
+      value: 
+      objectReference: {fileID: 1522325750}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: endGameScore
+      value: 
+      objectReference: {fileID: 847727353}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: lastBallRollingEndGameText
+      value: 
+      objectReference: {fileID: 628088047}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: lBRWinnerText
+      value: 
+      objectReference: {fileID: 12077903}
     - target: {fileID: 252933133, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
       propertyPath: CrownSpawnPoints.Array.size
       value: 3
@@ -3157,31 +3182,6 @@ PrefabInstance:
       propertyPath: CrownSpawnPoints.Array.data[2]
       value: 
       objectReference: {fileID: 1137962126}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: scoreText
-      value: 
-      objectReference: {fileID: 1094506851}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: winnerText
-      value: 
-      objectReference: {fileID: 1522325750}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: endGameScore
-      value: 
-      objectReference: {fileID: 847727353}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: lastBallRollingEndGameText
-      value: 
-      objectReference: {fileID: 628088047}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: lBRWinnerText
-      value: 
-      objectReference: {fileID: 12077903}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
 --- !u!4 &1174591452 stripped
@@ -3810,22 +3810,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1592548048}
   - component: {fileID: 1592548047}
-  - component: {fileID: 1592548046}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1592548046
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592548045}
-  m_Enabled: 1
 --- !u!20 &1592548047
 Camera:
   m_ObjectHideFlags: 0
