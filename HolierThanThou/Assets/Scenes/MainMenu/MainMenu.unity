@@ -2569,6 +2569,7 @@ MonoBehaviour:
   levelBuildIndexStart: 3
   SPECIFIC_LEVEL: 7
   randomize: 1
+  seed: 
 --- !u!114 &1150724588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2683,7 +2684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Blop
-    clip: {fileID: 8300000, guid: 647199345f6d0474a9d7c3a3852f69b4, type: 3}
+    clip: {fileID: 8300000, guid: ce8696b3cd5126649aed27ba8dcf2dee, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0.5
@@ -2691,7 +2692,7 @@ MonoBehaviour:
     type: 0
     source: {fileID: 0}
   - name: HitBlop
-    clip: {fileID: 8300000, guid: c6f7e498439794444ac2e0e589c0ec7a, type: 3}
+    clip: {fileID: 8300000, guid: ce8696b3cd5126649aed27ba8dcf2dee, type: 3}
     volume: 1
     pitch: 1
     spatialBlend: 0.5
