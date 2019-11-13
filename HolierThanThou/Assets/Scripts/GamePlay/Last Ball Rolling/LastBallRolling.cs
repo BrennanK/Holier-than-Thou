@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LastBallRolling : MonoBehaviour
 {
-    //used for bonus money
     int numberOut;
+	int mainGameScore;
 
     bool playerOut;
     bool gameCompleted;
@@ -25,7 +25,12 @@ public class LastBallRolling : MonoBehaviour
         gameCompleted = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+	public void SetMainGameModeScore (int finalGameScore)
+	{
+		mainGameScore = finalGameScore;
+	}
+
+	private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Bounce>())
         {
