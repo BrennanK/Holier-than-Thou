@@ -7,206 +7,216 @@ using FancyCustomization = FancyScrollView.CustomizationMenu.CustomizationManage
 //(hat, body) will mess up if paired with (body, hat)
 public class CustomizationController : MonoBehaviour
 {
-	[SerializeField] private GameObject[] panels; // FancyCustomizations / CustomizationManagers 
-	[SerializeField] private Texture[] categories;
-	[SerializeField] private GameObject categoriesIcon;
-	[SerializeField] private Transform currencyTextBox;
-	[SerializeField] private GameObject confirmDialogue;
-	[SerializeField] Text selectedItemInfo = default;
+    [SerializeField] private GameObject[] panels; // FancyCustomizations / CustomizationManagers 
+    [SerializeField] private Texture[] categories;
+    [SerializeField] private GameObject categoriesIcon;
+    [SerializeField] private Transform currencyTextBox;
+    [SerializeField] private GameObject confirmDialogue;
+    [SerializeField] private GameObject priceDialog;
+    [SerializeField] Text selectedItemInfo = default;
     [SerializeField] Text itemInfoText = default;
+    [SerializeField] Text priceWarningText = default;
     [SerializeField] InputField namingUser;
     [SerializeField] Text namingText;
 
-	private List<GameObject> equipmentSlots; // CustomizationSwitchers 
-	private GameObject player;
-	private int panelIndex = 0;
-	private int[] panelIndices; //the currently selected indices of each panel. 
+    private List<GameObject> equipmentSlots; // CustomizationSwitchers 
+    private GameObject player;
+    private int panelIndex = 0;
+    private int[] panelIndices; //the currently selected indices of each panel. 
 
-	#region Initializing
-	private void Awake()
-	{
-		player = GameObject.FindGameObjectWithTag("Player");
-		panelIndices = new int[panels.Length];
+    #region Initializing
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        panelIndices = new int[panels.Length];
 
         namingText.text = PlayerPrefs.GetString("PLAYER_INPUT_NAME", "Input Name");
 
-		InitializeObjectSlots();
-	}
+        InitializeObjectSlots();
+    }
 
-	//README Make sure that your customization slots are in the same order (first at top).
-	private void InitializeObjectSlots()
-	{
-		equipmentSlots = new List<GameObject>();
-		int i = 0;
-		foreach (Transform child in player.transform)
-		{
-			if (child.GetComponent<CustomizationSwitcher>())
-			{
-				equipmentSlots.Add(child.gameObject);
-				GameObject[] initArray = panels[i].GetComponent<FancyCustomization>().getCustomizations();
-				if(initArray == null)
-				{
-					initArray = panels[i].GetComponent<FancyCustomization>().InitializeCustomizationArray();
-				}
-				child.GetComponent<CustomizationSwitcher>().Initialize(initArray);
-			}
-			i++;
-		}
-	}
-	#endregion /Initializing
+    //README Make sure that your customization slots are in the same order (first at top).
+    private void InitializeObjectSlots()
+    {
+        equipmentSlots = new List<GameObject>();
+        int i = 0;
+        foreach (Transform child in player.transform)
+        {
+            if (child.GetComponent<CustomizationSwitcher>())
+            {
+                equipmentSlots.Add(child.gameObject);
+                GameObject[] initArray = panels[i].GetComponent<FancyCustomization>().getCustomizations();
+                if (initArray == null)
+                {
+                    initArray = panels[i].GetComponent<FancyCustomization>().InitializeCustomizationArray();
+                }
+                child.GetComponent<CustomizationSwitcher>().Initialize(initArray);
+            }
+            i++;
+        }
+    }
+    #endregion /Initializing
 
-	//if item in inventory, returns true;
-	private bool CheckPlayerInventory()
-	{
-		string name = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[panelIndices[panelIndex]].name;
-		return player.GetComponent<PlayerCustomization>().CheckUnlockedItems(panelIndex, name);
-	}
+    //if item in inventory, returns true;
+    private bool CheckPlayerInventory()
+    {
+        string name = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[panelIndices[panelIndex]].name;
+        return player.GetComponent<PlayerCustomization>().CheckUnlockedItems(panelIndex, name);
+    }
 
-	#region UIManagement
-	public void UpdateCurrencyText()
-	{
-		currencyTextBox.GetComponent<Text>().text =
-			player.GetComponent<PlayerCustomization>().currency.ToString();
-	}
-	private void UpdateInfoText(int index)
-	{
-		GameObject obj = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[index];
-		Item thing = obj.GetComponent<Item>();
-		if (!CheckPlayerInventory())
-		{
-			//unpurchased items
-			selectedItemInfo.text = thing.getInfo();
-		}
-		else if (player.GetComponent<PlayerCustomization>().CheckEquippedItem(panelIndex, obj.name))
-		{
-			//equipped items
-			selectedItemInfo.text = $"{thing.getName()}: Equipped";
-		}
-		else if (index == 0)
-		{
-			//default items
-			selectedItemInfo.text = thing.getName();
-		}
-		else
-		{
-			//owned items
-			selectedItemInfo.text = $"{thing.getName()}: Owned";
-		}
-	}
+    #region UIManagement
+    public void UpdateCurrencyText()
+    {
+        currencyTextBox.GetComponent<Text>().text =
+            player.GetComponent<PlayerCustomization>().currency.ToString();
+    }
+    private void UpdateInfoText(int index)
+    {
+        GameObject obj = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations()[index];
+        Item thing = obj.GetComponent<Item>();
+        if (!CheckPlayerInventory())
+        {
+            //unpurchased items
+            selectedItemInfo.text = thing.getInfo();
+        }
+        else if (player.GetComponent<PlayerCustomization>().CheckEquippedItem(panelIndex, obj.name))
+        {
+            //equipped items
+            selectedItemInfo.text = $"{thing.getName()}: Equipped";
+        }
+        else if (index == 0)
+        {
+            //default items
+            selectedItemInfo.text = thing.getName();
+        }
+        else
+        {
+            //owned items
+            selectedItemInfo.text = $"{thing.getName()}: Owned";
+        }
+    }
 
-	public void SwitchCustomization(int index)
-	{
-		//update the preview.
-		equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>().SwitchCustomization(index);
-		panelIndices[panelIndex] = index;
-		// Fill the selectedItemInfo text with the customization's info.
-		UpdateInfoText(index);
-	}
+    public void SwitchCustomization(int index)
+    {
+        //update the preview.
+        equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>().SwitchCustomization(index);
+        panelIndices[panelIndex] = index;
+        // Fill the selectedItemInfo text with the customization's info.
+        UpdateInfoText(index);
+    }
 
-	public void SwitchPanelCustomization(int pIndex, int index)
-	{
-		//set the index to the incoming index.
-		if ((pIndex >= 0) && (pIndex < panels.Length))
-		{
-			panelIndex = pIndex;
-		}
-		ChangePanel(index);
-		panels[panelIndex].GetComponent<FancyCustomization>().GetScrollView().SelectCell(index);
-	}
+    public void SwitchPanelCustomization(int pIndex, int index)
+    {
+        //set the index to the incoming index.
+        if ((pIndex >= 0) && (pIndex < panels.Length))
+        {
+            panelIndex = pIndex;
+        }
+        ChangePanel(index);
+        panels[panelIndex].GetComponent<FancyCustomization>().GetScrollView().SelectCell(index);
+    }
 
-	public void Next()
-	{
-		RevertItemSelection();
+    public void Next()
+    {
+        RevertItemSelection();
 
-		panelIndex++;
-		panelIndex %= panels.Length;
+        panelIndex++;
+        panelIndex %= panels.Length;
 
-		ChangePanel(panelIndices[panelIndex]);
-	}
+        ChangePanel(panelIndices[panelIndex]);
+    }
 
-	public void Previous()
-	{
-		RevertItemSelection();
+    public void Previous()
+    {
+        RevertItemSelection();
 
-		panelIndex--;
-		if (panelIndex < 0)
-		{
-			panelIndex = panels.Length - 1;
-		}
+        panelIndex--;
+        if (panelIndex < 0)
+        {
+            panelIndex = panels.Length - 1;
+        }
 
-		ChangePanel(panelIndices[panelIndex]);
-	}
+        ChangePanel(panelIndices[panelIndex]);
+    }
 
-	//When you switch between panels, this should keep you equipped items on, but allow you to cutomize on your currently selected menu.
-	private void RevertItemSelection()
-	{
-		string equippedItemName = player.GetComponent<PlayerCustomization>().equippedItems[panelIndex];
-		GameObject[] currentScrollMenu = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations();
+    //When you switch between panels, this should keep you equipped items on, but allow you to cutomize on your currently selected menu.
+    private void RevertItemSelection()
+    {
+        string equippedItemName = player.GetComponent<PlayerCustomization>().equippedItems[panelIndex];
+        GameObject[] currentScrollMenu = panels[panelIndex].GetComponent<FancyCustomization>().getCustomizations();
 
-		//Find out where the equipped item is stored in the customization hierarchy.
-		int equipIndex = 0;
-		for (; equipIndex < currentScrollMenu.Length; equipIndex++)
-		{
-			if (currentScrollMenu[equipIndex].name == equippedItemName)
-			{
-				break;
-			}
-		}
+        //Find out where the equipped item is stored in the customization hierarchy.
+        int equipIndex = 0;
+        for (; equipIndex < currentScrollMenu.Length; equipIndex++)
+        {
+            if (currentScrollMenu[equipIndex].name == equippedItemName)
+            {
+                break;
+            }
+        }
 
-		//Change preview
-		equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>().SwitchCustomization(equipIndex);
+        //Change preview
+        equipmentSlots[panelIndex].GetComponent<CustomizationSwitcher>().SwitchCustomization(equipIndex);
 
-		//Make sure the current panel is set to the equipped item
-		panelIndices[panelIndex] = equipIndex;
-		panels[panelIndex].GetComponent<FancyCustomization>().GetScrollView().SelectCell(equipIndex);
-	}
+        //Make sure the current panel is set to the equipped item
+        panelIndices[panelIndex] = equipIndex;
+        panels[panelIndex].GetComponent<FancyCustomization>().GetScrollView().SelectCell(equipIndex);
+    }
 
-	public void ChangePanel(int index)
-	{
-		foreach (GameObject panel in panels)
-		{
-			panel.SetActive(false);
-		}
-		panels[panelIndex].SetActive(true);
+    public void ChangePanel(int index)
+    {
+        foreach (GameObject panel in panels)
+        {
+            panel.SetActive(false);
+        }
+        panels[panelIndex].SetActive(true);
 
-		if (categoriesIcon.GetComponent<RawImage>())
-		{
-			categoriesIcon.GetComponent<RawImage>().texture = categories[panelIndex];
-		}
-		SwitchCustomization(index);
-	}
+        if (categoriesIcon.GetComponent<RawImage>())
+        {
+            categoriesIcon.GetComponent<RawImage>().texture = categories[panelIndex];
+        }
+        SwitchCustomization(index);
+    }
 
-	#endregion /UIManagement
+    #endregion /UIManagement
 
-	#region Purchasing
+    #region Purchasing
 
-	public void InitializePurchase()
-	{
-		if (!CheckPlayerInventory()) //If it's not in the player inventory, continue purchasing.
-		{
-			int playerMoney = player.GetComponent<PlayerCustomization>().currency;
-			int price = GetPrice(panelIndices[panelIndex]);
+    public void InitializePurchase()
+    {
+        if (!CheckPlayerInventory()) //If it's not in the player inventory, continue purchasing.
+        {
+            int playerMoney = player.GetComponent<PlayerCustomization>().currency;
+            int price = GetPrice(panelIndices[panelIndex]);
 
-			if (playerMoney - price < 0)
-			{
+            if (playerMoney - price < 0)
+            {
+                //This is where the warning text box will be triggered
+                //priceWarningText.text = string.Format("You need {0:g} more to purchase that item!", (price - playerMoney)); //Set warning text to display amount needed
+                priceWarningText.text = string.Format("{0:g}", (price - playerMoney));
+                priceDialog.SetActive(true);
+            }
+            else
+            {
+                itemInfoText.text = selectedItemInfo.text;
+                confirmDialogue.SetActive(true);
+            }
+        }
 
-			}
-			else
-			{
-				itemInfoText.text = selectedItemInfo.text;
-				confirmDialogue.SetActive(true);
-			}
-		}
+    }
+    public void TurnOffDialogue()
+    {
+        confirmDialogue.SetActive(false);
+    }
 
-	}
-	public void TurnOffDialogue()
-	{
-		confirmDialogue.SetActive(false);
-	}
+    public void ClosePriceWarning()
+    {
+        priceDialog.SetActive(false);
+    }
 
 	public void FinalizePurchase()
 	{
-		TurnOffDialogue();
+		TurnOffDialogue();  
 		int price = GetPrice(panelIndices[panelIndex]);
 
 		//Update the currency.
