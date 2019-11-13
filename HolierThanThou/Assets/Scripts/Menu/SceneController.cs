@@ -7,6 +7,7 @@ public class SceneController : MonoBehaviour
 	[SerializeField] private int levelBuildIndexStart;
 	[SerializeField] private int SPECIFIC_LEVEL = 2;
 	[SerializeField] private bool randomize = true;
+	[SerializeField] private string seed;
 	private List<int> scenes = new List<int>();
 	private Deck<int> deckOfScenes = new Deck<int>();
 	private static bool isInitialized = false;
@@ -17,6 +18,10 @@ public class SceneController : MonoBehaviour
 		{
 			SceneManager.activeSceneChanged += ChangedActiveScene;
 			isInitialized = true;
+#if UNITY_EDITOR
+			int intSeed = seed != null ? (int)System.DateTime.Now.Ticks : System.Convert.ToInt32(seed);
+			deckOfScenes.Seed(intSeed);
+#endif
 			for (int i = levelBuildIndexStart; i < SceneManager.sceneCountInBuildSettings; i++)
 			{
 				deckOfScenes.Add(i, false);

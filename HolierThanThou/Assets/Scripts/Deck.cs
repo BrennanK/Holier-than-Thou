@@ -42,6 +42,9 @@ public class Deck<T> : List<T>
 		r_instance = new Random(seed);
 	}
 
+	/// <summary>
+	/// Randomly assigns a position to each card in the deck.
+	/// </summary>
 	public void Shuffle()
 	{
 		for (int i = 0; i < this.Count; i++)
@@ -49,22 +52,34 @@ public class Deck<T> : List<T>
 			int randomInt = r_instance.Next(this.Count);
 			Swap(i, randomInt);
 		}
-#if DEBUG
-		Console.WriteLine("\n");
-		Console.WriteLine("New Shuffle: ");
-		for (int i = 0; i < Count; i++)
+	}
+
+	/// <summary>
+	/// Shuffles all cards in the deck after the current card, such that no cards already drawn will be shuffled.
+	/// </summary>
+	public void ShuffleRemaining()
+	{
+		for (int i = index; i < this.Count; i++)
 		{
-			if (i < Count - 1)
-			{
-				Console.Write($"{this[i]}, ");
-			}
-			else
-			{
-				Console.WriteLine($"{this[i]}\n");
-			}
+			int randomInt = r_instance.Next(index, this.Count);
+			Swap(i, randomInt);
 		}
-		Console.WriteLine("\n");
-#endif
+		ShuffleRange(0, 1);
+	}
+
+	/// <summary>
+	/// Shuffles all cards in the deck between minRange (inclusive) and maxRange (exclusive).
+	/// </summary>
+	public void ShuffleRange(int minRange, int maxRange)
+	{
+		int min = minRange < 0 ? 0 : minRange;
+		int max = maxRange > this.Count ? this.Count : maxRange;
+
+		for (int i = min; i < max; i++)
+		{
+			int randomInt = r_instance.Next(min, max);
+			Swap(i, randomInt);
+		}
 	}
 
 	public T Draw()
