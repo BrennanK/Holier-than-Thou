@@ -17,7 +17,7 @@ namespace FancyScrollView.CustomizationMenu
 		void Awake()
 		{
 			InitializeCustomizationArray();
-			ItemData[] items = CustomizationArray.Select(i => new ItemData($"${i.GetComponent<Item>().getPrice()}")).ToArray();
+			ItemData[] items = CustomizationArray.Select(i => new ItemData($"P{i.GetComponent<Item>().getPrice()}")).ToArray();
 			scrollView.Covers = CustomizationArray.Select(i => i.GetComponent<Item>().getCover()).ToArray();
 			scrollView.OnSelectionChanged(OnSelectionChanged);
 			scrollView.UpdateData(items);

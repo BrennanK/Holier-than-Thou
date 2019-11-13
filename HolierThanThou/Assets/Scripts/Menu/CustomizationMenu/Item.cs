@@ -27,7 +27,7 @@ public class Item : MonoBehaviour
 
 	public string getInfo()
 	{
-		return $"{itemName} : ${price.ToString()}";
+		return $"{itemName}: P{price.ToString()}";
 	}
 
 	public Sprite getCover()
