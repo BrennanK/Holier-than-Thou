@@ -128,7 +128,10 @@ namespace StoreServices
             }
         }
 
-        
+        public void DelatePlayerPrefs()
+        {
+            PlayerPrefs.DeleteAll();
+        }
 
         private void PersistAchievements()
         {
