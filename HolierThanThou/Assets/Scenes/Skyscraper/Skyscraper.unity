@@ -4565,6 +4565,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7638110509916112660, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
@@ -4684,26 +4689,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5331267600290950031}
     - target: {fileID: 7638110508964656036, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: UseItem1
       objectReference: {fileID: 0}
     - target: {fileID: 7638110510591501110, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5331267600290950031}
     - target: {fileID: 7638110510591501110, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7638110509916112660, guid: c0eb956654464a44198f2796a9252112,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: UseItem2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0eb956654464a44198f2796a9252112, type: 3}
@@ -18174,3 +18174,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
+--- !u!114 &5331267600290950031 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7299885662911315124, guid: 057f1f55356a5ff43a81102757e53359,
+    type: 3}
+  m_PrefabInstance: {fileID: 5331267600290950030}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764cde3026166d24bb26c14204ff904c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
