@@ -19,6 +19,11 @@ public class RandomNameTransmitter : RandomNameGenerator
         {
             enemy.GetComponent<Competitor>().Name = GetRandomName();
         }
+		ScoreManager sm = GameObject.FindObjectOfType<ScoreManager>();
+		if(sm != null)
+		{
+			sm.UpdateScoreBoard();
+		}
     }
 
     private void AssignNamesForEnemies()
