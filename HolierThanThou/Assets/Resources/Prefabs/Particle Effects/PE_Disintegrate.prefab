@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7014029573794468605}
   - component: {fileID: 7014029573794468604}
   - component: {fileID: 7014029573794468607}
+  - component: {fileID: 4282116352042777475}
   m_Layer: 0
   m_Name: PE_Disintegrate
   m_TagString: Untagged
@@ -4756,3 +4757,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &4282116352042777475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014029573794468606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98461ba99d19f6348b7cbf37832b2347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

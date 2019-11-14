@@ -8,12 +8,14 @@ public class Launch : MonoBehaviour
     private Rigidbody rb;
     public float launchValue;
     private Goal goal;
+	GameManager levelGameManager;
     
 
     // Start is called before the first frame update
     void Start()
     {
         goal = FindObjectOfType<Goal>();
+		levelGameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -24,7 +26,7 @@ public class Launch : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (GameManager.gameRunning)
+        if (levelGameManager.gameRunning)
         if (other.GetComponentInParent<Competitor>())
         {
             rb = other.GetComponentInParent<Rigidbody>();

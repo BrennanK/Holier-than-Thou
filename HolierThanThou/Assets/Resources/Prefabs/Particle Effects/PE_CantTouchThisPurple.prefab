@@ -4742,6 +4742,7 @@ GameObject:
   - component: {fileID: 1064859982969598012}
   - component: {fileID: 1064859982969598013}
   - component: {fileID: 1064859982969597986}
+  - component: {fileID: 2837019084636109730}
   m_Layer: 0
   m_Name: PE_CantTouchThisPurple
   m_TagString: Untagged
@@ -9461,3 +9462,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: {x: 0, y: 0, z: 100}
+--- !u!114 &2837019084636109730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064859982969597987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98461ba99d19f6348b7cbf37832b2347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

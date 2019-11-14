@@ -5473,6 +5473,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bef8359c0e981ff408ac18533f470916, type: 3}
+--- !u!1 &2018161145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5106117531072203802, guid: e97ec7d629aaf7e45a7a85b6fae3334b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5106117529886260769}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2018161146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018161145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98461ba99d19f6348b7cbf37832b2347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &226207437714974608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5663,6 +5681,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 347485123389454635, guid: 2abcc79c6ae973d4683344f257f0b162,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 347485123389454635, guid: 2abcc79c6ae973d4683344f257f0b162,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 347485123389454635, guid: 2abcc79c6ae973d4683344f257f0b162,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2abcc79c6ae973d4683344f257f0b162, type: 3}
@@ -6479,6 +6512,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3965661977840302285, guid: 54c5b571fd2074b43ad78074fd1b87f3,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54c5b571fd2074b43ad78074fd1b87f3, type: 3}
 --- !u!1001 &5106117529886260769
@@ -6562,6 +6600,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5106117531072203807, guid: e97ec7d629aaf7e45a7a85b6fae3334b,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 5106117531072203807, guid: e97ec7d629aaf7e45a7a85b6fae3334b,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5106117531072203807, guid: e97ec7d629aaf7e45a7a85b6fae3334b,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e97ec7d629aaf7e45a7a85b6fae3334b, type: 3}
