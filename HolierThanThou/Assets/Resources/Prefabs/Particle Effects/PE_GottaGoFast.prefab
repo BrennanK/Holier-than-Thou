@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 226207437810106512}
   - component: {fileID: 226207437810106735}
   - component: {fileID: 226207437810106734}
+  - component: {fileID: 1071697405851776789}
   m_Layer: 0
   m_Name: PE_GottaGoFast
   m_TagString: Untagged
@@ -4698,3 +4699,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &1071697405851776789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226207437810106733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98461ba99d19f6348b7cbf37832b2347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

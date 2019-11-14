@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6214798974105187791}
   - component: {fileID: 6214798974105187790}
   - component: {fileID: 6214798974105187785}
+  - component: {fileID: 2053041865728715100}
   m_Layer: 0
   m_Name: PE_BlastZone
   m_TagString: Untagged
@@ -4802,6 +4803,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &2053041865728715100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214798974105187784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98461ba99d19f6348b7cbf37832b2347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3921088611438591948
 PrefabInstance:
   m_ObjectHideFlags: 0
