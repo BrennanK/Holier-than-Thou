@@ -74,8 +74,8 @@ public class Goal : MonoBehaviour
             }
 		}
 		//explosion.StartExplosion(duration, Vector3.zero, "PE_GoalExplosion", explosionYOffset);
-		explosion.StartExplosion(duration, Vector3.one * 3, "PE_BlastOut");
-		explosion.StartExplosion(duration, Vector3.one * 2, "PE_BlastOut");
+		explosion.StartExplosion(duration, Vector3.zero, "PE_BlastOut");
+		explosion.StartExplosion(duration, Vector3.zero, "PE_BlastOut");
 		if (enemies.Count == 0)
         {
             return;
