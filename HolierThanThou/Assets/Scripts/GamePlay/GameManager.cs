@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerAchievementTracker playerAchievements;
 
-    public static bool gameRunning { get; private set; } = false;
+    public bool gameRunning { get; private set; } = false;
     private float startTimer = 5f;
 	private ScoreManager scoreManager;
 	private GameObject playerCustomizer;
