@@ -151,9 +151,6 @@ public class Competitor : MonoBehaviour
 
     private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
     {
-        //Disable the current trail.
-        Transform particleTrail = transform.FindDeepChild("PE_CompetitorTrail");
-        particleTrail.gameObject.SetActive(false);
         GameObject particles = InstantiateParticleEffect("PE_GottaGoFast");
 
         //AudioManager am = FindObjectOfType<AudioManager>();
@@ -164,7 +161,6 @@ public class Competitor : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         RemoveParticleEffect(particles);
-        particleTrail.gameObject.SetActive(true);
 
         if (origin.GetComponent<RigidBodyControl>())
         {
@@ -184,7 +180,7 @@ public class Competitor : MonoBehaviour
     private IEnumerator Untouchable(float duration)
     {
         untouchable = true;
-        GameObject particles = InstantiateParticleEffect("PE_CantTouchThisPurple");
+        GameObject particles = InstantiateParticleEffect("PE_CantTouchThis");
         if (am != null)
         {
             am.Play("CantTouchThis");

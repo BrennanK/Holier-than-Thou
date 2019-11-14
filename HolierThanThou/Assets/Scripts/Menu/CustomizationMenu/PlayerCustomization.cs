@@ -137,7 +137,6 @@ public class PlayerCustomization : MonoBehaviour
 
 	#region saving
 
-	//TODO test and refine saving unlocked and equipped items.
 	private void SaveListOfArrays(List<string>[] arr, string name = "UnlockedItems")
 	{
 		//create string of comma separated values for all values of the unlockedItems array of lists.
@@ -179,6 +178,9 @@ public class PlayerCustomization : MonoBehaviour
 
 	#region currency
 
+	/// <summary>Adds coins to the Player's currency.</summary>
+	/// <param name="coins">The number of coins to add.</param>
+	/// <returns></returns>
 	public bool addCurrency(int coins)
 	{
 		if (currency + coins < CurrencySystem.max_currency)
@@ -190,6 +192,9 @@ public class PlayerCustomization : MonoBehaviour
 		return false;
 	}
 
+	/// <summary>Subtracts the given amount from the Player's currency.</summary>
+	/// <param name="coins">The number of coins to be subtracted.</param>
+	/// <returns>If the currency was successfully subtracted, returns true. Otherwise false.</returns>
 	public bool subtractCurrency(int coins)
 	{
 		if (currency - coins >= 0)

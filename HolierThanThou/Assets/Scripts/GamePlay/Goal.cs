@@ -8,7 +8,7 @@ public class Goal : MonoBehaviour
     public bool goal;
     public string goalName;
 
-    public float duration;
+    public float duration = 0.8f;
     public float radius;
     public float disToGround;
     public float power;
@@ -72,8 +72,10 @@ public class Goal : MonoBehaviour
                 enemies.Remove(enemies[i]);
                 i--;
             }
-        }
-		explosion.StartExplosion(duration, Vector3.zero, explosionYOffset);
+		}
+		//explosion.StartExplosion(duration, Vector3.zero, "PE_GoalExplosion", explosionYOffset);
+		explosion.StartExplosion(duration, Vector3.one * 3, "PE_BlastOut");
+		explosion.StartExplosion(duration, Vector3.one * 2, "PE_BlastOut");
 		if (enemies.Count == 0)
         {
             return;
