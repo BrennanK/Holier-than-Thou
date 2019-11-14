@@ -27,8 +27,14 @@ public class PlayerCustomization : MonoBehaviour
 	public void OnDestroy()
 	{
 		PlayerPrefs.SetInt("Currency", currency);
-		SaveListOfArrays(unlockedItems, "UnlockedItems");
-		SaveArray(equippedItems, "EquippedItems");
+		if(unlockedItems != null)
+		{
+			SaveListOfArrays(unlockedItems, "UnlockedItems");
+		}
+		if(equippedItems != null)
+		{
+			SaveArray(equippedItems, "EquippedItems");
+		}
 		PlayerPrefs.Save();
 	}
 
