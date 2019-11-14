@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,11 @@ public class AIStateMachine : MonoBehaviour {
     private Rigidbody m_rigidbody;
     private PointTracker m_pointTrackerReference;
 
+    // cached components on scene
+    GameObject[] allCrownBoxes;
+    PowerUpBox[] allPowerUpBoxes;
+    Competitor[] allOtherCompetitors;
+
     // AI Pathfinding
     private readonly float m_distanceToCommitToGoal = 10.0f;
     private readonly float m_stoppingDistance = 5.0f;
@@ -30,8 +36,8 @@ public class AIStateMachine : MonoBehaviour {
     private float m_minimumTimeToCommitToANewState = 2f;
     private float m_timeOnCurrentState = 0;
 
-    private float m_baseVelocity = 20f;
-    private float velocity = 20f;
+    private float m_baseVelocity = 1800f;
+    private float velocity = 1800f;
     public float Velocity {
         get {
             return velocity;
@@ -82,39 +88,23 @@ public class AIStateMachine : MonoBehaviour {
 
     // Debug
     private float m_distanceToCurrentGoal;
-    private float m_queueSize = 0;
-
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForPowerUps);
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForCompetitors);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, m_distanceToCheckForCrowns);
-
-        
-        if(m_currentGoal != null) {
-            Gizmos.DrawWireSphere(m_currentGoal, km_agentRadius);
-        }
-        
-        if (m_cornersQueue.Count > 0) {
-            foreach (Vector3 corner in m_cornersQueue) {
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(corner, km_agentRadius);
-            }
-        }
-    }
 
     private void Start() {
         UnityEngine.Profiling.Profiler.BeginSample("AI Start");
         slot1 = null;
         slot2 = null;
 
+        // Caching Components
         m_pointTrackerReference = GetComponent<PointTracker>();
         m_competitor = GetComponent<Competitor>();
         m_rigidbody = GetComponent<Rigidbody>();
         m_goalTransform = GameObject.FindGameObjectWithTag("Goal").transform;
         target = m_goalTransform;
+        allCrownBoxes = GameObject.FindGameObjectsWithTag("CrownBox");
+        allPowerUpBoxes = FindObjectsOfType<PowerUpBox>();
+        allOtherCompetitors = FindObjectsOfType<Competitor>();
+
+
         ChangeState(EAIState.FINDING_OBJECTIVE);
 
         if(m_pointTrackerReference == null) {
@@ -142,13 +132,8 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void Update() {
-        UnityEngine.Profiling.Profiler.BeginSample("AI Update");
-
         m_timeOnCurrentState += Time.deltaTime;
-
-        m_queueSize = m_cornersQueue.Count;
         m_distanceToCurrentGoal = Vector3.Distance(transform.position, m_currentGoal);
-        
 
         switch (m_currentState) {
             case EAIState.MOVING_TO_GOAL:
@@ -193,8 +178,6 @@ public class AIStateMachine : MonoBehaviour {
         } else {
             m_timeWithoutMoving = 0f;
         }
-
-        UnityEngine.Profiling.Profiler.EndSample();
     }
 
     // ---------------------------------------------------------------------
@@ -229,20 +212,14 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private bool CanGetCrown(out Transform _closestCrown) {
-        GameObject[] crownBoxes = GameObject.FindGameObjectsWithTag("CrownBox");
-
-        if(crownBoxes.Length == 0) {
+        if(allCrownBoxes.Length == 0) {
             _closestCrown = null;
             return false;
         }
-        
-        List<GameObject> crownsWithinDistance = new List<GameObject>();
 
-        foreach(GameObject crown in crownBoxes) {
-            if(Vector3.Distance(transform.position, crown.transform.position) < m_distanceToCheckForCrowns && crown.gameObject.activeSelf) {
-                crownsWithinDistance.Add(crown);
-            }
-        }
+        List<GameObject> crownsWithinDistance = allCrownBoxes.Where(crown => {
+            return (Vector3.Distance(transform.position, crown.transform.position) < m_distanceToCheckForCrowns && crown.gameObject.activeSelf);
+        }).ToList();
 
         if(crownsWithinDistance.Count == 0) {
             _closestCrown = null;
@@ -266,14 +243,9 @@ public class AIStateMachine : MonoBehaviour {
             return false;
         }
 
-        PowerUpBox[] powerUpBoxes = FindObjectsOfType<PowerUpBox>();
-        List<PowerUpBox> powerUpBoxesWithinDistance = new List<PowerUpBox>();
-
-        foreach(PowerUpBox box in powerUpBoxes) {
-            if(Vector3.Distance(transform.position, box.transform.position) < m_distanceToCheckForPowerUps && !box.IsDisabled) {
-                powerUpBoxesWithinDistance.Add(box);
-            }
-        }
+        List<PowerUpBox> powerUpBoxesWithinDistance = allPowerUpBoxes.Where(powerUp => {
+            return (Vector3.Distance(transform.position, powerUp.transform.position) < m_distanceToCheckForPowerUps && !powerUp.IsDisabled);
+        }).ToList();
 
         if(powerUpBoxesWithinDistance.Count == 0) {
             targetToFollow = null;
@@ -292,20 +264,14 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private bool CanAttackOtherCompetitor(out Transform competitorToFollow) {
-        Competitor[] allCompetitors = FindObjectsOfType<Competitor>();
-        List<Competitor> allCompetitorsWithinDistance = new List<Competitor>();
 
-        foreach(Competitor competitor in allCompetitors) {
-            if(competitor == this.m_competitor) {
-                continue;
-            }
-
-            // check if it is within distance...
-            if(Vector3.Distance(transform.position, competitor.transform.position) < m_distanceToCheckForCompetitors &&
-                Vector3.Distance(transform.position, competitor.transform.position) > m_distanceToCheckForCompetitors / 2.0f) {
-                allCompetitorsWithinDistance.Add(competitor);
-            }
-        }
+        List<Competitor> allCompetitorsWithinDistance = allOtherCompetitors.Where(competitor => {
+            return  (
+                (competitor != m_competitor) &&
+                (Vector3.Distance(transform.position, competitor.transform.position) < m_distanceToCheckForCompetitors) && 
+                (Vector3.Distance(transform.position, competitor.transform.position) > m_distanceToCheckForCompetitors / 2.0f)
+            );
+        }).ToList();
 
         if(allCompetitorsWithinDistance.Count == 0) {
             competitorToFollow = null;
@@ -316,7 +282,7 @@ public class AIStateMachine : MonoBehaviour {
         Competitor closestCompetitor = allCompetitorsWithinDistance[0];
         for(int i = 1; i < allCompetitorsWithinDistance.Count; i++) {
             if(Vector3.Distance(transform.position, closestCompetitor.transform.position) > Vector3.Distance(transform.position, allCompetitorsWithinDistance[i].transform.position)) {
-                closestCompetitor = allCompetitors[i];
+                closestCompetitor = allCompetitorsWithinDistance[i];
             }
         }
 
@@ -536,7 +502,6 @@ public class AIStateMachine : MonoBehaviour {
             return;
         }
 
-        Debug.DrawRay(transform.position, (m_positionToGoToGetUnstuck - transform.position), Color.red, Time.deltaTime);
         HardGoToPosition(m_positionToGoToGetUnstuck);
     }
     #endregion
@@ -561,23 +526,18 @@ public class AIStateMachine : MonoBehaviour {
 
     #region AI Pathfinding
     private void MoveTowardsCorner() {
-        Debug.DrawRay(transform.position, (m_currentGoal - transform.position), Color.red, Time.deltaTime);
-
         ApplyForceToDirection(m_currentGoal);
     }
 
     private void HardFollowTarget() {
-        Debug.DrawRay(transform.position, (target.position - transform.position), Color.green, Time.deltaTime);
         ApplyForceToDirection(target.position);
     }
 
     private void HardGoToPosition(Vector3 _position) {
-        Debug.DrawRay(transform.position, (_position - transform.position), Color.blue, Time.deltaTime);
         ApplyForceToDirection(_position);
     }
 
     private void ApplyForceToDirection(Vector3 _direction) {
-        // TODO Use angles or Dot Product
         Vector3 directionToMoveTo = _direction - transform.position;
 
         if(_direction.y - transform.position.y > 1.0f) {
@@ -594,7 +554,7 @@ public class AIStateMachine : MonoBehaviour {
             multiplier = 2.0f;
         }
 
-        m_rigidbody.AddForce(directionToMoveTo.normalized * velocity * multiplier, ForceMode.Force);
+        m_rigidbody.AddForce(directionToMoveTo.normalized * velocity * multiplier * Time.deltaTime, ForceMode.Force);
     }
 
     public void RunPathCalculation() {
@@ -627,9 +587,6 @@ public class AIStateMachine : MonoBehaviour {
     }
 
     private void ValidateCurrentGoal() {
-
-        Debug.DrawLine(transform.position, m_currentGoal, Color.blue, 5.0f);
-
         int collisionIteration = 1;
         for(int i = 0; i < collisionIteration; i++) {
             Collider[] colliders = Physics.OverlapSphere(m_currentGoal, km_agentRadius, whatIsGround);
