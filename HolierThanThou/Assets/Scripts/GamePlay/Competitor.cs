@@ -14,42 +14,57 @@ public class Competitor : MonoBehaviour
     public bool navMeshOff;
 
     //Variables for power up effects
-    public float blastedDuration;
+    public bool chillOut;
+    public bool gottaGoFast;
     public bool untouchable;
     public bool inivisible;
     public bool ballOfSteel;
     public bool superBounce;
+    public bool calmDown;
+
+
+
     public Material startMaterial;
-    
+    public Material invisMaterial;
+    private IEnumerator coruotine;
+    GameObject particles;
+
     //trail is the trail render on the ball
     TrailRenderer trails;
-	Material trailMaterial;
+    Material trailMaterial;
     Rigidbody myRB;
+    public Color lowSpeed;
+    public Color midSpeed;
+    public Color maxSpeed;
 
-	public Color lowSpeed;
-	public Color midSpeed;
-	public Color maxSpeed;
+
     //Called when a ball hits the thanoswall collider
 
     //AudioManager
     AudioManager am;
 
-
-	private void Awake()
+    private void Awake()
     {
         StartCoroutine(FindAudioManager(0.1f));
         this.transform.localScale = new Vector3(.025f, .025f, .025f);
         origin = this.transform;
         navMeshOff = false;
+        chillOut = false;
+        gottaGoFast = false;
         untouchable = false;
         inivisible = false;
+        ballOfSteel = false;
+        superBounce = false;
+        calmDown = false;
         myRB = GetComponent<Rigidbody>();
         trails = GetComponent<TrailRenderer>();
-		if(trails != null)
-		{
-			trailMaterial = trails.materials[0];
-		}
-		
+
+        if (trails != null)
+        {
+            trailMaterial = trails.materials[0];
+        }
+
+
     }
 
 
@@ -61,44 +76,45 @@ public class Competitor : MonoBehaviour
             if (t.childCount > 0)
             {
                 startMaterial = t.GetComponentInChildren<MeshRenderer>().material;
+
                 return;
             }
         }
         startMaterial = transform.GetComponent<MeshRenderer>().material;
-        
+
+
     }
 
     public IEnumerator FindAudioManager(float duration)
     {
-        
+
         yield return new WaitForSeconds(duration);
         am = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
     {
-
-        if(trails != null)
+        if (trails != null)
         {
-            trails.time = Mathf.Clamp(myRB.velocity.magnitude * .08f, 0, .3f);
-
-			if (myRB.velocity.magnitude > 30)
+            trails.time = Mathf.Clamp(myRB.velocity.magnitude * .008f, 0, .3f);
+            if (myRB.velocity.magnitude > 30)
             {
-				trails.material.color = Color.Lerp(trails.material.color, maxSpeed, .05f);
-			}
+                trails.material.color = Color.Lerp(trails.material.color, maxSpeed, .05f);
+            }
             else if (myRB.velocity.magnitude > 20)
             {
-				trails.material.color = Color.Lerp(trails.material.color, midSpeed, .05f);
-			}
+                trails.material.color = Color.Lerp(trails.material.color, midSpeed, .05f);
+            }
             else if (myRB.velocity.magnitude > 10)
             {
-				trails.material.color = Color.Lerp(trails.material.color, lowSpeed, .05f);
-			}
+                trails.material.color = Color.Lerp(trails.material.color, lowSpeed, .05f);
+            }
             else
             {
-				trails.material.color = Color.Lerp(trails.material.color, Color.black, .05f);
+                trails.material.color = Color.Lerp(trails.material.color, Color.black, .05f);
             }
         }
+
     }
 
     public bool ScoredGoal
@@ -128,7 +144,16 @@ public class Competitor : MonoBehaviour
 
     public void BeenChilled(Competitor competitor, float duration)
     {
-        StartCoroutine(TurnMovementControlBackOn(competitor, duration));
+        if (chillOut == true)
+        {
+            if (coruotine != null)
+            {
+                StopCoroutine(coruotine);
+            }
+        }
+        coruotine = TurnMovementControlBackOn(competitor, duration);
+        StartCoroutine(coruotine);
+
     }
 
     private IEnumerator TurnMovementControlBackOn(Competitor competitor, float duration)
@@ -142,23 +167,41 @@ public class Competitor : MonoBehaviour
         {
             competitor.GetComponent<Rigidbody>().freezeRotation = false;
             competitor.GetComponent<RigidBodyControl>().enabled = true;
+            competitor.chillOut = false;
         }
         else
         {
             competitor.GetComponent<Rigidbody>().freezeRotation = false;
             competitor.GetComponent<AIStateMachine>().enabled = true;
+            competitor.chillOut = false;
         }
 
     }
 
     public void WentFast(Transform origin, float duration, float speedMultiplier)
     {
-        StartCoroutine(ResetSpeed(origin, duration, speedMultiplier));
+
+        if (gottaGoFast == true)
+        {
+            if (coruotine != null)
+            {
+                RemoveParticleEffect(particles);
+                StopCoroutine(coruotine);
+            }
+        }
+        coruotine = ResetSpeed(origin, duration, speedMultiplier);
+        StartCoroutine(coruotine);
+
     }
 
     private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
     {
-        GameObject particles = InstantiateParticleEffect("PE_GottaGoFast");
+        //Disable the current trail.
+        Transform particleTrail = transform.FindDeepChild("PE_CompetitorTrail");
+        particleTrail.gameObject.SetActive(false);
+        particles = InstantiateParticleEffect("PE_GottaGoFast");
+
+        gottaGoFast = true;
 
         //AudioManager am = FindObjectOfType<AudioManager>();
         if (am != null)
@@ -168,6 +211,7 @@ public class Competitor : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         RemoveParticleEffect(particles);
+        particleTrail.gameObject.SetActive(true);
 
         if (origin.GetComponent<RigidBodyControl>())
         {
@@ -177,17 +221,29 @@ public class Competitor : MonoBehaviour
         {
             origin.GetComponent<AIStateMachine>().Velocity /= speedMultiplier;
         }
+
+        gottaGoFast = false;
+
     }
 
     public void CantTouchMe(float duration)
     {
-        StartCoroutine(Untouchable(duration));
+        if (untouchable == true)
+        {
+            if (coruotine != null)
+            {
+                RemoveParticleEffect(particles);
+                StopCoroutine(coruotine);
+            }
+        }
+        coruotine = Untouchable(duration);
+        StartCoroutine(coruotine);
     }
 
     private IEnumerator Untouchable(float duration)
     {
         untouchable = true;
-        GameObject particles = InstantiateParticleEffect("PE_CantTouchThis");
+        particles = InstantiateParticleEffect("PE_CantTouchThisPurple");
         if (am != null)
         {
             am.Play("CantTouchThis");
@@ -199,7 +255,15 @@ public class Competitor : MonoBehaviour
 
     public void CantFindMe(Transform origin, float duration)
     {
-        StartCoroutine(Invis(origin, duration));
+        if (inivisible == true)
+        {
+            if (coruotine != null)
+            {
+                StopCoroutine(coruotine);
+            }
+        }
+        coruotine = Invis(origin, duration);
+        StartCoroutine(coruotine);
     }
 
     IEnumerator Invis(Transform origin, float duration)
@@ -219,10 +283,23 @@ public class Competitor : MonoBehaviour
             am.Play("SneakySnake");
         }
 
+        if (ballOfSteel == true)
+        {
+            Color playerColor = new Color(playerM.color.r, playerM.color.g, playerM.color.b, 0.3f);
+            playerM = startMaterial;
+            playerM.DisableKeyword("_ALPHATEST_ON");
+            playerM.DisableKeyword("_ALPHABLEND_ON");
+            playerM.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+            playerM.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            playerM.SetInt("_Zwrite", 0);
+            playerM.SetColor("_Color", playerColor);
+            playerM.renderQueue = 3000;
+            playerM.SetFloat("_Mode", 3);
+        }
+
         yield return new WaitForSeconds(duration);
         if (origin.tag == "Player")
         {
-
             playerM.DisableKeyword("_ALPHATEST_ON");
             playerM.DisableKeyword("_ALPHABLEND_ON");
             playerM.EnableKeyword("_ALPHAPREMULTIPLY_ON");
@@ -232,6 +309,8 @@ public class Competitor : MonoBehaviour
             playerM.SetColor("_Color", originalColor);
             playerM.renderQueue = -1;
             playerM.SetFloat("_Mode", 0);
+
+
 
             if (playerH.Length > 0)
             {
@@ -266,28 +345,56 @@ public class Competitor : MonoBehaviour
 
     public void BallOfSteel(Transform origin, float duration)
     {
-        StartCoroutine(Unbouncable(origin, duration));
+
+        if (ballOfSteel == true)
+        {
+            if (coruotine != null)
+            {
+                StopCoroutine(coruotine);
+            }
+        }
+        coruotine = Unbouncable(origin, duration);
+        StartCoroutine(coruotine);
     }
 
     private IEnumerator Unbouncable(Transform origin, float duration)
     {
         ballOfSteel = true;
+
         //AudioManager am = FindObjectOfType<AudioManager>();
         if (am != null)
         {
             am.Play("BallsOfSteel");
         }
+
         yield return new WaitForSeconds(duration);
 
-        origin.GetComponent<MeshRenderer>().material = startMaterial;
+        if (inivisible == true && origin.tag == "Player")
+        {
+            origin.GetComponent<MeshRenderer>().material = invisMaterial;
+        }
+        else
+        {
+            origin.GetComponent<MeshRenderer>().material = startMaterial;
+        }
+
         origin.GetComponentInParent<Bounce>().enabled = true;
         ballOfSteel = false;
+
 
     }
 
     public void NormalBounce(Transform origin, float duration, float bounceMultiplier)
     {
-        StartCoroutine(ReverseBounceMultiplier(origin, duration, bounceMultiplier));
+        if (superBounce == true)
+        {
+            if (coruotine != null)
+            {
+                StopCoroutine(coruotine);
+            }
+        }
+        coruotine = ReverseBounceMultiplier(origin, duration, bounceMultiplier);
+        StartCoroutine(coruotine);
     }
 
     private IEnumerator ReverseBounceMultiplier(Transform origin, float duration, float bounceMultiplier)
@@ -304,12 +411,22 @@ public class Competitor : MonoBehaviour
 
     public void BeenSlowed(Competitor competitor, float duration, float speedMultiplier)
     {
-        StartCoroutine(ReverseMovementSpeed(competitor, duration, speedMultiplier));
+        if (calmDown == true)
+        {
+            if (coruotine != null)
+            {
+                RemoveParticleEffect(particles);
+                StopCoroutine(coruotine);
+            }
+        }
+        coruotine = ReverseMovementSpeed(competitor, duration, speedMultiplier);
+        StartCoroutine(coruotine);
     }
 
     private IEnumerator ReverseMovementSpeed(Competitor competitor, float duration, float speedMultiplier)
     {
-        GameObject particles = InstantiateParticleEffect("PE_CalmDown");
+        calmDown = true;
+        particles = InstantiateParticleEffect("PE_CalmDown");
         if (am != null)
         {
             am.Play("CalmDown");
@@ -325,6 +442,8 @@ public class Competitor : MonoBehaviour
         {
             competitor.GetComponent<AIStateMachine>().Velocity /= speedMultiplier;
         }
+
+        calmDown = false;
     }
 
     public void DisMine(float duration, GameObject disMine, Vector3 position, Quaternion rotation)
@@ -342,20 +461,20 @@ public class Competitor : MonoBehaviour
         Instantiate(disMine, position, rotation);
     }
 
-	private GameObject InstantiateParticleEffect(string effect)
-	{
-		GameObject option = Instantiate(
-		(GameObject)Resources.Load($"Prefabs/Particle Effects/{effect}"),
-		transform.GetChild(0) //Place it on the Hat component in order for it to not rotate.
-		);
-		option.SetActive(true);
-		return option;
-	}
+    private GameObject InstantiateParticleEffect(string effect)
+    {
+        GameObject option = Instantiate(
+        (GameObject)Resources.Load($"Prefabs/Particle Effects/{effect}"),
+        transform.GetChild(0) //Place it on the Hat component in order for it to not rotate.
+        );
+        option.SetActive(true);
+        return option;
+    }
 
-	private void RemoveParticleEffect(GameObject option)
-	{
-		//option.SetActive(false);
-		Destroy(option);
-	}
+    private void RemoveParticleEffect(GameObject option)
+    {
+        //option.SetActive(false);
+        Destroy(option);
+    }
 
 }
