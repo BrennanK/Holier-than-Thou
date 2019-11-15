@@ -22,6 +22,7 @@ public class BallsOfSteel : PowerUp
 
         Competitor competitor = origin.GetComponent<Competitor>();
 
+
         bounce.enabled = false;
 
         if (origin.childCount > 1)

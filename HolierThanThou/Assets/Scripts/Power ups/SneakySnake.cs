@@ -36,6 +36,8 @@ public class SneakySnake : PowerUp
             playerM.renderQueue = 3000;
             playerM.SetFloat("_Mode", 3);
 
+            competitor.invisMaterial = playerM;
+
             if (playerH.Length > 0)
             {
                 for (int i = 0; i < playerH.Length; i++)
