@@ -23,14 +23,19 @@ public class Competitor : MonoBehaviour
     
     //trail is the trail render on the ball
     TrailRenderer trails;
+	Material trailMaterial;
     Rigidbody myRB;
 
+	public Color lowSpeed;
+	public Color midSpeed;
+	public Color maxSpeed;
     //Called when a ball hits the thanoswall collider
 
     //AudioManager
     AudioManager am;
 
-    private void Awake()
+
+	private void Awake()
     {
         StartCoroutine(FindAudioManager(0.1f));
         this.transform.localScale = new Vector3(.025f, .025f, .025f);
@@ -40,6 +45,11 @@ public class Competitor : MonoBehaviour
         inivisible = false;
         myRB = GetComponent<Rigidbody>();
         trails = GetComponent<TrailRenderer>();
+		if(trails != null)
+		{
+			trailMaterial = trails.materials[0];
+		}
+		
     }
 
 
@@ -56,7 +66,6 @@ public class Competitor : MonoBehaviour
         }
         startMaterial = transform.GetComponent<MeshRenderer>().material;
         
-        
     }
 
     public IEnumerator FindAudioManager(float duration)
@@ -68,30 +77,28 @@ public class Competitor : MonoBehaviour
 
     private void Update()
     {
+
         if(trails != null)
         {
-            trails.time = Mathf.Clamp(myRB.velocity.magnitude * .05f, 0, .3f);
-            if (myRB.velocity.magnitude > 25)
+            trails.time = Mathf.Clamp(myRB.velocity.magnitude * .08f, 0, .3f);
+
+			if (myRB.velocity.magnitude > 30)
             {
-                trails.material.color = Color.red;
-                trails.enabled = true;
-            }
+				trails.material.color = Color.Lerp(trails.material.color, maxSpeed, .05f);
+			}
             else if (myRB.velocity.magnitude > 20)
             {
-                trails.material.color = Color.green;
-                trails.enabled = true;
-            }
-            else if (myRB.velocity.magnitude > 15)
+				trails.material.color = Color.Lerp(trails.material.color, midSpeed, .05f);
+			}
+            else if (myRB.velocity.magnitude > 10)
             {
-                trails.material.color = Color.blue;
-                trails.enabled = true;
-            }
+				trails.material.color = Color.Lerp(trails.material.color, lowSpeed, .05f);
+			}
             else
             {
-                trails.material.color = Color.white;
+				trails.material.color = Color.Lerp(trails.material.color, Color.black, .05f);
             }
         }
-        
     }
 
     public bool ScoredGoal

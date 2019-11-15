@@ -28,7 +28,10 @@ public class Pause : MonoBehaviour
 
     private void Update()
     {
-        am = FindObjectOfType<AudioManager>();
+		if(am == null)
+		{
+			am = FindObjectOfType<AudioManager>();
+		}
     }
 
     public void TogglePause()

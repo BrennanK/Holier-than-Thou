@@ -59,11 +59,11 @@ public class RigidBodyControl : MonoBehaviour
     {
         if (Mathf.Abs(direction.magnitude) > inputDelay && Grounded())
         {    
-            rBody.AddForce(direction, ForceMode.Acceleration);
+            rBody.AddForce(direction *	Time.deltaTime, ForceMode.Acceleration);
         } 
         else if ((Mathf.Abs(direction.magnitude) > inputDelay && !Grounded()))
         { 
-            rBody.AddForce(direction / airFriction, ForceMode.Acceleration);
+            rBody.AddForce((direction * Time.deltaTime) / airFriction, ForceMode.Acceleration);
         }
 
     }
@@ -90,6 +90,7 @@ public class RigidBodyControl : MonoBehaviour
     //Movement Handle and Camera Handle from Old Script
     private void HandleMovement()
     {
+
         Vector3 t_cameraForward = Vector3.ProjectOnPlane(m_mainCamera.transform.forward, Vector3.up);
         Vector3 t_cameraRight = Vector3.ProjectOnPlane(m_mainCamera.transform.right, Vector3.up);
         Vector3 t_movementDirectionInRelationToCamera = (t_cameraForward * Input.GetAxis("Vertical")) + (t_cameraRight * Input.GetAxis("Horizontal"));
