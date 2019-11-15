@@ -46,6 +46,7 @@ namespace StoreServices.Core.Achievements
         public float goalValue;
         public bool isAchievementHidden;
         public EAchievementType achievementType;
+        public int reward;
 
         /// <summary>
         /// <para>Internal Achivement is used in case the achievement system will not ever be synchronized, or to keep a backup just in case</para>

@@ -11,6 +11,8 @@ namespace StoreServices
         private const string ACHIEVEMENTS_SAVE_STRING = "SAVED_ACHIEVEMENTS";
         public Achievement[] allAchievements;
 
+        private PlayerCustomization pCustomizer;
+
         [SerializeField] private AchievementInstance[] achievementInstances;
         public AchievementInstance[] AchievementInstances
         {
@@ -46,6 +48,8 @@ namespace StoreServices
                     achievementInstances[i] = new AchievementInstance(allAchievements[i]);
                 }
             }
+
+            pCustomizer = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCustomization>();
         }
 
         private void LoadAchievements()
@@ -127,6 +131,36 @@ namespace StoreServices
                 achievementBeingUpdated.AlreadyCompleted = true;
             }
         }
+
+        public void ClaimAchievement(string _achievementID, int _reward)
+        {
+            AchievementInstance achievementBeingUpdated = achievementInstances.Where((achievement) =>
+            {
+                return achievement.AchievementInternalID == _achievementID;
+            }).FirstOrDefault();
+
+            if(achievementBeingUpdated.AlreadyClaimed)
+            {
+                Debug.Log("Achievement already claimed");
+                return;
+            }
+
+            if (achievementBeingUpdated.Claimable)
+            {
+                pCustomizer.addCurrency(_reward);
+                achievementBeingUpdated.AlreadyClaimed = true;
+                Debug.Log("Money added:" + _reward);
+                PersistAchievements();
+            }
+            else
+            {
+                Debug.Log("Achievement not completed yet");
+            }
+
+
+
+        }
+
 
         public void DelatePlayerPrefs()
         {

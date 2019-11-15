@@ -2543,7 +2543,6 @@ GameObject:
   - component: {fileID: 1150724589}
   - component: {fileID: 1150724588}
   - component: {fileID: 1150724587}
-  - component: {fileID: 1150724590}
   - component: {fileID: 1150724591}
   - component: {fileID: 1150724592}
   - component: {fileID: 1150724593}
@@ -2596,38 +2595,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1150724590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150724586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dea5bc6764eef14eb310f5813870aed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabEntry: {fileID: 3746434758660200938, guid: f4af9349b8006644297bd6761a5965f2,
-    type: 3}
-  prefabCanvas: {fileID: 1813538664}
-  achievementsInUI:
-  - {fileID: 548110699}
-  - {fileID: 161955960}
-  - {fileID: 437402282}
-  - {fileID: 1354724058}
-  - {fileID: 1685137895}
-  - {fileID: 59108787}
-  - {fileID: 701559393}
-  - {fileID: 618103572}
-  - {fileID: 1206595943}
-  - {fileID: 2110900650}
-  - {fileID: 1061431377}
-  - {fileID: 26574802}
-  - {fileID: 1291080784}
-  - {fileID: 1142783137}
-  - {fileID: 895585530}
-  - {fileID: 955245358}
 --- !u!114 &1150724591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4056,6 +4023,38 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 719061519}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1813538666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813538664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dea5bc6764eef14eb310f5813870aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabEntry: {fileID: 3746434758660200938, guid: f4af9349b8006644297bd6761a5965f2,
+    type: 3}
+  prefabCanvas: {fileID: 0}
+  achievementsInUI:
+  - {fileID: 548110699}
+  - {fileID: 161955960}
+  - {fileID: 437402282}
+  - {fileID: 1354724058}
+  - {fileID: 1685137895}
+  - {fileID: 59108787}
+  - {fileID: 701559393}
+  - {fileID: 618103572}
+  - {fileID: 1206595943}
+  - {fileID: 2110900650}
+  - {fileID: 1061431377}
+  - {fileID: 26574802}
+  - {fileID: 1291080784}
+  - {fileID: 1142783137}
+  - {fileID: 895585530}
+  - {fileID: 955245358}
 --- !u!1 &1867003236
 GameObject:
   m_ObjectHideFlags: 0

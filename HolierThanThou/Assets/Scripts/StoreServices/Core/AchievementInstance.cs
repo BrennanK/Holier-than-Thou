@@ -42,6 +42,14 @@ namespace StoreServices.Core.Achievements
             }
         }
 
+        public int Reward
+        {
+            get
+            {
+                return achievementReference.reward;
+            }
+        }
+
         [SerializeField]
         private float currentProgress;
 
@@ -62,6 +70,28 @@ namespace StoreServices.Core.Achievements
             set
             {
                 isCompletedAlready = value;
+            }
+        }
+
+        public bool Claimable
+        {
+            get
+            {
+                return currentProgress >= achievementReference.goalValue && claimed == false;
+            }
+        }
+
+        [SerializeField]
+        private bool claimed = false;
+        public bool AlreadyClaimed
+        {
+            get
+            {
+                return claimed;
+            }
+            set
+            {
+                claimed = value;
             }
         }
 

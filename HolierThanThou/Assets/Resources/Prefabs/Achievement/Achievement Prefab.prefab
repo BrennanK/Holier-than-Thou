@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 3746434758660200919}
   - component: {fileID: 3746434758660200916}
   - component: {fileID: 3746434758660200913}
+  - component: {fileID: 3751858400191314217}
   m_Layer: 5
   m_Name: Achievement Prefab
   m_TagString: Untagged
@@ -278,7 +279,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3746434758660200919}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3751858400191314217}
+        m_MethodName: OnClickClaim
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &3746434758660200913
@@ -297,6 +309,20 @@ MonoBehaviour:
   achievementName: {fileID: 3746434758911834205}
   achievementDescription: {fileID: 3746434759506783502}
   achievementCompletion: {fileID: 3746434757937259873}
+  achievementID: 
+  reward: 0
+--- !u!114 &3751858400191314217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3746434758660200938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ac0d9135baef94d91953b9e14a84c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3746434758911834195
 GameObject:
   m_ObjectHideFlags: 0
