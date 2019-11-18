@@ -167,7 +167,6 @@ public class GameManager : MonoBehaviour
 	{
 		int winnings = (playerCustomizer.GetComponent<Competitor>().Score) * ScoreManager.scoreMultiplier;
 		playerCustomizer.GetComponent<PlayerCustomization>().addCurrency(winnings);
-		int monies = playerCustomizer.GetComponent<PlayerCustomization>().currency;
 		return winnings;
 	}
 }

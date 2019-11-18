@@ -10,7 +10,7 @@ public class CustomizationController : MonoBehaviour
     [SerializeField] private GameObject[] panels; // FancyCustomizations / CustomizationManagers 
     [SerializeField] private Texture[] categories;
     [SerializeField] private GameObject categoriesIcon;
-    [SerializeField] private Transform currencyTextBox;
+    [SerializeField] private Text currencyTextBox;
     [SerializeField] private GameObject confirmDialogue;
     [SerializeField] private GameObject priceDialog;
     [SerializeField] Text selectedItemInfo = default;
@@ -33,7 +33,9 @@ public class CustomizationController : MonoBehaviour
         namingText.text = PlayerPrefs.GetString("PLAYER_INPUT_NAME", "Input Name");
 
         InitializeObjectSlots();
-    }
+		UpdateCurrencyText();
+
+	}
 
     //README Make sure that your customization slots are in the same order (first at top).
     private void InitializeObjectSlots()
@@ -67,8 +69,9 @@ public class CustomizationController : MonoBehaviour
     #region UIManagement
     public void UpdateCurrencyText()
     {
-        currencyTextBox.GetComponent<Text>().text =
-            player.GetComponent<PlayerCustomization>().currency.ToString();
+		//int _currency = player.GetComponent<PlayerCustomization>().currency;
+		int _currency =	PlayerPrefs.GetInt("Currency", player.GetComponent<PlayerCustomization>().currency);
+		currencyTextBox.text = _currency.ToString();
     }
     private void UpdateInfoText(int index)
     {
@@ -139,7 +142,7 @@ public class CustomizationController : MonoBehaviour
         ChangePanel(panelIndices[panelIndex]);
     }
 
-    //When you switch between panels, this should keep you equipped items on, but allow you to cutomize on your currently selected menu.
+    //When you switch between panels, this should keep you equipped items on, but allow you to customize on your currently selected menu.
     private void RevertItemSelection()
     {
         string equippedItemName = player.GetComponent<PlayerCustomization>().equippedItems[panelIndex];
@@ -186,7 +189,7 @@ public class CustomizationController : MonoBehaviour
     {
         if (!CheckPlayerInventory()) //If it's not in the player inventory, continue purchasing.
         {
-            int playerMoney = player.GetComponent<PlayerCustomization>().currency;
+            int playerMoney = PlayerPrefs.GetInt("Currency", player.GetComponent<PlayerCustomization>().currency);
             int price = GetPrice(panelIndices[panelIndex]);
 
             if (playerMoney - price < 0)

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerCustomization : MonoBehaviour
 {
-	public int currency { get; private set; } = 900;
-	public string[] equippedItems { get; private set;}
+	public int currency { get; private set; } = 0;
+	public string[] equippedItems { get; private set; }
 	[SerializeField] private int defaultMoney = 0;
 
 	private List<string>[] unlockedItems;
@@ -26,15 +26,13 @@ public class PlayerCustomization : MonoBehaviour
 
 	public void OnDestroy()
 	{
+		if (unlockedItems == null || equippedItems == null)
+		{
+			return;
+		}
 		PlayerPrefs.SetInt("Currency", currency);
-		if(unlockedItems != null)
-		{
-			SaveListOfArrays(unlockedItems, "UnlockedItems");
-		}
-		if(equippedItems != null)
-		{
-			SaveArray(equippedItems, "EquippedItems");
-		}
+		SaveListOfArrays(unlockedItems, "UnlockedItems");
+		SaveArray(equippedItems, "EquippedItems");
 		PlayerPrefs.Save();
 	}
 
@@ -48,6 +46,13 @@ public class PlayerCustomization : MonoBehaviour
 		{
 			customControl.UpdateCurrencyText();
 		}
+	}
+
+	public void ResetAll()
+	{
+		PlayerPrefs.SetInt("Currency", defaultMoney);
+		PlayerPrefs.SetString("EquippedItems", $"{defaultHat}{separatorChar}{defaultBody}{newLineChar}");
+		PlayerPrefs.SetString("UnlockedItems", $"{defaultHat}{newLineChar}{defaultBody}{newLineChar}");
 	}
 
 	private void LoadUnlockedItems()
@@ -97,7 +102,7 @@ public class PlayerCustomization : MonoBehaviour
 			{
 				//find prefab of specific name
 				GameObject option = Instantiate(
-					(GameObject)Resources.Load($"Prefabs/Equipment/{item}"), 
+					(GameObject)Resources.Load($"Prefabs/Equipment/{item}"),
 					transform.GetChild(i)
 					);
 				option.SetActive(true);
@@ -192,9 +197,11 @@ public class PlayerCustomization : MonoBehaviour
 		if (currency + coins < CurrencySystem.max_currency)
 		{
 			currency += coins;
+			PlayerPrefs.SetInt("Currency", currency);
 			return true;
 		}
 		currency = CurrencySystem.max_currency;
+		PlayerPrefs.SetInt("Currency", currency);
 		return false;
 	}
 
@@ -206,6 +213,7 @@ public class PlayerCustomization : MonoBehaviour
 		if (currency - coins >= 0)
 		{
 			currency -= coins;
+			PlayerPrefs.SetInt("Currency", currency);
 			return true;
 		}
 		return false;

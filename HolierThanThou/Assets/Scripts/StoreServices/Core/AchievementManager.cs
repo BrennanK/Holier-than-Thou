@@ -11,8 +11,6 @@ namespace StoreServices
         private const string ACHIEVEMENTS_SAVE_STRING = "SAVED_ACHIEVEMENTS";
         public Achievement[] allAchievements;
 
-        private PlayerCustomization pCustomizer;
-
         [SerializeField] private AchievementInstance[] achievementInstances;
         public AchievementInstance[] AchievementInstances
         {
@@ -48,8 +46,6 @@ namespace StoreServices
                     achievementInstances[i] = new AchievementInstance(allAchievements[i]);
                 }
             }
-
-            pCustomizer = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCustomization>();
         }
 
         private void LoadAchievements()
@@ -147,7 +143,7 @@ namespace StoreServices
 
             if (achievementBeingUpdated.Claimable)
             {
-                pCustomizer.addCurrency(_reward);
+				GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCustomization>().addCurrency(_reward);
                 achievementBeingUpdated.AlreadyClaimed = true;
                 Debug.Log("Money added:" + _reward);
                 PersistAchievements();
@@ -156,16 +152,15 @@ namespace StoreServices
             {
                 Debug.Log("Achievement not completed yet");
             }
-
-
-
         }
 
 
         public void DeletePlayerPrefs()
         {
             PlayerPrefs.DeleteAll();
-        }
+			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCustomization>().ResetAll();
+
+		}
 
         private void PersistAchievements()
         {
