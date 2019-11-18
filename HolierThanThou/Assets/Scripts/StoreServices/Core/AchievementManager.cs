@@ -162,7 +162,7 @@ namespace StoreServices
         }
 
 
-        public void DelatePlayerPrefs()
+        public void DeletePlayerPrefs()
         {
             PlayerPrefs.DeleteAll();
         }
