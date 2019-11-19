@@ -17,7 +17,7 @@ public class AreaSmallification : MonoBehaviour
         //transform.localScale -= new Vector3(.02f, 0, .02f);
         if(gM.matchTimer > 3)
         {
-            transform.localScale = new Vector3(3, transform.localScale.y/gM.matchTimer, 3) * gM.matchTimer;
+            transform.localScale = new Vector3(0.0002f, transform.localScale.y/gM.matchTimer, 0.0002f) * gM.matchTimer;
         }
     }
 }
