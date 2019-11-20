@@ -12,6 +12,9 @@ public class SceneChangerButton : MonoBehaviour
 	}
 	public void GoToPreviousScene()
 	{
+        SceneManager.LoadScene(0);
+
+        /*
 		if(sceneController != null)
 		{
 			sceneController.GoToPreviousScene();
@@ -20,5 +23,6 @@ public class SceneChangerButton : MonoBehaviour
 		{
 			SceneManager.LoadScene(0);
 		}
+        */
 	}
 }
