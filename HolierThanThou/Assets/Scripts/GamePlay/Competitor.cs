@@ -243,7 +243,7 @@ public class Competitor : MonoBehaviour
     private IEnumerator Untouchable(float duration)
     {
         untouchable = true;
-        particles = InstantiateParticleEffect("PE_CantTouchThisPurple");
+        particles = InstantiateParticleEffect("PE_CantTouchThis");
         if (am != null)
         {
             am.Play("CantTouchThis");
