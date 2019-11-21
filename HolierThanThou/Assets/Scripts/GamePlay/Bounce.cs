@@ -34,12 +34,16 @@ public class Bounce : MonoBehaviour
         {
             collision.gameObject.GetComponent<Rigidbody>().AddForce((-collision.contacts[0].normal + (Vector3.up * upBounceForce)) * obsticalBounceForce);
         }
-
         else if (collision.gameObject.GetComponent<Bounce>() && collision.gameObject.GetComponent<Competitor>())
         {
             if (!collision.gameObject.GetComponent<Competitor>().ballOfSteel)
             {
-				collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 300, 1000));
+				gameObject.GetComponent<Rigidbody>().AddForce(bounce/2 * Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 300, 1000));
+				
+				if(gameObject.GetComponent<RigidBodyControl>() && collision.gameObject.GetComponent<AIStateMachine>())
+				{
+					collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 300, 1000));
+				}
             }
         }
     }
