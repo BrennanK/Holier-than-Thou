@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.Audio;
 using System;
 
 public class AudioManager : MonoBehaviour
 {
 	[SerializeField] private Sound[] sounds;
-	[SerializeField] private string SFXSlider = "SoundsSliderBar";
-	[SerializeField] private string MusicSlider = "MusicSliderBar";
+	[SerializeField] private readonly string SFXSlider = "SoundsSliderBar";
+	[SerializeField] private readonly string MusicSlider = "MusicSliderBar";
 
 	[Range(0.5f, 1.0f)]
 	[SerializeField] private float pitchRangeMin;
@@ -28,9 +27,10 @@ public class AudioManager : MonoBehaviour
 			s.source.loop = s.loop;
 			s.source.spatialBlend = s.spatialBlend;
 		}
+
     }
 
-	public void Play(string name, bool pitchModulate = true)
+    public void Play(string name, bool pitchModulate = true)
 	{
 		Sound s = Array.Find(sounds, sound => sound.name == name);
 		if(s != null)
@@ -41,10 +41,10 @@ public class AudioManager : MonoBehaviour
 			{
 				case Sound.SoundType.SFX:
 					s.source.pitch = UnityEngine.Random.Range(pitchRangeMin, pitchRangeMax);
-					sliderVolume = (float)PlayerPrefs.GetInt(SFXSlider)/ (float)maxVolume;
+					sliderVolume = (float)PlayerPrefs.GetInt(SFXSlider, 100)/ (float)maxVolume;
 					break;
 				case Sound.SoundType.Music:
-					sliderVolume = (float)PlayerPrefs.GetInt(MusicSlider)/ (float)maxVolume;
+					sliderVolume = (float)PlayerPrefs.GetInt(MusicSlider, 100) / (float)maxVolume;
 					break;
 				default:
 					sliderVolume = 0;
