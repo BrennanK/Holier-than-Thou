@@ -63,14 +63,14 @@ public class DisMineExplosion : MonoBehaviour
                     if (enemy.tag == "Player")
                     {
                         rb.AddExplosionForce(PUE.DM_playerPower, transform.position, PUE.DM_radius, PUE.DM_playerUpwardForce, ForceMode.Impulse);
-                        Destroy(transform.parent.gameObject);
+                        Destroy(transform.gameObject);
                     }
                     else
                     {
                         competitor.navMeshOff = true;
                         competitor.GetComponent<AIStateMachine>().enabled = false;
                         rb.AddExplosionForce(PUE.DM_power, transform.position, PUE.DM_radius, PUE.DM_upwardForce, ForceMode.Impulse);
-                        Destroy(transform.parent.gameObject);
+                        Destroy(transform.gameObject);
                         competitor.Blast(competitor.transform, duration);
                     }
                 }

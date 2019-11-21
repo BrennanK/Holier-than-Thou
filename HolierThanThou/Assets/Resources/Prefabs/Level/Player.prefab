@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 4772059251872346074}
   - component: {fileID: 4772059251872346073}
   - component: {fileID: 5135771366035849304}
+  - component: {fileID: 4367782149706918573}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -491,6 +492,15 @@ MonoBehaviour:
   scoredGoal: 0
   usedPowerUp: 1
   usedJump: 1
+  playerCrownsCollected: 0
+  playerCrownsStolen: 0
+  playerLBRWins: 0
+  playerBump: 0
+  playerMoBump: 0
+  playerDoDaBump: 0
+  playerGeorgiaGoals: 0
+  playerAllHail: 0
+  playerMakeWay: 0
 --- !u!114 &4772059251872346074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,6 +632,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &4367782149706918573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7299885662911315138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80bc0983fb96b1e489669da3573cac85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8285762867409102313
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6145423799432400997}
   - component: {fileID: 6145423799432400998}
   - component: {fileID: 6145423799432400999}
-  - component: {fileID: 6105589997548362545}
+  - component: {fileID: 6480090798371595649}
   m_Layer: 0
   m_Name: Dismine
   m_TagString: Untagged
@@ -88,18 +88,31 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6145423799432401000}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.541483, z: 1}
-  m_Center: {x: 0, y: 0.77074146, z: 0}
---- !u!54 &6105589997548362545
-Rigidbody:
+  m_Size: {x: 3.3888545, y: 2.541483, z: 3.7428856}
+  m_Center: {x: -0.008739744, y: 0.77074146, z: 0.022325516}
+--- !u!114 &6480090798371595649
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6145423799432401000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d471105a40f3446b04d786857a863f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PUE: {fileID: 11400000, guid: bfc6dbf05da71374aa881574f239db90, type: 2}
+--- !u!54 &8205602645263851030
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8985587110214655502}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -117,24 +130,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8985587110214655502}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 286.76886, y: 42.11608, z: 265.58664}
   m_Center: {x: -26.34247, y: -58.66981, z: 4.1163325}
---- !u!114 &8315337522256318110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8985587110214655502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d471105a40f3446b04d786857a863f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PUE: {fileID: 11400000, guid: bfc6dbf05da71374aa881574f239db90, type: 2}
 --- !u!1001 &8985587110214752430
 PrefabInstance:
   m_ObjectHideFlags: 0

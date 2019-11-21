@@ -197,8 +197,8 @@ public class Competitor : MonoBehaviour
     private IEnumerator ResetSpeed(Transform origin, float duration, float speedMultiplier)
     {
         //Disable the current trail.
-        Transform particleTrail = transform.FindDeepChild("PE_CompetitorTrail");
-        particleTrail.gameObject.SetActive(false);
+
+        origin.GetComponent<TrailRenderer>().enabled = false;
         particles = InstantiateParticleEffect("PE_GottaGoFast");
 
         gottaGoFast = true;
@@ -209,9 +209,9 @@ public class Competitor : MonoBehaviour
             am.Play("GottaGoFast");
         }
         yield return new WaitForSeconds(duration);
-
+        origin.GetComponent<TrailRenderer>().enabled = true;
         RemoveParticleEffect(particles);
-        particleTrail.gameObject.SetActive(true);
+        
 
         if (origin.GetComponent<RigidBodyControl>())
         {
@@ -270,9 +270,9 @@ public class Competitor : MonoBehaviour
     {
         var playerM = origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
         Material[] playerH = new Material[0];
-        if (origin.GetChild(0).GetChild(2).gameObject.GetComponentInChildren<MeshRenderer>())
+        if (origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>())
         {
-            playerH = origin.GetChild(0).GetChild(2).gameObject.GetComponentInChildren<MeshRenderer>().materials;
+            playerH = origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>().materials;
         }
         Color originalColor = new Color(playerM.color.r, playerM.color.g, playerM.color.b, 1f);
 
@@ -333,9 +333,9 @@ public class Competitor : MonoBehaviour
         {
             origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
             origin.GetChild(0).GetChild(1).gameObject.SetActive(true);
-            if (origin.GetChild(0).GetChild(2).gameObject.GetComponentInChildren<MeshRenderer>())
+            if (origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>())
             {
-                origin.GetChild(0).GetChild(2).gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
+                origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
             }
 
         }
