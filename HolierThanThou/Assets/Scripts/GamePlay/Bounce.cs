@@ -57,7 +57,10 @@ public class Bounce : MonoBehaviour
         float ForceMultiplier = 1000.0f;
 
         Vector3 ForceVector = bounceDirection * force * ForceMultiplier;
-        ForceVector = new Vector3(Mathf.Sqrt(ForceVector.x), Mathf.Sqrt(ForceVector.y), Mathf.Sqrt(ForceVector.z));
+        ForceVector.x = Mathf.Sqrt(Mathf.Abs(ForceVector.x)) * Mathf.Sign(ForceVector.x);
+        ForceVector.y = Mathf.Sqrt(Mathf.Abs(ForceVector.y)) * Mathf.Sign(ForceVector.y);
+        ForceVector.z = Mathf.Sqrt(Mathf.Abs(ForceVector.z)) * Mathf.Sign(ForceVector.z);
+
         return ForceVector;
     }
 }
