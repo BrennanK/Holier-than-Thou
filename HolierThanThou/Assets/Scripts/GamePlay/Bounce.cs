@@ -32,19 +32,32 @@ public class Bounce : MonoBehaviour
 
         if (gameObject.CompareTag("Wall"))
         {
-            collision.gameObject.GetComponent<Rigidbody>().AddForce((-collision.contacts[0].normal + (Vector3.up * upBounceForce)) * obsticalBounceForce);
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(BounceForce((-collision.contacts[0].normal + (Vector3.up * upBounceForce)), obsticalBounceForce));
+            // collision.gameObject.GetComponent<Rigidbody>().AddForce((-collision.contacts[0].normal + (Vector3.up * upBounceForce)) * obsticalBounceForce);
         }
+
         else if (collision.gameObject.GetComponent<Bounce>() && collision.gameObject.GetComponent<Competitor>())
         {
             if (!collision.gameObject.GetComponent<Competitor>().ballOfSteel)
             {
-				gameObject.GetComponent<Rigidbody>().AddForce(bounce/2 * Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 300, 1000));
+                gameObject.GetComponent<Rigidbody>().AddForce(BounceForce(bounce / 2, Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 300, 1000)));
+				//gameObject.GetComponent<Rigidbody>().AddForce(bounce/2 * Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 300, 1000) );
 				
 				if(gameObject.GetComponent<RigidBodyControl>() && collision.gameObject.GetComponent<AIStateMachine>())
 				{
-					collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 300, 1000));
+                    collision.gameObject.GetComponent<Rigidbody>().AddForce(BounceForce(-bounce, Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 300, 1000)));
+					// collision.gameObject.GetComponent<Rigidbody>().AddForce(-bounce * Mathf.Clamp(bouceOffForce * GetComponent<Rigidbody>().velocity.magnitude, 300, 1000) );
 				}
             }
         }
+
+    }
+
+    private Vector3 BounceForce(Vector3 bounceDirection, float force) {
+        float ForceMultiplier = 1000.0f;
+
+        Vector3 ForceVector = bounceDirection * force * ForceMultiplier;
+        ForceVector = new Vector3(Mathf.Sqrt(ForceVector.x), Mathf.Sqrt(ForceVector.y), Mathf.Sqrt(ForceVector.z));
+        return ForceVector;
     }
 }
