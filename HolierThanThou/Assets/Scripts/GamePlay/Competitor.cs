@@ -27,7 +27,9 @@ public class Competitor : MonoBehaviour
     public Material startMaterial;
     public Material invisMaterial;
     private IEnumerator coruotine;
-    GameObject particles;
+    GameObject particlesGTF;
+    GameObject particlesCTT;
+    GameObject particlesCD;
 
     //trail is the trail render on the ball
     TrailRenderer trails;
@@ -185,7 +187,7 @@ public class Competitor : MonoBehaviour
         {
             if (coruotine != null)
             {
-                RemoveParticleEffect(particles);
+                RemoveParticleEffect(particlesGTF);
                 StopCoroutine(coruotine);
             }
         }
@@ -199,7 +201,7 @@ public class Competitor : MonoBehaviour
         //Disable the current trail.
 
         origin.GetComponent<TrailRenderer>().enabled = false;
-        particles = InstantiateParticleEffect("PE_GottaGoFast");
+        particlesGTF = InstantiateParticleEffect("PE_GottaGoFast");
 
         gottaGoFast = true;
 
@@ -210,7 +212,7 @@ public class Competitor : MonoBehaviour
         }
         yield return new WaitForSeconds(duration);
         origin.GetComponent<TrailRenderer>().enabled = true;
-        RemoveParticleEffect(particles);
+        RemoveParticleEffect(particlesGTF);
         
 
         if (origin.GetComponent<RigidBodyControl>())
@@ -232,7 +234,7 @@ public class Competitor : MonoBehaviour
         {
             if (coruotine != null)
             {
-                RemoveParticleEffect(particles);
+                RemoveParticleEffect(particlesCTT);
                 StopCoroutine(coruotine);
             }
         }
@@ -243,13 +245,13 @@ public class Competitor : MonoBehaviour
     private IEnumerator Untouchable(float duration)
     {
         untouchable = true;
-        particles = InstantiateParticleEffect("PE_CantTouchThis");
+        particlesCTT = InstantiateParticleEffect("PE_CantTouchThis");
         if (am != null)
         {
             am.Play("CantTouchThis");
         }
         yield return new WaitForSeconds(duration);
-        RemoveParticleEffect(particles);
+        RemoveParticleEffect(particlesCTT);
         untouchable = false;
     }
 
@@ -415,7 +417,7 @@ public class Competitor : MonoBehaviour
         {
             if (coruotine != null)
             {
-                RemoveParticleEffect(particles);
+                RemoveParticleEffect(particlesCD);
                 StopCoroutine(coruotine);
             }
         }
@@ -426,13 +428,13 @@ public class Competitor : MonoBehaviour
     private IEnumerator ReverseMovementSpeed(Competitor competitor, float duration, float speedMultiplier)
     {
         calmDown = true;
-        particles = InstantiateParticleEffect("PE_CalmDown");
+        particlesCD = InstantiateParticleEffect("PE_CalmDown");
         if (am != null)
         {
             am.Play("CalmDown");
         }
         yield return new WaitForSeconds(duration);
-        RemoveParticleEffect(particles);
+        RemoveParticleEffect(particlesCD);
 
         if (competitor.GetComponent<RigidBodyControl>())
         {
@@ -463,12 +465,25 @@ public class Competitor : MonoBehaviour
 
     private GameObject InstantiateParticleEffect(string effect)
     {
-        GameObject option = Instantiate(
-        (GameObject)Resources.Load($"Prefabs/Particle Effects/{effect}"),
-        transform.GetChild(0) //Place it on the Hat component in order for it to not rotate.
-        );
-        option.SetActive(true);
-        return option;
+        if(effect == "PE_GottaGoFast")
+        {
+            GameObject option = Instantiate(
+            (GameObject)Resources.Load($"Prefabs/Particle Effects/{effect}"),
+            transform.GetChild(1) //Place it on the Hat component in order for it to not rotate.
+            );
+            option.SetActive(true);
+            return option;
+        }
+        else
+        {
+            GameObject option = Instantiate(
+            (GameObject)Resources.Load($"Prefabs/Particle Effects/{effect}"),
+            transform.GetChild(0) //Place it on the Hat component in order for it to not rotate.
+            );
+            option.SetActive(true);
+            return option;
+        }
+
     }
 
     private void RemoveParticleEffect(GameObject option)

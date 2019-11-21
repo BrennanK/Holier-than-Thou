@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Pause : MonoBehaviour
 {
     public GameObject PauseScreen;
     public GameObject OptionsScreen;
     public GameObject GameUI;
+    public GameObject CrownUI;
 
     private bool isPaused;
     AudioManager am;
@@ -23,7 +25,7 @@ public class Pause : MonoBehaviour
         Time.timeScale = 1;
         PauseScreen.SetActive(false);
         OptionsScreen.SetActive(false);
-        
+        CrownUI = GameObject.Find("DebugCanvas");
     }
 
     private void Update()
@@ -43,6 +45,14 @@ public class Pause : MonoBehaviour
             Time.timeScale = 0;
             PauseScreen.SetActive(true);
             GameUI.SetActive(false);
+
+            CrownUI.transform.GetChild(0).GetComponent<Text>().enabled = false;
+            CrownUI.transform.GetChild(1).GetComponent<Text>().enabled = false;
+            CrownUI.transform.GetChild(2).GetComponent<Image>().enabled = false;
+            CrownUI.transform.GetChild(2).GetComponentInChildren<Text>().enabled = false;
+                
+            
+            
         }
         else
         {
@@ -50,6 +60,11 @@ public class Pause : MonoBehaviour
             PauseScreen.SetActive(false);
             OptionsScreen.SetActive(false);
             GameUI.SetActive(true);
+
+            CrownUI.transform.GetChild(0).GetComponent<Text>().enabled = true;
+            CrownUI.transform.GetChild(2).GetComponent<Image>().enabled = true;
+            CrownUI.transform.GetChild(2).GetComponentInChildren<Text>().enabled = true;
+
         }
     }
 
