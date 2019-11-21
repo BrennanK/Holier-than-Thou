@@ -85,6 +85,38 @@ namespace StoreServices
             TrackStandardAchievementUsingInternalID(InternalIDs.achievement_grounded, _profileIncrement.hasJumped);
 
 
+            //Crowns collected
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_my_shiny, _profileIncrement.crownsCollected);
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_more_shiny, _profileIncrement.crownsCollected);
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_pardon_shines, _profileIncrement.crownsCollected);
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_shine_get, _profileIncrement.crownsStolen);
+
+
+            //Crowns stolen
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_dethroned, _profileIncrement.crownsStolen);
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_take_that, _profileIncrement.crownsStolen);
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_phantom_thief, _profileIncrement.crownsStolen);
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_royal_klepto, _profileIncrement.crownsStolen);
+
+
+            //Last Ball Rolling
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_got_the_skills, _profileIncrement.LBRWins);
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_survivor, _profileIncrement.LBRWins);
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_tried_and_true, _profileIncrement.LBRWins);
+
+
+            //Points scored
+            TrackStandardAchievementUsingInternalID(InternalIDs.achievement_bump, _profileIncrement.bump);
+            TrackStandardAchievementUsingInternalID(InternalIDs.achievement_do_da_bump, _profileIncrement.doDaBump);
+            TrackStandardAchievementUsingInternalID(InternalIDs.achievement_mo_bump, _profileIncrement.moBump);
+            TrackIncrementalAchievementUsingInternalID(InternalIDs.achievement_down_to_georgia, _profileIncrement.georgiaGoals);
+
+
+            //Score with Crowns
+            TrackStandardAchievementUsingInternalID(InternalIDs.achievement_all_hail, _profileIncrement.allHail);
+            TrackStandardAchievementUsingInternalID(InternalIDs.achievement_make_way, _profileIncrement.makeWay);
+
+
             PersistAchievements();
         }
 
@@ -146,6 +178,7 @@ namespace StoreServices
 				GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCustomization>().addCurrency(_reward);
                 achievementBeingUpdated.AlreadyClaimed = true;
                 Debug.Log("Money added:" + _reward);
+                GameObject.FindObjectOfType<AchievementUIManager>().UpdateAllAchievements();
                 PersistAchievements();
             }
             else

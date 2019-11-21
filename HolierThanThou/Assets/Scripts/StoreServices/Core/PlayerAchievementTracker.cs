@@ -17,6 +17,16 @@ public class PlayerAchievementTracker : MonoBehaviour
     public bool scoredGoal = false;//Score! achievement
     public bool usedPowerUp = true;// No Hands achievement
     public bool usedJump = true;//Grounded achievement
+    public int playerCrownsCollected = 0;
+    public int playerCrownsStolen = 0;
+    public int playerLBRWins = 0;
+    public bool playerBump = false;
+    public bool playerMoBump = false;
+    public bool playerDoDaBump = false;
+    public int playerGeorgiaGoals = 0;
+    public bool playerAllHail = false;
+    public bool playerMakeWay = false;
+
 
 
 

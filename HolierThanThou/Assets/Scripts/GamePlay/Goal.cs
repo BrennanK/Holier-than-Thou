@@ -50,6 +50,43 @@ public class Goal : MonoBehaviour
         {
             pointTracker = _competitor.GetComponentInParent<PointTracker>();
             point = pointTracker.PointVal();
+            if(other.tag == "Player")
+            {
+                var playerAchievementTracker = other.GetComponent<PlayerAchievementTracker>();
+                var crowntracker = other.GetComponent<Crown>();
+
+                if(point >= 100)
+                {
+                    playerAchievementTracker.playerDoDaBump = true;
+                    playerAchievementTracker.playerMoBump = true;
+                    playerAchievementTracker.playerBump = true;
+                }
+                if(point == 66)
+                {
+                    playerAchievementTracker.playerGeorgiaGoals += 1;
+                    playerAchievementTracker.playerMoBump = true;
+                    playerAchievementTracker.playerBump = true;
+                }
+                else if (point >= 50)
+                {
+                    playerAchievementTracker.playerMoBump = true;
+                    playerAchievementTracker.playerBump = true;
+                }
+                else if (point >= 10)
+                {
+                    playerAchievementTracker.playerBump = true;
+                }
+
+                if (crowntracker.getCrownVal() >= 5)
+                {
+                    playerAchievementTracker.playerAllHail = true;
+                    playerAchievementTracker.playerMakeWay = true;
+                }
+                else if(crowntracker.getCrownVal() >= 1)
+                {
+                    playerAchievementTracker.playerMakeWay = true;
+                }             
+            }
             _competitor.ScoredGoal = true;
             _competitor.GetComponentInParent<Crown>().resetCrown();
             pointTracker.ResetMult();

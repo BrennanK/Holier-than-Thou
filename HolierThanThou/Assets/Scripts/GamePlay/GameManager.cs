@@ -158,7 +158,8 @@ public class GameManager : MonoBehaviour
         GameUI.SetActive(false);
         var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAchievementTracker>();
 
-        PlayerProfile playerProfileForThisMatch = new PlayerProfile(1, scoreManager.gameWon, playerAchievements.hitSomebody, playerAchievements.knockedFirst, playerAchievements.ScoredAfterHit, scoreManager.playerLast, playerAchievements.scoredGoal, scoreManager.placedFourth, playerAchievements.usedPowerUp, playerAchievements.usedJump);
+        PlayerProfile playerProfileForThisMatch = new PlayerProfile(1, scoreManager.gameWon, playerAchievements.hitSomebody, playerAchievements.knockedFirst, playerAchievements.ScoredAfterHit, scoreManager.playerLast, playerAchievements.scoredGoal, scoreManager.placedFourth, playerAchievements.usedPowerUp, playerAchievements.usedJump, playerAchievements.playerCrownsCollected, playerAchievements.playerCrownsStolen,
+            scoreManager.LBRgameWon, playerAchievements.playerBump, playerAchievements.playerMoBump, playerAchievements.playerDoDaBump, playerAchievements.playerGeorgiaGoals, playerAchievements.playerAllHail, playerAchievements.playerMakeWay);
         SaveGameManager.instance.IncrementSavedData(playerProfileForThisMatch);
         StoreServices.AchievementManager.instance.UpdateAllAchievements(playerProfileForThisMatch);
 	}

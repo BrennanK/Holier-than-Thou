@@ -11,7 +11,7 @@ public class AchievementUI : MonoBehaviour
     public string achievementID;
     public int reward;
 
-    public void UpdateAchievement(string _name, string _description, string _completion,string _achievementID, int _reward)
+    public void UpdateAchievement(string _name, string _description, string _completion, string _achievementID, int _reward)
     {
         achievementName.text = _name;
         achievementDescription.text = _description;

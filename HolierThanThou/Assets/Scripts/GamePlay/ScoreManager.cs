@@ -14,7 +14,8 @@ public class ScoreManager : MonoBehaviour
     public Text lastBallRollingEndGameText;
     public Text lBRWinnerText;
 	public Text winnerText;
-    public int gameWon;
+    public int gameWon = 0;
+    public int LBRgameWon = 0;
 
     public bool playerLast = false;
     public bool placedFourth = false;
@@ -114,7 +115,7 @@ public class ScoreManager : MonoBehaviour
 
         if (players[0].name == "Player")
         {
-            gameWon = 1;
+            LBRgameWon = 1;
         }
 
 

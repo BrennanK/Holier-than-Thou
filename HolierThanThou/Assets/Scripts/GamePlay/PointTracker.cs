@@ -61,6 +61,10 @@ public class PointTracker : MonoBehaviour
                 //Consumes others crown because they have a crown and I got yeeted less faster
                 GetComponentInParent<Crown>().setCrownVal(collision.collider.GetComponentInParent<Crown>().getCrownVal());
                 collision.collider.GetComponentInParent<Crown>().resetCrown();
+                if(gameObject.name == "Player")
+                {
+                    GetComponent<PlayerAchievementTracker>().playerCrownsStolen += 1;
+                }
             }
             else
             {
@@ -106,6 +110,10 @@ public class PointTracker : MonoBehaviour
         {
             GetComponentInParent<Crown>().addCrownVal();
             other.gameObject.SetActive(false);
+            if(gameObject.name == "Player")
+            {
+                GetComponent<PlayerAchievementTracker>().playerCrownsCollected += 1;
+            }
         }
     }
     public int PointVal()

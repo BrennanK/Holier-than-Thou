@@ -27,4 +27,32 @@
     public const string achievement_score = "Score";
     public const string achievement_empty = "Empty";
     public const string achievement_yeet = "Yeet";
+
+
+    //Crowns Collected
+    public const string achievement_more_shiny = "More_Shiny";
+    public const string achievement_my_shiny = "Shiny";
+    public const string achievement_pardon_shines = "Pardon_Shines";
+    public const string achievement_shine_get = "Shine_Get";
+
+    //Crowns Stolen
+    public const string achievement_dethroned = "Dethroned";
+    public const string achievement_take_that = "Take_That";
+    public const string achievement_phantom_thief = "Phantom_Thief";
+    public const string achievement_royal_klepto = "Royal_Klepto";
+
+    //Last Ball Rolling
+    public const string achievement_got_the_skills = "Got_the_Skills";
+    public const string achievement_survivor = "Survivor";
+    public const string achievement_tried_and_true = "Tried_True";
+
+    //Points Scored
+    public const string achievement_bump = "Bump";
+    public const string achievement_do_da_bump = "Do_Da_Bump";
+    public const string achievement_down_to_georgia = "Georgia";
+    public const string achievement_mo_bump = "Mo_Bump";
+
+    //Score with Crown
+    public const string achievement_all_hail = "All_Hail";
+    public const string achievement_make_way = "Make_Way";
 }
