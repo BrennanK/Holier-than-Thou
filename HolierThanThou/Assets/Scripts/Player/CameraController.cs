@@ -56,8 +56,12 @@ public class CameraController : MonoBehaviour
     }
 
     private void SetAlphaToColorOnHit(RaycastHit _raycastHit, float _alphaToSet) {
-        Color originalColor = _raycastHit.transform.GetComponent<Renderer>().material.color;
-        _raycastHit.transform.GetComponent<Renderer>().material.color = new Color(originalColor.r, originalColor.g, originalColor.b, _alphaToSet);
+        if (_raycastHit.transform.GetComponent<Renderer>())
+        {
+            Color originalColor = _raycastHit.transform.GetComponent<Renderer>().material.color;
+            _raycastHit.transform.GetComponent<Renderer>().material.color = new Color(originalColor.r, originalColor.g, originalColor.b, _alphaToSet);
+
+        }
     }
     
 }
