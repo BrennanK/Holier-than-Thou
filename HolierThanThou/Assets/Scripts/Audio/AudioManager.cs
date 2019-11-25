@@ -14,6 +14,8 @@ public class AudioManager : MonoBehaviour
 
 	[SerializeField] private int maxVolume = 100;
 
+    private Sound temp;
+
 
 	// Start is called before the first frame update
 	void Awake()
@@ -45,6 +47,7 @@ public class AudioManager : MonoBehaviour
 					break;
 				case Sound.SoundType.Music:
 					sliderVolume = (float)PlayerPrefs.GetInt(MusicSlider, 100) / (float)maxVolume;
+                    temp = s;
 					break;
 				default:
 					sliderVolume = 0;
@@ -55,4 +58,17 @@ public class AudioManager : MonoBehaviour
 			s.source.Play();
 		}
 	}
+    
+
+    public void Stop()
+    {
+        if (temp == null)
+        {
+            Debug.Log("No music playing");
+        }
+        else
+            temp.source.Stop();
+
+
+    }
 }

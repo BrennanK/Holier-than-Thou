@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -26,9 +27,19 @@ public class GameManager : MonoBehaviour
 	private bool gameOver = false;
 	private List<GameObject> spawnPoints;
 	private int numCrowns = 3;
+    private AudioManager audioManager;
+    public string SceneBackgroundMusic;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindObjectOfType<AudioManager>();
+        Debug.Log(audioManager.name);
+        SceneBackgroundMusic = SceneManager.GetActiveScene().name;
+        audioManager.Stop();
+    }
 
 
-	private void Start()
+    private void Start()
     {
 		InitializeTextField(ref startText, "StartText");
 		InitializeTextField(ref inGameTimer, "Timer");
@@ -42,6 +53,7 @@ public class GameManager : MonoBehaviour
 		inGameTimer.text = "Time " + matchTimer;
 		playerCustomizer = GameObject.FindGameObjectWithTag("Player");
         playerAchievements = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAchievementTracker>();
+        audioManager.Play(SceneBackgroundMusic);
 	}
 
 	private void InitializeCrownSpawnPoints()
