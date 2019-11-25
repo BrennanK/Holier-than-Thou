@@ -15,10 +15,15 @@ public class AudioManager : MonoBehaviour
 	[SerializeField] private int maxVolume = 100;
 
     private Sound temp;
+    Sound temp2;
+    Sound s;
+    float SFXsliderVolume;
+    float MUSICsliderVolume;
 
 
-	// Start is called before the first frame update
-	void Awake()
+
+    // Start is called before the first frame update
+    void Awake()
     {
 		foreach (Sound s in sounds)
 		{
@@ -32,30 +37,46 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        if (temp.type == Sound.SoundType.SFX)
+        {
+            SFXsliderVolume = (float)PlayerPrefs.GetInt(SFXSlider, 100) / (float)maxVolume;
+            temp.source.volume = temp.volume * SFXsliderVolume;
+        }else if(temp.type == Sound.SoundType.Music)
+        {
+            MUSICsliderVolume = (float)PlayerPrefs.GetInt(MusicSlider, 100) / (float)maxVolume;
+            temp.source.volume = temp.volume * MUSICsliderVolume;
+        }
+
+    }
+
     public void Play(string name, bool pitchModulate = true)
 	{
-		Sound s = Array.Find(sounds, sound => sound.name == name);
-		if(s != null)
+        s = Array.Find(sounds, sound => sound.name == name);
+
+        if(s != null)
 		{
-			float sliderVolume = 0;
 
 			switch (s.type)
 			{
 				case Sound.SoundType.SFX:
 					s.source.pitch = UnityEngine.Random.Range(pitchRangeMin, pitchRangeMax);
-					sliderVolume = (float)PlayerPrefs.GetInt(SFXSlider, 100)/ (float)maxVolume;
-					break;
+					SFXsliderVolume = (float)PlayerPrefs.GetInt(SFXSlider, 100)/ (float)maxVolume;
+                    s.source.volume = s.volume * SFXsliderVolume;
+                    break;
 				case Sound.SoundType.Music:
-					sliderVolume = (float)PlayerPrefs.GetInt(MusicSlider, 100) / (float)maxVolume;
+					MUSICsliderVolume = (float)PlayerPrefs.GetInt(MusicSlider, 100) / (float)maxVolume;
+                    s.source.volume = s.volume * MUSICsliderVolume;
                     temp = s;
-					break;
+                    break;
 				default:
-					sliderVolume = 0;
-					break;
+                    SFXsliderVolume = 0;
+                    MUSICsliderVolume = 0;
+                    break;
 			}
-
-			s.source.volume = s.volume * sliderVolume;
 			s.source.Play();
+
 		}
 	}
     
@@ -67,8 +88,8 @@ public class AudioManager : MonoBehaviour
             Debug.Log("No music playing");
         }
         else
+        {
             temp.source.Stop();
-
-
+        }
     }
 }

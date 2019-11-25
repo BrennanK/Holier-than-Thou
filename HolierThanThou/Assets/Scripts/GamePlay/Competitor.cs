@@ -334,7 +334,7 @@ public class Competitor : MonoBehaviour
         else
         {
             origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-            origin.GetChild(0).GetChild(1).gameObject.SetActive(true);
+            origin.GetComponent<TrailRenderer>().enabled = true;
             if (origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>())
             {
                 origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;

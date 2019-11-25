@@ -59,7 +59,7 @@ public class SneakySnake : PowerUp
         else
         {
             origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
-            origin.GetChild(0).GetChild(1).gameObject.SetActive(false);
+            origin.GetComponent<TrailRenderer>().enabled = false;
             if (origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>())
             {
                 origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;

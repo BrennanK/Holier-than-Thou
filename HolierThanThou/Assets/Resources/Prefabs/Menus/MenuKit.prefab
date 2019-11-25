@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -45.14, y: -99}
+  m_AnchoredPosition: {x: -55.9, y: -99.3}
   m_SizeDelta: {x: 39.27, y: 34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5303104359956514513
@@ -105,7 +105,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3213109493500762302}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.8}
   m_LocalScale: {x: 0.19225594, y: 0.23883449, z: 1}
   m_Children: []
   m_Father: {fileID: 6044512286988709277}
@@ -113,7 +113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.8}
   m_AnchorMax: {x: 1, y: 0.9}
-  m_AnchoredPosition: {x: -2.5, y: -12.6}
+  m_AnchoredPosition: {x: -3.16, y: -13.47}
   m_SizeDelta: {x: 11.553, y: 28.22}
   m_Pivot: {x: -0.000000074505806, y: 0.84260154}
 --- !u!222 &8323875509480961994
@@ -460,6 +460,7 @@ MonoBehaviour:
   PauseScreen: {fileID: 7638110509477953337}
   OptionsScreen: {fileID: 2524523624199000885}
   GameUI: {fileID: 7638110509916112660}
+  CrownUI: {fileID: 0}
 --- !u!114 &7215178823121580735
 MonoBehaviour:
   m_ObjectHideFlags: 0

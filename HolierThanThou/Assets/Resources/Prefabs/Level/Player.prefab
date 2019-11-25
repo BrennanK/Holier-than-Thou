@@ -243,10 +243,10 @@ GameObject:
   - component: {fileID: 4772059251872346057}
   - component: {fileID: 4772059251872346056}
   - component: {fileID: 4772059251872346063}
-  - component: {fileID: 4772059251872346074}
   - component: {fileID: 4772059251872346073}
   - component: {fileID: 5135771366035849304}
   - component: {fileID: 4367782149706918573}
+  - component: {fileID: 2948455228486294466}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -501,21 +501,6 @@ MonoBehaviour:
   playerGeorgiaGoals: 0
   playerAllHail: 0
   playerMakeWay: 0
---- !u!114 &4772059251872346074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7299885662911315138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 990536936d8d5f643a87a01e8683194b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  multiplier: {fileID: 0}
-  speed: {fileID: 0}
-  basePoints: {fileID: 0}
 --- !u!114 &4772059251872346073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,6 +629,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80bc0983fb96b1e489669da3573cac85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2948455228486294466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7299885662911315138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 990536936d8d5f643a87a01e8683194b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crownUI: {fileID: 0}
+  crown1: {fileID: 21300000, guid: 0058a800e17180443b82d79d5ba4b6f7, type: 3}
+  crown2: {fileID: 21300000, guid: b9d8b9d7897ac034195bd811ae388e3f, type: 3}
+  crown3: {fileID: 21300000, guid: 5017bf8066f86a748acaae4b20919674, type: 3}
 --- !u!1001 &8285762867409102313
 PrefabInstance:
   m_ObjectHideFlags: 0

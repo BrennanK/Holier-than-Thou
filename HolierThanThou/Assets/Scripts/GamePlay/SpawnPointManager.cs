@@ -94,21 +94,29 @@ public class SpawnPointManager : MonoBehaviour
         if (competitor.GetComponent<RigidBodyControl>())
         {
             competitor.GetComponent<RigidBodyControl>().enabled = false;
+            competitor.GetComponent<TrailRenderer>().enabled = false;
         }
         else
         {
             competitor.GetComponent<AIStateMachine>().enabled = false;
+            competitor.GetComponent<TrailRenderer>().enabled = false;
         }
         yield return new WaitForSeconds(duration);
 
         if (competitor.GetComponent<RigidBodyControl>())
         {
             competitor.GetComponent<RigidBodyControl>().enabled = true;
-            
+            competitor.GetComponent<TrailRenderer>().enabled = true;
+
         }
         else
         {
             competitor.GetComponent<AIStateMachine>().enabled = true;
+            if(competitor.inivisible == false)
+            {
+                competitor.GetComponent<TrailRenderer>().enabled = true;
+            }
+
         }
     }
 
