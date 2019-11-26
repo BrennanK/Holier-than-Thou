@@ -372,7 +372,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 7638110509916112661}
-  - {fileID: 4454664887393937396}
+  - {fileID: 6215475960081316694}
   - {fileID: 5374190872203926614}
   - {fileID: 7638110509477953338}
   - {fileID: 2524523624199000874}
@@ -1228,6 +1228,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7294361987233631363, guid: f91d58b23fed8ac408bce0eb4564771e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f91d58b23fed8ac408bce0eb4564771e, type: 3}
 --- !u!224 &2524523623095999084 stripped
@@ -1496,9 +1501,33 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7751794921132995998, guid: c54262610657b4d4abca36a30ed4ff47,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08,
+        type: 3}
+    - target: {fileID: 7751794920044416377, guid: c54262610657b4d4abca36a30ed4ff47,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08,
+        type: 3}
+    - target: {fileID: 7751794920969726326, guid: c54262610657b4d4abca36a30ed4ff47,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08,
+        type: 3}
+    - target: {fileID: 7751794921280132765, guid: c54262610657b4d4abca36a30ed4ff47,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c54262610657b4d4abca36a30ed4ff47, type: 3}
---- !u!224 &4454664887393937396 stripped
+--- !u!224 &6215475960081316694 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7751794919561567361, guid: c54262610657b4d4abca36a30ed4ff47,
     type: 3}
@@ -1977,6 +2006,35 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 881663150894768098, guid: 2fb9565b549f4d744a0f18643838f51f,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08,
+        type: 3}
+    - target: {fileID: 881663149487316793, guid: 2fb9565b549f4d744a0f18643838f51f,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08,
+        type: 3}
+    - target: {fileID: 881663151103619897, guid: 2fb9565b549f4d744a0f18643838f51f,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08,
+        type: 3}
+    - target: {fileID: 881663149177112841, guid: 2fb9565b549f4d744a0f18643838f51f,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 881663150963642480, guid: 2fb9565b549f4d744a0f18643838f51f,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fb9565b549f4d744a0f18643838f51f, type: 3}
 --- !u!1 &7638110509916112660 stripped
