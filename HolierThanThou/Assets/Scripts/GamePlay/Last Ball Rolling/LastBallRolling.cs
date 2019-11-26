@@ -15,6 +15,8 @@ public class LastBallRolling : MonoBehaviour
 
     public GameObject[] winnersCircle;
 
+    public Camera endGameCamera;
+
     private void Start()
     {
         allPlayers = new Competitor[8];
@@ -23,6 +25,7 @@ public class LastBallRolling : MonoBehaviour
         numberOut = 0;
         playerOut = false;
         gameCompleted = false;
+        endGameCamera.gameObject.SetActive(false);
     }
 
 	public void SetMainGameModeScore (int finalGameScore)
@@ -71,6 +74,7 @@ public class LastBallRolling : MonoBehaviour
                 other.GetComponent<Gravity>().enabled = false;
                 other.GetComponent<RigidBodyControl>().enabled = false;
                 other.GetComponentInChildren<Camera>().enabled = false;
+                endGameCamera.gameObject.SetActive(true);
                 playerOut = true;
             }
         }
