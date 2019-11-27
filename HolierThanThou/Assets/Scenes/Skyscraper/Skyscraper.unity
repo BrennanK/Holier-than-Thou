@@ -4929,11 +4929,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7638110509916112660, guid: c0eb956654464a44198f2796a9252112,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
@@ -5069,6 +5064,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7638110509916112660, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4690388164939482240, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_Enabled
@@ -5089,6 +5089,36 @@ PrefabInstance:
 --- !u!1 &526487664 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
+    type: 3}
+  m_PrefabInstance: {fileID: 526487663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &526487665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5374190870666327369, guid: c0eb956654464a44198f2796a9252112,
+    type: 3}
+  m_PrefabInstance: {fileID: 526487663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &526487666 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5374190870795544993, guid: c0eb956654464a44198f2796a9252112,
+    type: 3}
+  m_PrefabInstance: {fileID: 526487663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &526487667 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5374190872203926609, guid: c0eb956654464a44198f2796a9252112,
     type: 3}
   m_PrefabInstance: {fileID: 526487663}
   m_PrefabAsset: {fileID: 0}
@@ -9767,12 +9797,6 @@ Transform:
   m_Father: {fileID: 1454956385}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1147886018 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3213109493500762302, guid: c0eb956654464a44198f2796a9252112,
-    type: 3}
-  m_PrefabInstance: {fileID: 526487663}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1157572317
 GameObject:
   m_ObjectHideFlags: 0
@@ -15775,6 +15799,16 @@ PrefabInstance:
       propertyPath: winnerText
       value: 
       objectReference: {fileID: 179148681}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: lastBallRollingEndGameText
+      value: 
+      objectReference: {fileID: 526487666}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: lBRWinnerText
+      value: 
+      objectReference: {fileID: 526487665}
     - target: {fileID: 252933133, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
       propertyPath: CrownSpawnPoints.Array.size
       value: 3
@@ -15807,6 +15841,10 @@ PrefabInstance:
       propertyPath: CrownSpawnPoints.Array.data[2]
       value: 
       objectReference: {fileID: 1852720454}
+    - target: {fileID: 252933133, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
+      propertyPath: lBREndMatchScreen
+      value: 
+      objectReference: {fileID: 526487667}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
 --- !u!1 &1826235291
@@ -18248,7 +18286,7 @@ PrefabInstance:
         type: 3}
       propertyPath: basePoints
       value: 
-      objectReference: {fileID: 1147886018}
+      objectReference: {fileID: 0}
     - target: {fileID: 4772059251872346074, guid: 057f1f55356a5ff43a81102757e53359,
         type: 3}
       propertyPath: crown

@@ -57,6 +57,8 @@ public class CameraController : MonoBehaviour
     }
 
     private void SetAlphaToColorOnHit(RaycastHit _raycastHit, float _alphaToSet) {
+
+
         if (_raycastHit.transform.GetComponent<MeshRenderer>())
         {
             Color originalColor = _raycastHit.transform.GetComponent<Renderer>().material.color;

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuSong : MonoBehaviour
 {
     private AudioManager audioManager;
-    public string SceneBackgroundMusic;
+    private string SceneBackgroundMusic;
 
     private void Awake()
     {

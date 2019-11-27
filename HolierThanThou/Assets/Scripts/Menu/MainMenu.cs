@@ -25,7 +25,17 @@ public class MainMenu : MonoBehaviour
 
 	public void ResetNameText()
 	{
-		namingUser.text = PlayerPrefs.GetString("PLAYER_INPUT_NAME", "Input Name");
+        string currPlayerName = PlayerPrefs.GetString("PLAYER_INPUT_NAME", "Input Name");
+
+        if (currPlayerName == "Player")
+        {
+            namingUser.text = "Input Name";
+        }
+        else
+        {
+            namingUser.text = currPlayerName;
+        }
+        
 	}
 	public void QuitOnClick()
 	{
@@ -41,8 +51,15 @@ public class MainMenu : MonoBehaviour
 	public void UpdateCharacterName()
 	{
 		string playerName = namingUser.text.ToString();
-		namingText.text = playerName;
-		PlayerPrefs.SetString("PLAYER_INPUT_NAME", playerName);
+        if (string.IsNullOrEmpty(playerName) || playerName == "Input Name" || string.IsNullOrWhiteSpace(playerName))
+        {
+            PlayerPrefs.SetString("PLAYER_INPUT_NAME", "Player");
+        }
+        else
+        {
+            namingText.text = playerName;
+            PlayerPrefs.SetString("PLAYER_INPUT_NAME", playerName);
+        }
 	}
 
 

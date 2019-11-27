@@ -1106,8 +1106,6 @@ MonoBehaviour:
     loop: 0
     type: 0
     source: {fileID: 0}
-  SFXSlider: SoundsSliderBar
-  MusicSlider: MusicSliderBar
   pitchRangeMin: 0.8
   pitchRangeMax: 1.2
   maxVolume: 100
@@ -2698,7 +2696,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08, type: 3}
     m_FontSize: 45
     m_FontStyle: 1
     m_BestFit: 0
@@ -3653,7 +3651,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08, type: 3}
     m_FontSize: 45
     m_FontStyle: 1
     m_BestFit: 0
@@ -3708,8 +3706,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -83, y: 0}
-  m_SizeDelta: {x: 112, y: 112}
+  m_AnchoredPosition: {x: -68.32, y: -0.6}
+  m_SizeDelta: {x: 82.65, y: 76.82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1599802603
 MonoBehaviour:
@@ -4021,7 +4019,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08, type: 3}
     m_FontSize: 45
     m_FontStyle: 1
     m_BestFit: 0
@@ -4144,7 +4142,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08, type: 3}
     m_FontSize: 45
     m_FontStyle: 1
     m_BestFit: 0
@@ -4794,7 +4792,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 963c122e9ab68714fa99824c07b5ee08, type: 3}
     m_FontSize: 60
     m_FontStyle: 1
     m_BestFit: 1
@@ -5049,6 +5047,7 @@ GameObject:
   - component: {fileID: 1565162418442006524}
   - component: {fileID: 1565162418442006528}
   - component: {fileID: 1565162418442006529}
+  - component: {fileID: 1565162418442006530}
   m_Layer: 5
   m_Name: Customization - Canvas
   m_TagString: Untagged
@@ -5157,8 +5156,8 @@ MonoBehaviour:
   - {fileID: 4459090807567408646}
   - {fileID: 635131131}
   categories:
-  - {fileID: 2800000, guid: 53c1c2260e6c26c45a2bca1cbf1d211f, type: 3}
-  - {fileID: 2800000, guid: df959e1ba6b73714987122f8996c2f87, type: 3}
+  - {fileID: 2800000, guid: 30aa231e1cd0f4143a4da8901bdb7f18, type: 3}
+  - {fileID: 2800000, guid: f55ec063ae7afd54d8e23390fc6ef04a, type: 3}
   categoriesIcon: {fileID: 1565162417733772178}
   currencyTextBox: {fileID: 2076706170}
   confirmDialogue: {fileID: 932750442}
@@ -5178,6 +5177,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77c5df26134a9f74b9a673d059580a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1565162418442006530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565162418442006523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 829878dff0e06c443926b5808e15b90b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1565162418729918569
