@@ -21,6 +21,7 @@ public class Competitor : MonoBehaviour
     public bool ballOfSteel;
     public bool superBounce;
     public bool calmDown;
+    public bool isTerrain;
 
 
 

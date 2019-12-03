@@ -44,33 +44,39 @@ public class CameraController : MonoBehaviour
         }
 
         foreach(RaycastHit hit in m_objectsInBetweenPlayerAndCamera) {
-            SetAlphaToColorOnHit(hit, 1.00f);
+            SetAlphaToColorOnHit(myPlayer.GetComponent<Competitor>(), hit, 1.00f);
         }
 
         m_objectsInBetweenPlayerAndCamera.Clear();
 
         foreach(RaycastHit hit in allHitsToSet) {
-            SetAlphaToColorOnHit(hit, 0.25f);
+            SetAlphaToColorOnHit(myPlayer.GetComponent<Competitor>(), hit, 0.25f);
             m_objectsInBetweenPlayerAndCamera.Add(hit);
 
         }
     }
 
-    private void SetAlphaToColorOnHit(RaycastHit _raycastHit, float _alphaToSet) {
+    private void SetAlphaToColorOnHit(Competitor competitor, RaycastHit _raycastHit, float _alphaToSet) {
 
-
-        if (_raycastHit.transform.GetComponent<MeshRenderer>())
+        if(competitor.isTerrain == true)
         {
-            Color originalColor = _raycastHit.transform.GetComponent<Renderer>().material.color;
-            _raycastHit.transform.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHATEST_ON");
-            _raycastHit.transform.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHABLEND_ON");
-            _raycastHit.transform.GetComponent<MeshRenderer>().material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
-            _raycastHit.transform.GetComponent<MeshRenderer>().material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            _raycastHit.transform.GetComponent<MeshRenderer>().material.SetInt("_Zwrite", 0);
-            _raycastHit.transform.GetComponent<MeshRenderer>().material.renderQueue = 3000;
-            _raycastHit.transform.GetComponent<MeshRenderer>().material.color = new Color(originalColor.r, originalColor.g, originalColor.b, _alphaToSet);
-            _raycastHit.transform.GetComponent<MeshRenderer>().material.SetFloat("_Mode", 3);
+            return;
+        }
+        else
+        {
+            if (_raycastHit.transform.GetComponent<MeshRenderer>())
+            {
+                Color originalColor = _raycastHit.transform.GetComponent<Renderer>().material.color;
+                _raycastHit.transform.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHATEST_ON");
+                _raycastHit.transform.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHABLEND_ON");
+                _raycastHit.transform.GetComponent<MeshRenderer>().material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+                _raycastHit.transform.GetComponent<MeshRenderer>().material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                _raycastHit.transform.GetComponent<MeshRenderer>().material.SetInt("_Zwrite", 0);
+                _raycastHit.transform.GetComponent<MeshRenderer>().material.renderQueue = 3000;
+                _raycastHit.transform.GetComponent<MeshRenderer>().material.color = new Color(originalColor.r, originalColor.g, originalColor.b, _alphaToSet);
+                _raycastHit.transform.GetComponent<MeshRenderer>().material.SetFloat("_Mode", 3);
 
+            }
         }
     }
     

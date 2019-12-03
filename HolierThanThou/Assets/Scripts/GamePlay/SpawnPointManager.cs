@@ -122,6 +122,11 @@ public class SpawnPointManager : MonoBehaviour
 
     public IEnumerator PauseCamera(Competitor competitor)
     {
+        if (competitor.GetComponent<RigidBodyControl>())
+        {
+            competitor.isTerrain = true;
+        }
+        
         yield return new WaitForSeconds(1.8f);
         if (competitor.GetComponent<RigidBodyControl>())
         {
@@ -133,6 +138,7 @@ public class SpawnPointManager : MonoBehaviour
             Instantiate(competitor.transform.GetComponent<LoadCamera>().camera, competitor.transform);
             competitor.transform.GetComponentInChildren<Cinemachine.CinemachineFreeLook>().Follow = competitor.transform;
             competitor.transform.GetComponentInChildren<Cinemachine.CinemachineFreeLook>().LookAt = competitor.transform;
+            competitor.isTerrain = false;
         }
     }
 }
