@@ -20664,8 +20664,33 @@ PrefabInstance:
       propertyPath: basePoints
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4772059251475448297, guid: 057f1f55356a5ff43a81102757e53359,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
+--- !u!1 &995070854 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4772059251475448297, guid: 057f1f55356a5ff43a81102757e53359,
+    type: 3}
+  m_PrefabInstance: {fileID: 995070853}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &995070855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995070854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d939edc51ed46ca4da9e9afd32201153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SobelResolution: 0.32
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &997088632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7644078735895038829, guid: 01f70d5de0f7927429b7a423fd577230,
@@ -49462,12 +49487,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThreeCrownSpawn
       objectReference: {fileID: 0}
-    - target: {fileID: 6179748543466772411, guid: 4962c7424eee8f745abf1a1f6947e216,
+    - target: {fileID: 6179748542794506619, guid: 4962c7424eee8f745abf1a1f6947e216,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6179748542794506619, guid: 4962c7424eee8f745abf1a1f6947e216,
+    - target: {fileID: 6179748543466772411, guid: 4962c7424eee8f745abf1a1f6947e216,
         type: 3}
       propertyPath: m_IsActive
       value: 1

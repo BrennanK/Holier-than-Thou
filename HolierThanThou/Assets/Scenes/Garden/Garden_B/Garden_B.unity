@@ -1024,31 +1024,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: scoreText
-      value: 
-      objectReference: {fileID: 167454481}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: endGameScore
-      value: 
-      objectReference: {fileID: 1118220107}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: winnerText
-      value: 
-      objectReference: {fileID: 25504930}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: lBRWinnerText
-      value: 
-      objectReference: {fileID: 1522195991}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: lastBallRollingEndGameText
-      value: 
-      objectReference: {fileID: 1016679415}
     - target: {fileID: 252933133, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
       propertyPath: CrownSpawnPoints.Array.size
       value: 3
@@ -1085,6 +1060,31 @@ PrefabInstance:
       propertyPath: CrownSpawnPoints.Array.data[2]
       value: 
       objectReference: {fileID: 784118816}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 167454481}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: endGameScore
+      value: 
+      objectReference: {fileID: 1118220107}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: winnerText
+      value: 
+      objectReference: {fileID: 25504930}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: lBRWinnerText
+      value: 
+      objectReference: {fileID: 1522195991}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: lastBallRollingEndGameText
+      value: 
+      objectReference: {fileID: 1016679415}
     - target: {fileID: 3120310719249573818, guid: 1992ef6b9a4255449b2da0f53003b382,
         type: 3}
       propertyPath: m_Enabled
@@ -5326,15 +5326,15 @@ PrefabInstance:
       propertyPath: Name
       value: 66
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: bouncable.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -6870,15 +6870,15 @@ PrefabInstance:
       propertyPath: Name
       value: 33
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: bouncable.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -10086,15 +10086,15 @@ PrefabInstance:
       propertyPath: Name
       value: 22
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: bouncable.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -11353,20 +11353,15 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: UseItem2
       objectReference: {fileID: 0}
-    - target: {fileID: 1619286955106509220, guid: c0eb956654464a44198f2796a9252112,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7638110508760037409, guid: c0eb956654464a44198f2796a9252112,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8821768158626111690, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619286955106509220, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6455761680254909695, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
@@ -11407,6 +11402,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7638110508760037409, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2524523623613725628, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
@@ -14789,15 +14789,15 @@ PrefabInstance:
       propertyPath: Name
       value: 55
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: bouncable.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -19420,15 +19420,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: bouncable.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -23159,15 +23159,15 @@ PrefabInstance:
       propertyPath: Name
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: bouncable.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}
@@ -23662,6 +23662,11 @@ PrefabInstance:
       propertyPath: field of view
       value: 69
       objectReference: {fileID: 0}
+    - target: {fileID: 4772059251475448297, guid: 057f1f55356a5ff43a81102757e53359,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 1487143100378564585, guid: 057f1f55356a5ff43a81102757e53359,
         type: 3}
       propertyPath: downAccel
@@ -23714,6 +23719,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
+--- !u!1 &1711266160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4772059251475448297, guid: 057f1f55356a5ff43a81102757e53359,
+    type: 3}
+  m_PrefabInstance: {fileID: 1711266159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1711266161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711266160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d939edc51ed46ca4da9e9afd32201153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SobelResolution: 0.32
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1720565268
 GameObject:
   m_ObjectHideFlags: 0
@@ -27784,15 +27809,15 @@ PrefabInstance:
       propertyPath: Name
       value: 44
       objectReference: {fileID: 0}
-    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4328892631743013679, guid: 05e3c9972689c314fb2d638b573528d2,
         type: 3}
       propertyPath: bouncable.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293815186656685294, guid: 05e3c9972689c314fb2d638b573528d2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e3c9972689c314fb2d638b573528d2, type: 3}

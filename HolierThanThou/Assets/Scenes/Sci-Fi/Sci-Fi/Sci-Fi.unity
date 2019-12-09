@@ -39129,6 +39129,11 @@ PrefabInstance:
       propertyPath: field of view
       value: 69
       objectReference: {fileID: 0}
+    - target: {fileID: 4772059251475448297, guid: 057f1f55356a5ff43a81102757e53359,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 1844338600, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalPosition.y
       value: 199.99997
@@ -39161,6 +39166,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764cde3026166d24bb26c14204ff904c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1378875681 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4772059251475448297, guid: 057f1f55356a5ff43a81102757e53359,
+    type: 3}
+  m_PrefabInstance: {fileID: 1378875678}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1378875682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378875681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d939edc51ed46ca4da9e9afd32201153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SobelResolution: 0.32
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1379309489 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: a0df3c9cd95bda94db09d854c940b599,
@@ -59049,10 +59074,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuKit
       objectReference: {fileID: 0}
-    - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
+    - target: {fileID: 7638110509916112660, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7945776138702491227, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
@@ -59184,16 +59209,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7638110509916112660, guid: c0eb956654464a44198f2796a9252112,
+    - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7215178823121580735, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: ItemsToScale.Array.data[10]
       value: 
       objectReference: {fileID: 1056444893}
+    - target: {fileID: 2524523623909909422, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0eb956654464a44198f2796a9252112, type: 3}
 --- !u!114 &2071246630 stripped
