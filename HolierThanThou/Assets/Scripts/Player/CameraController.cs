@@ -67,6 +67,10 @@ public class CameraController : MonoBehaviour
             if (_raycastHit.transform.GetComponent<MeshRenderer>())
             {
                 Color originalColor = _raycastHit.transform.GetComponent<Renderer>().material.color;
+                if(originalColor == null)
+                {
+                    return;
+                }
                 _raycastHit.transform.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHATEST_ON");
                 _raycastHit.transform.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHABLEND_ON");
                 _raycastHit.transform.GetComponent<MeshRenderer>().material.EnableKeyword("_ALPHAPREMULTIPLY_ON");

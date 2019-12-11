@@ -22,17 +22,31 @@ public class SneakySnake : PowerUp
              playerH = origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>().materials;
         }
 
+
         Color playerColor = new Color(playerM.color.r, playerM.color.g, playerM.color.b, 0.3f);
-       
+
+
+        Material material = playerM;
+
+
+
+
+
+
         if (origin.tag == "Player")
         {
-            
+
             playerM.DisableKeyword("_ALPHATEST_ON");
             playerM.DisableKeyword("_ALPHABLEND_ON");
             playerM.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+            playerM.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
             playerM.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
             playerM.SetInt("_Zwrite", 0);
-            playerM.SetColor("_Color", playerColor);
+            //playerM.shader = shader;
+            //playerM.SetColor("_Color", playerColor);
+            material.shader = Shader.Find("Nasty/CelShading - Transparent");
+            material.SetColor("_Color", playerColor);
+            playerM = material;
             playerM.renderQueue = 3000;
             playerM.SetFloat("_Mode", 3);
 
