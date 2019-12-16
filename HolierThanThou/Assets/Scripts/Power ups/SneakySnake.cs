@@ -23,30 +23,17 @@ public class SneakySnake : PowerUp
         }
 
 
-        Color playerColor = new Color(playerM.color.r, playerM.color.g, playerM.color.b, 0.3f);
-
-
-        Material material = playerM;
-
-
-
-
-
-
         if (origin.tag == "Player")
         {
-
             playerM.DisableKeyword("_ALPHATEST_ON");
             playerM.DisableKeyword("_ALPHABLEND_ON");
             playerM.EnableKeyword("_ALPHAPREMULTIPLY_ON");
             playerM.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
             playerM.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
             playerM.SetInt("_Zwrite", 0);
-            //playerM.shader = shader;
-            //playerM.SetColor("_Color", playerColor);
-            material.shader = Shader.Find("Nasty/CelShading - Transparent");
-            material.SetColor("_Color", playerColor);
-            playerM = material;
+            playerM.shader = Shader.Find("Nasty/CelShading - Transparent");
+            playerM.SetColor("_ColorBlend", new Color(playerM.GetColor("_ColorBlend").r, playerM.GetColor("_ColorBlend").g, playerM.GetColor("_ColorBlend").b, 0.3f));
+
             playerM.renderQueue = 3000;
             playerM.SetFloat("_Mode", 3);
 
@@ -56,13 +43,14 @@ public class SneakySnake : PowerUp
             {
                 for (int i = 0; i < playerH.Length; i++)
                 {
-                    Color playerHColor = new Color(playerH[i].color.r, playerH[i].color.g, playerH[i].color.b, 0.3f);
                     playerH[i].DisableKeyword("_ALPHATEST_ON");
                     playerH[i].DisableKeyword("_ALPHABLEND_ON");
                     playerH[i].EnableKeyword("_ALPHAPREMULTIPLY_ON");
+                    playerH[i].SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
                     playerH[i].SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
                     playerH[i].SetInt("_Zwrite", 0);
-                    playerH[i].SetColor("_Color", playerHColor);
+                    playerH[i].shader = Shader.Find("Nasty/CelShading - Transparent");
+                    playerH[i].SetColor("_ColorBlend", new Color(playerH[i].GetColor("_ColorBlend").r, playerH[i].GetColor("_ColorBlend").g, playerH[i].GetColor("_ColorBlend").b, 0.3f));
                     playerH[i].renderQueue = 3000;
                     playerH[i].SetFloat("_Mode", 3);
                 }

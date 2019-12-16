@@ -14,7 +14,9 @@ public class PostProcessing_Sobel : MonoBehaviour {
 
 
     void Start () {
-        Camera.main.depthTextureMode = DepthTextureMode.Depth;
+        Camera cam = transform.GetComponent<Camera>();
+        cam.depthTextureMode = DepthTextureMode.Depth;
+        //Camera.main.depthTextureMode = DepthTextureMode.Depth;
         sobelMat = new Material(Shader.Find("Nasty-Screen/SobelOutline"));
     }
 	

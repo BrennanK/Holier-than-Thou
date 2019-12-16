@@ -22,6 +22,7 @@ public class Competitor : MonoBehaviour
     public bool superBounce;
     public bool calmDown;
     public bool isTerrain;
+    private Color originalColor;
 
 
 
@@ -73,19 +74,35 @@ public class Competitor : MonoBehaviour
 
     public void Start()
     {
-        if (transform.childCount > 1)
+        //if (transform.childCount > 0)
+        //{
+        //    Transform t = transform.GetChild(1);
+        //    if (t.childCount > 0)
+        //    {
+        //        startMaterial = t.GetComponentInChildren<Renderer>().material;
+
+        //        return;
+        //    }
+        //}
+
+        if (transform.CompareTag("Player"))
         {
-            Transform t = transform.GetChild(1);
-            if (t.childCount > 0)
+
+            Debug.Log(transform.GetChild(1).GetChild(0));
+            Debug.Log(transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material);
+            Debug.Log(transform.GetChild(1).GetComponentInChildren<MeshRenderer>().material);
+           
+            if (transform.GetChild(1).GetComponentInChildren<MeshRenderer>().material)
             {
-                startMaterial = t.GetComponentInChildren<MeshRenderer>().material;
-
-                return;
+                startMaterial = transform.GetChild(1).GetComponentInChildren<MeshRenderer>().material;
+                Debug.Log("Player Material: " + startMaterial);
             }
+
         }
-        startMaterial = transform.GetComponent<MeshRenderer>().material;
-
-
+        else
+        {
+            startMaterial = transform.GetChild(1).GetComponentInChildren<MeshRenderer>().material;
+        }
     }
 
     public IEnumerator FindAudioManager(float duration)
@@ -271,13 +288,18 @@ public class Competitor : MonoBehaviour
 
     IEnumerator Invis(Transform origin, float duration)
     {
+
         var playerM = origin.GetChild(1).GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
         Material[] playerH = new Material[0];
         if (origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>())
         {
             playerH = origin.GetChild(0).GetChild(1).gameObject.GetComponentInChildren<MeshRenderer>().materials;
         }
-        Color originalColor = new Color(playerM.color.r, playerM.color.g, playerM.color.b, 1f);
+        if (origin.tag == "Player")
+        {
+            originalColor = new Color(playerM.GetColor("_ColorBlend").r, playerM.GetColor("_ColorBlend").g, playerM.GetColor("_ColorBlend").b, 1f);
+        }
+
 
         inivisible = true;
 
@@ -288,14 +310,17 @@ public class Competitor : MonoBehaviour
 
         if (ballOfSteel == true)
         {
-            Color playerColor = new Color(playerM.color.r, playerM.color.g, playerM.color.b, 0.3f);
+
+            Color playerColor = new Color(playerM.GetColor("_ColorBlend").r, playerM.GetColor("_ColorBlend").g, playerM.GetColor("_ColorBlend").b, 0.3f);
             playerM = startMaterial;
             playerM.DisableKeyword("_ALPHATEST_ON");
             playerM.DisableKeyword("_ALPHABLEND_ON");
             playerM.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+            playerM.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
             playerM.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
             playerM.SetInt("_Zwrite", 0);
-            playerM.SetColor("_Color", playerColor);
+            playerM.shader = Shader.Find("Nasty/CelShading - Transparent");
+            playerM.SetColor("_ColorBlend", playerColor);
             playerM.renderQueue = 3000;
             playerM.SetFloat("_Mode", 3);
         }
@@ -309,7 +334,8 @@ public class Competitor : MonoBehaviour
             playerM.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
             playerM.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
             playerM.SetInt("_Zwrite", 1);
-            playerM.SetColor("_Color", originalColor);
+            playerM.shader = Shader.Find("Nasty/CelShading");
+            playerM.SetColor("_ColorBlend", originalColor);
             playerM.renderQueue = -1;
             playerM.SetFloat("_Mode", 0);
 
@@ -319,14 +345,15 @@ public class Competitor : MonoBehaviour
             {
                 for (int i = 0; i < playerH.Length; i++)
                 {
-                    Color originalHColor = new Color(playerH[i].color.r, playerH[i].color.g, playerH[i].color.b, 1f);
+                    Color originalHColor = new Color(playerH[i].GetColor("_ColorBlend").r, playerH[i].GetColor("_ColorBlend").g, playerH[i].GetColor("_ColorBlend").b, 1f);
                     playerH[i].DisableKeyword("_ALPHATEST_ON");
                     playerH[i].DisableKeyword("_ALPHABLEND_ON");
                     playerH[i].EnableKeyword("_ALPHAPREMULTIPLY_ON");
                     playerH[i].SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
                     playerH[i].SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
                     playerH[i].SetInt("_Zwrite", 1);
-                    playerH[i].SetColor("_Color", originalHColor);
+                    playerH[i].shader = Shader.Find("Nasty/CelShading");
+                    playerH[i].SetColor("_ColorBlend", originalHColor);
                     playerH[i].renderQueue = -1;
                     playerH[i].SetFloat("_Mode", 0);
                 }
