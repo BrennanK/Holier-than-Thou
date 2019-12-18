@@ -126,8 +126,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5599d5502da4ff84da509a16d04398cf, type: 3}
-  - {fileID: 2100002, guid: 5599d5502da4ff84da509a16d04398cf, type: 3}
+  - {fileID: 2100000, guid: efa9370c07f6e324aa81b854ce8c3dd7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1313,10 +1312,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2023709444, guid: 6140afb20448f244eaab935924c2de3d, type: 3}
-      propertyPath: m_Name
-      value: SM_Fence
-      objectReference: {fileID: 0}
     - target: {fileID: 2023709446, guid: 6140afb20448f244eaab935924c2de3d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -34.849957
@@ -1360,6 +1355,14 @@ PrefabInstance:
     - target: {fileID: 2023709446, guid: 6140afb20448f244eaab935924c2de3d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2023709444, guid: 6140afb20448f244eaab935924c2de3d, type: 3}
+      propertyPath: m_Name
+      value: SM_Fence
+      objectReference: {fileID: 0}
+    - target: {fileID: 46402507, guid: 6140afb20448f244eaab935924c2de3d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6140afb20448f244eaab935924c2de3d, type: 3}

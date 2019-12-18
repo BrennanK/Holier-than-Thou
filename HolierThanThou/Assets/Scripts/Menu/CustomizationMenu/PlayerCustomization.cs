@@ -10,7 +10,7 @@ public class PlayerCustomization : MonoBehaviour
 
 	private List<string>[] unlockedItems;
 	private string defaultHat = "Hat 0";
-	private string defaultBody = "Body";
+	private string defaultBody = "Body 1Tennisball";
 	private string toParse = "";
 	private char separatorChar = ',';
 	private char newLineChar = '.';

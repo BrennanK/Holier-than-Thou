@@ -23,7 +23,7 @@ public class SceneController : MonoBehaviour
             int intSeed = seed != null ? (int)System.DateTime.Now.Ticks : System.Convert.ToInt32(seed);
             deckOfScenes.Seed(intSeed);
 #endif
-            for (int i = levelBuildIndexStart; i < SceneManager.sceneCountInBuildSettings; i++)
+            for (int i = levelBuildIndexStart; i < SceneManager.sceneCountInBuildSettings - 1; i++)
             {
                 deckOfScenes.Add(i, false);
             }
@@ -122,8 +122,9 @@ public class SceneController : MonoBehaviour
         {
             if (randomize)
             {
-                SceneManager.LoadSceneAsync(deckOfScenes.Draw());
-            }
+            SceneManager.LoadSceneAsync(8);
+            SceneManager.LoadSceneAsync(deckOfScenes.Draw());
+        }
             else
             {
                 

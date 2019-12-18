@@ -87,10 +87,6 @@ public class Competitor : MonoBehaviour
 
         if (transform.CompareTag("Player"))
         {
-
-            Debug.Log(transform.GetChild(1).GetChild(0));
-            Debug.Log(transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material);
-            Debug.Log(transform.GetChild(1).GetComponentInChildren<MeshRenderer>().material);
            
             if (transform.GetChild(1).GetComponentInChildren<MeshRenderer>().material)
             {
