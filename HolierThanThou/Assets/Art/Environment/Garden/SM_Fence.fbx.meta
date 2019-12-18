@@ -79,11 +79,20 @@ ModelImporter:
     400072: //RootNode
     2100000: Fence_lambert2
     2100002: lambert1
+    2100004: lambert14
+    2100006: BaseColor1
     2300000: Fence:group8_Fence:group7_Fence:pCube7
+    2300002: //RootNode
     3300000: Fence:group8_Fence:group7_Fence:pCube7
+    3300002: //RootNode
     4300000: Fence:group8_Fence:group7_Fence:pCube7
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BaseColor1
+    second: {fileID: 2100000, guid: efa9370c07f6e324aa81b854ce8c3dd7, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -135,7 +144,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
