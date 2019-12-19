@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889794c411054f7ca8e6fbdc6728c846, type: 3}
+  m_Name: _UIButtonDatabase
+  m_EditorClassIdentifier: 
+  DatabaseType: 0
+  CategoryNames:
+  - Custom
+  - Credits
+  - General
+  - MainMenu
+  - Settings
+  - Tips
+  - Achievements
+  Categories:
+  - {fileID: 11400000, guid: 809b5a178e888014885f329e522993ab, type: 2}
+  - {fileID: 11400000, guid: 862118043599f4d4e95a84b10774874b, type: 2}
+  - {fileID: 11400000, guid: 351e8e516a987084c95a46da353f6a19, type: 2}
+  - {fileID: 11400000, guid: 146e54e56dfce2d428b7675eb1fe9dc0, type: 2}
+  - {fileID: 11400000, guid: 0eeb2a7879e68ae49bc757eacf120170, type: 2}
+  - {fileID: 11400000, guid: 069a9b5f659f2334abb5946a3332a766, type: 2}
