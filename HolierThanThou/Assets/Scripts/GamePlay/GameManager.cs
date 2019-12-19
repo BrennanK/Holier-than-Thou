@@ -51,12 +51,7 @@ public class GameManager : MonoBehaviour
         EndMatchScreen.SetActive(false);
         StartCoroutine(StartGame());
 		inGameTimer.text = "Time " + matchTimer;
-        if(SceneManager.GetActiveScene().name == "MainMenu")
 		playerCustomizer = GameObject.FindGameObjectWithTag("Player");
-        if(playerCustomizer == null)
-        {
-            Debug.Log("Player not found");
-        }
         playerAchievements = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAchievementTracker>();
         audioManager.Play(SceneBackgroundMusic);
 	}

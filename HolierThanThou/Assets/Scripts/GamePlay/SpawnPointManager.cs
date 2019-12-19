@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class SpawnPointManager : MonoBehaviour
 {
@@ -77,10 +78,14 @@ public class SpawnPointManager : MonoBehaviour
 
         _competitior.ScoredGoal = false;
         spm.goal = false;
-        if (nameX == GameObject.FindGameObjectWithTag("Player").GetComponent<Competitor>().Name)
+        if (SceneManager.GetActiveScene().buildIndex != 0)
         {
-            FindObjectOfType<AudioManager>().Play("Respawn");
+            if (nameX == GameObject.FindGameObjectWithTag("Player").GetComponent<Competitor>().Name)
+            {
+                FindObjectOfType<AudioManager>().Play("Respawn");
+            }
         }
+
     }
 
     public IEnumerator RespawnTimer(string name)
