@@ -5270,21 +5270,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: scoreText
-      value: 
-      objectReference: {fileID: 883885246}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: endGameScore
-      value: 
-      objectReference: {fileID: 883885252}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: winnerText
-      value: 
-      objectReference: {fileID: 883885251}
     - target: {fileID: 252933133, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
       propertyPath: CrownSpawnPoints.Array.size
       value: 3
@@ -5317,6 +5302,21 @@ PrefabInstance:
       propertyPath: CrownSpawnPoints.Array.data[2]
       value: 
       objectReference: {fileID: 64792709}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 883885246}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: endGameScore
+      value: 
+      objectReference: {fileID: 883885252}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: winnerText
+      value: 
+      objectReference: {fileID: 883885251}
     - target: {fileID: 3120310719249573818, guid: 1992ef6b9a4255449b2da0f53003b382,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6178,11 +6178,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7945776138702491227, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6308,6 +6303,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: UseItem2
       objectReference: {fileID: 0}
+    - target: {fileID: 1619286955106509220, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7638110509477953337, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
@@ -6361,11 +6366,6 @@ PrefabInstance:
     - target: {fileID: 2524523624224443969, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1619286955106509220, guid: c0eb956654464a44198f2796a9252112,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -13110,10 +13110,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1303492776}
     m_Modifications:
-    - target: {fileID: 5, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 10, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalPosition.x
       value: 87.71
@@ -13158,6 +13154,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 35, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: buttonImage1
       value: 
@@ -13174,6 +13174,10 @@ PrefabInstance:
       propertyPath: itemButton2
       value: 
       objectReference: {fileID: 883885249}
+    - target: {fileID: 22, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
+      propertyPath: SobelResolution
+      value: 0.88
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
 --- !u!4 &1754603484 stripped
