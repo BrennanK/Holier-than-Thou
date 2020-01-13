@@ -57939,10 +57939,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1726193449}
     m_Modifications:
-    - target: {fileID: 5, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 10, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: m_LocalPosition.x
       value: 78.71
@@ -57999,6 +57995,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.033409998
       objectReference: {fileID: 0}
+    - target: {fileID: 5, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 35, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
       propertyPath: buttonImage1
       value: 
@@ -58015,6 +58015,10 @@ PrefabInstance:
       propertyPath: itemButton2
       value: 
       objectReference: {fileID: 868844729}
+    - target: {fileID: 22, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
+      propertyPath: SobelResolution
+      value: 0.88
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 057f1f55356a5ff43a81102757e53359, type: 3}
 --- !u!4 &1998075425 stripped
