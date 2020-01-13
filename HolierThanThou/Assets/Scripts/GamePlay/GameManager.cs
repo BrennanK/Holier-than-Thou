@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject EndMatchScreen;
     [SerializeField] private GameObject lBREndMatchScreen;
     [SerializeField] private GameObject GameUI;
+    [SerializeField] private GameObject DebugCanvas;
     [SerializeField] private Text startText;
 	[SerializeField] private Text inGameTimer;
 	[SerializeField] public float matchTimer = 120.0f; // 2 minute rounds
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour
 		InitializeTextField(ref inGameTimer, "Timer");
 		InitializeGameObject(ref EndMatchScreen, "EndMatchScreen");
 		InitializeGameObject(ref GameUI, "GameUI");
+        //InitializeGameObject(ref DebugCanvas, "DebugCanvas");
+        DebugCanvas = GameObject.Find("DebugCanvas");
 		InitializeCrownSpawnPoints();
 
 		scoreManager = gameObject.GetComponent<ScoreManager>();
@@ -168,6 +171,7 @@ public class GameManager : MonoBehaviour
         }
         gameRunning = false;
         GameUI.SetActive(false);
+        DebugCanvas.SetActive(false);
         var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAchievementTracker>();
 
         PlayerProfile playerProfileForThisMatch = new PlayerProfile(1, scoreManager.gameWon, playerAchievements.hitSomebody, playerAchievements.knockedFirst, playerAchievements.ScoredAfterHit, scoreManager.playerLast, playerAchievements.scoredGoal, scoreManager.placedFourth, playerAchievements.usedPowerUp, playerAchievements.usedJump, playerAchievements.playerCrownsCollected, playerAchievements.playerCrownsStolen,

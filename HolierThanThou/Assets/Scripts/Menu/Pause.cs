@@ -48,8 +48,9 @@ public class Pause : MonoBehaviour
 
             CrownUI.transform.GetChild(0).GetComponent<Text>().enabled = false;
             CrownUI.transform.GetChild(1).GetComponent<Text>().enabled = false;
-            CrownUI.transform.GetChild(2).GetComponent<Image>().enabled = false;
-            CrownUI.transform.GetChild(2).GetComponentInChildren<Text>().enabled = false;
+            CrownUI.transform.GetChild(2).gameObject.SetActive(false);
+            //CrownUI.transform.GetChild(2).GetComponent<Image>().enabled = false;
+            //CrownUI.transform.GetChild(2).GetComponentInChildren<Text>().enabled = false;
                 
             
             
@@ -62,8 +63,9 @@ public class Pause : MonoBehaviour
             GameUI.SetActive(true);
 
             CrownUI.transform.GetChild(0).GetComponent<Text>().enabled = true;
-            CrownUI.transform.GetChild(2).GetComponent<Image>().enabled = true;
-            CrownUI.transform.GetChild(2).GetComponentInChildren<Text>().enabled = true;
+            CrownUI.transform.GetChild(2).gameObject.SetActive(true);
+            //CrownUI.transform.GetChild(2).GetComponent<Image>().enabled = true;
+            //CrownUI.transform.GetChild(2).GetComponentInChildren<Text>().enabled = true;
 
         }
     }

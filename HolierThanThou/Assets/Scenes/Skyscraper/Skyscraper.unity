@@ -5232,6 +5232,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2524523623909909422, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
@@ -5241,11 +5246,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2524523623909909422, guid: c0eb956654464a44198f2796a9252112,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5245729732916769854, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
@@ -5292,6 +5292,12 @@ MonoBehaviour:
 --- !u!1 &526487667 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5374190872203926609, guid: c0eb956654464a44198f2796a9252112,
+    type: 3}
+  m_PrefabInstance: {fileID: 526487663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &526487668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7306505836282684665, guid: c0eb956654464a44198f2796a9252112,
     type: 3}
   m_PrefabInstance: {fileID: 526487663}
   m_PrefabAsset: {fileID: 0}
@@ -17196,6 +17202,10 @@ PrefabInstance:
       propertyPath: lBREndMatchScreen
       value: 
       objectReference: {fileID: 526487667}
+    - target: {fileID: 252933133, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
+      propertyPath: DebugCanvas
+      value: 
+      objectReference: {fileID: 526487668}
     - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
         type: 3}
       propertyPath: scoreText

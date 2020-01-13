@@ -112,18 +112,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 6033d192cf3ad20498e599cda966d012, type: 2}
---- !u!114 &12077903 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5374190870666327369, guid: c0eb956654464a44198f2796a9252112,
-    type: 3}
-  m_PrefabInstance: {fileID: 103850279}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &24544090 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7293815186656685289, guid: 05e3c9972689c314fb2d638b573528d2,
@@ -478,14 +466,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuKit
       objectReference: {fileID: 0}
+    - target: {fileID: 5374190872203926609, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7638110509916112660, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
+    - target: {fileID: 7638110509155826069, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7945776138702491227, guid: c0eb956654464a44198f2796a9252112,
@@ -613,25 +606,35 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: UseItem2
       objectReference: {fileID: 0}
-    - target: {fileID: 5245729732916769854, guid: c0eb956654464a44198f2796a9252112,
+    - target: {fileID: 2524523623909909422, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
-      propertyPath: m_Color.a
-      value: 0
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000015258789
       objectReference: {fileID: 0}
-    - target: {fileID: 5374190872203926609, guid: c0eb956654464a44198f2796a9252112,
+    - target: {fileID: 4454664887393937395, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7638110509155826069, guid: c0eb956654464a44198f2796a9252112,
-        type: 3}
-      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 517152617574220130, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149665544830119391, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5374190871699337963, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879282596346412914, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6232447843026878344, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
@@ -643,12 +646,7 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2524523623909909422, guid: c0eb956654464a44198f2796a9252112,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.000015258789
-      objectReference: {fileID: 0}
-    - target: {fileID: 5374190871699337963, guid: c0eb956654464a44198f2796a9252112,
+    - target: {fileID: 6835651671035294528, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -672,6 +670,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadLevelOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397607815611929993, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397607815611929993, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245729732916769854, guid: c0eb956654464a44198f2796a9252112,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7638110510250184490, guid: c0eb956654464a44198f2796a9252112,
         type: 3}
@@ -1684,18 +1697,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 493339438}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &628088047 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5374190870795544993, guid: c0eb956654464a44198f2796a9252112,
-    type: 3}
-  m_PrefabInstance: {fileID: 103850279}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &664355248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3208,31 +3209,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: scoreText
-      value: 
-      objectReference: {fileID: 1094506851}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: winnerText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: endGameScore
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: lastBallRollingEndGameText
-      value: 
-      objectReference: {fileID: 628088047}
-    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
-        type: 3}
-      propertyPath: lBRWinnerText
-      value: 
-      objectReference: {fileID: 12077903}
     - target: {fileID: 252933133, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
       propertyPath: CrownSpawnPoints.Array.size
       value: 3
@@ -3248,7 +3224,7 @@ PrefabInstance:
     - target: {fileID: 252933133, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
       propertyPath: lBREndMatchScreen
       value: 
-      objectReference: {fileID: 1656733993}
+      objectReference: {fileID: 0}
     - target: {fileID: 252933133, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
       propertyPath: GameUI
       value: 
@@ -3273,6 +3249,31 @@ PrefabInstance:
       propertyPath: CrownSpawnPoints.Array.data[2]
       value: 
       objectReference: {fileID: 1137962126}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1094506851}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: winnerText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: endGameScore
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: lastBallRollingEndGameText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 874056830703359177, guid: 1992ef6b9a4255449b2da0f53003b382,
+        type: 3}
+      propertyPath: lBRWinnerText
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1992ef6b9a4255449b2da0f53003b382, type: 3}
 --- !u!4 &1174591452 stripped
@@ -4126,12 +4127,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66531b171cccef0409cb83fb832e5cdd, type: 3}
---- !u!1 &1656733993 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5374190872203926609, guid: c0eb956654464a44198f2796a9252112,
-    type: 3}
-  m_PrefabInstance: {fileID: 103850279}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1681254869 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 130a3e56369ccf744adcfc4d2b040d09,
